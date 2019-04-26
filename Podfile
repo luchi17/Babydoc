@@ -10,4 +10,7 @@ pod 'Charts'
 pod 'RealmSwift'
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
 pod 'ScrollableDatepicker', '~> 2.2'
+pod 'SwipeCellKit', :git => 'https://github.com/SwipeCellKit/SwipeCellKit.git', :branch => 'develop'
+pod 'ProgressHUD'
+pod 'PMAlertController'
 end

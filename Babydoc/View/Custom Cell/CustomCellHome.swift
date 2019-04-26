@@ -8,8 +8,9 @@
 
 import UIKit
 import ChameleonFramework
+import SwipeCellKit
 
-class CustomCellHome: UITableViewCell{
+class CustomCellHome: SwipeTableViewCell{
 
     
     @IBOutlet var actionImage: UIImageView!
@@ -44,8 +45,7 @@ class CustomCellHome: UITableViewCell{
        
         
     }
-    
-
+ 
    
     /*
     // MARK: - Navigation
