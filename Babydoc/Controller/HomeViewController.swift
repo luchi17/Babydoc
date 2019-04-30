@@ -80,10 +80,15 @@ class HomeViewController: UIViewController{
         datePicker.scrollToSelectedDate(animated: true)
         showSelectedDate()
     }
+    
+  
   
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       //
+        
         
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM YYYY"
@@ -128,10 +133,7 @@ class HomeViewController: UIViewController{
         button.layer.shadowRadius = 1
         button.layer.shadowOffset = CGSize(width: 1.2, height: 1.2)
        
-        
-    
-        
-        self.tabBarController?.view.addSubview(button)
+        self.view.addSubview(button)
         
         //DATABASE RELATED
         taskTableView.delegate = self
@@ -169,9 +171,9 @@ class HomeViewController: UIViewController{
         taskTableView.rowHeight = UITableView.automaticDimension
         taskTableView.estimatedRowHeight = 180.0
         
-        let height: CGFloat = 50 //whatever height you want to add to the existing height
-        let bounds = self.navigationController!.navigationBar.bounds
-        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
+//        let height: CGFloat = 50 //whatever height you want to add to the existing height
+//        let bounds = self.navigationController!.navigationBar.bounds
+//        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
         
     }
     //MARK: - Resize image method
@@ -200,6 +202,7 @@ class HomeViewController: UIViewController{
         
         return newImage!
     }
+    
 
 }
 
@@ -361,6 +364,9 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 12
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToRegisteredBabies", sender: self)
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -407,7 +413,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource{
         cell.noteTitle.text = "Note :"
         cell.noteTitle.textColor = UIColor.lightGray
         
-        cell.noteField.text = "remember to give it twice" //when db done check what happens if the note added is too big
+        cell.noteField.text = "Remember to give it twice" //when db done check what happens if the note added is too big
         cell.noteField.textColor = UIColor.init(hexString: "7F8484")
         
         cell.actionImage.image = UIImage(named: "icons8-pill-filled-48")

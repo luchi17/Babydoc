@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		0933E110225E33C300B19B86 /* DoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0933E10F225E33C300B19B86 /* DoctorViewController.swift */; };
+		093B7D0A227769FB00DB4344 /* Sleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D08227769FB00DB4344 /* Sleep.swift */; };
+		093B7D0D22776AB100DB4344 /* DayOfYear.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D0B22776AB100DB4344 /* DayOfYear.swift */; };
+		093B7D1022776AE000DB4344 /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D0E22776AE000DB4344 /* Baby.swift */; };
+		093B7D122277720400DB4344 /* BabyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D112277720400DB4344 /* BabyInfoViewController.swift */; };
+		093B7D142277763500DB4344 /* BabiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D132277763500DB4344 /* BabiesViewController.swift */; };
+		0990691D22778FD600EB570C /* RegisteredBabies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990691C22778FD600EB570C /* RegisteredBabies.swift */; };
+		099069202278532300EB570C /* Cell Baby in Resources */ = {isa = PBXBuildFile; fileRef = 0990691E2278532300EB570C /* Cell Baby */; };
 		09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9922575192006DF813 /* AppDelegate.swift */; };
 		09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9B22575192006DF813 /* HomeViewController.swift */; };
 		09B1EEA322575194006DF813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EEA222575194006DF813 /* Assets.xcassets */; };
@@ -35,6 +42,13 @@
 
 /* Begin PBXFileReference section */
 		0933E10F225E33C300B19B86 /* DoctorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorViewController.swift; sourceTree = "<group>"; };
+		093B7D09227769FB00DB4344 /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Base; path = Babydoc/View/Base.lproj/Sleep.swift; sourceTree = SOURCE_ROOT; };
+		093B7D0C22776AB100DB4344 /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Base; path = Babydoc/View/Base.lproj/DayOfYear.swift; sourceTree = SOURCE_ROOT; };
+		093B7D0F22776AE000DB4344 /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Base; path = Babydoc/View/Base.lproj/Baby.swift; sourceTree = SOURCE_ROOT; };
+		093B7D112277720400DB4344 /* BabyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyInfoViewController.swift; sourceTree = "<group>"; };
+		093B7D132277763500DB4344 /* BabiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabiesViewController.swift; sourceTree = "<group>"; };
+		0990691C22778FD600EB570C /* RegisteredBabies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisteredBabies.swift; path = Babydoc/RegisteredBabies.swift; sourceTree = SOURCE_ROOT; };
+		0990691E2278532300EB570C /* Cell Baby */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Cell Baby"; sourceTree = "<group>"; };
 		09B1EE9622575192006DF813 /* Babydoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Babydoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B1EE9922575192006DF813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09B1EE9B22575192006DF813 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -61,13 +75,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		093EDA492264F09000538860 /* Custom Cell */ = {
+		093EDA492264F09000538860 /* Cell Upcoming Tasks */ = {
 			isa = PBXGroup;
 			children = (
 				09E27C472265E07F0022EE1B /* CustomCellHome.swift */,
 				09E27C482265E07F0022EE1B /* CustomCellHome.xib */,
 			);
-			path = "Custom Cell";
+			path = "Cell Upcoming Tasks";
 			sourceTree = "<group>";
 		};
 		09B1EE8D22575191006DF813 = {
@@ -91,7 +105,7 @@
 		09B1EE9822575192006DF813 /* Babydoc */ = {
 			isa = PBXGroup;
 			children = (
-				09B1EEC5225B8A77006DF813 /* Model */,
+				09B1EEC5225B8A77006DF813 /* Data Model */,
 				09B1EEC6225B8A94006DF813 /* View */,
 				09B1EEC8225B8AA4006DF813 /* Controller */,
 				09B1EEA222575194006DF813 /* Assets.xcassets */,
@@ -100,11 +114,15 @@
 			path = Babydoc;
 			sourceTree = "<group>";
 		};
-		09B1EEC5225B8A77006DF813 /* Model */ = {
+		09B1EEC5225B8A77006DF813 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
+				093B7D08227769FB00DB4344 /* Sleep.swift */,
+				093B7D0B22776AB100DB4344 /* DayOfYear.swift */,
+				093B7D0E22776AE000DB4344 /* Baby.swift */,
+				0990691C22778FD600EB570C /* RegisteredBabies.swift */,
 			);
-			path = Model;
+			path = "Data Model";
 			sourceTree = "<group>";
 		};
 		09B1EEC6225B8A94006DF813 /* View */ = {
@@ -112,7 +130,8 @@
 			children = (
 				09B1EEA422575194006DF813 /* LaunchScreen.storyboard */,
 				09D35083225E1EE70052BF88 /* Main.storyboard */,
-				093EDA492264F09000538860 /* Custom Cell */,
+				0990691E2278532300EB570C /* Cell Baby */,
+				093EDA492264F09000538860 /* Cell Upcoming Tasks */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -122,6 +141,8 @@
 			children = (
 				09B1EE9922575192006DF813 /* AppDelegate.swift */,
 				09B1EE9B22575192006DF813 /* HomeViewController.swift */,
+				093B7D132277763500DB4344 /* BabiesViewController.swift */,
+				093B7D112277720400DB4344 /* BabyInfoViewController.swift */,
 				0933E10F225E33C300B19B86 /* DoctorViewController.swift */,
 			);
 			path = Controller;
@@ -217,6 +238,7 @@
 				09E27C4A2265E07F0022EE1B /* CustomCellHome.xib in Resources */,
 				09D35082225E121B0052BF88 /* (null) in Resources */,
 				09B1EEA322575194006DF813 /* Assets.xcassets in Resources */,
+				099069202278532300EB570C /* Cell Baby in Resources */,
 				09D35084225E1EE70052BF88 /* Main.storyboard in Resources */,
 				09D35081225E121B0052BF88 /* (null) in Resources */,
 			);
@@ -271,16 +293,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093B7D122277720400DB4344 /* BabyInfoViewController.swift in Sources */,
+				093B7D0D22776AB100DB4344 /* DayOfYear.swift in Sources */,
 				09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */,
+				093B7D0A227769FB00DB4344 /* Sleep.swift in Sources */,
 				09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */,
+				0990691D22778FD600EB570C /* RegisteredBabies.swift in Sources */,
 				0933E110225E33C300B19B86 /* DoctorViewController.swift in Sources */,
+				093B7D142277763500DB4344 /* BabiesViewController.swift in Sources */,
 				09E27C492265E07F0022EE1B /* CustomCellHome.swift in Sources */,
+				093B7D1022776AE000DB4344 /* Baby.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		093B7D08227769FB00DB4344 /* Sleep.swift */ = {
+			isa = PBXVariantGroup;
+			children = (
+				093B7D09227769FB00DB4344 /* Base */,
+			);
+			name = Sleep.swift;
+			sourceTree = "<group>";
+		};
+		093B7D0B22776AB100DB4344 /* DayOfYear.swift */ = {
+			isa = PBXVariantGroup;
+			children = (
+				093B7D0C22776AB100DB4344 /* Base */,
+			);
+			name = DayOfYear.swift;
+			sourceTree = "<group>";
+		};
+		093B7D0E22776AE000DB4344 /* Baby.swift */ = {
+			isa = PBXVariantGroup;
+			children = (
+				093B7D0F22776AE000DB4344 /* Base */,
+			);
+			name = Baby.swift;
+			sourceTree = "<group>";
+		};
 		09B1EEA422575194006DF813 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -7,11 +7,11 @@ PODS:
   - Charts/Core (3.3.0)
   - PMAlertController (4.0.0)
   - ProgressHUD (2.60)
-  - Realm (3.14.1):
-    - Realm/Headers (= 3.14.1)
-  - Realm/Headers (3.14.1)
-  - RealmSwift (3.14.1):
-    - Realm (= 3.14.1)
+  - Realm (3.14.2):
+    - Realm/Headers (= 3.14.2)
+  - Realm/Headers (3.14.2)
+  - RealmSwift (3.14.2):
+    - Realm (= 3.14.2)
   - ScrollableDatepicker (2.2.0)
   - SwipeCellKit (2.6.0)
 
@@ -53,8 +53,8 @@ SPEC CHECKSUMS:
   Charts: ec1f57f9340054155691e84d4544a1d239d382c5
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
   ProgressHUD: 4e4efbaf4f5de8bd32e0c4c3b6644a90ea1a8c3e
-  Realm: e12c9c2387d05c5bba3a9c394838f5870e85763b
-  RealmSwift: a82eab9b04c3e1616082c7e17aa300740847769c
+  Realm: 179c6706e3a49dbfe112e572fd3c03d3169bea35
+  RealmSwift: 1797f272fb51c555b764fada32e82159a2c65247
   ScrollableDatepicker: 0f14e38bcd3517e6632220af11e47d29e0f982db
   SwipeCellKit: 75903f4840bd14958df3291314562e32d4d9b7ae
 
