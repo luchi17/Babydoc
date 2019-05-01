@@ -13,4 +13,5 @@ pod 'ScrollableDatepicker', '~> 2.2'
 pod 'SwipeCellKit', :git => 'https://github.com/SwipeCellKit/SwipeCellKit.git', :branch => 'develop'
 pod 'ProgressHUD'
 pod 'PMAlertController'
+pod "AUPickerCell"
 end

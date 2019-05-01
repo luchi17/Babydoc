@@ -14,7 +14,10 @@
 		093B7D122277720400DB4344 /* BabyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D112277720400DB4344 /* BabyInfoViewController.swift */; };
 		093B7D142277763500DB4344 /* BabiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D132277763500DB4344 /* BabiesViewController.swift */; };
 		0990691D22778FD600EB570C /* RegisteredBabies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990691C22778FD600EB570C /* RegisteredBabies.swift */; };
-		0990692722789C3900EB570C /* BabyInfoCell 17-05-30-449.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0990692622789C3900EB570C /* BabyInfoCell 17-05-30-449.swift */; };
+		0990692D2279994100EB570C /* DatePickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 099069292279994100EB570C /* DatePickerTableViewCell.xib */; };
+		0990692F2279994100EB570C /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0990692B2279994100EB570C /* TextFieldTableViewCell.xib */; };
+		099069312279A32D00EB570C /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099069302279A32C00EB570C /* TextFieldTableViewCell.swift */; };
+		099069332279A60100EB570C /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099069322279A60100EB570C /* DatePickerTableViewCell.swift */; };
 		09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9922575192006DF813 /* AppDelegate.swift */; };
 		09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9B22575192006DF813 /* HomeViewController.swift */; };
 		09B1EEA322575194006DF813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EEA222575194006DF813 /* Assets.xcassets */; };
@@ -48,7 +51,10 @@
 		093B7D112277720400DB4344 /* BabyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyInfoViewController.swift; sourceTree = "<group>"; };
 		093B7D132277763500DB4344 /* BabiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabiesViewController.swift; sourceTree = "<group>"; };
 		0990691C22778FD600EB570C /* RegisteredBabies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisteredBabies.swift; path = Babydoc/RegisteredBabies.swift; sourceTree = SOURCE_ROOT; };
-		0990692622789C3900EB570C /* BabyInfoCell 17-05-30-449.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BabyInfoCell 17-05-30-449.swift"; sourceTree = "<group>"; };
+		099069292279994100EB570C /* DatePickerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DatePickerTableViewCell.xib; path = "../Data Model/DatePickerTableViewCell.xib"; sourceTree = "<group>"; };
+		0990692B2279994100EB570C /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldTableViewCell.xib; path = "../Data Model/TextFieldTableViewCell.xib"; sourceTree = "<group>"; };
+		099069302279A32C00EB570C /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		099069322279A60100EB570C /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DatePickerTableViewCell.swift; path = ../../DatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		09B1EE9622575192006DF813 /* Babydoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Babydoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B1EE9922575192006DF813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09B1EE9B22575192006DF813 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -128,9 +134,12 @@
 		09B1EEC6225B8A94006DF813 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				099069292279994100EB570C /* DatePickerTableViewCell.xib */,
+				099069322279A60100EB570C /* DatePickerTableViewCell.swift */,
+				0990692B2279994100EB570C /* TextFieldTableViewCell.xib */,
+				099069302279A32C00EB570C /* TextFieldTableViewCell.swift */,
 				09B1EEA422575194006DF813 /* LaunchScreen.storyboard */,
 				09D35083225E1EE70052BF88 /* Main.storyboard */,
-				0990692622789C3900EB570C /* BabyInfoCell 17-05-30-449.swift */,
 				093EDA492264F09000538860 /* Cell Upcoming Tasks */,
 			);
 			path = View;
@@ -236,10 +245,12 @@
 			files = (
 				09B1EEA622575194006DF813 /* LaunchScreen.storyboard in Resources */,
 				09E27C4A2265E07F0022EE1B /* CustomCellHome.xib in Resources */,
+				0990692D2279994100EB570C /* DatePickerTableViewCell.xib in Resources */,
 				09D35082225E121B0052BF88 /* (null) in Resources */,
 				09B1EEA322575194006DF813 /* Assets.xcassets in Resources */,
 				09D35084225E1EE70052BF88 /* Main.storyboard in Resources */,
 				09D35081225E121B0052BF88 /* (null) in Resources */,
+				0990692F2279994100EB570C /* TextFieldTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,14 +306,15 @@
 				093B7D122277720400DB4344 /* BabyInfoViewController.swift in Sources */,
 				093B7D0D22776AB100DB4344 /* DayOfYear.swift in Sources */,
 				09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */,
+				099069312279A32D00EB570C /* TextFieldTableViewCell.swift in Sources */,
 				093B7D0A227769FB00DB4344 /* Sleep.swift in Sources */,
-				0990692722789C3900EB570C /* BabyInfoCell 17-05-30-449.swift in Sources */,
 				09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */,
 				0990691D22778FD600EB570C /* RegisteredBabies.swift in Sources */,
 				0933E110225E33C300B19B86 /* DoctorViewController.swift in Sources */,
 				093B7D142277763500DB4344 /* BabiesViewController.swift in Sources */,
 				09E27C492265E07F0022EE1B /* CustomCellHome.swift in Sources */,
 				093B7D1022776AE000DB4344 /* Baby.swift in Sources */,
+				099069332279A60100EB570C /* DatePickerTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

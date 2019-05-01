@@ -1,4 +1,5 @@
 PODS:
+  - AUPickerCell (1.0.2.0)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
@@ -16,6 +17,7 @@ PODS:
   - SwipeCellKit (2.6.0)
 
 DEPENDENCIES:
+  - AUPickerCell
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Charts
   - PMAlertController
@@ -26,6 +28,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AUPickerCell
     - Charts
     - PMAlertController
     - ProgressHUD
@@ -49,6 +52,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SwipeCellKit/SwipeCellKit.git
 
 SPEC CHECKSUMS:
+  AUPickerCell: b6f788d62f449014204776ff6fdc841aebbc352f
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Charts: ec1f57f9340054155691e84d4544a1d239d382c5
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
@@ -58,6 +62,6 @@ SPEC CHECKSUMS:
   ScrollableDatepicker: 0f14e38bcd3517e6632220af11e47d29e0f982db
   SwipeCellKit: 75903f4840bd14958df3291314562e32d4d9b7ae
 
-PODFILE CHECKSUM: 1500cd0569f720a76547bf211ba87b70d717b435
+PODFILE CHECKSUM: 100a2f1941731dc437377df46242b41a872480d0
 
 COCOAPODS: 1.7.0.beta.3
