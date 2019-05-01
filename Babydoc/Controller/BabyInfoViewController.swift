@@ -12,159 +12,216 @@ import RealmSwift
 
 class BabyInfoViewController : UITableViewController, UITextViewDelegate {
    
-    @IBOutlet weak var illnessestxt: UITextView!
-    
-    @IBOutlet weak var allergiestxt: UITextView!
-    
-    @IBOutlet weak var bloodTypetxt: UITextView!
-    
-    @IBOutlet weak var heighttxt: UITextView!
-    
-    @IBOutlet weak var weighttxt: UITextView!
-    
-    @IBOutlet weak var agetxt: UITextView!
-    @IBOutlet weak var dateOfBirthtxt: UITextView!
-    
-    @IBOutlet weak var nametxt: UITextView!
-    
-   
-    
-    func textViewDidChange(_ textView: UITextView) {
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
-    }
-    
     
     //var properties : Results<Baby>?
-    var realm = try! Realm()
-    //var propertyDictionary = Dictionary<String,String>()
+    var realm = try! Realm()//var propertyDictionary = Dictionary<String,String>()
     var selectedBaby : Baby? {
         didSet{
-            //the things inside this are going to be done once the category is created
-            //loadItems()
-            //we are going to load the items when we are certain that the selectedCat has been
-            //created
-            //loadItems()
+            //loaditems()
         }
     }
     var schema : ObjectSchema?
-    
-  
-    
+    var count = 0
+    var editingMode = false
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        //propertyDictionary
-//        schema = realm.schema["Baby"]
-//        let properties = schema?.properties
-       // print(properties)
+
+        schema = realm.schema["Baby"]
+        
+        let saveButton = UIButton(type: .custom)
+        let image = UIImage(named : "add-color")
+        saveButton.setImage(image, for: .normal)
+        saveButton.frame.size = CGSize(width: 45, height: 45)
+        saveButton.frame = CGRect(origin: CGPoint(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.width/2  ), size: saveButton.frame.size)
+        
+        saveButton.layer.masksToBounds = false
+        saveButton.layer.shadowColor = UIColor.flatGray.cgColor
+        saveButton.layer.shadowOpacity = 0.7
+        saveButton.layer.shadowRadius = 1
+        saveButton.layer.shadowOffset = CGSize(width: 1.2, height: 1.2)
+        saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
+        self.view.addSubview(saveButton)
+        
+    }
+    
+    
+    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+
+       //tableView.isUserInteractionEnabled = true
+//        if editingMode == true {
+//            // save the data
+//            saveBabyInfo(baby : selectedBaby!)
+//            editingEnd()
+//        } else {
+//            editingBegin()
+//        }
         
         
     }
+    @objc func saveButtonPressed(){
+        if self.selectedBaby != nil{
+            saveBabyInfo(baby : selectedBaby!)
+            tableView.isUserInteractionEnabled = false
+        }
+        else{
+            print("unable to save baby")
+        }
+        
+        
+    }
+    
+    
+
+    
     // MARK: UITextViewDelegate
-    func textViewDidChange(textView: UITextView) {
-        self.tableView.beginUpdates()
-        textView.frame = CGRect(x: textView.frame.minX, y: textView.frame.minY, width: textView.frame.width, height: textView.contentSize.height + 40)
-        self.tableView.endUpdates()
-    }
+//    private func textViewDidChange(textView: UITextView) {
+//        self.tableView.beginUpdates()
+//        textView.frame = CGRect(x: textView.frame.minX, y: textView.frame.minY, width: textView.frame.width, height: textView.contentSize.height + 40)
+//        self.tableView.endUpdates()
+//    }
     //MARK - Table View Datasource method
     
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 8
-//            //schema?.properties.count ?? 1
-//    }
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return schema?.properties.count ?? 1
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+      
+        let cell = tableView.dequeueReusableCell(withIdentifier: "babyInfoCell", for: indexPath) as! BabyInfoCell
+        cell.textView.delegate = self
+        
+        cell.property.text = schema?.properties[indexPath.row].name
+        let propertyValue = selectedBaby?.value(forKeyPath: cell.property.text!)
+        cell.textView.text = propertyValue as? String
+        
+        
+        
+//      
+//        { //not nil
+//            cell.textView.text = propertyValue as? String
+//            print("not nil")
+//
+//        }
+//        else if cell.textView.text.isEmpty{
+//            let propertyValue = selectedBaby?.setValue(cell.textView.text, forKey: cell.property.text!)
+//            cell.textView.text = propertyValue as? String
+//            //cell.textView.text = selectedBaby?.value(forKeyPath: cell.property.text!) as? String
+//            print("nil, no property")
 //
 //
-//
-//
-//        return cell
-//    }
+//        }
+        //tableView.reloadData()
+        
+        
+        
+
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let newcell = cell as! BabyInfoCell
+        newcell.tag = count
+        newcell.textView.tag = count
+        count = count + 1 
+        //print("tag \(newcell.tag)")
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60.0
        
+    }
+//    func textViewDidChange(_ textView: UITextView) { //Handle the text changes here
+//        print(textView.text) //the textView parameter is the textView where text was changed
+//    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        //print("text \(textView.text!)")
+        // let cell = tableView.dequeueReusableCell(withIdentifier: "babyInfoCell") as! BabyInfoCell
         
-        //        let height: CGFloat = 50 //whatever height you want to add to the existing height
-        //        let bounds = self.navigationController!.navigationBar.bounds
-        //        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
+        //print("tag \(textView.tag)")
+        
+        do{
+            
+            switch textView.tag {
+            case 0:
+                try self.realm.write {
+                    self.selectedBaby?.name = textView.text
+                    }
+            case 1:
+                let age = calcAge(birthday: textView.text)
+                print(age)
+                try self.realm.write {
+                    self.selectedBaby?.age = String(age as NSInteger)
+                }
+            case 2:
+                try self.realm.write {
+                    self.selectedBaby?.dateOfBirth = textView.text
+                }
+            case 3:
+                try self.realm.write {
+                    self.selectedBaby?.height = (textView.text as NSString).floatValue
+                }
+            case 4:
+                try self.realm.write {
+                    self.selectedBaby?.weight = (textView.text as NSString).floatValue
+                }
+            case 5:
+                try self.realm.write {
+                    self.selectedBaby?.bloodType = textView.text
+                }
+            case 6:
+                try self.realm.write {
+                    self.selectedBaby?.alergies = textView.text
+                }
+            case 7:
+                try self.realm.write {
+                    self.selectedBaby?.illnesses = textView.text
+                }
+            default:
+                ""
+            }}
+        
+        catch{
+            print("mala suerte")
+        }
+        
+        //tableView.reloadData()
+    }
+    
+    
+    
+    func saveBabyInfo(baby : Baby){
+    
+        do {
+
+            try realm.write {
+                //realm.add(baby.self, update: true)
+                
+            }
+        } catch {
+            print("Error saving done status, \(error)")
+        }
+       // tableView.reloadData()
+
         
     }
-    //MARK - Table View Delegate method
-    
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//
-//        //if the item is not nil, select it and change its property
-//        if let item = properties?[indexPath.row] {
-//            do {
-//
-//                try realm.write {
-//                    //TO DELETE : realm.delete(item) whenever you click on it
-//                    item.done = !item.done
-//                }
-//            } catch {
-//                print("Error saving done status, \(error)")
-//            }
-//        }
-//
-//
-//        tableView.reloadData() //calls cell for row at index path to udpate cell's looking
-//
-//        //tableView.deselectRow(at: indexPath, animated: true)
-//
-//    }
-    //MARK - ADD NEW ITEMS, we could do that to add new properties
-    
-    
-//    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-//
-//        var textfield = UITextField()
-//        let alert = UIAlertController(title: "Add new item", message: "", preferredStyle: .alert)
-//        let action = UIAlertAction(title: "Add item", style: .default) { (action) in
-//            //wht will happen when the user clicks the add item button in alert
-//
-//            if let currentCategory = self.selectedCategory{
-//                do{
-//                    try self.realm.write {
-//                        let newitem  = Item()
-//                        newitem.title = textfield.text!
-//                        newitem.dateOfCreation = Date()
-//                        currentCategory.items.append(newitem)
-//                        //instead of creating a save items function, we can just append the item to the specific list
-//                        //and as it is of type Results with append is enough, no REALM.ADD is needed
-//                        //SO: 1 (CATEGORY) --> save directly with save method (write and add)
-//                        // N (ITEM) --> write to realm, append to 1, no add
-//                    }
-//
-//                }
-//                catch{
-//                    print("error saving new items, \(error)")
-//                }
-//
-//            }
-//            self.tableView.reloadData()
-//
-//
-//
-//        }
-//        alert.addTextField { (alertTextField) in
-//            alertTextField.placeholder = "create new item"
-//            textfield = alertTextField
-//
-//        }
-//        alert.addAction(action)
-//        present(alert,animated: true, completion: nil)
-//    }
-    
-    
-//    func loadItems(){
-//
-//        properties = selectedBaby?.name.sorted(
-//        tableView.reloadData()
-//    }
-    
+        func calcAge(birthday: String) -> Int {
+            let dateFormater = DateFormatter()
+            dateFormater.dateFormat = "MM/dd/yyyy"
+            let birthdayDate = dateFormater.date(from: birthday)
+            let calendar: NSCalendar! = NSCalendar(calendarIdentifier: .gregorian)
+            let now = Date()
+            let calcAge = calendar.components(.year, from: birthdayDate!, to: now, options: [])
+            let age = calcAge.year
+            return age!
+        }
+
+
+
+
 
 
 }

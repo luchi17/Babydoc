@@ -21,17 +21,9 @@ class Baby : Object {
     @objc dynamic var illnesses : String = ""
     
     let calendar = List<DayOfYear>()
+    var parentRegisteredBabies = LinkingObjects(fromType : RegisteredBabies.self , property : "babies" )
     
-//    func calcAge(birthday: String) -> Int {
-//        let dateFormater = DateFormatter()
-//        dateFormater.dateFormat = "MM/dd/yyyy"
-//        let birthdayDate = dateFormater.date(from: birthday)
-//        let calendar: NSCalendar! = NSCalendar(calendarIdentifier: .gregorian)
-//        let now = Date()
-//        let calcAge = calendar.components(.year, from: birthdayDate!, to: now, options: [])
-//        let age = calcAge.year
-//        return age!
-//    }
+
     
 
     

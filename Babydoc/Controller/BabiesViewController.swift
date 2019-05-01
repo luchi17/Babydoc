@@ -91,19 +91,20 @@ class BabiesViewController : UITableViewController{
         performSegue(withIdentifier: "goToBabyInfo", sender: self)
         
     }
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-////        //this is done before segue occurs
-////        //each category has its own items so depending on which one you select,
-////        //a table of items is going to appear or another
-//        let destinationVC = segue.destination as! BabyInfoViewController
-////        if let indexpath = tableView.indexPathForSelectedRow {
-////            destinationVC.selectedBaby  = registeredBabies?[indexpath.row].name
-////        }
-//    
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        //this is done before segue occurs
+//        //each category has its own items so depending on which one you select,
+//        //a table of items is going to appear or another
+        let destinationVC = segue.destination as! BabyInfoViewController
+        if let indexpath = tableView.indexPathForSelectedRow {
+            destinationVC.selectedBaby  = registeredBabies?[indexpath.row]
+        }
+    
+    }
     
     //MARK: Data Manipulation
     func save(baby : Baby){
+        
         
         do{
             try realm.write {
