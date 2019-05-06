@@ -14,4 +14,6 @@ pod 'SwipeCellKit', :git => 'https://github.com/SwipeCellKit/SwipeCellKit.git', 
 pod 'ProgressHUD'
 pod 'PMAlertController'
 pod "AUPickerCell"
+pod 'RLBAlertsPickers', :git => 'https://github.com/loicgriffie/Alerts-Pickers.git', :branch => 'master'
+
 end

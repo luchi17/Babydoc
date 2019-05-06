@@ -12,7 +12,13 @@ import PMAlertController
 import SwipeCellKit
 
 
-class BabiesViewController : UITableViewController{
+class BabiesViewController : UITableViewController, notifyChangeInName{
+    func loadNewName() {
+        loadBabies()
+    }
+    
+ 
+    
     
     let realm = try! Realm()
     
@@ -29,7 +35,9 @@ class BabiesViewController : UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCategories()
+        //self.navigationController?.
+
+        loadBabies()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -47,24 +55,31 @@ class BabiesViewController : UITableViewController{
         
         var textfield = UITextField()
         
-        let alert = PMAlertController(title: "Add New Baby", description: "", image: nil, style: .alert)
+        let alert = PMAlertController(title: nil, description: nil, image: nil, style: .alert)
         
         alert.addTextField { (field) in
             
             textfield = field!
-            textfield.placeholder = "New Baby..."
+            textfield.placeholder = "New Child..."
         }
-        let add_action = PMAlertAction(title: "Add", style: .cancel) {
+        
+        let add_action = PMAlertAction(title: "Add", style: .default, action: { () in
             let newBaby = Baby()
             newBaby.name = textfield.text!
             self.save(baby : newBaby)
-        }
+        })
+        
+        let cancel_action = PMAlertAction(title: "Cancel", style: .cancel, action: { () in
+            alert.dismiss(animated: true, completion: nil)
+        })
         add_action.setTitleColor(cancelColor, for: .normal)
+        cancel_action.setTitleColor(deleteColor, for: .normal)
         alert.addAction(add_action)
+        alert.addAction(cancel_action)
+        alert.gravityDismissAnimation = true
+        alert.dismissWithBackgroudTouch = true
         
-        
-        
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: false, completion: nil)
     }
     
     
@@ -81,7 +96,8 @@ class BabiesViewController : UITableViewController{
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath)
         cell.textLabel?.text = registeredBabies?[indexPath.row].name      ??   "No registeredBabies added yet" //default
-    
+        cell.textLabel?.textColor = UIColor.init(hexString: "7F8484")
+        cell.textLabel?.font = font
         return cell
     }
     
@@ -99,6 +115,9 @@ class BabiesViewController : UITableViewController{
         let destinationVC = segue.destination as! BabyInfoViewController
         if let indexpath = tableView.indexPathForSelectedRow {
             destinationVC.selectedBaby  = registeredBabies?[indexpath.row]
+            destinationVC.delegate = self
+            destinationVC.navigationItem.title = destinationVC.selectedBaby?.name
+      
         }
     
     }
@@ -119,7 +138,7 @@ class BabiesViewController : UITableViewController{
         tableView.reloadData()
     }
     
-    func loadCategories(){
+    func loadBabies(){
         
         registeredBabies = realm.objects(Baby.self)
         

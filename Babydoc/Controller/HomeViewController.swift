@@ -125,7 +125,7 @@ class HomeViewController: UIViewController{
         let image = UIImage(named : "add-color")
         button.setImage(image, for: .normal)
         button.frame.size = CGSize(width: 55, height: 55)
-        button.frame = CGRect(origin: CGPoint(x: UIScreen.main.bounds.width-70, y: dateToday.frame.origin.y + dateToday.bounds.height/2 - 8   ), size: button.frame.size)
+        button.frame = CGRect(origin: CGPoint(x: UIScreen.main.bounds.width-60, y: dateToday.frame.origin.y + dateToday.bounds.height/2 + 5   ), size: button.frame.size)
    
         button.layer.masksToBounds = false
         button.layer.shadowColor = UIColor.flatGray.cgColor
@@ -170,10 +170,7 @@ class HomeViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         taskTableView.rowHeight = UITableView.automaticDimension
         taskTableView.estimatedRowHeight = 180.0
-        
-//        let height: CGFloat = 50 //whatever height you want to add to the existing height
-//        let bounds = self.navigationController!.navigationBar.bounds
-//        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
+
         
     }
     //MARK: - Resize image method

@@ -7,19 +7,19 @@
 //
 
 import UIKit
+import SwipeCellKit
 
 
 
-
-class TextFieldTableViewCell: UITableViewCell {
+class TextFieldTableViewCell: SwipeTableViewCell  {
     // outlets
     @IBOutlet weak var fieldNameLabel: UILabel!
-    @IBOutlet weak var fieldValueTextfield: UITextView!
+    @IBOutlet weak var fieldValue: UILabel!
 
-    // data
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        fieldNameLabel.textColor = UIColor.init(hexString: "7F8484")
+        fieldValue.textColor = UIColor.init(hexString: "7F8484")
     }
 }
