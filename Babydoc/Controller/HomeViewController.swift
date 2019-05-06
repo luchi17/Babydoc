@@ -14,7 +14,14 @@ import ProgressHUD
 import PMAlertController
 // MARK: - Home View Controller
 
-class HomeViewController: UIViewController{
+class HomeViewController: UIViewController, resizeImageDelegate{
+    func resizeImageIsCalled(image: UIImage, size: CGSize) -> UIImage {
+        let image = resizeImage(image: image, targetSize: size)
+        return image
+    }
+    
+ 
+    
     
     @IBOutlet weak var sleep: ActionView!
   
@@ -77,6 +84,15 @@ class HomeViewController: UIViewController{
         datePicker.scrollToSelectedDate(animated: true)
         showSelectedDate()
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //        //this is done before segue occurs
+        //        //each category has its own items so depending on which one you select,
+        //        //a table of items is going to appear or another
+        let destinationVC = segue.destination as! BabiesViewController
+        destinationVC.delegate = self
+   
+        
+    }
     
   
   
@@ -106,7 +122,7 @@ class HomeViewController: UIViewController{
         
         
         dateToday.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
-       
+        
 
         
         initialAppearance()

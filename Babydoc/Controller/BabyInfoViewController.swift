@@ -25,7 +25,7 @@ class BabyInfoViewController : UITableViewController{
         }
     }
     var defaultOptions = SwipeOptions()
-    weak var delegate : notifyChangeInName?
+    weak var delegate : notifyChangeInNameDelegate?
 
     
     let normalColor = UIColor.flatGrayDark
@@ -437,7 +437,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
     
     
 }
-protocol notifyChangeInName : class  {
+protocol notifyChangeInNameDelegate : class  {
     func loadNewName()
 }
 extension Date {

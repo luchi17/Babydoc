@@ -13,7 +13,8 @@ import SwipeCellKit
 import RLBAlertsPickers
 
 
-class BabiesViewController : UITableViewController, notifyChangeInName{
+class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
+    
     func loadNewName() {
         loadBabies()
     }
@@ -25,7 +26,8 @@ class BabiesViewController : UITableViewController, notifyChangeInName{
     let greenColor = UIColor.init(hexString: "32828A")
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
-
+    var defaultOptions = SwipeOptions()
+    weak var delegate : resizeImageDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,10 +88,14 @@ class BabiesViewController : UITableViewController, notifyChangeInName{
         return registeredBabies?.count ?? 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath) as! SwipeTableViewCell
+        
         cell.textLabel?.text = registeredBabies?[indexPath.row].name
         cell.textLabel?.textColor = UIColor.init(hexString: "7F8484")
         cell.textLabel?.font = fontLight
+        
+        cell.delegate = self
         return cell
     }
     
@@ -137,5 +143,68 @@ class BabiesViewController : UITableViewController, notifyChangeInName{
         tableView.reloadData()
         
     }
+    func deleteBaby(baby : Baby){
+        
+        do{
+            try realm.write {
+                //categories.append cannot be done because is of type Results and does not have a list
+                realm.delete(baby) //PERSIST DATA
+            }
+        }
+        catch{
+            print(error)
+        }
+        loadBabies()
+    }
     
+}
+extension BabiesViewController : SwipeTableViewCellDelegate{
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        
+         defaultOptions.transitionStyle = .drag
+        
+        //_ = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath) as! SwipeTableViewCell
+        if orientation == .right{
+            
+            let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
+                
+                let alert = UIAlertController(title: "Remove Child", message: "Are you sure you want to remove child \(self.registeredBabies![indexPath.row].name) permanently?", preferredStyle: .alert)
+                
+                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
+                    
+                    self.deleteBaby(baby: self.registeredBabies![indexPath.row])
+                    
+                })
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+                    alert.dismiss(animated: true, completion: nil)
+                })
+                
+                alert.addAction(removeAction)
+                alert.addAction(cancelAction)
+                alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                
+             }
+            removeSwipe.backgroundColor = .red
+            //removeSwipe.image = UIImage(named: "delete-icon")
+            if let delegate = self.delegate {
+                removeSwipe.image = delegate.resizeImageIsCalled(image: UIImage(named: "delete-icon")!, size: CGSize(width: 30, height: 30))
+            }
+            
+            return [removeSwipe]
+            
+            
+        }
+        else{
+            return nil
+        }
+        
+        
+        
+        
+    }
+}
+
+protocol resizeImageDelegate : class {
+    func resizeImageIsCalled(image : UIImage , size : CGSize)->UIImage
 }
