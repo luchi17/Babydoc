@@ -54,16 +54,13 @@ class HomeViewController: UIViewController{
             configuration.defaultDayStyle.monthTextColor = UIColor.init(hexString: "7F8484")
             configuration.defaultDayStyle.weekDayTextColor = UIColor.init(hexString: "7F8484")
             configuration.defaultDayStyle.weekDayTextFont = UIFont(name: "Avenir-Medium", size: 8)
-            
-            // weekend customization
-           // configuration.weekendDayStyle.dateTextColor = UIColor.
-            //configuration.weekendDayStyle.weekDayTextColor = UIColor.black
+
             configuration.weekendDayStyle.weekDayTextFont = UIFont(name: "Avenir-Heavy", size: 8)
             
 
-            configuration.selectedDayStyle.selectorColor = UIColor.init(hexString: "3BB4C1")
-            configuration.selectedDayStyle.dateTextColor = UIColor.init(hexString: "3BB4C1")
-            configuration.selectedDayStyle.weekDayTextColor = UIColor.init(hexString: "3BB4C1")
+            configuration.selectedDayStyle.selectorColor = UIColor.init(hexString: "64C5CF")
+            configuration.selectedDayStyle.dateTextColor = UIColor.init(hexString: "64C5CF")
+            configuration.selectedDayStyle.weekDayTextColor = UIColor.init(hexString: "64C5CF")
             configuration.selectedDayStyle.dateTextFont = UIFont(name: "Avenir-Heavy", size: 20)
             configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 0.25)
             
@@ -93,7 +90,7 @@ class HomeViewController: UIViewController{
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM YYYY"
         dateToday.setTitle("Today, "+formatter.string(from: datePicker.selectedDate!), for: .normal)
-        dateToday.setTitleColor(UIColor.init(hexString: "3BB4C1"), for: .normal)
+        dateToday.setTitleColor(UIColor.init(hexString: "64C5CF"), for: .normal)
         dateToday.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 18)
         dateToday.backgroundColor = UIColor.white
         let spacing : CGFloat = 8.0

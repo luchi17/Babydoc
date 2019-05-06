@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import PMAlertController
 import SwipeCellKit
+import RLBAlertsPickers
 
 
 class BabiesViewController : UITableViewController, notifyChangeInName{
@@ -17,25 +18,17 @@ class BabiesViewController : UITableViewController, notifyChangeInName{
         loadBabies()
     }
     
- 
-    
-    
     let realm = try! Realm()
-    
     var registeredBabies : Results<Baby>?
-    
-    
-    
-    let normalColor = UIColor.flatGrayDark
     let font = UIFont(name: "Avenir-Heavy", size: 17)
-    //init(hexString: "3BB4C1")
-    let remainderColor = UIColor.flatYellowDark
-    let deleteColor = UIColor.red
-    let cancelColor = UIColor.flatSkyBlue
+    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
+    let greenColor = UIColor.init(hexString: "32828A")
+    let grayColor = UIColor.init(hexString: "555555")
+    let grayLightColor = UIColor.init(hexString: "7F8484")
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigationController?.
 
         loadBabies()
         
@@ -44,42 +37,41 @@ class BabiesViewController : UITableViewController, notifyChangeInName{
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         
-        //        let height: CGFloat = 50 //whatever height you want to add to the existing height
-        //        let bounds = self.navigationController!.navigationBar.bounds
-        //        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
-        
     }
     
     
     @IBAction func addBabyPressed(_ sender: UIBarButtonItem) {
         
-        var textfield = UITextField()
-        
-        let alert = PMAlertController(title: nil, description: nil, image: nil, style: .alert)
-        
-        alert.addTextField { (field) in
+        var textFieldStore = UITextField()
+
+        let alert = UIAlertController(style: .alert, title: "Add New Child" )
+        let config: TextField.Config = { textField in
             
-            textfield = field!
-            textfield.placeholder = "New Child..."
+            
+            textField.becomeFirstResponder()
+            textField.textColor = .flatBlackDark
+            textField.font = self.fontLight
+            textField.leftViewPadding = 6
+            textField.borderStyle = .roundedRect
+            textField.backgroundColor = nil
+            textField.keyboardAppearance = .default
+            textField.keyboardType = .default
+            textField.returnKeyType = .done
+            textField.placeholder = "new baby name..."
+            textFieldStore = textField
         }
-        
-        let add_action = PMAlertAction(title: "Add", style: .default, action: { () in
+        alert.setTitle(font: font!, color: self.grayLightColor!)
+        alert.addOneTextField(configuration: config)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+            
             let newBaby = Baby()
-            newBaby.name = textfield.text!
+            newBaby.name = textFieldStore.text!
             self.save(baby : newBaby)
         })
         
-        let cancel_action = PMAlertAction(title: "Cancel", style: .cancel, action: { () in
-            alert.dismiss(animated: true, completion: nil)
-        })
-        add_action.setTitleColor(cancelColor, for: .normal)
-        cancel_action.setTitleColor(deleteColor, for: .normal)
-        alert.addAction(add_action)
-        alert.addAction(cancel_action)
-        alert.gravityDismissAnimation = true
-        alert.dismissWithBackgroudTouch = true
-        
-        present(alert, animated: false, completion: nil)
+        alert.addAction(okAction)
+        alert.addAction(title: "Cancel" , style : .destructive)
+        alert.show()
     }
     
     
@@ -91,13 +83,13 @@ class BabiesViewController : UITableViewController, notifyChangeInName{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         //this is called nil coalescing operator
-        return registeredBabies?.count ?? 1 //1 is default when categories.count is nil
+        return registeredBabies?.count ?? 1
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath)
-        cell.textLabel?.text = registeredBabies?[indexPath.row].name      ??   "No registeredBabies added yet" //default
+        cell.textLabel?.text = registeredBabies?[indexPath.row].name
         cell.textLabel?.textColor = UIColor.init(hexString: "7F8484")
-        cell.textLabel?.font = font
+        cell.textLabel?.font = fontLight
         return cell
     }
     

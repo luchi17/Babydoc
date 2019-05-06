@@ -19,18 +19,18 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kr6-3X-q5x">
-                        <rect key="frame" x="16" y="11" width="90" height="22"/>
+                        <rect key="frame" x="16" y="11" width="123" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="90" id="5iM-lx-XdV"/>
+                            <constraint firstAttribute="width" constant="123" id="cdu-9R-Cue"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
+                        <color key="textColor" red="0.20889113885726135" green="0.56085421954314718" blue="0.5581262617545969" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2Zs-de-XeR">
-                        <rect key="frame" x="194" y="11" width="126" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="2Zs-de-XeR">
+                        <rect key="frame" x="190" y="11" width="130" height="20.5"/>
                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" red="0.49803921568627452" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -40,7 +40,7 @@
                     <constraint firstAttribute="bottom" secondItem="2Zs-de-XeR" secondAttribute="bottom" constant="12" id="9xe-LC-dXl"/>
                     <constraint firstAttribute="trailing" secondItem="2Zs-de-XeR" secondAttribute="trailing" id="CDO-Y3-Ox1"/>
                     <constraint firstItem="kr6-3X-q5x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="KFM-DZ-zFl"/>
-                    <constraint firstItem="2Zs-de-XeR" firstAttribute="leading" secondItem="kr6-3X-q5x" secondAttribute="trailing" constant="88" id="MSM-qC-2pd"/>
+                    <constraint firstItem="2Zs-de-XeR" firstAttribute="leading" secondItem="kr6-3X-q5x" secondAttribute="trailing" constant="51" id="MSM-qC-2pd"/>
                     <constraint firstItem="kr6-3X-q5x" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="OBQ-lP-j3P"/>
                 </constraints>
             </tableViewCellContentView>

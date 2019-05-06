@@ -30,44 +30,23 @@ class BabyInfoViewController : UITableViewController{
     
     let normalColor = UIColor.flatGrayDark
     let font = UIFont(name: "Avenir-Heavy", size: 17)
+    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
     let remainderColor = UIColor.flatYellowDark
     let deleteColor = UIColor.red
     let cancelColor = UIColor.flatSkyBlue
+    let greenColor = UIColor.init(hexString: "64C5CF")
+    let grayColor = UIColor.init(hexString: "555555")
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
 
         tableView.register(UINib(nibName: "TextFieldTableViewCell", bundle: nil), forCellReuseIdentifier: "babyInfoCell")
-        propertyDictionaryName = [["name","Name"],["dateOfBirth","Date of Birth"],["age","Age"], ["height","Height"],["weight","Weight"],["bloodType","Blood Type"],["allergies" , "Allergies"],["illnesses","Illnesses"]]
+        propertyDictionaryName = [["name","Name"],["dateOfBirth","Date Of Birth"],["age","Age"], ["weight","Weight"],["height","Height"],["headDiameter","Head Diameter"],["bloodType","Blood Type"],["allergies" , "Allergies"],["illnesses","Illnesses"]]
         
     }
-//
-//
-//    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
-//
-//       //tableView.isUserInteractionEnabled = true
-////        if editingMode == true {
-////            // save the data
-////            saveBabyInfo(baby : selectedBaby!)
-////            editingEnd()
-////        } else {
-////            editingBegin()
-////        }
-//
-//
-//    }
-    @objc func saveButtonPressed(){
-        if self.selectedBaby != nil{
-            saveBabyInfo(baby : selectedBaby!)
-            //tableView.isUserInteractionEnabled = false
-        }
-        else{
-            print("unable to save baby")
-        }
 
 
-    }
     override func viewWillAppear(_ animated: Bool) {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 85.0
@@ -103,22 +82,7 @@ class BabyInfoViewController : UITableViewController{
 
 
 
-    //MARK: CalcAge method
-    
-    
-    
-    func calcAge(birthday: String) -> String {
-        let dateFormater = DateFormatter()
-        dateFormater.dateFormat = "MM/dd/yyyy"
-        let birthdayDate = dateFormater.date(from: birthday)
-        let calendar: NSCalendar! = NSCalendar(calendarIdentifier: .gregorian)
-        let now = Date()
-        let calcAge = calendar.components(.year, from: birthdayDate!, to: now, options: [])
-        let age = calcAge.year
-       
-        let finalage = String(describing: age)
-        return finalage
-    }
+    //MARK: CalculateAge method
     
    var _dateFormatter: DateFormatter?
    var dateFormatter: DateFormatter {
@@ -203,18 +167,25 @@ class BabyInfoViewController : UITableViewController{
         tableView.reloadData()
     }
     
-    func saveBabyInfo(baby : Baby){
+    func saveBabyInfo(valueToSave : Any, forkey : String){
         
         do {
             
             try realm.write {
-                //realm.add(baby.self, update: true)
-                
+                (self.babyProperties?[0].setValue(valueToSave, forKeyPath: forkey))!
+                if forkey == "name"{
+                    
+                    self.selectedBaby?.parentRegisteredBabies.setValue(valueToSave, forKeyPath: forkey)
+                }
+            }
+            loadProperties()
+            if let delegate = self.delegate {
+                delegate.loadNewName()
             }
         } catch {
             print("Error saving done status, \(error)")
         }
-        // tableView.reloadData()
+        
         
         
     }
@@ -229,96 +200,224 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
         
         defaultOptions.transitionStyle = .drag
         
-        var textField = UITextField()
+        var textFieldStore = UITextField()
+        var dateOfBirth = Date()
         let cell = tableView.dequeueReusableCell(withIdentifier: "babyInfoCell", for: indexPath) as! TextFieldTableViewCell
         if orientation == .right {
             
             let edit = SwipeAction(style: .default, title: nil){ action , indexPath in
                 
                 if indexPath.row == 1{
-                    let alert = UIAlertController(style: .alert, title: "Select date")
+                    
+                    let alert = UIAlertController(style: .alert, title: "Select Date Of Birth")
                     let hoursIn13years = 113880
                     let maxDate = Date()
                     let minDate = Calendar.current.date(byAdding: .hour, value: -hoursIn13years, to: maxDate)!
-
+                    
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
                     alert.addDatePicker(mode: .date, date: maxDate, minimumDate: minDate, maximumDate: maxDate) { date in
-                        do{
-                            try self.realm.write {
-                                let dateString = self.dateStringFromDate(date: date)
-                                self.babyProperties?[0].setValue(dateString, forKeyPath: self.propertyDictionaryName[indexPath.row][0])
-                                
-                               //age
-                                let age = self.calculateAge(dob: dateString)
-                                print("age:\(age)")
-                                var finalStringAge = ""
-                                if age.year < 1  {
-                                    finalStringAge = String(age.month) + " months and " + String(age.day) + " days"
-                                }
-                                else if age.year >= 1{
-                                    finalStringAge = String(age.year) + " years and " + String(age.month) + " months"
-                                }
-                                self.babyProperties?[0].setValue(finalStringAge, forKeyPath: "age")
-                                
-                            }
-                            self.loadProperties()
-                        }
-                        catch{
-                            print("UNABLE TO SAVE DATE: \(error)")
-                        }
+                        dateOfBirth = date
                     }
-                    alert.addAction(title: "OK", style: .cancel)
+                    let ok_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                        
+                        let dateString = self.dateStringFromDate(date: dateOfBirth)
+                        
+                        self.saveBabyInfo(valueToSave: dateString, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        
+                        let age = self.calculateAge(dob: dateString)
+                        print("age:\(age)")
+                        var finalStringAge = ""
+                        if age.year < 1  {
+                            if age.month == 0{
+                                finalStringAge = String(age.day) + " days"
+                            }
+                            else{
+                                finalStringAge = String(age.month) + " months and " + String(age.day) + " days"
+                            }
+                            
+                        }
+                        else if age.year >= 1{
+                            finalStringAge = String(age.year) + " years and " + String(age.month) + " months"
+                        }
+                        self.saveBabyInfo(valueToSave: finalStringAge, forkey: "age")
+                        
+                        alert.dismiss(animated: true, completion: nil)
+                })
+                    
+                    //let cancel_action = UIAlertAction(title: "Cancel", style: .destructive)
+                    alert.addAction(ok_action)
                     alert.addAction(title : "Cancel" , style: .destructive)
+                    
                     alert.show()
                 }
-                else{
+                else if indexPath.row == 0 || indexPath.row == 7 || indexPath.row == 8{
                     
-                    let alert = PMAlertController(title: nil, description: nil, image: nil, style : .alert)
-                    
-                    
-                    alert.addTextField( { (alertTextField) in
+                    let alert = UIAlertController(style: .alert, title: "Edit "+self.propertyDictionaryName[indexPath.row][0] )
+                    let config: TextField.Config = { textField in
                         
-                        alertTextField!.placeholder = "New \(self.propertyDictionaryName[indexPath.row][1])..."
-                        textField = alertTextField!
+                        
+                        textField.becomeFirstResponder()
+                        textField.textColor = .flatBlackDark
+                        textField.font = self.fontLight
+                        textField.leftViewPadding = 6
+                        textField.borderStyle = .roundedRect
+                        textField.backgroundColor = nil
+                        textField.keyboardAppearance = .default
+                        textField.keyboardType = .default
+                        textField.returnKeyType = .done
+                        textField.placeholder = "New \(self.propertyDictionaryName[indexPath.row][1])..."
+                        textFieldStore = textField
+                    }
+                    alert.addOneTextField(configuration: config)
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
+                    let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                        
+                        self.saveBabyInfo(valueToSave: textFieldStore.text!, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        
+                        self.navigationItem.title = self.selectedBaby?.name
                     })
-                    let done_action = PMAlertAction(title: "Done", style: .default, action: { () in
+                    
+                    alert.addAction(okAction)
+                    alert.addAction(title: "Cancel" , style : .destructive)
+                    alert.show()
+
+                }
+                else if indexPath.row == 2{
+                    cell.isUserInteractionEnabled = false
+                }
+                else if indexPath.row == 3
+                {
+                   
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
+                    var weight  = Float()
+                    var weightUnit = ""
+                    var arrayWeight = [String]()
+                    let weightValues = stride(from: 0.0, through: 60.0, by: 0.05)
+                    for i in weightValues{
+                        arrayWeight.append(String(format: "%.2f", i))
+                    }
+                    
+                    let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: Int(3/0.05))
+                    alert.addPickerView(values: [arrayWeight, ["kg","lbs"]], initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
                         
-                        cell.fieldValue.text = textField.text!
+                        weight = Float(picker.selectedRow(inComponent: 0)) * Float(0.05)
                         
-                        do{
-                            try self.realm.write {
-                                self.babyProperties?[0].setValue(textField.text!, forKeyPath: self.propertyDictionaryName[indexPath.row][0])
-                                self.selectedBaby?.parentRegisteredBabies.setValue(textField.text!, forKeyPath: self.propertyDictionaryName[indexPath.row][0])
-                                
-                            }
-                            self.loadProperties()
-                            if let delegate = self.delegate {
-                                delegate.loadNewName()
-                            }
-                            self.navigationItem.title = self.selectedBaby?.name
-                            
-                            
+                        if picker.selectedRow(inComponent: 1) == 0{
+                            weightUnit = " kg"
                         }
-                        catch{
-                            print("Error saving data: \(error)")
+                        else if picker.selectedRow(inComponent: 1) == 1{
+                            weightUnit = " lbs"
                         }
+
+  
+                    }
+                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                        
+                        let finalStringWeight = String(format : "%.2f",weight) + weightUnit
+                        print(finalStringWeight)
+                        self.saveBabyInfo(valueToSave: finalStringWeight, forkey: self.propertyDictionaryName[indexPath.row][0])
+
                     })
-                    
-                    let cancel_action = PMAlertAction(title: "Cancel", style: .cancel, action: {
-                        alert.dismiss(animated: true, completion: nil)
-                    })
-                    
-                    done_action.setTitleColor(self.cancelColor, for: .normal)
-                    cancel_action.setTitleColor(self.deleteColor, for: .normal)
                     alert.addAction(done_action)
-                    alert.addAction(cancel_action)
-                    alert.alertTitle.textColor = self.normalColor
-                    alert.alertTitle.font = self.font
-                    alert.gravityDismissAnimation = true
-                    alert.dismissWithBackgroudTouch = true
-                    self.present(alert, animated: true, completion: nil)
+                    alert.addAction(title: "Cancel" , style : .destructive)
+                    alert.show()
+                    
+                  
+                }
+                else if indexPath.row == 4 || indexPath.row == 5 {
+                    
+                    switch indexPath.row{
+                    case 4 :
+                        let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                        alert.setTitle(font: self.font!, color: self.greenColor!)
+                        var height  = Float()
+                        let heightUnit = " m"
+                        var arrayHeight = [String]()
+                        let heightValues = stride(from: 0.0, through: 1.7, by: 0.01)
+                        for i in heightValues{
+                            arrayHeight.append(String(format: "%.2f", i))
+                        }
+                        let pickerViewSelectedValueHeight: PickerViewViewController.Index = (column: 0, row: Int(0.7/0.01))
+                        
+                        alert.addPickerView(values: [arrayHeight, [heightUnit]], initialSelection: pickerViewSelectedValueHeight) { vc, picker, index, values in
+                            
+                            height = Float(picker.selectedRow(inComponent: 0)) * Float(0.01)
+                            
+                        }
+                        let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                            
+                            let finalStringHeight = String(format : "%.2f",height) + heightUnit
+                            
+                            self.saveBabyInfo(valueToSave: finalStringHeight, forkey: self.propertyDictionaryName[indexPath.row][0])
+                            
+                        })
+                        alert.addAction(done_action)
+                        alert.addAction(title: "Cancel" , style : .destructive)
+                        alert.show()
+                        
+                        
+                        
+                    case 5 :
+                        
+                        let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                        alert.setTitle(font: self.font!, color: self.greenColor!)
+                        let headValues = stride(from: 0.0, through: 25.0, by: 0.01)
+                        var head = Float()
+                        let headUnit = " cm"
+                        var arrayHead = [String]()
+                        for i in headValues{
+                            arrayHead.append(String(format: "%.2f", i))
+                        }
+                        let pickerViewSelectedValueHeadDiameter: PickerViewViewController.Index = (column: 0, row: Int(10.0/0.01))
+                        alert.addPickerView(values: [arrayHead, [headUnit]], initialSelection: pickerViewSelectedValueHeadDiameter) { vc, picker, index, values in
+                            
+                            head = Float(picker.selectedRow(inComponent: 0)) * Float(0.01)
+                            
+                        }
+                        let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                            
+                            let finalStringHeight = String(format : "%.2f",head) + headUnit
+                            
+                            self.saveBabyInfo(valueToSave: finalStringHeight, forkey: self.propertyDictionaryName[indexPath.row][0])
+                            
+                        })
+                        alert.addAction(done_action)
+                        alert.addAction(title: "Cancel" , style : .destructive)
+                        alert.show()
+                    default:
+                        print("saludos")
+                        
+                        
+                    }
+                    
                     
                 }
-                
+                else if indexPath.row == 6{
+                    
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    var bloodType = ""
+                    var arrayBloodletter = ["0", "A" , "B", "AB"]
+                    var arrayBloodSign = ["+","-"]
+                    
+                    let pickerViewSelectedValueBlood: PickerViewViewController.Index = (column: 0, row: 0)
+                    alert.addPickerView(values: [arrayBloodletter, arrayBloodSign], initialSelection: pickerViewSelectedValueBlood) { vc, picker, index, values in
+                        
+                        bloodType = arrayBloodletter[picker.selectedRow(inComponent: 0)] + arrayBloodSign[picker.selectedRow(inComponent: 1)]
+                        
+                        
+                    }
+                    let done_action = UIAlertAction(title: "Done", style: .default, handler: { (alertAction) in
+                        
+                        self.saveBabyInfo(valueToSave: bloodType, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        
+                    })
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
+                    alert.addAction(done_action)
+                    alert.addAction(title: "Cancel" , style : .destructive)
+                    alert.show()
+                }
+               
                 
                 
                 
@@ -327,6 +426,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
             edit.image = UIImage(named: "editt")
             //edit.image?.
             edit.hidesWhenSelected = true
+        
             
             return [edit]
         }
@@ -334,6 +434,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
             return nil
         }
     }
+    
     
 }
 protocol notifyChangeInName : class  {
