@@ -157,7 +157,7 @@
                                             <constraint firstAttribute="height" constant="25" id="w6a-tT-NzF"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-pill-filled-48" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qtB-FQ-M5N">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medication-1" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qtB-FQ-M5N">
                                         <rect key="frame" x="0.0" y="117" width="34" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="QHM-xs-WZY"/>
@@ -236,7 +236,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="John" id="wFM-1T-zTS">
-                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="IM0-V8-5CS">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="baby-face2" id="IM0-V8-5CS">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <segue destination="tXp-cD-AD3" kind="show" identifier="goToRegisteredBabies" id="MgQ-TF-Ehi"/>
@@ -258,7 +258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1776" y="-355"/>
+            <point key="canvasLocation" x="1560" y="-355"/>
         </scene>
         <!--Registered Babies Table View Controller-->
         <scene sceneID="0Qm-th-HaH">
@@ -267,7 +267,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="rue-Zd-DeC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="tintColor" red="0.23137254900000001" green="0.70588235290000001" blue="0.75686274509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.75686274509803919" green="0.75686274509803919" blue="0.75686274509803919" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -278,6 +278,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -286,7 +287,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Registered Children" id="Si0-VE-tyt">
+                    <navigationItem key="navigationItem" title="Children" id="Si0-VE-tyt">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Kt-oX-e8M">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -301,7 +302,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NOF-UX-2zN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2601" y="-355"/>
+            <point key="canvasLocation" x="2278" y="-355"/>
         </scene>
         <!--Baby Info Table View Controller -->
         <scene sceneID="sXD-Kw-o9m">
@@ -310,7 +311,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nr6-QL-7B7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="separatorColor" red="0.75686274509803919" green="0.75686274509803919" blue="0.75686274509803919" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="babyInfoCell" id="EVA-aI-x1M" customClass="TextFieldTableViewCell" customModule="Babydoc" customModuleProvider="target">
@@ -320,6 +321,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -328,11 +330,11 @@
                             <outlet property="delegate" destination="qyx-xl-GMo" id="rwn-RU-fgd"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="John" id="I6P-vT-K8x"/>
+                    <navigationItem key="navigationItem" title="John" largeTitleDisplayMode="always" id="I6P-vT-K8x"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCo-v4-F3d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3526.875" y="-355.98591549295776"/>
+            <point key="canvasLocation" x="2991" y="-355"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -352,35 +354,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
-        </scene>
-        <!--Doctor View Controller-->
-        <scene sceneID="F7h-Eb-iVg">
-            <objects>
-                <tableViewController id="qGy-kw-lzZ" customClass="DoctorViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LCC-9s-U7x">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="X0f-QG-wQh">
-                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X0f-QG-wQh" id="3Wb-jq-I1l">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="qGy-kw-lzZ" id="6R4-Bc-q9i"/>
-                            <outlet property="delegate" destination="qGy-kw-lzZ" id="9zk-Va-sOd"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="V4H-5T-seO"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="62q-CP-Rj4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1536" y="431"/>
         </scene>
         <!--Home NC-->
         <scene sceneID="ruQ-rr-cKI">
@@ -411,7 +384,7 @@
         <scene sceneID="Dvu-So-JiG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U2b-kG-dBV" userLabel="Doctor NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="icons8-medical-doctor-filled-100" id="squ-yf-EEq">
+                    <tabBarItem key="tabBarItem" title="" image="doctorfilled" id="squ-yf-EEq">
                         <color key="badgeColor" red="0.37254901959999998" green="0.74117647060000003" blue="0.69019607839999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -419,27 +392,140 @@
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.39215686274509803" green="0.77254901960784317" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gHl-B1-Vw6">
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="qGy-kw-lzZ" kind="relationship" relationship="rootViewController" id="ERr-qG-yHJ"/>
+                        <segue destination="4Xi-Df-y0k" kind="relationship" relationship="rootViewController" id="HQ8-Rr-1Po"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="URj-ca-wMO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="773" y="404"/>
         </scene>
+        <!--Doctor View Controller-->
+        <scene sceneID="cSb-0P-O5Y">
+            <objects>
+                <viewController id="4Xi-Df-y0k" userLabel="Doctor View Controller" customClass="DoctorViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PNo-3k-oDr"/>
+                        <viewControllerLayoutGuide type="bottom" id="K8N-JI-iFP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zpZ-nw-L2C">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="91z-GM-WY2" userLabel="Content View">
+                                <rect key="frame" x="23" y="141" width="274" height="286"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="17" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gUl-2s-t01" userLabel="Stack View top">
+                                        <rect key="frame" x="20" y="20" width="234" height="107"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6t-k1-GYV">
+                                                <rect key="frame" x="0.0" y="0.0" width="108.5" height="107"/>
+                                                <color key="backgroundColor" red="0.078431372549019607" green="0.88235294117647056" blue="0.61176470588235299" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="107" id="ukG-zU-aPW"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                <inset key="titleEdgeInsets" minX="-124" minY="0.0" maxX="-66" maxY="-65"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="-23" maxX="-87" maxY="0.0"/>
+                                                <state key="normal" title="Temperature" image="fever-2">
+                                                    <color key="titleColor" red="0.078431372549019607" green="0.88235294117647056" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RGq-Ws-ZzK">
+                                                <rect key="frame" x="125.5" y="0.0" width="108.5" height="107"/>
+                                                <color key="backgroundColor" red="0.96078431372549022" green="0.1755672089041096" blue="0.56862745098039214" alpha="0.15349422089041087" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                <inset key="titleEdgeInsets" minX="-47" minY="0.0" maxX="0.0" maxY="-65"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="-14" maxX="-68" maxY="0.0"/>
+                                                <state key="normal" title="Medication" image="medication-1">
+                                                    <color key="titleColor" red="0.96078431372549022" green="0.25882352941176467" blue="0.56862745098039214" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="17" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZlW-K0-aiU" userLabel="Stack View bottom">
+                                        <rect key="frame" x="20" y="163" width="234" height="107"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xai-ax-G0z">
+                                                <rect key="frame" x="0.0" y="0.0" width="108.5" height="107"/>
+                                                <color key="backgroundColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="0.3340913955479452" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="107" id="uWQ-Ap-UIj"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                <inset key="titleEdgeInsets" minX="-58" minY="0.0" maxX="0.0" maxY="-65"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="-17" maxX="-86" maxY="0.0"/>
+                                                <state key="normal" title="Doctor visits" image="calendar-2">
+                                                    <color key="titleColor" red="0.20392156862745098" green="0.59607843137254901" blue="0.85882352941176465" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOx-yZ-Eue">
+                                                <rect key="frame" x="125.5" y="0.0" width="108.5" height="107"/>
+                                                <color key="backgroundColor" red="0.80000000000000004" green="0.086274509803921567" blue="0.81176470588235294" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                <inset key="titleEdgeInsets" minX="-58" minY="0.0" maxX="0.0" maxY="-65"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="-17" maxX="-76" maxY="0.0"/>
+                                                <state key="normal" title="Vaccination" image="vaccine-3">
+                                                    <color key="titleColor" red="0.80000000000000004" green="0.086274509803921567" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="ZlW-K0-aiU" firstAttribute="top" secondItem="gUl-2s-t01" secondAttribute="bottom" constant="36" id="0fg-iS-vBJ"/>
+                                    <constraint firstItem="gUl-2s-t01" firstAttribute="top" secondItem="91z-GM-WY2" secondAttribute="top" constant="20" id="1U2-Po-YSq"/>
+                                    <constraint firstItem="ZlW-K0-aiU" firstAttribute="leading" secondItem="91z-GM-WY2" secondAttribute="leading" constant="20" id="Auz-nw-Iqe"/>
+                                    <constraint firstItem="gUl-2s-t01" firstAttribute="leading" secondItem="ZlW-K0-aiU" secondAttribute="leading" id="FdR-X8-swG"/>
+                                    <constraint firstItem="gUl-2s-t01" firstAttribute="trailing" secondItem="ZlW-K0-aiU" secondAttribute="trailing" id="LiI-TF-3fr"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZlW-K0-aiU" secondAttribute="trailing" constant="20" id="h8Z-dL-jE3"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="91z-GM-WY2" firstAttribute="top" secondItem="zpZ-nw-L2C" secondAttribute="topMargin" constant="77" id="5cz-oc-0kq"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="91z-GM-WY2" secondAttribute="bottom" constant="92" id="E0r-rS-Dal"/>
+                            <constraint firstItem="91z-GM-WY2" firstAttribute="leading" secondItem="zpZ-nw-L2C" secondAttribute="leadingMargin" constant="7" id="YwA-vd-ToW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="91z-GM-WY2" secondAttribute="trailing" constant="7" id="mlt-Pa-NHn"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Health" id="76m-mk-lWd"/>
+                    <connections>
+                        <outlet property="calendarButton" destination="xai-ax-G0z" id="knm-dD-pQn"/>
+                        <outlet property="feverButton" destination="e6t-k1-GYV" id="HT5-HS-mYD"/>
+                        <outlet property="medicationButton" destination="RGq-Ws-ZzK" id="u4M-mF-3uN"/>
+                        <outlet property="vaccineButton" destination="wOx-yZ-Eue" id="XBH-Uv-YTG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qRq-z9-UlR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1530" y="403.52112676056339"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="baby-face2" width="50" height="50"/>
+        <image name="calendar-2" width="60" height="60"/>
+        <image name="doctorfilled" width="30" height="30"/>
+        <image name="fever-2" width="60" height="60"/>
         <image name="icons8-baby-bottle-filled-48 (3)" width="48" height="48"/>
         <image name="icons8-home-filled-96" width="32" height="32"/>
-        <image name="icons8-medical-doctor-filled-100" width="33" height="33"/>
         <image name="icons8-nappy-filled-48 (1)" width="48" height="48"/>
-        <image name="icons8-pill-filled-48" width="48" height="48"/>
         <image name="icons8-sleeping-in-bed-filled-48" width="48" height="48"/>
         <image name="icons8-time-50" width="50" height="50"/>
+        <image name="medication-1" width="48" height="48"/>
+        <image name="vaccine-3" width="60" height="60"/>
     </resources>
 </document>

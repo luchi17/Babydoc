@@ -14,7 +14,7 @@ import RLBAlertsPickers
 
 
 class BabyInfoViewController : UITableViewController{
-
+    
     var babyProperties : Results<Baby>?
     var realm = try! Realm()
     var propertyDictionaryName = [[String]]()
@@ -26,7 +26,7 @@ class BabyInfoViewController : UITableViewController{
     }
     var defaultOptions = SwipeOptions()
     weak var delegate : notifyChangeInNameDelegate?
-
+    
     
     let normalColor = UIColor.flatGrayDark
     let font = UIFont(name: "Avenir-Heavy", size: 17)
@@ -36,29 +36,35 @@ class BabyInfoViewController : UITableViewController{
     let cancelColor = UIColor.flatSkyBlue
     let greenColor = UIColor.init(hexString: "64C5CF")
     let grayColor = UIColor.init(hexString: "555555")
+    let grayLightColor = UIColor.init(hexString: "7F8484")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
+        
+        
         tableView.register(UINib(nibName: "TextFieldTableViewCell", bundle: nil), forCellReuseIdentifier: "babyInfoCell")
         propertyDictionaryName = [["name","Name"],["dateOfBirth","Date Of Birth"],["age","Age"], ["weight","Weight"],["height","Height"],["headDiameter","Head Diameter"],["bloodType","Blood Type"],["allergies" , "Allergies"],["illnesses","Illnesses"]]
         
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .always
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
+        
     }
-
-
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 85.0
         
     }
     
-
-
+    
+    
     
     //MARK - Table View Datasource method
-
-
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return propertyDictionaryName.count
         
@@ -68,7 +74,7 @@ class BabyInfoViewController : UITableViewController{
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-
+        
         let cellBabyInfo = tableView.dequeueReusableCell(withIdentifier: "babyInfoCell", for: indexPath) as! TextFieldTableViewCell
         cellBabyInfo.delegate = self as SwipeTableViewCellDelegate
         cellBabyInfo.fieldNameLabel.text! = propertyDictionaryName[indexPath.row][1]
@@ -78,14 +84,43 @@ class BabyInfoViewController : UITableViewController{
         return cellBabyInfo
     }
     
-  
-
-
-
+    
+    
+    //MARK: Data Manipulation methods
+    
+    func loadProperties(){
+        babyProperties =  realm.objects(Baby.self).filter( "name == %@",selectedBaby?.name as Any)
+        
+        tableView.reloadData()
+    }
+    
+    func saveBabyInfo(valueToSave : Any, forkey : String){
+        
+        do {
+            
+            try realm.write {
+                (self.babyProperties?[0].setValue(valueToSave, forKeyPath: forkey))!
+                if forkey == "name"{
+                    
+                    self.selectedBaby?.parentRegisteredBabies.setValue(valueToSave, forKeyPath: forkey)
+                }
+            }
+            loadProperties()
+            if let delegate = self.delegate {
+                delegate.loadNewName()
+            }
+        } catch {
+            print("Error saving done status, \(error)")
+        }
+        
+        
+        
+    }
+    
     //MARK: CalculateAge method
     
-   var _dateFormatter: DateFormatter?
-   var dateFormatter: DateFormatter {
+    var _dateFormatter: DateFormatter?
+    var dateFormatter: DateFormatter {
         if (_dateFormatter == nil) {
             _dateFormatter = DateFormatter()
             _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
@@ -93,10 +128,10 @@ class BabyInfoViewController : UITableViewController{
         }
         return _dateFormatter!
     }
-     func dateFromString(dateString: String) -> Date? {
+    func dateFromString(dateString: String) -> Date? {
         return dateFormatter.date(from: dateString)
     }
-     func dateStringFromDate(date: Date) -> String {
+    func dateStringFromDate(date: Date) -> String {
         return dateFormatter.string(from: date)
     }
     func calculateAge(dob : String) -> (year :Int, month : Int, day : Int){
@@ -154,43 +189,13 @@ class BabyInfoViewController : UITableViewController{
         
         return (years, months, days)
     }
-
     
-
-  
     
-    //MARK: Data Manipulation methods
     
-    func loadProperties(){
-        babyProperties =  realm.objects(Baby.self).filter( "name == %@",selectedBaby?.name as Any)
-        
-        tableView.reloadData()
-    }
     
-    func saveBabyInfo(valueToSave : Any, forkey : String){
-        
-        do {
-            
-            try realm.write {
-                (self.babyProperties?[0].setValue(valueToSave, forKeyPath: forkey))!
-                if forkey == "name"{
-                    
-                    self.selectedBaby?.parentRegisteredBabies.setValue(valueToSave, forKeyPath: forkey)
-                }
-            }
-            loadProperties()
-            if let delegate = self.delegate {
-                delegate.loadNewName()
-            }
-        } catch {
-            print("Error saving done status, \(error)")
-        }
-        
-        
-        
-    }
-
-
+    
+    
+    
 }
 //MARK: SwipeTableViewCell methods
 extension BabyInfoViewController : SwipeTableViewCellDelegate{
@@ -209,7 +214,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                 
                 if indexPath.row == 1{
                     
-                    let alert = UIAlertController(style: .alert, title: "Select Date Of Birth")
+                    let alert = UIAlertController(style: .alert, title: "Select \(self.propertyDictionaryName[indexPath.row][1])")
                     let hoursIn13years = 113880
                     let maxDate = Date()
                     let minDate = Calendar.current.date(byAdding: .hour, value: -hoursIn13years, to: maxDate)!
@@ -242,22 +247,21 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         self.saveBabyInfo(valueToSave: finalStringAge, forkey: "age")
                         
                         alert.dismiss(animated: true, completion: nil)
-                })
+                    })
                     
-                    //let cancel_action = UIAlertAction(title: "Cancel", style: .destructive)
+                    alert.addAction(title : "Cancel" , style: .cancel)
                     alert.addAction(ok_action)
-                    alert.addAction(title : "Cancel" , style: .destructive)
-                    
-                    alert.show()
+                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
                 }
+                    
                 else if indexPath.row == 0 || indexPath.row == 7 || indexPath.row == 8{
                     
-                    let alert = UIAlertController(style: .alert, title: "Edit "+self.propertyDictionaryName[indexPath.row][0] )
+                    let alert = UIAlertController(style: .alert, title: "Edit "+self.propertyDictionaryName[indexPath.row][1] )
                     let config: TextField.Config = { textField in
                         
                         
                         textField.becomeFirstResponder()
-                        textField.textColor = .flatBlackDark
+                        textField.textColor = self.grayLightColor
                         textField.font = self.fontLight
                         textField.leftViewPadding = 6
                         textField.borderStyle = .roundedRect
@@ -265,7 +269,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         textField.keyboardAppearance = .default
                         textField.keyboardType = .default
                         textField.returnKeyType = .done
-                        textField.placeholder = "New \(self.propertyDictionaryName[indexPath.row][1])..."
+                        textField.placeholder = "new \(self.propertyDictionaryName[indexPath.row][0])..."
                         textFieldStore = textField
                     }
                     alert.addOneTextField(configuration: config)
@@ -277,17 +281,18 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         self.navigationItem.title = self.selectedBaby?.name
                     })
                     
+                    
+                    alert.addAction(title: "Cancel" , style : .cancel)
                     alert.addAction(okAction)
-                    alert.addAction(title: "Cancel" , style : .destructive)
-                    alert.show()
-
+                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                    
                 }
                 else if indexPath.row == 2{
                     cell.isUserInteractionEnabled = false
                 }
                 else if indexPath.row == 3
                 {
-                   
+                    
                     let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
                     alert.setTitle(font: self.font!, color: self.greenColor!)
                     var weight  = Float()
@@ -309,21 +314,22 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         else if picker.selectedRow(inComponent: 1) == 1{
                             weightUnit = " lbs"
                         }
-
-  
+                        
+                        
                     }
                     let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
                         
                         let finalStringWeight = String(format : "%.2f",weight) + weightUnit
                         print(finalStringWeight)
                         self.saveBabyInfo(valueToSave: finalStringWeight, forkey: self.propertyDictionaryName[indexPath.row][0])
-
+                        
                     })
-                    alert.addAction(done_action)
-                    alert.addAction(title: "Cancel" , style : .destructive)
-                    alert.show()
                     
-                  
+                    alert.addAction(title: "Cancel" , style : .cancel)
+                    alert.addAction(done_action)
+                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                    
+                    
                 }
                 else if indexPath.row == 4 || indexPath.row == 5 {
                     
@@ -352,9 +358,10 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                             self.saveBabyInfo(valueToSave: finalStringHeight, forkey: self.propertyDictionaryName[indexPath.row][0])
                             
                         })
+                        
+                        alert.addAction(title: "Cancel" , style : .cancel)
                         alert.addAction(done_action)
-                        alert.addAction(title: "Cancel" , style : .destructive)
-                        alert.show()
+                        alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
                         
                         
                         
@@ -382,9 +389,10 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                             self.saveBabyInfo(valueToSave: finalStringHeight, forkey: self.propertyDictionaryName[indexPath.row][0])
                             
                         })
+                        
+                        alert.addAction(title: "Cancel" , style : .cancel)
                         alert.addAction(done_action)
-                        alert.addAction(title: "Cancel" , style : .destructive)
-                        alert.show()
+                        alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
                     default:
                         print("saludos")
                         
@@ -407,26 +415,21 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         
                         
                     }
-                    let done_action = UIAlertAction(title: "Done", style: .default, handler: { (alertAction) in
+                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
                         
                         self.saveBabyInfo(valueToSave: bloodType, forkey: self.propertyDictionaryName[indexPath.row][0])
                         
                     })
                     alert.setTitle(font: self.font!, color: self.greenColor!)
+                    alert.addAction(title: "Cancel" , style : .cancel)
                     alert.addAction(done_action)
-                    alert.addAction(title: "Cancel" , style : .destructive)
-                    alert.show()
+                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
                 }
-               
-                
-                
                 
             }
-            //edit.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.99))
             edit.image = UIImage(named: "editt")
-            //edit.image?.
             edit.hidesWhenSelected = true
-        
+            
             
             return [edit]
         }
@@ -442,7 +445,7 @@ protocol notifyChangeInNameDelegate : class  {
 }
 extension Date {
     
-  
+    
     var daysInMonth:Int{
         let calendar = Calendar.current
         

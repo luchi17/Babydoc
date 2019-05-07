@@ -100,7 +100,10 @@ class HomeViewController: UIViewController, resizeImageDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       //
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+            navigationController?.navigationBar.prefersLargeTitles = false
+        }
         
         
         let formatter = DateFormatter()
@@ -426,7 +429,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource{
         cell.noteField.text = "Remember to give it twice" //when db done check what happens if the note added is too big
         cell.noteField.textColor = UIColor.init(hexString: "7F8484")
         
-        cell.actionImage.image = UIImage(named: "icons8-pill-filled-48")
+        cell.actionImage.image = UIImage(named: "medication-1")
         
         return cell
     }
@@ -447,7 +450,7 @@ class ActionView: UIView
     var sleepcolor :UIColor = UIColor.init(hexString: "2772db")!
     var feedcolor :UIColor = UIColor.init(hexString: "85ef47")!
     var diapercolor :UIColor = UIColor.init(hexString: "37D4C0")!
-    var medicationcolor :UIColor = UIColor.init(hexString: "F81B9A")!
+    var medicationcolor :UIColor = UIColor.init(hexString: "F54291")! //F81B9A
    
     
     

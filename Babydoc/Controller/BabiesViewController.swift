@@ -31,8 +31,18 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         loadBabies()
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .always
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
+//        let babyface = UIImage(named: "baby-face")
+//        let imageView = UIImageView(image:babyface)
+//        imageView.contentMode = .scaleAspectFit
+//        self.navigationItem.titleView = imageView
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -45,13 +55,13 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
     @IBAction func addBabyPressed(_ sender: UIBarButtonItem) {
         
         var textFieldStore = UITextField()
-
         let alert = UIAlertController(style: .alert, title: "Add New Child" )
+        
         let config: TextField.Config = { textField in
             
             
             textField.becomeFirstResponder()
-            textField.textColor = .flatBlackDark
+            textField.textColor = self.grayLightColor
             textField.font = self.fontLight
             textField.leftViewPadding = 6
             textField.borderStyle = .roundedRect
@@ -62,18 +72,31 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
             textField.placeholder = "new baby name..."
             textFieldStore = textField
         }
-        alert.setTitle(font: font!, color: self.grayLightColor!)
+        
+        alert.setTitle(font: font!, color: self.grayColor!)
         alert.addOneTextField(configuration: config)
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
             
+            if textFieldStore.text!.isEmpty{
+                let alert = UIAlertController(title: "Error", message: "The name field cannot be empty, please add the child again and enter a valid name", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok", style: .default, handler: { (alertaction) in
+                    alert.dismiss(animated: true, completion: nil)
+                })
+                alert.addAction(action)
+                alert.show(animated: true, vibrate: true, style: .extraLight, completion: nil)
+            }
+                
+                
             let newBaby = Baby()
             newBaby.name = textFieldStore.text!
             self.save(baby : newBaby)
         })
         
+        alert.addAction(title: "Cancel" , style : .cancel)
         alert.addAction(okAction)
-        alert.addAction(title: "Cancel" , style : .destructive)
         alert.show()
+        
+        
     }
     
     
@@ -104,6 +127,7 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "goToBabyInfo", sender: self)
+
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -115,7 +139,10 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
             destinationVC.selectedBaby  = registeredBabies?[indexpath.row]
             destinationVC.delegate = self
             destinationVC.navigationItem.title = destinationVC.selectedBaby?.name
-      
+            if #available(iOS 11.0, *) {
+                // We choose not to have a large title for the destination view controller.
+                segue.destination.navigationItem.largeTitleDisplayMode = .automatic
+            }
         }
     
     }
@@ -177,16 +204,18 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
                     
                 })
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
-                    alert.dismiss(animated: true, completion: nil)
+                
                 })
                 
+                alert.setTitle(font: self.font!, color: self.grayColor!)
+                alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
                 alert.addAction(removeAction)
                 alert.addAction(cancelAction)
                 alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
                 
              }
             removeSwipe.backgroundColor = .red
-            //removeSwipe.image = UIImage(named: "delete-icon")
+            removeSwipe.hidesWhenSelected = true
             if let delegate = self.delegate {
                 removeSwipe.image = delegate.resizeImageIsCalled(image: UIImage(named: "delete-icon")!, size: CGSize(width: 30, height: 30))
             }
@@ -199,10 +228,9 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
             return nil
         }
         
-        
-        
-        
     }
+
+
 }
 
 protocol resizeImageDelegate : class {

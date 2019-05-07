@@ -30,7 +30,7 @@
                                             <constraint firstAttribute="height" constant="19" id="2ZR-ml-TRv"/>
                                             <constraint firstAttribute="width" constant="82.5" id="4LW-uK-WMO"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
