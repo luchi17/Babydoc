@@ -14,24 +14,18 @@ import AUPickerCell
 
 
 class DoctorViewController : UIViewController {
-    
-    @IBOutlet weak var feverButton: UIButton!
-    @IBOutlet weak var calendarButton: UIButton!
-    @IBOutlet weak var vaccineButton: UIButton!
-    @IBOutlet weak var medicationButton: UIButton!
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-       medicationButton.layer.masksToBounds = false
-        medicationButton.layer.shadowColor = UIColor.flatGray.cgColor
-        medicationButton.layer.shadowOpacity = 0.7
-        medicationButton.layer.shadowRadius = 1
-        medicationButton.layer.shadowOffset = CGSize(width: 1.2, height: 1.2)
-        
-        //self.view.addSubview(feverButton)
-        
+    
+//
+//      override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        //medicationButton.buttonType = .system
+//
+//        medicationButton.set(image: UIImage(named: "medication-1"), title: "Shout", titlePosition: .top, additionalSpacing: 30.0, state: .normal)
+////             medicationButton.set(image: UIImage(named: "medication-1"), title: "Medication", titlePosition: .top, additionalSpacing: 30.0, state: .normal)
+    
+   
     }
     
     
@@ -40,5 +34,8 @@ class DoctorViewController : UIViewController {
     
     
 
-}
+
+
+    
+
 
