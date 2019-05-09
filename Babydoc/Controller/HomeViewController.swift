@@ -117,7 +117,6 @@ class HomeViewController: UIViewController, resizeImageDelegate{
 
         dateToday.layer.cornerRadius = 2
         dateToday.layer.masksToBounds = false
-        //dateToday.layer.shadowColor = UIColor.init(hexString: "3BB4C1")?.cgColor
         dateToday.layer.shadowColor = UIColor.flatGray.cgColor
         dateToday.layer.shadowOpacity = 0.7
         dateToday.layer.shadowRadius = 1

@@ -8,23 +8,25 @@
 
 
 import UIKit
-//import RealmSwift
+import RealmSwift
 import ChameleonFramework
 import AUPickerCell
 
 
 class DoctorViewController : UIViewController {
 
+    @IBOutlet weak var medicationButton: UIButton!
+    @IBOutlet weak var vaccineButton: UIButton!
+    @IBOutlet weak var temperatureButton: UIButton!
+    @IBOutlet weak var doctorVisitsButton: UIButton!
     
-//
-//      override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        //medicationButton.buttonType = .system
-//
-//        medicationButton.set(image: UIImage(named: "medication-1"), title: "Shout", titlePosition: .top, additionalSpacing: 30.0, state: .normal)
-////             medicationButton.set(image: UIImage(named: "medication-1"), title: "Medication", titlePosition: .top, additionalSpacing: 30.0, state: .normal)
+
+      override func viewDidLoad() {
+        super.viewDidLoad()
+
+    }
     
+
    
     }
     

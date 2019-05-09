@@ -412,7 +412,7 @@
         <!--Health-->
         <scene sceneID="JgI-YD-jWY">
             <objects>
-                <viewController id="6No-hS-Arp" sceneMemberID="viewController">
+                <viewController id="6No-hS-Arp" customClass="DoctorViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ozn-B9-OsT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -436,7 +436,7 @@
                                                                     <constraint firstAttribute="width" constant="138" id="AvH-I7-y1L"/>
                                                                     <constraint firstAttribute="height" constant="80" id="BBv-Hf-jGO"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                                                                 <state key="normal" image="medication-1">
                                                                     <color key="titleColor" red="0.96078431369999995" green="0.25882352939999997" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
@@ -447,7 +447,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="19.5" id="F8E-Vj-vSQ"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                                 <color key="textColor" red="0.96078431369999995" green="0.25882352939999997" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -463,7 +463,7 @@
                                                                     <constraint firstAttribute="height" constant="80" id="Hok-U0-LWv"/>
                                                                     <constraint firstAttribute="width" constant="138" id="ylf-K7-306"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                                                                 <state key="normal" image="vaccine-3">
                                                                     <color key="titleColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
@@ -474,7 +474,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="19.5" id="z8H-L8-xHO"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                                 <color key="textColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -490,7 +490,7 @@
                                                                     <constraint firstAttribute="width" constant="138" id="NVA-0i-Y59"/>
                                                                     <constraint firstAttribute="height" constant="80" id="fsm-L4-Y3a"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                                                                 <state key="normal" image="fever-2">
                                                                     <color key="titleColor" red="0.078431372550000003" green="0.88235294119999996" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
@@ -501,8 +501,8 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="19.5" id="Yzj-IC-78h"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
-                                                                <color key="textColor" red="0.078431372550000003" green="0.88235294119999996" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                                <color key="textColor" red="0.12549019607843137" green="0.58088077910958902" blue="0.396078431372549" alpha="0.89704623287671237" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -517,7 +517,7 @@
                                                                     <constraint firstAttribute="width" constant="138" id="joh-FY-kN5"/>
                                                                     <constraint firstAttribute="height" constant="80" id="z7O-6L-bkx"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="16"/>
                                                                 <state key="normal" image="calendar-2">
                                                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
@@ -528,7 +528,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="19.5" id="1QK-3e-Wj3"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="14"/>
+                                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -576,6 +576,12 @@
                         <viewLayoutGuide key="safeArea" id="u7C-9c-5WA"/>
                     </view>
                     <navigationItem key="navigationItem" title="Health" id="4df-My-Sxt"/>
+                    <connections>
+                        <outlet property="doctorVisitsButton" destination="ol8-bY-kYC" id="hWG-s7-uJ5"/>
+                        <outlet property="medicationButton" destination="Q8g-UG-Dec" id="8RK-Ot-XMD"/>
+                        <outlet property="temperatureButton" destination="daH-Sv-7dY" id="fMg-9E-Ymr"/>
+                        <outlet property="vaccineButton" destination="dqE-zW-4Zg" id="XiO-qd-swq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Op6-10-Lzs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
