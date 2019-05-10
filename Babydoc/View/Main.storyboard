@@ -269,12 +269,21 @@
                         <color key="tintColor" red="0.23137254900000001" green="0.70588235290000001" blue="0.75686274509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.75686274509803919" green="0.75686274509803919" blue="0.75686274509803919" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="babiesCell" id="uox-TK-xc5" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="babiesCell" textLabel="R7t-1c-Vtq" style="IBUITableViewCellStyleDefault" id="uox-TK-xc5" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uox-TK-xc5" id="Qfr-gb-AM4">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="R7t-1c-Vtq">
+                                            <rect key="frame" x="16" y="0.0" width="288" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
+                                            <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableViewCell>
@@ -412,7 +421,7 @@
         <!--Health-->
         <scene sceneID="JgI-YD-jWY">
             <objects>
-                <viewController id="6No-hS-Arp" customClass="DoctorViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6No-hS-Arp" customClass="HealthViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ozn-B9-OsT">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -431,7 +440,7 @@
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8g-UG-Dec">
                                                                 <rect key="frame" x="0.0" y="0.0" width="138" height="80"/>
-                                                                <color key="backgroundColor" red="0.96078431369999995" green="0.17556720889999999" blue="0.56862745100000001" alpha="0.15349422090000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="1" green="0.62745098039215685" blue="0.82352941176470584" alpha="0.47742936643835621" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="138" id="AvH-I7-y1L"/>
                                                                     <constraint firstAttribute="height" constant="80" id="BBv-Hf-jGO"/>
@@ -443,7 +452,7 @@
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Medication" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqy-qs-dag">
                                                                 <rect key="frame" x="0.0" y="80" width="138" height="19.5"/>
-                                                                <color key="backgroundColor" red="0.96078431369999995" green="0.17556720889999999" blue="0.56862745100000001" alpha="0.15349422090000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="1" green="0.62745098039215685" blue="0.82352941176470584" alpha="0.47999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="19.5" id="F8E-Vj-vSQ"/>
                                                                 </constraints>
@@ -458,7 +467,7 @@
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dqE-zW-4Zg">
                                                                 <rect key="frame" x="0.0" y="0.0" width="138" height="80"/>
-                                                                <color key="backgroundColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.96078431372549022" green="0.53333333333333333" blue="0.97647058823529409" alpha="0.54959011130136992" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="80" id="Hok-U0-LWv"/>
                                                                     <constraint firstAttribute="width" constant="138" id="ylf-K7-306"/>
@@ -467,10 +476,13 @@
                                                                 <state key="normal" image="vaccine-3">
                                                                     <color key="titleColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <segue destination="gpa-78-AJE" kind="show" identifier="goToVaccines" id="gK6-Me-hPa"/>
+                                                                </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vaccine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B78-MK-Ocg">
                                                                 <rect key="frame" x="0.0" y="80" width="138" height="19.5"/>
-                                                                <color key="backgroundColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.96078431372549022" green="0.53333333333333333" blue="0.97647058823529409" alpha="0.55000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="19.5" id="z8H-L8-xHO"/>
                                                                 </constraints>
@@ -512,7 +524,7 @@
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ol8-bY-kYC">
                                                                 <rect key="frame" x="0.0" y="0.0" width="138" height="80"/>
-                                                                <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="0.3340913955" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.23529411764705882" green="0.61176470588235299" blue="0.97647058823529409" alpha="0.48472495719178088" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="138" id="joh-FY-kN5"/>
                                                                     <constraint firstAttribute="height" constant="80" id="z7O-6L-bkx"/>
@@ -524,7 +536,7 @@
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doctor visits" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wj4-9o-Tvf">
                                                                 <rect key="frame" x="0.0" y="80" width="138" height="19.5"/>
-                                                                <color key="backgroundColor" red="0.20392156859999999" green="0.59607843140000005" blue="0.85882352939999995" alpha="0.3340913955" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.23529411764705882" green="0.61176470588235299" blue="0.97647058823529409" alpha="0.47999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="19.5" id="1QK-3e-Wj3"/>
                                                                 </constraints>
@@ -548,7 +560,7 @@
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="Epz-Zr-LXb" firstAttribute="centerX" secondItem="rg6-Uo-fld" secondAttribute="centerX" id="KIr-V5-w65"/>
-                                            <constraint firstItem="Epz-Zr-LXb" firstAttribute="centerY" secondItem="rg6-Uo-fld" secondAttribute="centerY" constant="-55" id="UXY-2O-9cE"/>
+                                            <constraint firstItem="Epz-Zr-LXb" firstAttribute="centerY" secondItem="TAQ-oC-vCm" secondAttribute="centerY" constant="-55" id="UXY-2O-9cE"/>
                                         </constraints>
                                         <viewLayoutGuide key="safeArea" id="TAQ-oC-vCm"/>
                                     </view>
@@ -586,6 +598,98 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Op6-10-Lzs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1775.625" y="385.56338028169017"/>
+        </scene>
+        <!--Systemic Vaccines View Controller-->
+        <scene sceneID="BfB-w2-Inn">
+            <objects>
+                <viewController id="gpa-78-AJE" userLabel="Systemic Vaccines View Controller" customClass="VaccineViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pFE-ZB-Qak">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VaM-7M-Qbu">
+                                <rect key="frame" x="0.0" y="112" width="320" height="407"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="vaccineCell" id="dLl-vk-99y" customClass="CustomCellVaccine" customModule="Babydoc" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dLl-vk-99y" id="T8o-av-Wrv">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ov-rV-wdC" userLabel="Title">
+                                                    <rect key="frame" x="6" y="0.0" width="201" height="39.5"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
+                                                    <color key="textColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhs-rP-DmQ">
+                                                    <rect key="frame" x="227" y="0.0" width="87" height="43.5"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="87" id="gTx-ev-MsC"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
+                                                    <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="1ov-rV-wdC" secondAttribute="bottom" constant="4" id="213-4c-0p0"/>
+                                                <constraint firstItem="fhs-rP-DmQ" firstAttribute="leading" secondItem="1ov-rV-wdC" secondAttribute="trailing" constant="20" id="JYd-CY-TP1"/>
+                                                <constraint firstAttribute="trailing" secondItem="fhs-rP-DmQ" secondAttribute="trailing" constant="6" id="Ppr-5E-kWh"/>
+                                                <constraint firstItem="fhs-rP-DmQ" firstAttribute="top" secondItem="1ov-rV-wdC" secondAttribute="top" id="cx3-Ke-y2i"/>
+                                                <constraint firstItem="fhs-rP-DmQ" firstAttribute="top" secondItem="T8o-av-Wrv" secondAttribute="top" id="e6X-zZ-IpO"/>
+                                                <constraint firstItem="1ov-rV-wdC" firstAttribute="leading" secondItem="T8o-av-Wrv" secondAttribute="leading" constant="6" id="hnw-5b-Zsn"/>
+                                                <constraint firstAttribute="bottom" secondItem="fhs-rP-DmQ" secondAttribute="bottom" id="psP-B4-vFh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateVaccine" destination="fhs-rP-DmQ" id="BRg-ZM-5vc"/>
+                                            <outlet property="nameVaccine" destination="1ov-rV-wdC" id="3GT-Kd-2dw"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="k4O-Vz-XHn">
+                                <rect key="frame" x="6" y="76" width="308" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="308" id="UCC-5m-aIL"/>
+                                    <constraint firstAttribute="height" constant="28" id="qFa-57-blF"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Funded"/>
+                                    <segment title="Non-funded"/>
+                                    <segment title="Administered"/>
+                                </segments>
+                                <color key="tintColor" red="0.80000000000000004" green="0.086274509803921567" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VaM-7M-Qbu" firstAttribute="trailing" secondItem="da1-vh-7Is" secondAttribute="trailing" id="2LY-wX-Ndp"/>
+                            <constraint firstItem="VaM-7M-Qbu" firstAttribute="top" secondItem="k4O-Vz-XHn" secondAttribute="bottom" constant="8" id="9Aj-iF-yEg"/>
+                            <constraint firstItem="VaM-7M-Qbu" firstAttribute="leading" secondItem="da1-vh-7Is" secondAttribute="leading" id="MiD-6e-ot8"/>
+                            <constraint firstItem="k4O-Vz-XHn" firstAttribute="centerY" secondItem="da1-vh-7Is" secondAttribute="top" constant="26" id="POA-R0-kiO"/>
+                            <constraint firstItem="VaM-7M-Qbu" firstAttribute="bottom" secondItem="da1-vh-7Is" secondAttribute="bottom" id="eHV-VP-la8"/>
+                            <constraint firstItem="k4O-Vz-XHn" firstAttribute="centerX" secondItem="pFE-ZB-Qak" secondAttribute="centerX" id="yma-pP-TCz"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="da1-vh-7Is"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Systemic Vaccines" id="Fjk-p6-Lm1">
+                        <barButtonItem key="rightBarButtonItem" title="Info" id="UEh-Kp-jhk"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="selectedVaccineCategory" destination="k4O-Vz-XHn" id="vMD-up-qy8"/>
+                        <outlet property="tableView" destination="VaM-7M-Qbu" id="Yfl-2z-Xqf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wrl-Jy-5kJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2465.625" y="382.3943661971831"/>
         </scene>
     </scenes>
     <resources>

@@ -14,7 +14,18 @@ import ProgressHUD
 import PMAlertController
 // MARK: - Home View Controller
 
-class HomeViewController: UIViewController, resizeImageDelegate{
+class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHome{
+    
+    func changeName(name: String) -> Bool {
+
+        
+        self.title = name
+        
+        return true
+    }
+    
+
+    
     func resizeImageIsCalled(image: UIImage, size: CGSize) -> UIImage {
         let image = resizeImage(image: image, targetSize: size)
         return image
@@ -90,6 +101,7 @@ class HomeViewController: UIViewController, resizeImageDelegate{
         //        //a table of items is going to appear or another
         let destinationVC = segue.destination as! BabiesViewController
         destinationVC.delegate = self
+        destinationVC.delegateNameBarHome = self
    
         
     }
@@ -258,7 +270,7 @@ extension HomeViewController : SwipeTableViewCellDelegate{
         var textfieldDate = UITextField()
         var textfieldNote = UITextField()
         let cell = tableView.cellForRow(at: indexPath) as! CustomCellHome
-        //let closure: (PMAlertAction) -> Void = { _ in cell.hideSwipe(animated: true) }
+
         if orientation == .right {
             
             
@@ -559,7 +571,7 @@ class GridView: UIView
 
   
 }
-// MARK: - Grid View
+// MARK: - RoundShadow View
 
 class RoundShadowView: UIView{
     

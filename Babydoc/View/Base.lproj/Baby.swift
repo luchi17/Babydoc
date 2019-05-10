@@ -20,8 +20,11 @@ class Baby : Object {
     @objc dynamic var bloodType : String = ""
     @objc dynamic var allergies : String = ""
     @objc dynamic var illnesses : String = ""
+    @objc dynamic var current : Bool = false
+    
    
     let calendar = List<DayOfYear>()
+    let vaccines = List<Vaccine>()
     var parentRegisteredBabies = LinkingObjects(fromType : RegisteredBabies.self , property : "babies" )
     
 

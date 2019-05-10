@@ -15,6 +15,9 @@ import RLBAlertsPickers
 
 class BabyInfoViewController : UITableViewController{
     
+    
+    
+    
     var babyProperties : Results<Baby>?
     var realm = try! Realm()
     var propertyDictionaryName = [[String]]()
@@ -24,8 +27,13 @@ class BabyInfoViewController : UITableViewController{
             
         }
     }
+    var currentBaby = Baby()
+    
+    
     var defaultOptions = SwipeOptions()
-    weak var delegate : notifyChangeInNameDelegate?
+    weak var delegate : NotifyChangeInNameDelegate?
+    weak var delegateCurrentBaby : CurrentBabyOftheAppDelegate?
+    
     
     
     let normalColor = UIColor.flatGrayDark
@@ -40,7 +48,6 @@ class BabyInfoViewController : UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         tableView.register(UINib(nibName: "TextFieldTableViewCell", bundle: nil), forCellReuseIdentifier: "babyInfoCell")
         propertyDictionaryName = [["name","Name"],["dateOfBirth","Date Of Birth"],["age","Age"], ["weight","Weight"],["height","Height"],["headDiameter","Head Diameter"],["bloodType","Blood Type"],["allergies" , "Allergies"],["illnesses","Illnesses"]]
@@ -77,6 +84,7 @@ class BabyInfoViewController : UITableViewController{
         
         let cellBabyInfo = tableView.dequeueReusableCell(withIdentifier: "babyInfoCell", for: indexPath) as! TextFieldTableViewCell
         cellBabyInfo.delegate = self as SwipeTableViewCellDelegate
+        cellBabyInfo.fieldNameLabel.textColor = UIColor.init(hexString: "64C5CF")
         cellBabyInfo.fieldNameLabel.text! = propertyDictionaryName[indexPath.row][1]
         cellBabyInfo.fieldValue.text = babyProperties?[0].value(forKeyPath: propertyDictionaryName[indexPath.row][0]) as? String
         
@@ -117,6 +125,7 @@ class BabyInfoViewController : UITableViewController{
         
     }
     
+    
     //MARK: CalculateAge method
     
     var _dateFormatter: DateFormatter?
@@ -128,9 +137,7 @@ class BabyInfoViewController : UITableViewController{
         }
         return _dateFormatter!
     }
-    func dateFromString(dateString: String) -> Date? {
-        return dateFormatter.date(from: dateString)
-    }
+    
     func dateStringFromDate(date: Date) -> String {
         return dateFormatter.string(from: date)
     }
@@ -189,8 +196,53 @@ class BabyInfoViewController : UITableViewController{
         
         return (years, months, days)
     }
+    func calcDateOfVaccination(doses : List<VaccineDoses>){
+        
+        
+        var dateOfDose = Date()
+        var dateOfDoseString = ""
+        var valueToSum = 0
+        let oneMonthHasHours = 730.001
+        
+        
+        
+        let birthDateString = dateFromString(dateString: selectedBaby!.dateOfBirth)
+        for vaccineDose in doses{
+            
+            let age = vaccineDose.ageOfVaccination
+            let stringArray = age.components(separatedBy: CharacterSet.decimalDigits.inverted)
+            for item in stringArray {
+                if let number = Int(item){
+                    if age.contains("months"){
+                        valueToSum = number*Int(oneMonthHasHours)
+                        dateOfDose = Calendar.current.date(byAdding: .hour, value: valueToSum, to: birthDateString!)!
+                        dateOfDoseString = dateStringFromDate(date: dateOfDose)
+                    }
+                }
+                
+                
+            }
+            do{
+                try realm.write {
+                    
+                    vaccineDose.correspondingDateOfVaccination = dateOfDoseString
+                    
+                }
+                print("date:\(vaccineDose.correspondingDateOfVaccination) and age:\(vaccineDose.ageOfVaccination) knowing bday: \(selectedBaby!.dateOfBirth)")
+            }
+            catch{
+                print(error)
+            }
+            
+            
+        }
+        
+        
+    }
     
-    
+    func dateFromString(dateString: String) -> Date? {
+        return dateFormatter.date(from: dateString)
+    }
     
     
     
@@ -230,7 +282,6 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         self.saveBabyInfo(valueToSave: dateString, forkey: self.propertyDictionaryName[indexPath.row][0])
                         
                         let age = self.calculateAge(dob: dateString)
-                        print("age:\(age)")
                         var finalStringAge = ""
                         if age.year < 1  {
                             if age.month == 0{
@@ -246,6 +297,11 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         }
                         self.saveBabyInfo(valueToSave: finalStringAge, forkey: "age")
                         
+                        for vaccine in self.selectedBaby!.vaccines{
+                            
+                            self.calcDateOfVaccination(doses: vaccine.doses)
+                        }
+                        //self.calcDateOfVaccination(doses: self.selectedBaby!.vaccines[0].doses )
                         alert.dismiss(animated: true, completion: nil)
                     })
                     
@@ -436,13 +492,20 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
         else{
             return nil
         }
+        
     }
     
     
+    
 }
-protocol notifyChangeInNameDelegate : class  {
+protocol NotifyChangeInNameDelegate : class  {
     func loadNewName()
 }
+protocol CurrentBabyOftheAppDelegate : class {
+    func getCurrentBaby()->Baby
+}
+
+
 extension Date {
     
     

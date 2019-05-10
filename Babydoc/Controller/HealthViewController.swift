@@ -13,7 +13,7 @@ import ChameleonFramework
 import AUPickerCell
 
 
-class DoctorViewController : UIViewController {
+class HealthViewController : UIViewController {
 
     @IBOutlet weak var medicationButton: UIButton!
     @IBOutlet weak var vaccineButton: UIButton!
@@ -23,10 +23,10 @@ class DoctorViewController : UIViewController {
 
       override func viewDidLoad() {
         super.viewDidLoad()
-
+         self.navigationController?.navigationBar.barTintColor = UIColor(hexString: "64C5CF")
     }
-    
 
+    
    
     }
     

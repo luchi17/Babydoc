@@ -26,13 +26,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         
         do {
-            _ = try Realm()
+            let realm = try Realm()
+            
+            if realm.objects(Vaccine.self).count == 0{
+                let vaccine1 = Vaccine()
+                vaccine1.name = "HB (Hepatitis B)"
+                let vaccine2 = Vaccine()
+                vaccine2.name = "DTaP (Diphtheria, Tetanus, Pertussis)"
+                
+                //Doses
+                let dose1 = VaccineDoses()
+                dose1.ageOfVaccination = "2 months"
+                let dose2 = VaccineDoses()
+                dose2.ageOfVaccination = "4 months"
+                let dose3 = VaccineDoses()
+                dose3.ageOfVaccination = "11 months"
+                
+
+                
+                
+                
+                try realm.write {
+                    vaccine1.doses.append(dose1)
+                    vaccine1.doses.append(dose2)
+                    vaccine1.doses.append(dose3)
+                    realm.add(vaccine1)
+                    vaccine2.doses.append(dose1)
+                    vaccine2.doses.append(dose2)
+                    vaccine2.doses.append(dose3)
+                    realm.add(vaccine2)
+                    
+                    
+                }
+                
+            }
+            
+            
+           
+            
+            
         } catch {
             print("Error initialising new realm, \(error)")
         }
         
         return true
     }
+
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -11,9 +11,17 @@ import RealmSwift
 import PMAlertController
 import SwipeCellKit
 import RLBAlertsPickers
+import ProgressHUD
 
 
-class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
+class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, CurrentBabyOftheAppDelegate{
+   
+    func getCurrentBaby() -> Baby {
+        let baby = getCurrentBabyApp()
+        return baby
+    }
+    
+    
     
     func loadNewName() {
         loadBabies()
@@ -21,6 +29,9 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
     
     let realm = try! Realm()
     var registeredBabies : Results<Baby>?
+    var vaccines : Results<Vaccine>?
+    var babyApp = Baby()
+
     let font = UIFont(name: "Avenir-Heavy", size: 17)
     let fontLight = UIFont(name: "Avenir-Medium", size: 17)
     let greenColor = UIColor.init(hexString: "32828A")
@@ -28,6 +39,8 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
     let grayLightColor = UIColor.init(hexString: "7F8484")
     var defaultOptions = SwipeOptions()
     weak var delegate : resizeImageDelegate?
+    weak var delegateNameBarHome : changeNameBarHome?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +51,10 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
             navigationItem.largeTitleDisplayMode = .always
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-//        let babyface = UIImage(named: "baby-face")
-//        let imageView = UIImageView(image:babyface)
-//        imageView.contentMode = .scaleAspectFit
-//        self.navigationItem.titleView = imageView
         
         
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
@@ -85,8 +95,7 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
                 alert.addAction(action)
                 alert.show(animated: true, vibrate: true, style: .extraLight, completion: nil)
             }
-                
-                
+            
             let newBaby = Baby()
             newBaby.name = textFieldStore.text!
             self.save(baby : newBaby)
@@ -98,9 +107,6 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
         
         
     }
-    
-    
-    
     
     
     //MARK: - Table View Data Source methods
@@ -115,8 +121,6 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath) as! SwipeTableViewCell
         
         cell.textLabel?.text = registeredBabies?[indexPath.row].name
-        cell.textLabel?.textColor = UIColor.init(hexString: "7F8484")
-        cell.textLabel?.font = fontLight
         
         cell.delegate = self
         return cell
@@ -126,18 +130,16 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
     //MARK: - Table View Delegate methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToBabyInfo", sender: self)
-
+       performSegue(withIdentifier: "goToBabyInfo", sender: self)
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        //this is done before segue occurs
-//        //each category has its own items so depending on which one you select,
-//        //a table of items is going to appear or another
+
         let destinationVC = segue.destination as! BabyInfoViewController
         if let indexpath = tableView.indexPathForSelectedRow {
             destinationVC.selectedBaby  = registeredBabies?[indexpath.row]
             destinationVC.delegate = self
+            destinationVC.delegateCurrentBaby = self
             destinationVC.navigationItem.title = destinationVC.selectedBaby?.name
             if #available(iOS 11.0, *) {
                 // We choose not to have a large title for the destination view controller.
@@ -152,9 +154,18 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
         
         
         do{
+            
+             vaccines = realm.objects(Vaccine.self)
+                //.filter("name == %@","HB (Hepatitis B) vaccine")
+            
             try realm.write {
-                //categories.append cannot be done because is of type Results and does not have a list
-                realm.add(baby) //PERSIST DATA
+                
+                if realm.objects(Baby.self).count == 0{
+                    baby.current = true
+                }
+                realm.add(baby)
+                
+                baby.vaccines.append(objectsIn: vaccines!)
             }
         }
         catch{
@@ -170,18 +181,31 @@ class BabiesViewController : UITableViewController, notifyChangeInNameDelegate{
         tableView.reloadData()
         
     }
+
+    
+
     func deleteBaby(baby : Baby){
         
         do{
             try realm.write {
-                //categories.append cannot be done because is of type Results and does not have a list
-                realm.delete(baby) //PERSIST DATA
+               
+                realm.delete(baby)
             }
         }
         catch{
             print(error)
         }
         loadBabies()
+    }
+    func getCurrentBabyApp() -> Baby{
+        
+        
+        for baby in registeredBabies!{
+            if baby.current == true{
+                babyApp = baby
+            }
+        }
+        return babyApp
     }
     
 }
@@ -191,7 +215,6 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
         
          defaultOptions.transitionStyle = .drag
         
-        //_ = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath) as! SwipeTableViewCell
         if orientation == .right{
             
             let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
@@ -225,7 +248,40 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
             
         }
         else{
-            return nil
+            
+            let currentBabySwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+                
+                
+                do{
+                    
+                    try self.realm.write {
+                        for baby in self.registeredBabies!{
+                            baby.current = false
+                        }
+                        self.registeredBabies![indexPath.row].current = true
+
+                    }
+                    
+                    ProgressHUD.showSuccess("\(self.registeredBabies![indexPath.row].name) has been established as the current baby of the app", interaction: true)
+                    
+                    if let delegate = self.delegateNameBarHome{
+                       let changed = delegate.changeName(name: self.registeredBabies![indexPath.row].name)
+                     
+                    }
+
+                }
+                catch{
+                    print("Unable to set the current baby \(error)")
+                }
+            }
+            
+            currentBabySwipeAction.backgroundColor = UIColor.flatMint
+            currentBabySwipeAction.hidesWhenSelected = true
+            if let delegate = self.delegate {
+                currentBabySwipeAction.image = delegate.resizeImageIsCalled(image: UIImage(named: "doubletick")!, size: CGSize(width: 30, height: 30))
+            }
+           return [currentBabySwipeAction]
+            
         }
         
     }
@@ -235,4 +291,8 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
 
 protocol resizeImageDelegate : class {
     func resizeImageIsCalled(image : UIImage , size : CGSize)->UIImage
+}
+
+protocol changeNameBarHome : class {
+    func changeName(name : String) -> Bool
 }
