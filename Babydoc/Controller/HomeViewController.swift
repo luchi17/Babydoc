@@ -20,6 +20,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
 
         
         self.title = name
+        self.tabBarItem.title = ""
         
         return true
     }

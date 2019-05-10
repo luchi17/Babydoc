@@ -366,7 +366,7 @@
         <scene sceneID="ruQ-rr-cKI">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="dHf-T4-wOs" userLabel="Home NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="icons8-home-filled-96" id="cPa-gy-q4n">
+                    <tabBarItem key="tabBarItem" title="Home" image="icons8-home-filled-96" id="cPa-gy-q4n">
                         <color key="badgeColor" red="0.12941176470588234" green="0.59607843137254901" blue="0.70196078431372544" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -391,7 +391,7 @@
         <scene sceneID="Dvu-So-JiG">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U2b-kG-dBV" userLabel="Doctor NC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="doctorfilled" id="squ-yf-EEq">
+                    <tabBarItem key="tabBarItem" title="Health" image="doctorfilled" id="squ-yf-EEq">
                         <color key="badgeColor" red="0.37254901959999998" green="0.74117647060000003" blue="0.69019607839999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -611,50 +611,37 @@
                                 <rect key="frame" x="0.0" y="112" width="320" height="407"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="vaccineCell" id="dLl-vk-99y" customClass="CustomCellVaccine" customModule="Babydoc" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="vaccineCell" editingAccessoryType="detailButton" id="dLl-vk-99y" customClass="CustomCellVaccine" customModule="Babydoc" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dLl-vk-99y" id="T8o-av-Wrv">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="273" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ov-rV-wdC" userLabel="Title">
-                                                    <rect key="frame" x="6" y="0.0" width="201" height="39.5"/>
+                                                    <rect key="frame" x="6" y="9.5" width="196" height="25"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
                                                     <color key="textColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhs-rP-DmQ">
-                                                    <rect key="frame" x="227" y="0.0" width="87" height="43.5"/>
-                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="87" id="gTx-ev-MsC"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
-                                                    <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="1ov-rV-wdC" secondAttribute="bottom" constant="4" id="213-4c-0p0"/>
-                                                <constraint firstItem="fhs-rP-DmQ" firstAttribute="leading" secondItem="1ov-rV-wdC" secondAttribute="trailing" constant="20" id="JYd-CY-TP1"/>
-                                                <constraint firstAttribute="trailing" secondItem="fhs-rP-DmQ" secondAttribute="trailing" constant="6" id="Ppr-5E-kWh"/>
-                                                <constraint firstItem="fhs-rP-DmQ" firstAttribute="top" secondItem="1ov-rV-wdC" secondAttribute="top" id="cx3-Ke-y2i"/>
-                                                <constraint firstItem="fhs-rP-DmQ" firstAttribute="top" secondItem="T8o-av-Wrv" secondAttribute="top" id="e6X-zZ-IpO"/>
+                                                <constraint firstItem="1ov-rV-wdC" firstAttribute="centerY" secondItem="T8o-av-Wrv" secondAttribute="centerY" id="IJt-LG-MF1"/>
                                                 <constraint firstItem="1ov-rV-wdC" firstAttribute="leading" secondItem="T8o-av-Wrv" secondAttribute="leading" constant="6" id="hnw-5b-Zsn"/>
-                                                <constraint firstAttribute="bottom" secondItem="fhs-rP-DmQ" secondAttribute="bottom" id="psP-B4-vFh"/>
+                                                <constraint firstAttribute="trailing" secondItem="1ov-rV-wdC" secondAttribute="trailing" constant="71" id="jLe-e0-2a6"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <color key="tintColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="dateVaccine" destination="fhs-rP-DmQ" id="BRg-ZM-5vc"/>
                                             <outlet property="nameVaccine" destination="1ov-rV-wdC" id="3GT-Kd-2dw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="k4O-Vz-XHn">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="k4O-Vz-XHn">
                                 <rect key="frame" x="6" y="76" width="308" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="308" id="UCC-5m-aIL"/>

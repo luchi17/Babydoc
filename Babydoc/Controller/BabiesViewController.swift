@@ -156,7 +156,6 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
         do{
             
              vaccines = realm.objects(Vaccine.self)
-                //.filter("name == %@","HB (Hepatitis B) vaccine")
             
             try realm.write {
                 
@@ -164,9 +163,10 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                     baby.current = true
                 }
                 realm.add(baby)
+
                 
-                baby.vaccines.append(objectsIn: vaccines!)
             }
+            addVaccinesDatabaseToNewBaby(babytoAdd : baby)
         }
         catch{
             print(error)
@@ -206,6 +206,59 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
             }
         }
         return babyApp
+    }
+    
+    func addVaccinesDatabaseToNewBaby(babytoAdd : Baby){
+        
+        
+        do{
+                let vaccine1 = Vaccine()
+                vaccine1.name = "HB (Hepatitis B)"
+                let vaccine2 = Vaccine()
+                vaccine2.name = "DTaP (Diphtheria, Tetanus, Pertussis)"
+                
+                //Doses
+                let dose1 = VaccineDoses()
+                dose1.ageOfVaccination = "2 months"
+                let dose2 = VaccineDoses()
+                dose2.ageOfVaccination = "4 months"
+                let dose3 = VaccineDoses()
+                dose3.ageOfVaccination = "11 months"
+                
+                let dose4 = VaccineDoses()
+                dose4.ageOfVaccination = "2 months"
+                let dose5 = VaccineDoses()
+                dose5.ageOfVaccination = "4 months"
+                let dose6 = VaccineDoses()
+                dose6.ageOfVaccination = "11 months"
+                
+            
+                try realm.write {
+                    vaccine1.doses.append(dose1)
+                    vaccine1.doses.append(dose2)
+                    vaccine1.doses.append(dose3)
+                    realm.add(vaccine1)
+                    vaccine2.doses.append(dose4)
+                    vaccine2.doses.append(dose5)
+                    vaccine2.doses.append(dose6)
+                    realm.add(vaccine2)
+                    
+                    babytoAdd.vaccines.append(vaccine1)
+                    babytoAdd.vaccines.append(vaccine2)
+                    
+                }
+            
+            
+        }
+        catch{
+            
+            print(error)
+        }
+        
+        
+        
+        
+ 
     }
     
 }

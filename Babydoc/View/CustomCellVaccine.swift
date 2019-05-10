@@ -7,19 +7,15 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class CustomCellVaccine : UITableViewCell{
+class CustomCellVaccine : SwipeTableViewCell {
     
     
     @IBOutlet weak var nameVaccine: UILabel!
+
     
-    @IBOutlet weak var dateVaccine: UILabel!
-    
-    
-    
-    
-    
-    
+ 
     override func awakeFromNib() {
         super.awakeFromNib()
 
