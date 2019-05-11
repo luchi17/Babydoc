@@ -216,6 +216,23 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                 vaccine1.name = "HB (Hepatitis B)"
                 let vaccine2 = Vaccine()
                 vaccine2.name = "DTaP (Diphtheria, Tetanus, Pertussis)"
+                let vaccine3 = Vaccine()
+                vaccine3.name = "DTaP/Tdap (Diphtheria, Tetanus, Pertussis)"
+                let vaccine4 = Vaccine()
+                vaccine4.name = "Tdap (Diphtheria, Tetanus, Pertussis)"
+                let vaccine5 = Vaccine()
+                vaccine5.name = "IPV (Polio)"
+                let vaccine6 = Vaccine()
+                vaccine6.name = "MenB (Meningitis B) "
+                vaccine6.funded = false
+                let vaccine7 = Vaccine()
+                vaccine7.name = "RV (Rotavirus) Rotarix/RotaTeq "
+                vaccine7.funded = false
+                let vaccine8 = Vaccine()
+                vaccine8.name = "RV (Rotavirus) RotaTeq "
+                vaccine8.funded = false
+            
+            
                 
                 //Doses
                 let dose1 = VaccineDoses()
@@ -231,6 +248,40 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                 dose5.ageOfVaccination = "4 months"
                 let dose6 = VaccineDoses()
                 dose6.ageOfVaccination = "11 months"
+                let dose7 = VaccineDoses()
+                dose7.ageOfVaccination = "6 years"
+                let dose8 = VaccineDoses()
+                dose8.ageOfVaccination = "12-14 years"
+            
+                let dose9 = VaccineDoses()
+                dose9.ageOfVaccination = "2 months"
+                let dose10 = VaccineDoses()
+                dose10.ageOfVaccination = "4 months"
+                let dose11 = VaccineDoses()
+                dose11.ageOfVaccination = "11 months"
+                let dose12 = VaccineDoses()
+                dose12.ageOfVaccination = "6 years"
+            
+                let dose13 = VaccineDoses()
+                dose13.ageOfVaccination = "3 months"
+                let dose14 = VaccineDoses()
+                dose14.ageOfVaccination = "5 months"
+                let dose15 = VaccineDoses()
+                dose15.ageOfVaccination = "12 months"
+            
+                let dose16 = VaccineDoses()
+                dose16.ageOfVaccination = "2 months"
+                let dose17 = VaccineDoses()
+                dose17.ageOfVaccination = "3 months"
+
+            
+                let dose18 = VaccineDoses()
+                dose18.ageOfVaccination = "4 months"
+            
+            
+            
+            
+            
                 
             
                 try realm.write {
@@ -242,9 +293,34 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                     vaccine2.doses.append(dose5)
                     vaccine2.doses.append(dose6)
                     realm.add(vaccine2)
+                    vaccine3.doses.append(dose7)
+                    realm.add(vaccine3)
+                    vaccine4.doses.append(dose8)
+                    realm.add(vaccine4)
+                    vaccine5.doses.append(dose9)
+                    vaccine5.doses.append(dose10)
+                    vaccine5.doses.append(dose11)
+                    vaccine5.doses.append(dose12)
+                    realm.add(vaccine5)
+                    vaccine6.doses.append(dose13)
+                    vaccine6.doses.append(dose14)
+                    vaccine6.doses.append(dose15)
+                    realm.add(vaccine6)
+                    vaccine7.doses.append(dose16)
+                    vaccine7.doses.append(dose17)
+                    realm.add(vaccine7)
+                    vaccine8.doses.append(dose18)
+                    realm.add(vaccine8)
+                    
                     
                     babytoAdd.vaccines.append(vaccine1)
                     babytoAdd.vaccines.append(vaccine2)
+                    babytoAdd.vaccines.append(vaccine3)
+                    babytoAdd.vaccines.append(vaccine4)
+                    babytoAdd.vaccines.append(vaccine5)
+                    babytoAdd.vaccines.append(vaccine6)
+                    babytoAdd.vaccines.append(vaccine7)
+                    babytoAdd.vaccines.append(vaccine8)
                     
                 }
             
@@ -318,7 +394,7 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
                     ProgressHUD.showSuccess("\(self.registeredBabies![indexPath.row].name) has been established as the current baby of the app", interaction: true)
                     
                     if let delegate = self.delegateNameBarHome{
-                       let changed = delegate.changeName(name: self.registeredBabies![indexPath.row].name)
+                       delegate.changeName(name: self.registeredBabies![indexPath.row].name)
                      
                     }
 
@@ -347,5 +423,5 @@ protocol resizeImageDelegate : class {
 }
 
 protocol changeNameBarHome : class {
-    func changeName(name : String) -> Bool
+    func changeName(name : String)
 }

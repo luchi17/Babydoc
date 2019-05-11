@@ -17,16 +17,24 @@ class VaccineViewController : UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func selectedVaccineCategoryChanged(_ sender: UISegmentedControl) {
+        tableView.reloadData()
+    }
+    
     let realm = try! Realm()
     var vaccines : Results<Vaccine>?
     var registeredBabies : Results<Baby>?
     var vaccinesDoses : Results<VaccineDoses>?
     var babyApp = Baby()
     
-    let sectionAge = ["2 months", "4 months", "11 months"]// "12 months", "15 months", "3-4 years", "6 years", "12-14 years", "19 years" ]
-    var items = [[String]]()
-    var dictAge = [String : [String]]()
-    var dictDate = [String : String]()
+    let sectionAgeFunded = ["2 months", "4 months", "11 months", "6 years", "12-14 years"]
+    let sectionAgeNonFunded = ["2 months", "3 months", "4 months", "5 months", "12 months"]
+    var auxForDictFunded = [[String]]()
+    var auxForDictNonFunded = [[String]]()
+    var dictAgeFunded = [String : [String]]()
+    var dictDateFunded = [String : String]()
+    var dictAgeNonFunded = [String : [String]]()
+    var dictDateNonFunded = [String : String]()
     
     var defaultOptions = SwipeOptions()
     
@@ -39,28 +47,75 @@ class VaccineViewController : UIViewController{
         
         super.viewDidLoad()
         
-        tableView.reloadData()
         
         loadBabiesAndVaccines()
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "TextFieldTableViewCell", bundle: nil), forCellReuseIdentifier: "babyInfoCell")
-        
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString: "F588F9")
+        
+        
         
         //        let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15)]
         //        selectedVaccineCategory.setTitleTextAttributes(font as? [NSAttributedString.Key : Any], for: .normal)
-        
+       
         
     }
     override func willMove(toParent parent: UIViewController?) {
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString: "64C5CF")
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor(hexString: "F588F9")
+        self.navigationController?.navigationBar.backgroundColor = UIColor(hexString: "F588F9")
+         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationItem.largeTitleDisplayMode = .never
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100.0
+        loadBabiesAndVaccines()
+        DispatchQueue.main.async {
+            
+            self.tableView.reloadData()
+            if self.registeredBabies!.count > 0 && self.babyApp.dateOfBirth.isEmpty{
+                
+                let controller = UIAlertController(title: "Warning", message: "The recommended dates for the vaccines' administration could not be calculated, please enter the date of birth of \(self.babyApp.name)", preferredStyle: .actionSheet)
+                
+                let action = UIAlertAction(title: "Remind me later", style: .default) { (alertAction) in
+                    alertAction.isEnabled = false
+                }
+                let changeDob = UIAlertAction(title: "Change date of birth", style: .default) { (alertAction) in
+                    self.performSegue(withIdentifier: "goToChangeDob", sender: self)
+                }
+                
+                
+                controller.addAction(action)
+                controller.addAction(changeDob)
+                controller.show(animated: true, vibrate: true, style: .light, completion: nil)
+                
+            }
+            
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        let destinationVC = segue.destination as! BabyInfoViewController
+        
+        destinationVC.selectedBaby  = babyApp
+        destinationVC.navigationItem.title = destinationVC.selectedBaby?.name
+        if #available(iOS 11.0, *) {
+            // We choose not to have a large title for the destination view controller.
+            segue.destination.navigationItem.largeTitleDisplayMode = .always
+            segue.destination.navigationController?.navigationBar.prefersLargeTitles = true
+            
+        }
+        segue.destination.navigationController?.navigationBar.tintColor = UIColor(hexString: "64C5CF")
+        
         
     }
     
@@ -81,10 +136,7 @@ class VaccineViewController : UIViewController{
             
             configureDictionariesOfVaccine()
         }
-//        else {
-//            vaccines = realm.objects(Vaccine.self)
-//
-//        }
+
         
     }
     
@@ -102,28 +154,66 @@ class VaccineViewController : UIViewController{
     
     func configureDictionariesOfVaccine(){
         
-        var arrayOfDoses = [String]()
+        var arrayOfDosesFunded = [String]()
+        var arrayOfDosesNonFunded = [String]()
         
-        for string  in sectionAge{
+        
+        for string  in sectionAgeFunded{
             
-            arrayOfDoses = []
-            let vaccinesForAge = vaccines?.filter("ANY doses.ageOfVaccination == %@", string)
-            let vaccinesForDate = realm.objects(VaccineDoses.self).filter("ageOfVaccination == %@", string)
+            arrayOfDosesFunded = []
+            
+            let vaccinesForAgeFunded = vaccines?.filter("ANY doses.ageOfVaccination == %@ AND funded == %@", string, true)
+            var vaccinesForDateFunded = realm.objects(VaccineDoses.self).filter("ageOfVaccination == %@", string)
+           
             
             
-            for i in vaccinesForAge!{
-                arrayOfDoses.append(i.name)
+            for vaccineFunded in vaccinesForAgeFunded!{
+                arrayOfDosesFunded.append(vaccineFunded.name)
+                //vaccinesForDateFunded = vaccinesForDateFunded.filter(" %@ IN parentVaccine", vaccineFunded)
                 
             }
-            for dose in vaccinesForDate{
+      
+            
+            for dose in vaccinesForDateFunded{
                 
-                dictDate[string] = dose.correspondingDateOfVaccination
+                dictDateFunded[string] = dose.dateOfVaccination
+                
             }
             
-            items.append(arrayOfDoses)
-            dictAge[string] = arrayOfDoses
+            auxForDictFunded.append(arrayOfDosesFunded)
+            dictAgeFunded[string] = arrayOfDosesFunded
+           
             
         }
+
+        print(dictAgeFunded)
+        
+        
+        for string  in sectionAgeNonFunded{
+            
+            arrayOfDosesNonFunded = []
+            
+            let vaccinesForAgeNonFunded = vaccines?.filter("ANY doses.ageOfVaccination == %@ AND funded == %@", string, false)
+            
+            let vaccinesForDateNonFunded = realm.objects(VaccineDoses.self).filter("ageOfVaccination == %@", string)
+            
+
+            for dose in vaccinesForDateNonFunded{
+                dictDateNonFunded[string] = dose.dateOfVaccination
+            }
+            
+            for vaccineNonFunded in vaccinesForAgeNonFunded!{
+                arrayOfDosesNonFunded.append(vaccineNonFunded.name)
+                
+            }
+     
+
+            auxForDictNonFunded.append(arrayOfDosesNonFunded)
+            dictAgeNonFunded[string] = arrayOfDosesNonFunded
+            
+        }
+        print(dictAgeNonFunded)
+
         
     }
     
@@ -132,45 +222,120 @@ class VaccineViewController : UIViewController{
 }
 
 
+//MARK: Table View Data Source and Delegate Methods
+
+
 extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
     
     
-    //MARK: Table View Data Source and Delegate Methods
-    
+
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        //        let keyForSection = sectionAge[section]
-        //        let arrayOfStringsForKey = dictAge[keyForSection]
-        //        let numberOfRows = arrayOfStringsForKey.count
-        return dictAge[sectionAge[section]]?.count ?? 0
+        if registeredBabies?.count == 0{
+            return 1
+        }
+            
+        else{
+            
+            var returnValue = 1
+            
+            switch selectedVaccineCategory.selectedSegmentIndex {
+                
+            case 0:
+                
+                returnValue = dictAgeFunded[sectionAgeFunded[section]]!.count
+                break
+                
+            case 1:
+                returnValue = dictAgeNonFunded[sectionAgeNonFunded[section]]!.count
+                break
+                
+                //        case 2:
+                //            returnValue = //vacunas administradas
+                // break
+            //
+            default:
+                break
+            }
+            
+            return returnValue
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
-        if registeredBabies == nil{
-            return 0
-        }
-        else{
-         return dictAge.count
+ 
+        var returnValue = 1
+        if registeredBabies?.count == 0{
+            return 1
         }
         
+        switch selectedVaccineCategory.selectedSegmentIndex {
+            
+        case 0:
 
+                returnValue = dictAgeFunded.count
+
+            break
+            
+        case 1:
+                returnValue = dictAgeNonFunded.count
+ 
+            break
+            
+            //        case 2:
+            //            returnValue = //vacunas administradas
+            // break
+        //
+        default:
+            break
+        }
+        
+        return returnValue
     }
+    
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if babyApp.dateOfBirth.isEmpty{
-            
-            let controller = UIAlertController(title: "Warning", message: "The recommended dates for administering the vaccines could not be calculated, please enter the date of birth of \(babyApp.name)", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            controller.addAction(action)
-            controller.show(animated: true, vibrate: true, style: .light, completion: nil)
-            
-            return "\(sectionAge[section])"
+         if registeredBabies?.count == 0 {
+            return " "
         }
-        else{
-             return ("\(sectionAge[section]) - \(dictDate[sectionAge[section]]!) (approx)")
+        
+         else if registeredBabies!.count > 0 && babyApp.dateOfBirth.isEmpty{
+            
+            switch selectedVaccineCategory.selectedSegmentIndex{
+            case 0:
+                 return "\(sectionAgeFunded[section])"
+            case 1:
+                return "\(sectionAgeNonFunded[section])"
+            case 2:
+                return "administered"
+            default:
+                return "error"
+                
+            }
+            
+        }
+            
+        else if registeredBabies!.count > 0 && !babyApp.dateOfBirth.isEmpty{
+            
+            
+            switch selectedVaccineCategory.selectedSegmentIndex{
+            case 0:
+                return ("\(sectionAgeFunded[section]) - \(dictDateFunded[sectionAgeFunded[section]]!) (approx)")
+            case 1:
+                return ("\(sectionAgeNonFunded[section])- \(dictDateNonFunded[sectionAgeNonFunded[section]]!) (approx)")
+            case 2:
+                return "administered"
+            default:
+                return "error"
+                
+            }
+
+        }
+         else{
+            return "error"
         }
 
     }
@@ -189,12 +354,40 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
         
         cell.delegate = self
         
-        if registeredBabies?.count == 0{
-          cell.nameVaccine.text = "No babies added yet"
+        switch selectedVaccineCategory.selectedSegmentIndex{
+        
+        case 0:
+            
+            if registeredBabies?.count == 0{
+                cell.nameVaccine.text = "No babies added yet"
+                cell.accessoryType = .none
+            }
+            else{
+                cell.nameVaccine.text = dictAgeFunded[sectionAgeFunded[indexPath.section]]![indexPath.row]
+            }
+
+            break
+            
+        case 1:
+            if registeredBabies?.count == 0{
+                cell.nameVaccine.text = "No babies added yet"
+                cell.accessoryType = .none
+            }
+            else{
+               cell.nameVaccine.text = dictAgeNonFunded[sectionAgeNonFunded[indexPath.section]]![indexPath.row]
+            }
+            
+            break
+            
+//        case 2:
+//            cell.nameVaccine.text = publicList[indexPath.row]
+//            break
+//
+        default:
+            break
+            
         }
-        else{
-          cell.nameVaccine.text = dictAge[sectionAge[indexPath.section]]![indexPath.row]
-        }
+
        
         
         
@@ -231,10 +424,10 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                         
                         for vaccine in self.vaccines!{
                             
-                            if vaccine.name == self.dictAge[self.sectionAge[indexPath.section]]![indexPath.row]{
+                            if vaccine.name == self.dictAgeFunded[self.sectionAgeFunded[indexPath.section]]![indexPath.row]{
                                 
-                                var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@", self.sectionAge[indexPath.section])
-                                dose = dose?.filter(" %@ IN parentVaccine", vaccine)
+                                var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@", self.sectionAgeFunded[indexPath.section])
+                                dose = dose?.filter("%@ IN parentVaccine", vaccine)
                                 for i in dose!{
                                     i.applied = !i.applied
                                    print(i)
@@ -245,7 +438,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                         
                     }
                     
-                    ProgressHUD.showSuccess("Vaccine \(self.dictAge[self.sectionAge[indexPath.section]]![indexPath.row]) has been administered" , interaction: true)
+                    ProgressHUD.showSuccess("Vaccine \(self.dictAgeFunded[self.sectionAgeFunded[indexPath.section]]![indexPath.row]) has been administered" , interaction: true)
                     
                 }
                 catch{

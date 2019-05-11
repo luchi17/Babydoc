@@ -12,7 +12,8 @@ import RealmSwift
 class VaccineDoses : Object {
     
     @objc dynamic var ageOfVaccination : String = ""
-    @objc dynamic var correspondingDateOfVaccination : String = ""
+    @objc dynamic var dateOfVaccination : String = ""
+    @objc dynamic var dateOfAdministration : String = ""
     @objc dynamic var applied : Bool = false
     @objc dynamic var numberOfDoses : Int = 1
 

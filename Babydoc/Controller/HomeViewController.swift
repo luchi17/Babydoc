@@ -16,13 +16,12 @@ import PMAlertController
 
 class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHome{
     
-    func changeName(name: String) -> Bool {
+    func changeName(name: String){
 
         
-        self.title = name
-        self.tabBarItem.title = ""
+        self.navigationItem.title = name
         
-        return true
+
     }
     
 
@@ -116,6 +115,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
             navigationController?.navigationBar.prefersLargeTitles = false
+            tabBarItem.title = "Home"
         }
         
         

@@ -52,17 +52,22 @@ class BabyInfoViewController : UITableViewController{
         tableView.register(UINib(nibName: "TextFieldTableViewCell", bundle: nil), forCellReuseIdentifier: "babyInfoCell")
         propertyDictionaryName = [["name","Name"],["dateOfBirth","Date Of Birth"],["age","Age"], ["weight","Weight"],["height","Height"],["headDiameter","Head Diameter"],["bloodType","Blood Type"],["allergies" , "Allergies"],["illnesses","Illnesses"]]
         
-        if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .always
-            navigationController?.navigationBar.prefersLargeTitles = true
-        }
-        
+
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 85.0
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .always
+            navigationController?.navigationBar.prefersLargeTitles = true
+        }
+        
+         self.navigationController?.navigationBar.barTintColor = UIColor(hexString: "64C5CF")
+        self.navigationController?.navigationBar.backgroundColor = UIColor(hexString: "64C5CF")
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+
         
     }
     
@@ -225,10 +230,9 @@ class BabyInfoViewController : UITableViewController{
             do{
                 try realm.write {
                     
-                    vaccineDose.correspondingDateOfVaccination = dateOfDoseString
+                    vaccineDose.dateOfVaccination = dateOfDoseString
                     
                 }
-                print("date:\(vaccineDose.correspondingDateOfVaccination) and age:\(vaccineDose.ageOfVaccination) knowing bday: \(selectedBaby!.dateOfBirth)")
             }
             catch{
                 print(error)

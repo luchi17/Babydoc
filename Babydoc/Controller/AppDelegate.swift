@@ -19,11 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         print(Realm.Configuration.defaultConfiguration.fileURL as Any)
         
-        let navigationBarAppearace = UINavigationBar.appearance()
-        //navigationBarAppearace.barTintColor = UIColor.init(hexString: "3BB4C1")
-        navigationBarAppearace.tintColor = UIColor.init(hexString: "FFFFFF")  //backgroundcolor
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.barTintColor = UIColor.init(hexString: "64C5CF")
+        //navigationBarAppearace.tintColor = UIColor.init(hexString: "FFFFFF")  //backgroundcolor
         // change navigation item title color
-        navigationBarAppearace.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationBarAppearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationBarAppearance.backgroundColor = UIColor.init(hexString: "64C5CF")
         
         do {
             _ = try Realm()
