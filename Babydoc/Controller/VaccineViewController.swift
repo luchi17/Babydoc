@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
-import ProgressHUD
+import APESuperHUD
 
 class VaccineViewController : UIViewController{
     
@@ -29,6 +29,7 @@ class VaccineViewController : UIViewController{
     
     let sectionAgeFunded = ["2 months", "4 months", "11 months", "6 years", "12-14 years"]
     let sectionAgeNonFunded = ["2 months", "3 months", "4 months", "5 months", "12 months"]
+    let sectionAgeAdministered = ["2 months", "3 months", "4 months", "5 months", "11 months", "12 months", "6 years", "12-14 years"]
     var auxForDictFunded = [[String]]()
     var auxForDictNonFunded = [[String]]()
     var dictAgeFunded = [String : [String]]()
@@ -37,11 +38,11 @@ class VaccineViewController : UIViewController{
     var dictDateNonFunded = [String : String]()
     
     var defaultOptions = SwipeOptions()
-    
-    
-    
-    
     let font = UIFont(name: "Avenir-Heavy", size: 17)
+    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
+    let grayColor = UIColor.init(hexString: "555555")
+    let grayLightColor = UIColor.init(hexString: "7F8484")
+  
     
     override func viewDidLoad() {
         
@@ -83,16 +84,17 @@ class VaccineViewController : UIViewController{
             self.tableView.reloadData()
             if self.registeredBabies!.count > 0 && self.babyApp.dateOfBirth.isEmpty{
                 
-                let controller = UIAlertController(title: "Warning", message: "The recommended dates for the vaccines' administration could not be calculated, please enter the date of birth of \(self.babyApp.name)", preferredStyle: .actionSheet)
+                let controller = UIAlertController(title: "Warning", message: "The recommended dates for the vaccines' administration could not be calculated, please enter the date of birth of \(self.babyApp.name)", preferredStyle: .alert)
                 
                 let action = UIAlertAction(title: "Remind me later", style: .default) { (alertAction) in
                     alertAction.isEnabled = false
                 }
-                let changeDob = UIAlertAction(title: "Change date of birth", style: .default) { (alertAction) in
+                let changeDob = UIAlertAction(title: "Change date of birth", style: .cancel) { (alertAction) in
                     self.performSegue(withIdentifier: "goToChangeDob", sender: self)
                 }
                 
-                
+                controller.setTitle(font: self.font!, color: self.grayColor!)
+                controller.setMessage(font: self.fontLight!, color: self.grayLightColor!)
                 controller.addAction(action)
                 controller.addAction(changeDob)
                 controller.show(animated: true, vibrate: true, style: .light, completion: nil)
@@ -163,7 +165,7 @@ class VaccineViewController : UIViewController{
             arrayOfDosesFunded = []
             
             let vaccinesForAgeFunded = vaccines?.filter("ANY doses.ageOfVaccination == %@ AND funded == %@", string, true)
-            var vaccinesForDateFunded = realm.objects(VaccineDoses.self).filter("ageOfVaccination == %@", string)
+            let vaccinesForDateFunded = realm.objects(VaccineDoses.self).filter("ageOfVaccination == %@", string)
            
             
             
@@ -186,9 +188,6 @@ class VaccineViewController : UIViewController{
             
         }
 
-        print(dictAgeFunded)
-        
-        
         for string  in sectionAgeNonFunded{
             
             arrayOfDosesNonFunded = []
@@ -212,12 +211,9 @@ class VaccineViewController : UIViewController{
             dictAgeNonFunded[string] = arrayOfDosesNonFunded
             
         }
-        print(dictAgeNonFunded)
 
         
     }
-    
-    
     
 }
 
@@ -430,7 +426,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                 dose = dose?.filter("%@ IN parentVaccine", vaccine)
                                 for i in dose!{
                                     i.applied = !i.applied
-                                   print(i)
+                                   
                                 }
                             }
 
@@ -438,7 +434,13 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                         
                     }
                     
-                    ProgressHUD.showSuccess("Vaccine \(self.dictAgeFunded[self.sectionAgeFunded[indexPath.section]]![indexPath.row]) has been administered" , interaction: true)
+                    let image = UIImage(named: "doubletick")!
+                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "Vaccine \(self.dictAgeFunded[self.sectionAgeFunded[indexPath.section]]![indexPath.row]) has been administered")
+                    HUDAppearance.cancelableOnTouch = true
+                    HUDAppearance.messageFont = self.fontLight!
+                    HUDAppearance.messageTextColor = self.grayColor!
+                    
+                    self.present(hudViewController, animated: true)
                     
                 }
                 catch{

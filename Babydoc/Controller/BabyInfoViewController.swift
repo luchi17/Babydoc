@@ -203,24 +203,25 @@ class BabyInfoViewController : UITableViewController{
     }
     func calcDateOfVaccination(doses : List<VaccineDoses>){
         
-        
+      
         var dateOfDose = Date()
         var dateOfDoseString = ""
-        var valueToSum = 0
-        let oneMonthHasHours = 730.001
-        
-        
-        
         let birthDateString = dateFromString(dateString: selectedBaby!.dateOfBirth)
+        
         for vaccineDose in doses{
             
             let age = vaccineDose.ageOfVaccination
             let stringArray = age.components(separatedBy: CharacterSet.decimalDigits.inverted)
             for item in stringArray {
                 if let number = Int(item){
+                    
                     if age.contains("months"){
-                        valueToSum = number*Int(oneMonthHasHours)
-                        dateOfDose = Calendar.current.date(byAdding: .hour, value: valueToSum, to: birthDateString!)!
+                        dateOfDose = Calendar.current.date(byAdding: .month, value: number, to: birthDateString!)!
+                        dateOfDoseString = dateStringFromDate(date: dateOfDose)
+                    }
+                    else if age.contains("years"){
+
+                        dateOfDose = Calendar.current.date(byAdding: .year, value: number, to: birthDateString!)!
                         dateOfDoseString = dateStringFromDate(date: dateOfDose)
                     }
                 }
@@ -305,7 +306,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                             
                             self.calcDateOfVaccination(doses: vaccine.doses)
                         }
-                        //self.calcDateOfVaccination(doses: self.selectedBaby!.vaccines[0].doses )
+                        
                         alert.dismiss(animated: true, completion: nil)
                     })
                     

@@ -11,7 +11,7 @@ import RealmSwift
 import PMAlertController
 import SwipeCellKit
 import RLBAlertsPickers
-import ProgressHUD
+import APESuperHUD
 
 
 class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, CurrentBabyOftheAppDelegate{
@@ -51,6 +51,8 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
             navigationItem.largeTitleDisplayMode = .always
             navigationController?.navigationBar.prefersLargeTitles = true
         }
+        tableView.reloadData()
+
         
         
     }
@@ -118,11 +120,20 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        let baby = getCurrentBabyApp()
         let cell = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath) as! SwipeTableViewCell
         
         cell.textLabel?.text = registeredBabies?[indexPath.row].name
         
+        if cell.textLabel?.text != baby.name{
+            cell.accessoryType = .none
+        }
+        else{
+            cell.accessoryType = .checkmark
+        }
+        
         cell.delegate = self
+        
         return cell
     }
     
@@ -390,13 +401,21 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
                         self.registeredBabies![indexPath.row].current = true
 
                     }
+
+                    let image = UIImage(named: "doubletick")!
+                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "\(self.registeredBabies![indexPath.row].name) has been established as the current baby of the app")
+                    HUDAppearance.cancelableOnTouch = true
+                    HUDAppearance.messageFont = self.fontLight!
+                    HUDAppearance.messageTextColor = self.grayColor!
                     
-                    ProgressHUD.showSuccess("\(self.registeredBabies![indexPath.row].name) has been established as the current baby of the app", interaction: true)
-                    
+                    self.present(hudViewController, animated: true)
+                  
+                    tableView.reloadData()
                     if let delegate = self.delegateNameBarHome{
                        delegate.changeName(name: self.registeredBabies![indexPath.row].name)
                      
                     }
+                   
 
                 }
                 catch{
@@ -414,6 +433,7 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
         }
         
     }
+    
 
 
 }
