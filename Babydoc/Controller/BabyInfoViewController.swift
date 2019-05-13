@@ -28,6 +28,7 @@ class BabyInfoViewController : UITableViewController{
         }
     }
     var currentBaby = Baby()
+    var registeredBabies : Results<Baby>?
     
     
     var defaultOptions = SwipeOptions()

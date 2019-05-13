@@ -150,28 +150,54 @@ class VaccineViewController : UIViewController{
     }
     
     func saveDateAdministration(dateString : String, indexPath : IndexPath){
-        
-        do{
-            try realm.write {
-                
-                let vaccinesApplied = vaccines?.filter("name == %@", dictAgeFunded[sectionAgeFunded[indexPath.section]]![indexPath.row])
-                
-                for vaccine in vaccinesApplied!{
-                    var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@", sectionAgeFunded[indexPath.section])
-                    dose = dose?.filter(" %@ IN parentVaccine", vaccine)
-                    for i in dose!{
-                        i.dateOfAdministration = dateString
+        switch selectedVaccineCategory.selectedSegmentIndex{
+            
+        case 0:
+            
+            do{
+                try realm.write {
+                    
+                    let vaccinesApplied = vaccines?.filter("name == %@", dictAgeFunded[sectionAgeFunded[indexPath.section]]![indexPath.row])
+                    
+                    for vaccine in vaccinesApplied!{
+                        var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@", sectionAgeFunded[indexPath.section])
+                        dose = dose?.filter(" %@ IN parentVaccine", vaccine)
+                        for i in dose!{
+                            i.dateOfAdministration = dateString
+                        }
                     }
                 }
             }
-        }
+                
+            catch{
+                print(error)
+                
+            }
+        case 1:
+            do{
+                try realm.write {
+                    
+                    let vaccinesApplied = vaccines?.filter("name == %@", dictAgeNonFunded[sectionAgeNonFunded[indexPath.section]]![indexPath.row])
+                    
+                    for vaccine in vaccinesApplied!{
+                        var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@", sectionAgeNonFunded[indexPath.section])
+                        dose = dose?.filter(" %@ IN parentVaccine", vaccine)
+                        for i in dose!{
+                            i.dateOfAdministration = dateString
+                        }
+                    }
+                }
+            }
+                
+            catch{
+                print(error)
+                
+            }
             
-        catch{
-            print(error)
-            
+        default:
+            break
+        
         }
-        
-        
         
         
     }
@@ -543,34 +569,86 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
             case 1 :
                 let currentBabySwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
                     
-                    do{
+                    for vaccine in self.vaccines!{
                         
-                        try self.realm.write {
+                        if vaccine.name == self.dictAgeNonFunded[self.sectionAgeNonFunded[indexPath.section]]![indexPath.row]{
                             
-                            for vaccine in self.vaccines!{
+                            var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@", self.sectionAgeNonFunded[indexPath.section])
+                            dose = dose?.filter("%@ IN parentVaccine", vaccine)
+                            for i in dose!{
                                 
-                                if vaccine.name == self.dictAgeNonFunded[self.sectionAgeNonFunded[indexPath.section]]![indexPath.row]{
+                                if !i.applied{
                                     
-                                    var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@", self.sectionAgeNonFunded[indexPath.section])
-                                    dose = dose?.filter("%@ IN parentVaccine", vaccine)
-                                    for i in dose!{
-                                        i.applied = !i.applied
-                                        
+                                    var dateToday = Date()
+                                    
+                                    let alert = UIAlertController(style: .alert, title: "Select date of administration")
+                                    let maxDate = Date()
+                                    let minDate = Calendar.current.date(byAdding: .year, value: -10, to: maxDate)!
+                                    
+                                    alert.setTitle(font: self.font!, color: UIColor.init(hexString: "CC16CF")!)
+                                    alert.addDatePicker(mode: .date, date: maxDate, minimumDate: minDate, maximumDate: maxDate) { date in
+                                        dateToday = date
                                     }
+                                    let ok_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                                        
+                                        let dateString = self.dateStringFromDate(date: dateToday)
+                                        
+                                        self.saveDateAdministration(dateString: dateString,indexPath: indexPath)
+                                        
+                                        alert.dismiss(animated: true, completion: nil)
+                                        
+                                        do {
+                                            try self.realm.write {
+                                                i.applied = true
+                                            }
+                                        }
+                                        catch{
+                                            print(error)
+                                        }
+                                        tableView.reloadData()
+                                        
+                                    })
+                                    
+                                    alert.addAction(title : "Cancel" , style: .cancel)
+                                    alert.addAction(ok_action)
+                                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                                }
+                                    
+                                else{
+                                    let alert = UIAlertController(title: nil, message: "Do you want to mark this vaccine dose as unadministered?", preferredStyle: .alert)
+                                    let actionOk = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                                        
+                                        
+                                        do {
+                                            try self.realm.write {
+                                                
+                                                i.applied = false
+                                                i.dateOfAdministration = ""
+                                            }
+                                            tableView.reloadData()
+                                        }
+                                        catch{
+                                            print(error)
+                                        }
+                                        
+                                        
+                                    })
+                                    let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+                                        alert.dismiss(animated: true, completion: nil)
+                                    })
+                                    alert.setTitle(font: self.font!, color: self.grayColor!)
+                                    alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
+                                    alert.addAction(actionOk)
+                                    alert.addAction(actionCancel)
+                                    alert.show(animated: true, vibrate: true, style: .light, completion: nil)
                                 }
                                 
+                                
                             }
-                            
                         }
-                        tableView.reloadData()
-                        // self.addPicker(indexPath: indexPath)
-                        
                     }
-                    catch{
-                        print("Unable to set the current baby \(error)")
-                    }
+                    
                 }
-                
                 currentBabySwipeAction.backgroundColor = UIColor.flatMint
                 currentBabySwipeAction.hidesWhenSelected = true
                 currentBabySwipeAction.image = UIImage(named: "doubletick")!

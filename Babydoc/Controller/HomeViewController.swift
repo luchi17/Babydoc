@@ -12,6 +12,7 @@ import ScrollableDatepicker
 import SwipeCellKit
 import ProgressHUD
 import PMAlertController
+import RealmSwift
 // MARK: - Home View Controller
 
 class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHome{
@@ -53,6 +54,9 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
     @IBOutlet weak var taskTableView: UITableView!
 
     var defaultOptions = SwipeOptions()
+    var realm = try! Realm()
+    var currentBaby = Baby()
+    var registeredBabies : Results<Baby>?
     
     @IBOutlet weak var datePicker: ScrollableDatepicker!{
         didSet {
@@ -105,6 +109,17 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
    
         
     }
+    func getCurrentBabyApp() -> Baby{
+        
+        for baby in registeredBabies!{
+            if baby.current == true{
+                currentBaby = baby
+            }
+        }
+        
+        
+        return currentBaby
+    }
     
   
   
@@ -117,7 +132,6 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
             navigationController?.navigationBar.prefersLargeTitles = false
             tabBarItem.title = "Home"
         }
-        
         
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMMM YYYY"
@@ -198,6 +212,14 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
     override func viewWillAppear(_ animated: Bool) {
         taskTableView.rowHeight = UITableView.automaticDimension
         taskTableView.estimatedRowHeight = 180.0
+        registeredBabies = realm.objects(Baby.self)
+        if registeredBabies!.count == 0{
+            changeName(name: "Home")
+        }
+        else{
+            changeName(name: getCurrentBabyApp().name)
+        }
+        
 
         
     }
