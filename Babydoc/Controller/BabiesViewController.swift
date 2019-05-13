@@ -198,9 +198,15 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
     func deleteBaby(baby : Baby){
         
         do{
+            
             try realm.write {
-               
+               for vaccine in baby.vaccines{
+                    let dose = realm.objects(VaccineDoses.self).filter("%@ IN parentVaccine", vaccine)
+                    realm.delete(dose)
+                }
+                realm.delete(baby.vaccines)
                 realm.delete(baby)
+                
             }
         }
         catch{
@@ -502,10 +508,10 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
                 }
             }
             
-            currentBabySwipeAction.backgroundColor = UIColor.flatMint
+            currentBabySwipeAction.backgroundColor = UIColor.init(hexString: "78D7E1")
             currentBabySwipeAction.hidesWhenSelected = true
             if let delegate = self.delegate {
-                currentBabySwipeAction.image = delegate.resizeImageIsCalled(image: UIImage(named: "doubletick")!, size: CGSize(width: 30, height: 30))
+                currentBabySwipeAction.image = delegate.resizeImageIsCalled(image: UIImage(named: "checkmark")!, size: CGSize(width: 30, height: 30))
             }
            return [currentBabySwipeAction]
             

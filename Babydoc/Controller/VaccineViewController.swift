@@ -558,9 +558,9 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                     }
                     
                 }
-                currentBabySwipeAction.backgroundColor = UIColor.flatMint
+                currentBabySwipeAction.backgroundColor = UIColor.init(hexString: "F78BF9")
                 currentBabySwipeAction.hidesWhenSelected = true
-                currentBabySwipeAction.image = UIImage(named: "doubletick")!
+                currentBabySwipeAction.image = UIImage(named: "checkmark")!
                 
                 return [currentBabySwipeAction]
                 
@@ -649,9 +649,9 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                     }
                     
                 }
-                currentBabySwipeAction.backgroundColor = UIColor.flatMint
+                currentBabySwipeAction.backgroundColor = UIColor.init(hexString: "F78BF9")
                 currentBabySwipeAction.hidesWhenSelected = true
-                currentBabySwipeAction.image = UIImage(named: "doubletick")!
+                currentBabySwipeAction.image = UIImage(named: "checkmark")!
                 
                 return [currentBabySwipeAction]
                 
