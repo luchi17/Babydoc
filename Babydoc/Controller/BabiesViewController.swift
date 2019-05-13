@@ -124,6 +124,8 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
         let cell = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath) as! SwipeTableViewCell
         
         cell.textLabel?.text = registeredBabies?[indexPath.row].name
+        tableView.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
+        cell.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
         
         if cell.textLabel?.text != baby.name{
             cell.accessoryType = .none
@@ -240,7 +242,7 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                 let vaccine5 = Vaccine()
                 vaccine5.name = "IPV (Inactivated Polio Vaccine)"
                 let vaccine6 = Vaccine()
-                vaccine6.name = "MenB (Meningitis B Vaccine)"
+                vaccine6.name = "Men B (Meningitis B Vaccine)"
                 vaccine6.funded = false
                 let vaccine7 = Vaccine()
                 vaccine7.name = "RV (Rotavirus-Rotarix/RotaTeq Vaccine)"

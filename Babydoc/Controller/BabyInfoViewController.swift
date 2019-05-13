@@ -90,6 +90,8 @@ class BabyInfoViewController : UITableViewController{
         
         let cellBabyInfo = tableView.dequeueReusableCell(withIdentifier: "babyInfoCell", for: indexPath) as! TextFieldTableViewCell
         cellBabyInfo.delegate = self as SwipeTableViewCellDelegate
+        tableView.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
+        cellBabyInfo.backgroundColor = UIColor.init(hexString: "F8F9F9")//?.withAlphaComponent(CGFloat(0.995))
         cellBabyInfo.fieldNameLabel.textColor = UIColor.init(hexString: "64C5CF")
         cellBabyInfo.fieldNameLabel.text! = propertyDictionaryName[indexPath.row][1]
         cellBabyInfo.fieldValue.text = babyProperties?[0].value(forKeyPath: propertyDictionaryName[indexPath.row][0]) as? String

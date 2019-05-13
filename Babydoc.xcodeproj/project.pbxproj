@@ -20,6 +20,7 @@
 		09B1EEA322575194006DF813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EEA222575194006DF813 /* Assets.xcassets */; };
 		09B1EEA622575194006DF813 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EEA422575194006DF813 /* LaunchScreen.storyboard */; };
 		09B7D4E52284C03B00137544 /* CustomCellVaccine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7D4E42284C03B00137544 /* CustomCellVaccine.swift */; };
+		09B7D4E72289CF5200137544 /* InfoVaccinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7D4E62289CF5200137544 /* InfoVaccinesViewController.swift */; };
 		09D35081225E121B0052BF88 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		09D35082225E121B0052BF88 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		09D35084225E1EE70052BF88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09D35083225E1EE70052BF88 /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		09B1EEA522575194006DF813 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09B1EEA722575194006DF813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09B7D4E42284C03B00137544 /* CustomCellVaccine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellVaccine.swift; sourceTree = "<group>"; };
+		09B7D4E62289CF5200137544 /* InfoVaccinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVaccinesViewController.swift; sourceTree = "<group>"; };
 		09D35083225E1EE70052BF88 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		09E27C472265E07F0022EE1B /* CustomCellHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellHome.swift; sourceTree = "<group>"; };
 		09E27C482265E07F0022EE1B /* CustomCellHome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCellHome.xib; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				093B7D112277720400DB4344 /* BabyInfoViewController.swift */,
 				0933E10F225E33C300B19B86 /* HealthViewController.swift */,
 				09F97300228421E4008FE28C /* VaccineViewController.swift */,
+				09B7D4E62289CF5200137544 /* InfoVaccinesViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				09F97301228421E4008FE28C /* VaccineViewController.swift in Sources */,
 				093B7D122277720400DB4344 /* BabyInfoViewController.swift in Sources */,
 				093B7D0D22776AB100DB4344 /* DayOfYear.swift in Sources */,
+				09B7D4E72289CF5200137544 /* InfoVaccinesViewController.swift in Sources */,
 				09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */,
 				099069312279A32D00EB570C /* TextFieldTableViewCell.swift in Sources */,
 				093B7D0A227769FB00DB4344 /* Sleep.swift in Sources */,

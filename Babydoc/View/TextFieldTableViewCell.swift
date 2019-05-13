@@ -19,7 +19,6 @@ class TextFieldTableViewCell: SwipeTableViewCell  {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       //fieldNameLabel.textColor = UIColor.init(hexString: "64C5CF")
-        //fieldValue.textColor = UIColor.init(hexString: "555555")
+        
     }
 }

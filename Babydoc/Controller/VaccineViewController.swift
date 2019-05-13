@@ -104,17 +104,31 @@ class VaccineViewController : UIViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let destinationVC = segue.destination as! BabyInfoViewController
-        
-        destinationVC.selectedBaby  = babyApp
-        destinationVC.navigationItem.title = destinationVC.selectedBaby?.name
-        if #available(iOS 11.0, *) {
-            // We choose not to have a large title for the destination view controller.
-            segue.destination.navigationItem.largeTitleDisplayMode = .always
-            segue.destination.navigationController?.navigationBar.prefersLargeTitles = true
+        if let destinationVC = segue.destination as? BabyInfoViewController {
             
+            
+            destinationVC.selectedBaby  = babyApp
+            destinationVC.navigationItem.title = destinationVC.selectedBaby?.name
+            if #available(iOS 11.0, *) {
+                // We choose not to have a large title for the destination view controller.
+                destinationVC.navigationItem.largeTitleDisplayMode = .always
+                destinationVC.navigationController?.navigationBar.prefersLargeTitles = true
+                
+            }
+            segue.destination.navigationController?.navigationBar.tintColor = UIColor(hexString: "64C5CF")
         }
-        segue.destination.navigationController?.navigationBar.tintColor = UIColor(hexString: "64C5CF")
+        if let destinationVC2 = segue.destination as? InfoVaccinesViewController {
+
+            if #available(iOS 11.0, *) {
+                // We choose not to have a large title for the destination view controller.
+                destinationVC2.navigationItem.largeTitleDisplayMode = .never
+                destinationVC2.navigationController?.navigationBar.prefersLargeTitles = false
+                
+            }
+            //segue.destination.navigationController?.navigationBar.tintColor = UIColor(hexString: "64C5CF")
+        }
+        
+
         
         
     }
@@ -425,6 +439,8 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "vaccineCell") as! CustomCellVaccine
         
         cell.delegate = self
+        cell.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
+        tableView.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
         
         switch selectedVaccineCategory.selectedSegmentIndex{
             
