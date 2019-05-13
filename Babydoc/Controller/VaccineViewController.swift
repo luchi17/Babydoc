@@ -33,6 +33,8 @@ class VaccineViewController : UIViewController{
     var dictDateFunded = [String : String]()
     var dictAgeNonFunded = [String : [String]]()
     var dictDateNonFunded = [String : String]()
+    var dictFundedDateAdm = [String : [String]]()
+    var dictNonFundedDateAdm = [String : [String]]()
     
     
     var defaultOptions = SwipeOptions()
@@ -74,6 +76,7 @@ class VaccineViewController : UIViewController{
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 110.0
         loadBabiesAndVaccines()
+        
         DispatchQueue.main.async {
             
             self.tableView.reloadData()
@@ -206,11 +209,13 @@ class VaccineViewController : UIViewController{
         
         var arrayOfDosesFunded = [String]()
         var arrayOfDosesNonFunded = [String]()
+        var arrayOfFundedDateAdm = [String]()
+        var arrayOfNonFundedDateAdm = [String]()
         
         for string  in sectionAgeFunded{
             
             arrayOfDosesFunded = []
-            
+            arrayOfFundedDateAdm = []
             let vaccinesForAgeFunded = vaccines?.filter("ANY doses.ageOfVaccination == %@ AND funded == %@", string, true)
             let vaccinesForDateFunded = vaccinesDoses!.filter("ageOfVaccination == %@", string)
             
@@ -221,42 +226,68 @@ class VaccineViewController : UIViewController{
                 
                 
             }
+            for vaccine in vaccinesForAgeFunded!{
+                let doses = vaccinesForDateFunded.filter("%@ IN parentVaccine", vaccine)
+                
+                for dose in doses{
+                   arrayOfFundedDateAdm.append(dose.dateOfAdministration)
+                    
+                }
+                
+            }
             
             
             for dose in vaccinesForDateFunded{
                 
                 dictDateFunded[string] = dose.dateOfVaccination
                 
+                
             }
             
             dictAgeFunded[string] = arrayOfDosesFunded
+            dictFundedDateAdm[string] = arrayOfFundedDateAdm
             
             
         }
-        
+
         for string  in sectionAgeNonFunded{
             
             arrayOfDosesNonFunded = []
+            arrayOfNonFundedDateAdm = []
             
             let vaccinesForAgeNonFunded = vaccines?.filter("ANY doses.ageOfVaccination == %@ AND funded == %@", string, false)
             
             let vaccinesForDateNonFunded = vaccinesDoses!.filter("ageOfVaccination == %@", string)
             
+            for vaccineNonFunded in vaccinesForAgeNonFunded!{
+                arrayOfDosesNonFunded.append(vaccineNonFunded.name)
+                
+            }
+            for vaccine in vaccinesForAgeNonFunded!{
+                let doses = vaccinesForDateNonFunded.filter("%@ IN parentVaccine", vaccine)
+                
+                for dose in doses{
+                    arrayOfNonFundedDateAdm.append(dose.dateOfAdministration)
+                    
+                }
+                
+            }
             
             for dose in vaccinesForDateNonFunded{
                 dictDateNonFunded[string] = dose.dateOfVaccination
             }
             
-            for vaccineNonFunded in vaccinesForAgeNonFunded!{
-                arrayOfDosesNonFunded.append(vaccineNonFunded.name)
-                
-            }
             dictAgeNonFunded[string] = arrayOfDosesNonFunded
+            dictNonFundedDateAdm[string] = arrayOfNonFundedDateAdm
             
         }
+
         
         
     }
+
+    
+    
     var _dateFormatter: DateFormatter?
     var dateFormatter: DateFormatter {
         if (_dateFormatter == nil) {
@@ -405,13 +436,14 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
             }
             else{
                 cell.nameVaccine.text = dictAgeFunded[sectionAgeFunded[indexPath.section]]![indexPath.row]
+                cell.dateAdministration.text = dictFundedDateAdm[sectionAgeFunded[indexPath.section]]![indexPath.row]
                 let vaccinesApplied = vaccines?.filter("name == %@", dictAgeFunded[sectionAgeFunded[indexPath.section]]![indexPath.row])
                 
                 for vaccine in vaccinesApplied!{
                     var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@ AND applied == %@", sectionAgeFunded[indexPath.section], true)
                     dose = dose?.filter(" %@ IN parentVaccine", vaccine)
                     if dose?.count != 0{
-                        cell.nameVaccine.textColor = grayColor
+                        cell.nameVaccine.textColor = UIColor.init(hexString: "7F8484")
                     }
                     else {
                         cell.nameVaccine.textColor = UIColor.init(hexString: "CC16CF")
@@ -429,6 +461,7 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
             }
             else{
                 cell.nameVaccine.text = dictAgeNonFunded[sectionAgeNonFunded[indexPath.section]]![indexPath.row]
+                cell.dateAdministration.text = dictNonFundedDateAdm[sectionAgeNonFunded[indexPath.section]]![indexPath.row]
                 let vaccinesApplied = vaccines?.filter("name == %@", dictAgeNonFunded[sectionAgeNonFunded[indexPath.section]]![indexPath.row])
                 
                 for vaccine in vaccinesApplied!{
@@ -515,6 +548,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                             print(error)
                                         }
                                          tableView.reloadData()
+                                         self.configureDictionariesOfVaccine()
                                        
                                     })
                                     
@@ -534,12 +568,13 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                                 i.applied = false
                                                 i.dateOfAdministration = ""
                                             }
-                                             tableView.reloadData()
+                                            
                                         }
                                         catch{
                                             print(error)
                                         }
-                                    
+                                        tableView.reloadData()
+                                        self.configureDictionariesOfVaccine()
                                         
                                     })
                                     let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in

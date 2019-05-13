@@ -621,23 +621,39 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ov-rV-wdC" userLabel="Title">
-                                                    <rect key="frame" x="6" y="10" width="243" height="23.5"/>
+                                                    <rect key="frame" x="6" y="6" width="180" height="31.5"/>
                                                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
                                                     <color key="textColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBn-2O-GCR" userLabel="Title">
+                                                    <rect key="frame" x="224" y="6" width="90" height="31.5"/>
+                                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="90" id="25t-Qb-Fsg"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="17"/>
+                                                    <color key="textColor" red="0.49803921568627452" green="0.51764705882352935" blue="0.51764705882352935" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             <constraints>
+                                                <constraint firstItem="GBn-2O-GCR" firstAttribute="leading" secondItem="1ov-rV-wdC" secondAttribute="trailing" constant="38" id="Cj0-RD-kRT"/>
                                                 <constraint firstItem="1ov-rV-wdC" firstAttribute="centerY" secondItem="T8o-av-Wrv" secondAttribute="centerY" id="IJt-LG-MF1"/>
+                                                <constraint firstItem="1ov-rV-wdC" firstAttribute="top" secondItem="T8o-av-Wrv" secondAttribute="top" constant="6" id="YPb-qf-AaG"/>
+                                                <constraint firstAttribute="trailing" secondItem="GBn-2O-GCR" secondAttribute="trailing" constant="6" id="fjL-VG-vDK"/>
                                                 <constraint firstItem="1ov-rV-wdC" firstAttribute="leading" secondItem="T8o-av-Wrv" secondAttribute="leading" constant="6" id="hnw-5b-Zsn"/>
-                                                <constraint firstAttribute="trailing" secondItem="1ov-rV-wdC" secondAttribute="trailing" constant="71" id="jLe-e0-2a6"/>
+                                                <constraint firstItem="GBn-2O-GCR" firstAttribute="top" secondItem="T8o-av-Wrv" secondAttribute="top" constant="6" id="kKJ-rU-lgK"/>
+                                                <constraint firstAttribute="bottom" secondItem="GBn-2O-GCR" secondAttribute="bottom" constant="6" id="svm-5E-cfr"/>
+                                                <constraint firstAttribute="bottom" secondItem="1ov-rV-wdC" secondAttribute="bottom" constant="6" id="tmL-tO-GP9"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <color key="tintColor" red="0.80000000000000004" green="0.086274509799999996" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
+                                            <outlet property="dateAdministration" destination="GBn-2O-GCR" id="i5I-xx-u7D"/>
                                             <outlet property="nameVaccine" destination="1ov-rV-wdC" id="3GT-Kd-2dw"/>
                                         </connections>
                                     </tableViewCell>
