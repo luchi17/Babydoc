@@ -652,7 +652,6 @@
                                 <segments>
                                     <segment title="Funded"/>
                                     <segment title="Non-funded"/>
-                                    <segment title="Administered"/>
                                 </segments>
                                 <color key="tintColor" red="0.80000000000000004" green="0.086274509803921567" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -725,7 +724,7 @@
         <image name="vaccine-3" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sU1-zc-I9Y"/>
+        <segue reference="kqJ-eo-yqk"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
