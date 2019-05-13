@@ -74,7 +74,7 @@ class VaccineViewController : UIViewController{
         self.navigationController?.navigationBar.prefersLargeTitles = false
         
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 110.0
+        tableView.estimatedRowHeight = 100.0
         loadBabiesAndVaccines()
         
         DispatchQueue.main.async {
@@ -426,7 +426,7 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return UITableView.automaticDimension
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.estimatedRowHeight
