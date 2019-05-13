@@ -224,24 +224,40 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
         
         do{
                 let vaccine1 = Vaccine()
-                vaccine1.name = "HB (Hepatitis B)"
+                vaccine1.name = "HB (Hepatitis B Vaccine)"
                 let vaccine2 = Vaccine()
-                vaccine2.name = "DTaP (Diphtheria, Tetanus, Pertussis)"
+                vaccine2.name = "DTaP (Diphtheria, Tetanus, Pertussis Vaccine)"
                 let vaccine3 = Vaccine()
-                vaccine3.name = "DTaP/Tdap (Diphtheria, Tetanus, Pertussis)"
+                vaccine3.name = "DTaP/Tdap (Diphtheria, Tetanus, Pertussis Vaccine)"
                 let vaccine4 = Vaccine()
-                vaccine4.name = "Tdap (Diphtheria, Tetanus, Pertussis)"
+                vaccine4.name = "Tdap (Diphtheria, Tetanus, Pertussis Vaccine)"
                 let vaccine5 = Vaccine()
-                vaccine5.name = "IPV (Polio)"
+                vaccine5.name = "IPV (Inactivated Polio Vaccine)"
                 let vaccine6 = Vaccine()
-                vaccine6.name = "MenB (Meningitis B) "
+                vaccine6.name = "MenB (Meningitis B Vaccine)"
                 vaccine6.funded = false
                 let vaccine7 = Vaccine()
-                vaccine7.name = "RV (Rotavirus) Rotarix/RotaTeq "
+                vaccine7.name = "RV (Rotavirus-Rotarix/RotaTeq Vaccine)"
                 vaccine7.funded = false
                 let vaccine8 = Vaccine()
-                vaccine8.name = "RV (Rotavirus) RotaTeq "
+                vaccine8.name = "RV (Rotavirus-RotaTeq Vaccine)"
                 vaccine8.funded = false
+                let vaccine9  = Vaccine()
+                vaccine9.name = "Hib (Haemophilus Influenzae Type B Vaccine)"
+                let vaccine10  = Vaccine()
+                vaccine10.name = "PCV (Pneumococcal Conjugate Vaccine)"
+                let vaccine11  = Vaccine()
+                vaccine11.name = "Men C (Meningococcal C Vaccine)"
+                let vaccine12  = Vaccine()
+                vaccine12.name = "Men ACWY/Men C (Meningococcal ACWY Vaccine)"
+                let vaccine13  = Vaccine()
+                vaccine13.name = "MMR (Measles, Mumps, and Rubella Vaccine)"
+                let vaccine14  = Vaccine()
+                vaccine14.name = "VAR (Varicella Vaccine)"
+                let vaccine15  = Vaccine()
+                vaccine15.name = "MMR-VAR/MMRV (Measles, Mumps, Rubella and Varicella Vaccine)"
+                let vaccine16  = Vaccine()
+                vaccine16.name = "HPV (Human Papillomavirus Vaccine)"
             
             
                 
@@ -289,11 +305,41 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                 let dose18 = VaccineDoses()
                 dose18.ageOfVaccination = "4 months"
             
+                let dose19 = VaccineDoses()
+                dose19.ageOfVaccination = "2 months"
+                let dose20 = VaccineDoses()
+                dose20.ageOfVaccination = "4 months"
+                let dose21 = VaccineDoses()
+                dose21.ageOfVaccination = "11 months"
             
+                let dose22 = VaccineDoses()
+                dose22.ageOfVaccination = "2 months"
+                let dose23 = VaccineDoses()
+                dose23.ageOfVaccination = "4 months"
+                let dose24 = VaccineDoses()
+                dose24.ageOfVaccination = "11 months"
             
+                let dose25 = VaccineDoses()
+                dose25.ageOfVaccination = "4 months"
             
+                let dose26 = VaccineDoses()
+                dose26.ageOfVaccination = "12 months"
+                let dose27 = VaccineDoses()
+                dose27.ageOfVaccination = "12-14 years"
+                let dose28 = VaccineDoses()
+                dose28.ageOfVaccination = "Up to 19 years"
             
-                
+                let dose29 = VaccineDoses()
+                dose29.ageOfVaccination = "12 months"
+            
+                let dose30 = VaccineDoses()
+                dose30.ageOfVaccination = "12 months"
+            
+                let dose31 = VaccineDoses()
+                dose31.ageOfVaccination = "3-4 years"
+                let dose32 = VaccineDoses()
+                dose32.ageOfVaccination = "11-12 years"
+            
             
                 try realm.write {
                     vaccine1.doses.append(dose1)
@@ -322,6 +368,29 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                     realm.add(vaccine7)
                     vaccine8.doses.append(dose18)
                     realm.add(vaccine8)
+                    vaccine9.doses.append(dose19)
+                    vaccine9.doses.append(dose20)
+                    vaccine9.doses.append(dose21)
+                    realm.add(vaccine9)
+                    vaccine10.doses.append(dose22)
+                    vaccine10.doses.append(dose23)
+                    vaccine10.doses.append(dose24)
+                    realm.add(vaccine10)
+                    vaccine11.doses.append(dose25)
+                    realm.add(vaccine11)
+                    vaccine12.doses.append(dose26)
+                    vaccine12.doses.append(dose27)
+                    vaccine12.doses.append(dose28)
+                    realm.add(vaccine12)
+                    vaccine13.doses.append(dose29)
+                    realm.add(vaccine13)
+                    vaccine14.doses.append(dose30)
+                    realm.add(vaccine14)
+                    vaccine15.doses.append(dose31)
+                    realm.add(vaccine15)
+                    vaccine16.doses.append(dose32)
+                    realm.add(vaccine16)
+
                     
                     
                     babytoAdd.vaccines.append(vaccine1)
@@ -332,6 +401,16 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                     babytoAdd.vaccines.append(vaccine6)
                     babytoAdd.vaccines.append(vaccine7)
                     babytoAdd.vaccines.append(vaccine8)
+                    babytoAdd.vaccines.append(vaccine9)
+                    babytoAdd.vaccines.append(vaccine10)
+                    babytoAdd.vaccines.append(vaccine11)
+                    babytoAdd.vaccines.append(vaccine12)
+                    babytoAdd.vaccines.append(vaccine13)
+                    babytoAdd.vaccines.append(vaccine14)
+                    babytoAdd.vaccines.append(vaccine15)
+                    babytoAdd.vaccines.append(vaccine16)
+                    
+
                     
                 }
             

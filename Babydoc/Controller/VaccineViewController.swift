@@ -27,19 +27,13 @@ class VaccineViewController : UIViewController{
     var vaccinesDoses : Results<VaccineDoses>?
     var babyApp = Baby()
     
-    let sectionAgeFunded = ["2 months", "4 months", "11 months", "6 years", "12-14 years"]
+    let sectionAgeFunded = ["2 months", "4 months", "11 months", "12 months","3-4 years", "6 years", "11-12 years","12-14 years", "Up to 19 years"]
     let sectionAgeNonFunded = ["2 months", "3 months", "4 months", "5 months", "12 months"]
-    let sectionAdministered = ["2 months", "3 months", "4 months", "5 months","11 months", "12 months","6 years","12-14 years" ]
-    var sectionAgeAdministered = [String] ()
-    var auxForDictFunded = [[String]]()
-    var auxForDictNonFunded = [[String]]()
-    var auxForDictAdministered = [[String]]()
     var dictAgeFunded = [String : [String]]()
     var dictDateFunded = [String : String]()
     var dictAgeNonFunded = [String : [String]]()
     var dictDateNonFunded = [String : String]()
-    var dictAgeAdministered = [String : [String]]()
-    var dictDateAdministered = [String : String]()
+
     
     var defaultOptions = SwipeOptions()
     let font = UIFont(name: "Avenir-Heavy", size: 17)
@@ -78,7 +72,7 @@ class VaccineViewController : UIViewController{
         self.navigationController?.navigationBar.prefersLargeTitles = false
         
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100.0
+        tableView.estimatedRowHeight = 110.0
         loadBabiesAndVaccines()
         DispatchQueue.main.async {
             
@@ -159,9 +153,6 @@ class VaccineViewController : UIViewController{
         
         var arrayOfDosesFunded = [String]()
         var arrayOfDosesNonFunded = [String]()
-        var arrayOfDosesAdministered = [String]()
-        
-        
         
         for string  in sectionAgeFunded{
             
@@ -185,7 +176,6 @@ class VaccineViewController : UIViewController{
                 
             }
             
-            // auxForDictFunded.append(arrayOfDosesFunded)
             dictAgeFunded[string] = arrayOfDosesFunded
             
             
@@ -208,9 +198,6 @@ class VaccineViewController : UIViewController{
                 arrayOfDosesNonFunded.append(vaccineNonFunded.name)
                 
             }
-            
-            
-            //auxForDictNonFunded.append(arrayOfDosesNonFunded)
             dictAgeNonFunded[string] = arrayOfDosesNonFunded
             
         }
@@ -328,7 +315,7 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        return 75
     }
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return tableView.estimatedRowHeight
@@ -445,7 +432,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                         tableView.reloadData()
                         
                         let image = UIImage(named: "doubletick")!
-                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "Vaccine \(self.dictAgeFunded[self.sectionAgeFunded[indexPath.section]]![indexPath.row]) has been administered")
+                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "This vaccine dose has been administered")
                         HUDAppearance.cancelableOnTouch = true
                         HUDAppearance.messageFont = self.fontLight!
                         HUDAppearance.messageTextColor = self.grayColor!
@@ -491,7 +478,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                         tableView.reloadData()
                         
                         let image = UIImage(named: "doubletick")!
-                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "Vaccine \(self.dictAgeFunded[self.sectionAgeFunded[indexPath.section]]![indexPath.row]) has been administered")
+                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "This vaccine dose has been administered")
                         HUDAppearance.cancelableOnTouch = true
                         HUDAppearance.messageFont = self.fontLight!
                         HUDAppearance.messageTextColor = self.grayColor!
