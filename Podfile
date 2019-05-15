@@ -16,5 +16,6 @@ pod 'PMAlertController'
 pod "AUPickerCell"
 pod 'RLBAlertsPickers', :git => 'https://github.com/loicgriffie/Alerts-Pickers.git', :branch => 'master'
 pod 'APESuperHUD', :git => 'https://github.com/apegroup/APESuperHUD.git'
+pod 'ICTextView'
 
 end

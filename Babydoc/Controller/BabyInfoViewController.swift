@@ -366,12 +366,25 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     for i in weightValues{
                         arrayWeight.append(String(format: "%.2f", i))
                     }
-                    
                     let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: Int(3/0.05))
+           
+    
+                    weight = Float(3.00)
+                    weightUnit = " kg"
+                   
                     alert.addPickerView(values: [arrayWeight, ["kg","lbs"]], initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
+                        DispatchQueue.main.async {
+                            UIView.animate(withDuration: 1) {
+                                
+                                weight = Float(picker.selectedRow(inComponent: 0))*Float(0.05)
+                                
+                                
+
+                            }
+                        }
+                        print(weight)
                         
-                        weight = Float(picker.selectedRow(inComponent: 0)) * Float(0.05)
-                        
+                    
                         if picker.selectedRow(inComponent: 1) == 0{
                             weightUnit = " kg"
                         }
@@ -384,7 +397,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
                         
                         let finalStringWeight = String(format : "%.2f",weight) + weightUnit
-                        print(finalStringWeight)
+
                         self.saveBabyInfo(valueToSave: finalStringWeight, forkey: self.propertyDictionaryName[indexPath.row][0])
                         
                     })
@@ -409,6 +422,8 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                             arrayHeight.append(String(format: "%.2f", i))
                         }
                         let pickerViewSelectedValueHeight: PickerViewViewController.Index = (column: 0, row: Int(0.7/0.01))
+                        
+                        height = Float(0.7)
                         
                         alert.addPickerView(values: [arrayHeight, [heightUnit]], initialSelection: pickerViewSelectedValueHeight) { vc, picker, index, values in
                             
@@ -440,6 +455,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         for i in headValues{
                             arrayHead.append(String(format: "%.2f", i))
                         }
+                        head = Float(10.0)
                         let pickerViewSelectedValueHeadDiameter: PickerViewViewController.Index = (column: 0, row: Int(10.0/0.01))
                         alert.addPickerView(values: [arrayHead, [headUnit]], initialSelection: pickerViewSelectedValueHeadDiameter) { vc, picker, index, values in
                             
@@ -473,6 +489,8 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     var arrayBloodSign = ["+","-"]
                     
                     let pickerViewSelectedValueBlood: PickerViewViewController.Index = (column: 0, row: 0)
+                    
+                    bloodType = "0+"
                     alert.addPickerView(values: [arrayBloodletter, arrayBloodSign], initialSelection: pickerViewSelectedValueBlood) { vc, picker, index, values in
                         
                         bloodType = arrayBloodletter[picker.selectedRow(inComponent: 0)] + arrayBloodSign[picker.selectedRow(inComponent: 1)]

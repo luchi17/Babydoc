@@ -7,6 +7,7 @@ PODS:
   - Charts (3.3.0):
     - Charts/Core (= 3.3.0)
   - Charts/Core (3.3.0)
+  - ICTextView (2.0.1)
   - PMAlertController (4.0.0)
   - ProgressHUD (2.60)
   - Realm (3.15.0):
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - AUPickerCell
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Charts
+  - ICTextView
   - PMAlertController
   - ProgressHUD
   - RealmSwift
@@ -34,6 +36,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AUPickerCell
     - Charts
+    - ICTextView
     - PMAlertController
     - ProgressHUD
     - Realm
@@ -71,6 +74,7 @@ SPEC CHECKSUMS:
   AUPickerCell: b6f788d62f449014204776ff6fdc841aebbc352f
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Charts: ec1f57f9340054155691e84d4544a1d239d382c5
+  ICTextView: 937aca5dd49e39e9cca41ababe8c55bf99c634fc
   PMAlertController: 5fad2da8b9eb687134ed50c3462fed12c3afe976
   ProgressHUD: 4e4efbaf4f5de8bd32e0c4c3b6644a90ea1a8c3e
   Realm: 9b834e1be6062f544805252c812348872dc5d4ed
@@ -79,6 +83,6 @@ SPEC CHECKSUMS:
   ScrollableDatepicker: 0f14e38bcd3517e6632220af11e47d29e0f982db
   SwipeCellKit: 75903f4840bd14958df3291314562e32d4d9b7ae
 
-PODFILE CHECKSUM: 196dffecea785b74a69c6c357e3973bcc12adaab
+PODFILE CHECKSUM: 531bd47f42f980eb0c70251cf372c61ad6e6efb8
 
 COCOAPODS: 1.7.0.beta.3

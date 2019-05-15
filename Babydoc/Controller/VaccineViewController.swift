@@ -42,7 +42,7 @@ class VaccineViewController : UIViewController{
     let fontLight = UIFont(name: "Avenir-Medium", size: 17)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
-    
+
     
     override func viewDidLoad() {
         
@@ -505,6 +505,7 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
         
         
     }
+
     
     
     
@@ -559,12 +560,13 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                             try self.realm.write {
                                                 i.applied = true
                                             }
+                                            self.loadBabiesAndVaccines()
+                                            tableView.reloadData()
                                         }
                                         catch{
                                             print(error)
                                         }
-                                         tableView.reloadData()
-                                         self.configureDictionariesOfVaccine()
+
                                        
                                     })
                                     
@@ -584,13 +586,14 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                                 i.applied = false
                                                 i.dateOfAdministration = ""
                                             }
-                                            
+                                            self.loadBabiesAndVaccines()
+                                            tableView.reloadData()
                                         }
                                         catch{
                                             print(error)
                                         }
-                                        tableView.reloadData()
-                                        self.configureDictionariesOfVaccine()
+                                        
+                                        
                                         
                                     })
                                     let actionCancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
@@ -602,6 +605,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                     alert.addAction(actionCancel)
                                     alert.show(animated: true, vibrate: true, style: .light, completion: nil)
                                 }
+                            
                                 
                                 
                             }
@@ -611,8 +615,8 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                 }
                 currentBabySwipeAction.backgroundColor = UIColor.init(hexString: "F78BF9")
                 currentBabySwipeAction.hidesWhenSelected = true
-                currentBabySwipeAction.image = UIImage(named: "checkmark")!
-                
+                currentBabySwipeAction.image = UIImage(named: "checkmark2")!
+
                 return [currentBabySwipeAction]
                 
                 
@@ -652,11 +656,14 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                             try self.realm.write {
                                                 i.applied = true
                                             }
+                                            
+                                            self.loadBabiesAndVaccines()
+                                            tableView.reloadData()
                                         }
                                         catch{
                                             print(error)
                                         }
-                                        tableView.reloadData()
+                                        
                                         
                                     })
                                     
@@ -676,6 +683,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                                 i.applied = false
                                                 i.dateOfAdministration = ""
                                             }
+                                            self.loadBabiesAndVaccines()
                                             tableView.reloadData()
                                         }
                                         catch{
@@ -693,6 +701,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                     alert.addAction(actionCancel)
                                     alert.show(animated: true, vibrate: true, style: .light, completion: nil)
                                 }
+
                                 
                                 
                             }
@@ -702,7 +711,9 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                 }
                 currentBabySwipeAction.backgroundColor = UIColor.init(hexString: "F78BF9")
                 currentBabySwipeAction.hidesWhenSelected = true
-                currentBabySwipeAction.image = UIImage(named: "checkmark")!
+                currentBabySwipeAction.image = UIImage(named: "checkmark2")!
+
+              
                 
                 return [currentBabySwipeAction]
                 
@@ -721,3 +732,4 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
     }
     
 }
+

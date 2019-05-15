@@ -106,6 +106,8 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         let destinationVC = segue.destination as! BabiesViewController
         destinationVC.delegate = self
         destinationVC.delegateNameBarHome = self
+        
+        
    
         
     }
@@ -126,7 +128,6 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
             navigationController?.navigationBar.prefersLargeTitles = false

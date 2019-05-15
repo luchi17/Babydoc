@@ -3,6 +3,7 @@ ${BUILT_PRODUCTS_DIR}/APESuperHUD/APESuperHUD.framework
 ${BUILT_PRODUCTS_DIR}/AUPickerCell/AUPickerCell.framework
 ${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework
 ${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
+${BUILT_PRODUCTS_DIR}/ICTextView/ICTextView.framework
 ${BUILT_PRODUCTS_DIR}/PMAlertController/PMAlertController.framework
 ${BUILT_PRODUCTS_DIR}/ProgressHUD/ProgressHUD.framework
 ${BUILT_PRODUCTS_DIR}/RLBAlertsPickers/RLBAlertsPickers.framework
