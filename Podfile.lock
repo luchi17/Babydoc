@@ -17,6 +17,7 @@ PODS:
     - Realm (= 3.15.0)
   - RLBAlertsPickers (1.1.1)
   - ScrollableDatepicker (2.2.0)
+  - SwiftyPickerPopover (6.6.5)
   - SwipeCellKit (2.6.0)
 
 DEPENDENCIES:
@@ -30,6 +31,7 @@ DEPENDENCIES:
   - RealmSwift
   - RLBAlertsPickers (from `https://github.com/loicgriffie/Alerts-Pickers.git`, branch `master`)
   - ScrollableDatepicker (~> 2.2)
+  - SwiftyPickerPopover
   - SwipeCellKit (from `https://github.com/SwipeCellKit/SwipeCellKit.git`, branch `develop`)
 
 SPEC REPOS:
@@ -42,6 +44,7 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - ScrollableDatepicker
+    - SwiftyPickerPopover
 
 EXTERNAL SOURCES:
   APESuperHUD:
@@ -81,8 +84,9 @@ SPEC CHECKSUMS:
   RealmSwift: 8a41886f8ab6efef9eb8df97de2f2bb911561a79
   RLBAlertsPickers: b1f751f27b2073090ad898206b60b47a149cc04a
   ScrollableDatepicker: 0f14e38bcd3517e6632220af11e47d29e0f982db
+  SwiftyPickerPopover: f2975fd0233d04c0a8f8d52d09b6f24b882de6fb
   SwipeCellKit: 75903f4840bd14958df3291314562e32d4d9b7ae
 
-PODFILE CHECKSUM: 531bd47f42f980eb0c70251cf372c61ad6e6efb8
+PODFILE CHECKSUM: acebb19a9f42f3a4d0021160e0999f8f8c034b44
 
 COCOAPODS: 1.7.0.beta.3

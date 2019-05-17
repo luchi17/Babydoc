@@ -10,4 +10,5 @@ ${BUILT_PRODUCTS_DIR}/RLBAlertsPickers/RLBAlertsPickers.framework
 ${BUILT_PRODUCTS_DIR}/Realm/Realm.framework
 ${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework
 ${BUILT_PRODUCTS_DIR}/ScrollableDatepicker/ScrollableDatepicker.framework
+${BUILT_PRODUCTS_DIR}/SwiftyPickerPopover/SwiftyPickerPopover.framework
 ${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework

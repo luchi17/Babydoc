@@ -12,7 +12,8 @@ import SwipeCellKit
 class CustomCellVaccine : SwipeTableViewCell {
     
     
-    @IBOutlet weak var nameVaccine: UILabel!
+
+    @IBOutlet weak var name: UILabel!
     @IBOutlet weak var dateAdministration: UILabel!
     
     

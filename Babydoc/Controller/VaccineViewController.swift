@@ -52,12 +52,7 @@ class VaccineViewController : UIViewController{
         tableView.dataSource = self
         tableView.register(UINib(nibName: "TextFieldTableViewCell", bundle: nil), forCellReuseIdentifier: "babyInfoCell")
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString: "F588F9")
-        
-        
-        
-        //        let font: [AnyHashable : Any] = [NSAttributedString.Key.font : UIFont(name: "Avenir-Medium", size: 15)]
-        //        selectedVaccineCategory.setTitleTextAttributes(font as? [NSAttributedString.Key : Any], for: .normal)
-        
+ 
         
     }
     override func willMove(toParent parent: UIViewController?) {
@@ -447,11 +442,12 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
         case 0:
             
             if registeredBabies?.count == 0{
-                cell.nameVaccine.text = "No babies added yet"
+                cell.name.text = "No babies added yet"
+                cell.dateAdministration.text = ""
                 cell.accessoryType = .none
             }
             else{
-                cell.nameVaccine.text = dictAgeFunded[sectionAgeFunded[indexPath.section]]![indexPath.row]
+                cell.name.text = dictAgeFunded[sectionAgeFunded[indexPath.section]]![indexPath.row]
                 cell.dateAdministration.text = dictFundedDateAdm[sectionAgeFunded[indexPath.section]]![indexPath.row]
                 let vaccinesApplied = vaccines?.filter("name == %@", dictAgeFunded[sectionAgeFunded[indexPath.section]]![indexPath.row])
                 
@@ -459,10 +455,10 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
                     var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@ AND applied == %@", sectionAgeFunded[indexPath.section], true)
                     dose = dose?.filter(" %@ IN parentVaccine", vaccine)
                     if dose?.count != 0{
-                        cell.nameVaccine.textColor = UIColor.init(hexString: "7F8484")
+                        cell.name.textColor = UIColor.init(hexString: "7F8484")
                     }
                     else {
-                        cell.nameVaccine.textColor = UIColor.init(hexString: "CC16CF")
+                        cell.name.textColor = UIColor.init(hexString: "CC16CF")
                     }
                     
                 }
@@ -472,11 +468,12 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
             
         case 1:
             if registeredBabies?.count == 0{
-                cell.nameVaccine.text = "No babies added yet"
+                cell.name.text = "No babies added yet"
+                cell.dateAdministration.text = ""
                 cell.accessoryType = .none
             }
             else{
-                cell.nameVaccine.text = dictAgeNonFunded[sectionAgeNonFunded[indexPath.section]]![indexPath.row]
+                cell.name.text = dictAgeNonFunded[sectionAgeNonFunded[indexPath.section]]![indexPath.row]
                 cell.dateAdministration.text = dictNonFundedDateAdm[sectionAgeNonFunded[indexPath.section]]![indexPath.row]
                 let vaccinesApplied = vaccines?.filter("name == %@", dictAgeNonFunded[sectionAgeNonFunded[indexPath.section]]![indexPath.row])
                 
@@ -484,10 +481,10 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
                     var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@ AND applied == %@", sectionAgeNonFunded[indexPath.section], true)
                     dose = dose?.filter(" %@ IN parentVaccine", vaccine)
                     if dose?.count != 0{
-                        cell.nameVaccine.textColor = grayColor
+                        cell.name.textColor = grayColor
                     }
                     else {
-                        cell.nameVaccine.textColor = UIColor.init(hexString: "CC16CF")
+                        cell.name.textColor = UIColor.init(hexString: "CC16CF")
                     }
                     
                 }

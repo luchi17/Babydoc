@@ -34,7 +34,6 @@ class InfoVaccinesViewController: UIViewController, UISearchBarDelegate, UITextV
         textView.scrollRectToVisible(CGRect.zero, animated: true, consideringInsets: true)
          textView.searchOptions = .caseInsensitive
         textView.secondaryHighlightColor = textView.primaryHighlightColor
-        //textView.linkTextAttributes = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single, NSAttributedString.Key.underlineColor: UIColor.flatBlue, NSAttributedString.Key.foregroundColor: UIColor.flatBlue]
         textView.tintColor = UIColor.flatBlue
         textView.animatedSearch = true
         textView.circularSearch = true
@@ -52,12 +51,8 @@ class InfoVaccinesViewController: UIViewController, UISearchBarDelegate, UITextV
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-      
-           
           textView.scrollRectToVisible(CGRect.zero, animated: true, consideringInsets: true)
           textView.resetSearch()
-
-        
         
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

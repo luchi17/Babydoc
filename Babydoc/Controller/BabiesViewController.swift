@@ -51,7 +51,7 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
             navigationItem.largeTitleDisplayMode = .always
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-        tableView.reloadData()
+        
 
         
         
@@ -180,6 +180,8 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                 
             }
             addVaccinesDatabaseToNewBaby(babytoAdd : baby)
+        
+            
         }
         catch{
             print(error)
@@ -206,6 +208,7 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                     let dose = realm.objects(VaccineDoses.self).filter("%@ IN parentVaccine", vaccine)
                     realm.delete(dose)
                 }
+                //realm.delete(baby.drugs)
                 realm.delete(baby.vaccines)
                 realm.delete(baby)
                 
@@ -430,10 +433,9 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
         }
         
         
-        
-        
  
     }
+ 
     
 }
 extension BabiesViewController : SwipeTableViewCellDelegate{

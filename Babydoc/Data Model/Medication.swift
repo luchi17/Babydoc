@@ -6,21 +6,24 @@
 //  Copyright © 2019 Luchi Parejo alcazar. All rights reserved.
 //
 
-//import Foundation
-//import RealmSwift
-//
-//class Medication : Object {
-//    
-//    @objc dynamic var name : String = ""
-//    @objc dynamic var dosage : String = ""
-//    @objc dynamic var dateOfAdministration : String = ""
-//    @objc dynamic var applied : Bool = false
-//    
-//    var parentBaby = LinkingObjects(fromType : Vaccine.self , property : "doses" )
-//    
-//    
-//    
-//    
-//    
-//    
-//}
+import Foundation
+import RealmSwift
+
+class Medication : Object {
+    
+    @objc dynamic var name : String = ""
+    @objc dynamic var dosagePerDay : String = ""
+    @objc dynamic var dosagePerDose : String = ""
+    @objc dynamic var timeForDose : String = ""
+    @objc dynamic var maxDose : String = ""
+    
+
+    let medicationTypes = List<MedicationType>()
+
+    
+    
+    
+    
+    
+    
+}
