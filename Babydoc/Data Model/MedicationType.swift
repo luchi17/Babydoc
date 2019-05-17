@@ -19,9 +19,7 @@ class MedicationType : Object {
     @objc dynamic var concentrationUnit : String = ""
     @objc dynamic var routeOfAdministration : String = ""
     @objc dynamic var suggestion : String = ""
-    @objc dynamic var info : String = ""
     @objc dynamic var hyperlink : String = ""
-    @objc dynamic var tricksForQuickUse : String = ""
     @objc dynamic var applied : Bool = false
     
     var parentMedication = LinkingObjects(fromType : Medication.self , property : "medicationTypes" )

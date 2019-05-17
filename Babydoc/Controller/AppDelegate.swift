@@ -60,18 +60,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeDrops.parentMedicationName = "Paracetamol"
         typeDrops.name = "Drops"
         typeDrops.concentration = 100
+        typeDrops.maxWeight = 32
         typeDrops.concentrationUnit = "mg/ml"
         typeDrops.routeOfAdministration = "Oral route"
-        typeDrops.tricksForQuickUse = "0.15*weight(kg)*25 = drops per dose every 6 hours"
         typeDrops.hyperlink = "https://cima.aemps.es/cima/dochtml/p/49302/Prospecto_49302.html"
+        typeDrops.suggestion = "It is advisable to consult a doctor before administering it to children under 3 years of age.\nTrick for quick use: 0.15*weight(kg)*25 = drops per dose every 6 hours."
+        
         let typeSyrup = MedicationType()
         typeSyrup.parentMedicationName = "Paracetamol"
         typeSyrup.name = "Syrup"
         typeSyrup.concentration = 30
         typeSyrup.concentrationUnit = "mg/ml"
+        typeSyrup.minWeight = 4
+        typeSyrup.maxWeight = 32
         typeSyrup.routeOfAdministration = "Oral route"
+        typeSyrup.suggestion = "Children younger than 2 years old can only take this medicine if their doctor has prescribed it for them."
         typeSyrup.hyperlink = "https://www.vademecum.es/medicamento-efferalgan+pediatrico_prospecto_58157"
-        typeSyrup.tricksForQuickUse = ""
 
         let typeSyrup1 = MedicationType()
         typeSyrup1.parentMedicationName = "Paracetamol"
@@ -79,18 +83,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSyrup1.concentration = 100
         typeSyrup1.concentrationUnit = "mg/ml"
         typeSyrup1.routeOfAdministration = "Oral route"
+        typeSyrup1.maxWeight = 32
+        typeSyrup1.suggestion = "It is advisable to consult a doctor before administering it to children under 3 years of age.\nTrick for quick use: 0.15*weight(kg) = ml per dose every 6 hours."
         typeSyrup1.hyperlink = "https://cima.aemps.es/cima/dochtml/p/49302/Prospecto_49302.html"
-        typeSyrup1.tricksForQuickUse = ""
         
         let typeSup = MedicationType()
         typeSup.parentMedicationName = "Paracetamol"
         typeSup.name = "Suppository"
         typeSup.concentration = 150
         typeSup.concentrationUnit = "mg"
+        typeSup.minWeight = 10
         typeSup.maxWeight = 20
         typeSup.routeOfAdministration = "Rectal route"
         typeSup.hyperlink = "https://www.vademecum.es/medicamento-febrectal_prospecto_45930"
-        typeSup.tricksForQuickUse = ""
+        typeSup.suggestion = "For children under two years the dose should be established individually by the doctor, according to age and weight.\nDue to the dosage this medicine is not suitable for infants and children weighing less than 10 kg."
         
         let typeSup1 = MedicationType()
         typeSup1.parentMedicationName = "Paracetamol"
@@ -101,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSup1.maxWeight = 33
         typeSup1.routeOfAdministration = "Rectal route"
         typeSup1.hyperlink = "https://www.vademecum.es/medicamento-apiretal_prospecto_56301"
-        typeSup1.tricksForQuickUse = ""
+        typeSup1.suggestion = "It is not recommended for use in children weighing less than 17 kg (under 4 years approximately)."
         
         let typeSup2 = MedicationType()
         typeSup2.parentMedicationName = "Paracetamol"
@@ -111,27 +117,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSup2.minWeight = 20
         typeSup2.routeOfAdministration = "Rectal route"
         typeSup2.hyperlink = "https://www.vademecum.es/medicamento-febrectal+sup.+inf.+300+mg_prospecto_45929"
-        typeSup2.tricksForQuickUse = ""
+        typeSup2.suggestion = "It is recommended not to administer more than 5 doses every 24 hours to children under the age of 12, unless indicated by your doctor."
         
         let typeChewTablet = MedicationType()
         typeChewTablet.parentMedicationName = "Paracetamol"
-        typeChewTablet.name = "Chewable tablets"
+        typeChewTablet.name = "Chewable Tablets"
         typeChewTablet.concentration = 250
         typeChewTablet.concentrationUnit = "mg"
         typeChewTablet.minWeight = 14
         typeChewTablet.routeOfAdministration = "Oral route"
         typeChewTablet.hyperlink = "https://www.vademecum.es/medicamento-apiretal_prospecto_70569"
-        typeChewTablet.tricksForQuickUse = ""
+        typeChewTablet.suggestion = "It is indicated for children over 14 kg."
         
         let typeChewTablet1 = MedicationType()
         typeChewTablet1.parentMedicationName = "Paracetamol"
         typeChewTablet1.name = "Chewable Tablets"
         typeChewTablet1.concentration = 325
         typeChewTablet1.concentrationUnit = "mg"
-        typeChewTablet1.minWeight = 20
+        typeChewTablet1.minWeight = 19
         typeChewTablet1.routeOfAdministration = "Oral route"
         typeChewTablet1.hyperlink = "https://www.vademecum.es/medicamento-apiretal+comp.+bucodispersable+325+mg_prospecto_70571"
-        typeChewTablet1.tricksForQuickUse = ""
+        typeChewTablet1.suggestion = "It is not suitable for children under 19 kg. For children weighing between 14 and 19 kg, the use of 250 mg chewable tablets is recommended."
         
         let typeChewTablet2 = MedicationType()
         typeChewTablet2.parentMedicationName = "Paracetamol"
@@ -141,7 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeChewTablet2.minWeight = 27
         typeChewTablet2.routeOfAdministration = "Oral route"
         typeChewTablet2.hyperlink = "https://cima.aemps.es/cima/dochtml/p/70572/Prospecto_70572.html"
-        typeChewTablet2.tricksForQuickUse = ""
+        typeChewTablet2.suggestion = "This medicine is not indicated for children under 27 kg. For children weighing less, have a look at other presentations"
         
         let typeTablet = MedicationType()
         typeTablet.parentMedicationName = "Paracetamol"
@@ -151,9 +157,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeTablet.minWeight = 40
         typeTablet.routeOfAdministration = "Oral route"
         typeTablet.hyperlink = "https://www.vademecum.es/medicamento-termalgin_prospecto_23203"
-        typeTablet.tricksForQuickUse = ""
-        
-  
+        typeTablet.suggestion = "Because of the amount of paracetamol it contains, children (younger than 12 years old) cannot take this medicine."
         
 
         paracetamol.medicationTypes.append(typeDrops)
