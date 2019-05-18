@@ -23,7 +23,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     let lightPinkColor = UIColor.init(hexString: "FFA0D2")
     let grayColor = UIColor.init(hexString: "7F8484")
     let grayLightColor = UIColor.init(hexString: "7F8484")
-
+    
     
     @IBOutlet weak var admRoute: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -31,7 +31,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     
     @IBOutlet weak var resultCalculator: UILabel!
     @IBOutlet weak var maxDose: UILabel!
- 
+    
     @IBOutlet weak var type: UILabel!
     @IBOutlet weak var hyperLink: UITextView!
     
@@ -102,7 +102,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     
     
     func loadSpecificTypeOfDrug(){
-
+        
         drugs = realm.objects(Medication.self).filter("name == %@",selectedTypeParentName as Any)
         for drug in drugs!{
             maxDoseParent = drug.maxDose
@@ -131,9 +131,9 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
     }
     func configureProperties(selectedConcentration : String){
-        
+
         let specificType = drugTypes?.filter("concentration == %@", Int(selectedConcentration) as Any)
-       
+        
         for type in specificType!{
             
             minimumWeight = type.minWeight
@@ -146,9 +146,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         hyperLink.text = link
         suggestions.text = suggestion
         
-        
-
-        
+        weightsPopOver = []
         for weight in minimumWeight...maximumWeight{
             
             var weightPopOver = StringPickerPopover.ItemType()
@@ -156,13 +154,14 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             weightsPopOver.append(weightPopOver)
             
         }
+
         
         
     }
     func configureCommonProperties(){
         
         for drug in drugTypes!{
-
+            
             concentrationUnit = drug.concentrationUnit
             routeOfAdm = drug.routeOfAdministration
             
@@ -175,18 +174,19 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     }
     
     //MARK: Calculate doses methods
-
-    func extractPosologyValues(posology: String)->Array<Float>{
+    
+    func extractPosologyValues(posology: String)->Float{
         
-        var values = Array<Float>()
+        var value = Float(0.0)
         let stringArray = posology.components(separatedBy: CharacterSet.decimalDigits.inverted)
         for item in stringArray {
             if let number = Float(item){
-                values.append(number)
+                value = number
+                break
             }
             
         }
-        return values
+        return value
         
     }
     
@@ -200,14 +200,12 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         let posologyString = parentMedication?.maxDose
         let posologyFloat = extractPosologyValues(posology: posologyString!)
         
-        for posology in posologyFloat{
-            
-            multValue = ((weight*posology)/Float(concentration))
-            value6h = multValue/4
-            value6h = round(value6h * 10) / 10
-            value8h = multValue/3
-            value8h = round(value8h * 10) / 10
-        }
+        multValue = ((weight*posologyFloat)/Float(concentration))
+        value6h = multValue/4
+        value6h = round(value6h * 10) / 10
+        value8h = multValue/3
+        value8h = round(value8h * 10) / 10
+        
         
         finalString = "\(value6h) ml every 6 hours \nor\n\(value8h) ml every 8 hours"
         
@@ -221,34 +219,33 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         return finalString
     }
     
-
+    
     
     
     func calcSolid(concentration : Int, weight : Float)->String{
         
         var finalString = ""
         var multValue = Float(0.0)
-        var value6h = Float(0.0)
-        var value8h = Float(0.0)
+        var numberOfDoses = 0
         let posologyString = parentMedication?.maxDose
         let posologyFloat = extractPosologyValues(posology: posologyString!)
+        multValue = weight*posologyFloat
+        multValue = multValue/Float(concentration)
+        numberOfDoses = Int(multValue)
         
-        for posology in posologyFloat{
-            
-            multValue = ((weight*posology)/Float(concentration))
-            value6h = multValue/4
-            value6h = round(value6h * 10) / 10
-            value8h = multValue/3
-            value8h = round(value8h * 10) / 10
+        if selectedTypeName == "Suppository"{
+            finalString = "\(numberOfDoses) suppositories in 24 hours"
         }
-        
-        finalString = "\(value6h) ml every 6 hours \nor\n\(value8h) ml every 8 hours"
-        
-        
-        
-        
-        
-        
+        else if selectedTypeName == "Chewable Tablets"{
+            finalString = "\(numberOfDoses) chewable tablets in 24 hours"
+        }
+        else if selectedTypeName == "Tablets"{
+            finalString = "\(numberOfDoses) tablets in 24 hours"
+        }
+        else if selectedTypeName == "Tablets"{
+            finalString = "\(numberOfDoses) tablets in 24 hours"
+        }
+
         return finalString
     }
     
@@ -257,26 +254,29 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         var stringMaxDose = ""
         var doseValue = Float(0.0)
         let maxdose = extractPosologyValues(posology: parentMedication!.maxDose)
-        for dose in maxdose{
-            doseValue = dose*weight
-        }
+        
+        doseValue = maxdose*weight
+        
         if concentrationUnit == "mg/ml"{
             let value = doseValue/Float(concentration)
             stringMaxDose = "Maximum dose per day: \(value) ml"
         }
         else if concentrationUnit == "mg"{
+
             stringMaxDose = "Maximum dose per day: \(Int(doseValue)) \(concentrationUnit)"
+
+            
         }
        
+        
         return stringMaxDose
         
         
     }
-    
+    //MARK: Textfield method
+
 
     
-    
-    //MARK: Textfield method
 
     
     @IBAction func textFieldTouchedDown(_ sender: UITextField) {
@@ -285,7 +285,6 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         sender.textColor = grayColor
         sender.font = font
         
-        
         if sender.tag == 0{
             
             var result = ""
@@ -293,7 +292,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             picker.setArrowColor(pinkcolor!)
             picker.setFontColor(grayColor!).setFont(font!).setSize(width: 220, height: 150).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
                 popover, selectedRow, selectedString in
-                sender.text = selectedString
+                sender.text = selectedString + " " + self.concentrationUnit
                 self.concentrationSelected = Int(selectedString)!
                 self.configureProperties(selectedConcentration:selectedString)
                 
@@ -312,10 +311,10 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
                     
                 }
                 }.appear(originView: sender, baseViewController: self)
-        
+            
         }
         else{
-
+            
             if weightsPopOver.count == 0{
                 
                 let alert = UIAlertController(title: nil, message: "Select concentration before choosing child´s weight", preferredStyle: .alert)
@@ -326,14 +325,15 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             }
             else{
                 var result = ""
-                let picker =  StringPickerPopover(title: "kg", choices: weightsPopOver)
+                let picker = StringPickerPopover(title: "kg", choices: weightsPopOver)
                 picker.setArrowColor(pinkcolor!)
                 picker.setFontColor(grayColor!).setFont(font!).setSize(width: 180, height: 220).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
                     popover, selectedRow, selectedString in
-                    sender.text = selectedString
+                    sender.text = selectedString + " kg"
                     self.weightSelected = Float(selectedString)!
+                    
                     if self.concentrationUnit == "mg/ml"{
-                     result = self.calcLiquid(concentration: self.concentrationSelected , weight: Float(self.weightSelected))
+                        result = self.calcLiquid(concentration: self.concentrationSelected , weight: Float(self.weightSelected))
                     }
                     else if self.concentrationUnit == "mg"{
                         result = self.calcSolid(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
@@ -349,8 +349,6 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             }
             
         }
-        
-        
         
     }
     
