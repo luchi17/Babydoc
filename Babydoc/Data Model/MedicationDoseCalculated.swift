@@ -11,7 +11,7 @@ import RealmSwift
 
 class MedicationDoseCalculated : Object {
     
-    @objc dynamic var parentBabyName : String = ""
+
     @objc dynamic var parentMedicationName : String = ""
     @objc dynamic var nameType : String = ""
     @objc dynamic var concentrationUnit : String = ""

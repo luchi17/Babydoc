@@ -149,6 +149,10 @@ class BabyInfoViewController : UITableViewController{
     func dateStringFromDate(date: Date) -> String {
         return dateFormatter.string(from: date)
     }
+    
+    func dateFromString(dateString: String) -> Date? {
+        return dateFormatter.date(from: dateString)
+    }
     func calculateAge(dob : String) -> (year :Int, month : Int, day : Int){
         let df = DateFormatter()
         df.dateFormat = "MM/dd/yyyy"
@@ -247,10 +251,7 @@ class BabyInfoViewController : UITableViewController{
         
         
     }
-    
-    func dateFromString(dateString: String) -> Date? {
-        return dateFormatter.date(from: dateString)
-    }
+
     
     
     

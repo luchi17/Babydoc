@@ -324,7 +324,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             medicationToSave.concentrationUnit = self.concentrationUnit
             medicationToSave.weight = self.weightSelected
             medicationToSave.nameType = self.selectedTypeName!
-            medicationToSave.parentBabyName = self.selectedTypeParentName!
+            medicationToSave.parentMedicationName = self.selectedTypeParentName!
             
              performSegue(withIdentifier: "goToSave", sender: self)
         }

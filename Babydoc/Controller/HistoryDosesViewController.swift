@@ -38,6 +38,7 @@ class HistoryDosesViewController : UITableViewController{
         
         
     }
+
     func loadBabyAndDoses(){
         
         registeredBabies = realm.objects(Baby.self)
@@ -45,11 +46,11 @@ class HistoryDosesViewController : UITableViewController{
         if registeredBabies?.count != 0{
             
             getCurrentBaby()
-            doses = babyApp.medicationDoses.filter(NSPredicate(value: true))
+            //todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+            doses = babyApp.medicationDoses.filter(NSPredicate(value: true)).sorted(byKeyPath: "date", ascending: false)
             for dose in doses!{
                 arrayDoses.append(dose)
             }
-            print(arrayDoses)
             tableView.reloadData()
             
         }
@@ -78,8 +79,8 @@ class HistoryDosesViewController : UITableViewController{
         }
         else{
             cell.nameDose.text = arrayDoses[indexPath.row].parentMedicationName + " " + arrayDoses[indexPath.row].nameType
-            cell.descriptionDose.text = "Date: " + arrayDoses[indexPath.row].date + "\nConcentration: " + "\(arrayDoses[indexPath.row].concentration)"
-            cell.descriptionDose2.text = "Weight: " + "\(arrayDoses[indexPath.row].weight)" + "\nApplied dose: " + arrayDoses[indexPath.row].dose
+            cell.descriptionDose.text = "Date: " + arrayDoses[indexPath.row].date + "\nConcentration: " + "\(arrayDoses[indexPath.row].concentration) \(arrayDoses[indexPath.row].concentrationUnit)"
+            cell.descriptionDose2.text = "Weight: " + "\(arrayDoses[indexPath.row].weight) kg" + "\nApplied dose: " + arrayDoses[indexPath.row].dose + " " + arrayDoses[indexPath.row].doseUnit
         }
         
         

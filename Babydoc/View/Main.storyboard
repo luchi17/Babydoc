@@ -915,6 +915,7 @@
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
+                                                        <action selector="quantityTextFieldEndEditing:" destination="J6h-09-GSp" eventType="editingDidEnd" id="OwK-tu-RJj"/>
                                                         <action selector="textField2TouchDown:" destination="J6h-09-GSp" eventType="touchDown" id="gBg-7C-gG7"/>
                                                         <action selector="textFieldTouchedDown:" destination="OVL-Qd-kih" eventType="touchDown" id="4VG-LM-WOr"/>
                                                     </connections>
