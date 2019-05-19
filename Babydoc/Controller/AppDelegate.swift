@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let typeChewTablet = MedicationType()
         typeChewTablet.parentMedicationName = "Paracetamol"
-        typeChewTablet.name = "Chewable Tablets"
+        typeChewTablet.name = "Orodispersible Tablets"
         typeChewTablet.concentration = 250
         typeChewTablet.concentrationUnit = "mg"
         typeChewTablet.minWeight = 14
@@ -131,17 +131,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let typeChewTablet1 = MedicationType()
         typeChewTablet1.parentMedicationName = "Paracetamol"
-        typeChewTablet1.name = "Chewable Tablets"
+        typeChewTablet1.name = "Orodispersible Tablets"
         typeChewTablet1.concentration = 325
         typeChewTablet1.concentrationUnit = "mg"
         typeChewTablet1.minWeight = 19
         typeChewTablet1.routeOfAdministration = "Oral route"
         typeChewTablet1.hyperlink = "https://www.vademecum.es/medicamento-apiretal+comp.+bucodispersable+325+mg_prospecto_70571"
-        typeChewTablet1.suggestion = "It is not suitable for children under 19 kg. For children weighing between 14 and 19 kg, the use of 250 mg chewable tablets is recommended."
+        typeChewTablet1.suggestion = "It is not suitable for children under 19 kg. For children weighing between 14 and 19 kg, the use of 250 mg orodispersible tablets is recommended."
         
         let typeChewTablet2 = MedicationType()
         typeChewTablet2.parentMedicationName = "Paracetamol"
-        typeChewTablet2.name = "Chewable Tablets"
+        typeChewTablet2.name = "Orodispersible Tablets"
         typeChewTablet2.concentration = 500
         typeChewTablet2.concentrationUnit = "mg"
         typeChewTablet2.minWeight = 27

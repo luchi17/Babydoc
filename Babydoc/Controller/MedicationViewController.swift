@@ -24,7 +24,8 @@ class MedicationViewController : UITableViewController{
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
     let pinkcolor = UIColor.init(hexString: "F97DBE")
-    
+    let darkPinkColor = UIColor.init(hexString: "FB569F")
+    let lightPinkColor = UIColor.init(hexString: "FFA0D2")
     
     
     override func viewDidLoad() {
@@ -40,8 +41,8 @@ class MedicationViewController : UITableViewController{
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60.0
-        self.navigationController?.navigationBar.barTintColor = pinkcolor //FFA0D2
-        self.navigationController?.navigationBar.backgroundColor = pinkcolor
+        self.navigationController?.navigationBar.barTintColor = darkPinkColor//FFA0D2
+        self.navigationController?.navigationBar.backgroundColor = darkPinkColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         
@@ -78,12 +79,20 @@ class MedicationViewController : UITableViewController{
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let destinationVC = segue.destination as! MedicationTypesInfoViewController
-        if let indexpath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedDrug  = registeredDrugs?[indexpath.row]
-            destinationVC.navigationItem.title = destinationVC.selectedDrug?.name
-    
+        if let destinationVC1 = segue.destination as? MedicationTypesInfoViewController{
+            if let indexpath = tableView.indexPathForSelectedRow {
+                destinationVC1.selectedDrug  = registeredDrugs?[indexpath.row]
+                destinationVC1.navigationItem.title = destinationVC1.selectedDrug?.name
+                
+            }
         }
+        if let destinationVC2 = segue.destination as? HistoryDosesViewController{
+            destinationVC2.navigationItem.largeTitleDisplayMode = .never
+            destinationVC2.navigationController?.navigationBar.prefersLargeTitles = false
+            //destinationVC2.naviga
+        }
+        
+        
         
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

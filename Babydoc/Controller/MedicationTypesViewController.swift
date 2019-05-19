@@ -36,8 +36,8 @@ class MedicationTypesInfoViewController : UITableViewController{
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 60.0
-        self.navigationController?.navigationBar.barTintColor = lightPinkColor
-        self.navigationController?.navigationBar.backgroundColor = lightPinkColor
+        self.navigationController?.navigationBar.barTintColor = pinkcolor
+        self.navigationController?.navigationBar.backgroundColor = pinkcolor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
 
@@ -91,16 +91,20 @@ class MedicationTypesInfoViewController : UITableViewController{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let destinationVC = segue.destination as! MedicationCalculatorViewController
-        if let indexpath = tableView.indexPathForSelectedRow {
 
-            destinationVC.selectedTypeParentName = selectedDrug!.name
-            destinationVC.selectedTypeName = arrayNameOfTypes[indexpath.row]
-            
+        if let destinationVC = segue.destination as? MedicationCalculatorViewController {
+            if let indexpath = tableView.indexPathForSelectedRow {
                 
+                destinationVC.selectedTypeParentName = selectedDrug!.name
+                destinationVC.selectedTypeName = arrayNameOfTypes[indexpath.row]
+                
+                
+            }
+           
         }
+
     }
+   
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }

@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 import APESuperHUD
-//import AUPickerCell
+import RLBAlertsPickers
 import SwiftyPickerPopover
 
 class MedicationCalculatorViewController : UIViewController, UITableViewDataSource, UITableViewDelegate{
@@ -23,6 +23,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     let lightPinkColor = UIColor.init(hexString: "FFA0D2")
     let grayColor = UIColor.init(hexString: "7F8484")
     let grayLightColor = UIColor.init(hexString: "7F8484")
+    @IBOutlet weak var saveButton: UIButton!
     
     
     @IBOutlet weak var admRoute: UILabel!
@@ -34,7 +35,9 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     
     @IBOutlet weak var type: UILabel!
     @IBOutlet weak var hyperLink: UITextView!
-    
+    var registeredBabies : Results<Baby>?
+    var babyApp = Baby()
+    var medicationToSave = MedicationDoseCalculated()
     
     var realm = try! Realm()
     
@@ -65,18 +68,26 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     var minimumWeight = 0
     var maximumWeight = 60
     var concentrationSelected = 0
+    var weightUnit = ""
     var weightSelected = Float(0.0)
     var maxDoseParent = ""
-    var resultCalc = ""
     
     //MARK: View methods
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        
+        saveButton.layer.cornerRadius = 2
+        saveButton.layer.masksToBounds = false
+        saveButton.layer.shadowColor = UIColor.flatGray.cgColor
+        saveButton.layer.shadowOpacity = 0.7
+        saveButton.layer.shadowRadius = 1
+        saveButton.layer.shadowOffset = CGSize(width: 2, height: 2)
         admRoute.text = routeOfAdm
         type.text = "\(selectedTypeParentName ?? "" ) \(selectedTypeName ?? "")"
+        loadBabies()
+        getCurrentBabyApp()
+        
         
     }
     override func viewDidLayoutSubviews(){
@@ -84,18 +95,15 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         tableView.reloadData()
     }
     override func willMove(toParent parent: UIViewController?) {
-        self.navigationController?.navigationBar.barTintColor = lightPinkColor
+        self.navigationController?.navigationBar.barTintColor = pinkcolor
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 70.0
-        self.navigationController?.navigationBar.barTintColor = pinkcolor
-        self.navigationController?.navigationBar.backgroundColor = pinkcolor
+
+        self.navigationController?.navigationBar.barTintColor = lightPinkColor
+        self.navigationController?.navigationBar.backgroundColor = lightPinkColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        tableView.frame = CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.frame.size.width, height: tableView.contentSize.height)
-        
+
     }
     
     //MARK: Data manipulation
@@ -139,7 +147,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             minimumWeight = type.minWeight
             maximumWeight = type.maxWeight
             link = type.hyperlink
-            suggestion = type.suggestion + "\nMaximum dose: " + maxDoseParent
+            suggestion = type.suggestion
 
             break
         }
@@ -172,6 +180,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         
     }
+  
     
     //MARK: Calculate doses methods
     
@@ -209,13 +218,12 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         finalString = "\(value6h) ml every 6 hours \nor\n\(value8h) ml every 8 hours"
         
-        
         if selectedTypeName == "Drops"{
             
-            finalString = "\(Int(value6h * 25)) drops every 6 hours \nor\n\(Int(value8h * 25)) drops every 8 hours"
+            finalString = "\(Int(value6h * 25)) drops every 6 hours\nor\n\(Int(value8h * 25)) drops every 8 hours"
             
         }
-        
+       
         return finalString
     }
     
@@ -273,11 +281,73 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         
     }
-    //MARK: Textfield method
-
-
     
+    //MARK: ToSave methods
+    func loadBabies(){
+        
+        registeredBabies = realm.objects(Baby.self)
+        
+        tableView.reloadData()
+        
+    }
+    
+    func getCurrentBabyApp(){
+        
+        
+        for baby in registeredBabies!{
+            if baby.current == true{
+                babyApp = baby
+            }
+        }
+    }
+    
+    
+   
+    @IBAction func saveButtonPressed(_ sender: UIButton) {
+        
+        loadBabies()
+        if babyApp.name.isEmpty || self.weightSelected == 0 || self.concentrationSelected == 0{
+            
+            let alert = UIAlertController(title: "Error", message: "In order to save the dose all the fields must be filled in and at least one baby has to be registered in Babydoc.", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(action)
+            alert.setMessage(font: fontLight!, color: grayLightColor!)
+            alert.setTitle(font: font!, color: grayColor!)
+            alert.show(animated: true, vibrate: true, style: .light, completion: nil)
+        }
 
+
+        else{
+            
+            medicationToSave = MedicationDoseCalculated()
+            medicationToSave.concentration = self.concentrationSelected
+            medicationToSave.concentrationUnit = self.concentrationUnit
+            medicationToSave.weight = self.weightSelected
+            medicationToSave.nameType = self.selectedTypeName!
+            medicationToSave.parentBabyName = self.selectedTypeParentName!
+            
+             performSegue(withIdentifier: "goToSave", sender: self)
+        }
+        
+
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? SaveDoseViewController{
+            destinationVC.medication = self.medicationToSave
+            destinationVC.baby = self.babyApp
+            
+        }
+        
+    }
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if babyApp.name.isEmpty || self.weightSelected == 0 || self.concentrationSelected == 0{
+            return false
+        }
+        return true
+    }
+       //MARK: Textfield method
     
     @IBAction func textFieldTouchedDown(_ sender: UITextField) {
         
@@ -331,20 +401,19 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
                     popover, selectedRow, selectedString in
                     sender.text = selectedString + " kg"
                     self.weightSelected = Float(selectedString)!
-                    
+
                     if self.concentrationUnit == "mg/ml"{
                         result = self.calcLiquid(concentration: self.concentrationSelected , weight: Float(self.weightSelected))
                     }
                     else if self.concentrationUnit == "mg"{
                         result = self.calcSolid(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
                     }
-                    
+
                     self.resultCalculator.text = result
-                    
+
                     self.maxDose.text = self.calcMaxDoseDay(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
-                    
+
                     }.appear(originView: sender, baseViewController: self)
-                
                 
             }
             
@@ -369,19 +438,15 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "calculatorCell") as! CalculatorCell
         
         if indexPath.row == 0{
-            cell.field.text = "Concentration" //+conc unit dependiendo de type
+            cell.field.text = "Concentration"
             cell.textField.tag = 0
-            
-            
-            
-            
-            
+            cell.textField.delegate = self
             return cell
         }
         else{
             cell.field.text = "Weight"
             cell.textField.tag = 1
-            
+             cell.textField.delegate = self
             
             return cell
         }
@@ -391,9 +456,17 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 65
+        return 45
     }
     
+}
+
+extension MedicationCalculatorViewController: UITextFieldDelegate{
+    
+    
+   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return false
+    }
 }
 
 

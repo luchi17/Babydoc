@@ -372,7 +372,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     weight = Float(3.00)
                     weightUnit = " kg"
                    
-                    alert.addPickerView(values: [arrayWeight, ["kg","lbs"]], initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
+                    alert.addPickerView(values: [arrayWeight, ["kg"]], initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
                         DispatchQueue.main.async {
                             UIView.animate(withDuration: 1) {
                                 
@@ -383,16 +383,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                             }
                         }
                         print(weight)
-                        
-                    
-                        if picker.selectedRow(inComponent: 1) == 0{
-                            weightUnit = " kg"
-                        }
-                        else if picker.selectedRow(inComponent: 1) == 1{
-                            weightUnit = " lbs"
-                        }
-                        
-                        
+
                     }
                     let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
                         

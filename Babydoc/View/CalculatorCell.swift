@@ -8,11 +8,10 @@
 
 import UIKit
 
-class CalculatorCell: UITableViewCell {
+class CalculatorCell: UITableViewCell{
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     @IBOutlet weak var field: UILabel!
