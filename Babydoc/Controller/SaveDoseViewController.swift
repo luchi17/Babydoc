@@ -65,7 +65,7 @@ class SaveDoseViewController : UITableViewController{
     
     @IBAction func textField1TouchDown(_ sender: UITextField) {
         
-        sender.textColor = grayColor
+        sender.textColor = grayLightColor
         sender.font = font
         DatePickerPopover(title: "Date")
             .setDateMode(.dateAndTime)
@@ -95,7 +95,7 @@ class SaveDoseViewController : UITableViewController{
     
     @IBAction func textField2TouchDown(_ sender: UITextField) {
         
-        sender.textColor = grayColor
+        sender.textColor = grayLightColor
         sender.font = font
         
         
@@ -117,11 +117,11 @@ class SaveDoseViewController : UITableViewController{
     
     @IBAction func textField3TouchDown(_ sender: UITextField) {
         
-        sender.textColor = grayColor
+        sender.textColor = grayLightColor
         sender.font = font
         StringPickerPopover(title: "Units", choices: quantityUnit )
             .setArrowColor(lightPinkColor!)
-            .setFontColor(grayColor!).setFont(font!).setSize(width: 320, height: 150).setFontSize(17).setCancelButton { (_, _, _) in }.setDoneButton(title: "Done", font: fontLittle, color: .white) {
+            .setFontColor(grayLightColor!).setFont(font!).setSize(width: 320, height: 150).setFontSize(17).setCancelButton { (_, _, _) in }.setDoneButton(title: "Done", font: fontLittle, color: .white) {
                     popover, selectedRow, selectedString in
                     sender.text = selectedString
                 do{
@@ -159,7 +159,7 @@ class SaveDoseViewController : UITableViewController{
             let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "Dose has been added correctly!")
             HUDAppearance.cancelableOnTouch = true
             HUDAppearance.messageFont = self.fontLight!
-            HUDAppearance.messageTextColor = self.grayColor!
+            HUDAppearance.messageTextColor = self.grayLightColor!
             
             self.present(hudViewController, animated: true)
             

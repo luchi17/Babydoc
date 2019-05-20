@@ -18,31 +18,28 @@ import RealmSwift
 class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHome{
     
     func changeName(name: String){
-
+        
         
         self.navigationItem.title = name
         
-
+        
     }
     
-
+    
     
     func resizeImageIsCalled(image: UIImage, size: CGSize) -> UIImage {
         let image = resizeImage(image: image, targetSize: size)
         return image
     }
-    
- 
-    
-    
+
     @IBOutlet weak var sleep: ActionView!
-  
+    
     @IBOutlet weak var feed: ActionView!
     
     @IBOutlet weak var diaper: ActionView!
-
+    
     @IBOutlet weak var medication: ActionView!
-   
+    
     @IBOutlet weak var grid: GridView!
     
     @IBOutlet weak var upcomingTasks: UILabel!
@@ -52,12 +49,11 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
     @IBOutlet weak var dateToday: UIButton!
     
     @IBOutlet weak var taskTableView: UITableView!
-
+    
     var defaultOptions = SwipeOptions()
     var realm = try! Realm()
     var currentBaby = Baby()
     var registeredBabies : Results<Baby>?
-    
     @IBOutlet weak var datePicker: ScrollableDatepicker!{
         didSet {
             var dates = [Date]()
@@ -76,10 +72,9 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
             configuration.defaultDayStyle.monthTextColor = UIColor.init(hexString: "7F8484")
             configuration.defaultDayStyle.weekDayTextColor = UIColor.init(hexString: "7F8484")
             configuration.defaultDayStyle.weekDayTextFont = UIFont(name: "Avenir-Medium", size: 8)
-
+            
             configuration.weekendDayStyle.weekDayTextFont = UIFont(name: "Avenir-Heavy", size: 8)
             
-
             configuration.selectedDayStyle.selectorColor = UIColor.init(hexString: "64C5CF")
             configuration.selectedDayStyle.dateTextColor = UIColor.init(hexString: "64C5CF")
             configuration.selectedDayStyle.weekDayTextColor = UIColor.init(hexString: "64C5CF")
@@ -92,7 +87,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         }
     }
     
-
+    
     
     @objc func buttonClicked() {
         datePicker.selectedDate = Date()
@@ -107,10 +102,8 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         destinationVC.delegate = self
         destinationVC.delegateNameBarHome = self
         
-        
-   
-        
     }
+    
     func getCurrentBabyApp() -> Baby{
         
         for baby in registeredBabies!{
@@ -123,8 +116,8 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         return currentBaby
     }
     
-  
-  
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -142,7 +135,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         dateToday.backgroundColor = UIColor.white
         let spacing : CGFloat = 8.0
         dateToday.contentEdgeInsets = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-
+        
         dateToday.layer.cornerRadius = 2
         dateToday.layer.masksToBounds = false
         dateToday.layer.shadowColor = UIColor.flatGray.cgColor
@@ -153,10 +146,10 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         
         dateToday.addTarget(self, action: #selector(buttonClicked), for: .touchUpInside)
         
-
+        
         
         initialAppearance()
-
+        
         DispatchQueue.main.async {
             self.showSelectedDate()
             self.datePicker.scrollToSelectedDate(animated: false)
@@ -169,28 +162,25 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         button.setImage(image, for: .normal)
         button.frame.size = CGSize(width: 55, height: 55)
         button.frame = CGRect(origin: CGPoint(x: UIScreen.main.bounds.width-60, y: dateToday.frame.origin.y + dateToday.bounds.height/2 + 5   ), size: button.frame.size)
-   
+        
         button.layer.masksToBounds = false
         button.layer.shadowColor = UIColor.flatGray.cgColor
         button.layer.shadowOpacity = 0.7
         button.layer.shadowRadius = 1
         button.layer.shadowOffset = CGSize(width: 1.2, height: 1.2)
-       
+        
         self.view.addSubview(button)
-
+        
         taskTableView.delegate = self
         taskTableView.dataSource = self 
         taskTableView.separatorStyle = .none
         
         taskTableView.register(UINib(nibName: "CustomCellHome", bundle: nil), forCellReuseIdentifier: "customCellHome")
-
-
-     
+        
+        
+        
     }
     func initialAppearance (){
-        //self.view.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
-        //grid.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.8))
-        //taskTableView.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.8))
         
         upcomingTasks.textColor = UIColor.init(hexString: "7F8484")!
         todaysRecord.textColor = UIColor.init(hexString: "7F8484")!
@@ -207,6 +197,8 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         feed.backgroundColor = feed.feedcolor.withAlphaComponent(CGFloat(0.2))
         diaper.backgroundColor = diaper.diapercolor.withAlphaComponent(CGFloat(0.2))
         medication.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.2))
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -219,8 +211,12 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         else{
             changeName(name: getCurrentBabyApp().name)
         }
+        medication.setNeedsDisplay()
         
-
+        medication.loadAdministeredDoses(baby: getCurrentBabyApp())
+        
+        
+        
         
     }
     //MARK: - Resize image method
@@ -250,8 +246,10 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         return newImage!
     }
     
-
+    
+    
 }
+
 
 //MARK: - ScrollableDatePicker method
 extension HomeViewController: ScrollableDatepickerDelegate {
@@ -263,7 +261,7 @@ extension HomeViewController: ScrollableDatepickerDelegate {
         guard datePicker.selectedDate != nil else {
             return
         }
-
+        
         
     }
     
@@ -274,7 +272,7 @@ extension HomeViewController: ScrollableDatepickerDelegate {
 //MARK: - SwipeTableViewCell delegate method
 extension HomeViewController : SwipeTableViewCellDelegate{
     
- 
+    
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         
@@ -285,7 +283,7 @@ extension HomeViewController : SwipeTableViewCellDelegate{
         let remainderColor = UIColor.flatYellowDark
         let deleteColor = UIColor.red
         let cancelColor = UIColor.flatSkyBlue
-            //.init(hexString: "7F8484")
+        //.init(hexString: "7F8484")
         let width = 55.0
         let height = 55.0
         var textfieldName = UITextField()
@@ -293,7 +291,7 @@ extension HomeViewController : SwipeTableViewCellDelegate{
         var textfieldDate = UITextField()
         var textfieldNote = UITextField()
         let cell = tableView.cellForRow(at: indexPath) as! CustomCellHome
-
+        
         if orientation == .right {
             
             
@@ -323,7 +321,7 @@ extension HomeViewController : SwipeTableViewCellDelegate{
                         alertTextField!.placeholder = "new medication name..."
                         textfieldName = alertTextField!
                     })
-                 
+                    
                     editcontroller.addTextField({ (alertTextField) in
                         alertTextField!.placeholder = "new quantity..."
                         textfieldQuantity = alertTextField!
@@ -357,7 +355,7 @@ extension HomeViewController : SwipeTableViewCellDelegate{
                 
                 let addRemainder_action = PMAlertAction(title: "Add Remainder", style: .cancel, action: { () in })
                 let cancel_action = PMAlertAction(title: "Cancel", style: .default, action: { () in })
-               
+                
                 edit_action.setTitleColor(normalColor, for: .normal)
                 addRemainder_action.setTitleColor(remainderColor, for: .normal)
                 cancel_action.setTitleColor(cancelColor, for: .normal)
@@ -365,7 +363,7 @@ extension HomeViewController : SwipeTableViewCellDelegate{
                 alert.addAction(addRemainder_action)
                 alert.addAction(cancel_action)
                 alert.gravityDismissAnimation = true
-               
+                
                 self.present(alert, animated: true, completion: nil)
             }
             more.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.99))
@@ -379,7 +377,7 @@ extension HomeViewController : SwipeTableViewCellDelegate{
             var done = false
             let checked = SwipeAction(style: .default, title: nil) { action, indexPath in
                 
-            done = !done
+                done = !done
                 if done {
                     ProgressHUD.showSuccess("Task Finished!", interaction: true)
                 }
@@ -406,7 +404,7 @@ extension HomeViewController : SwipeTableViewCellDelegate{
 
 //MARK: - Table View Delegate and Datasource methods
 extension HomeViewController :  UITableViewDelegate, UITableViewDataSource{
-
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 12
@@ -445,17 +443,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource{
         
         cell.quantityField.text = "30 mg"
         cell.quantityField.textColor = UIColor.init(hexString: "7F8484")
-        
-        
-        
-        //        if  cell.quantityTitle.text!.isEqual("Quantity"){
-        //            cell.stackViewTitles.removeArrangedSubview(cell.quantityTitle)
-        //            cell.quantityTitle.removeFromSuperview()
-        //            cell.stackViewFields.removeArrangedSubview(cell.quantityField)
-        //            cell.quantityField.removeFromSuperview()
-        //
-        //        }
-        
+ 
         
         cell.noteTitle.text = "Note :"
         cell.noteTitle.textColor = UIColor.lightGray
@@ -468,9 +456,9 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
-
     
-    }
+    
+}
 
 
 
@@ -481,12 +469,15 @@ class ActionView: UIView
     
 {
     
+    
     var sleepcolor :UIColor = UIColor.init(hexString: "2772db")!
     var feedcolor :UIColor = UIColor.init(hexString: "85ef47")!
     var diapercolor :UIColor = UIColor.init(hexString: "37D4C0")!
     var medicationcolor :UIColor = UIColor.init(hexString: "F54291")! //F81B9A
-   
-    
+
+    var doses : Results<MedicationDoseCalculated>?
+    var arrayAllDates = Array<Date>()
+    var arrayDateToday = Array<Date>()
     
     func fillColor(start : CGFloat,with color:UIColor,width:CGFloat)
     {
@@ -495,45 +486,102 @@ class ActionView: UIView
         UIRectFill(topRect)
         
     }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+       
+    }
     
     override func draw(_ rect: CGRect)
     {
         let width = self.bounds.width
         let day : CGFloat = 24
-            //SLEEP
+        //SLEEP
         
         switch self.tag {
-      
+            
         case 0:
-
+            
             fillColor(start : (0*width)/day ,with: sleepcolor, width: (2*width)/day)
             fillColor(start : ((12+0.5)*width)/day ,with: sleepcolor , width: (1*width)/day)
             fillColor(start : (15*width)/day ,with: sleepcolor , width: (2*width)/day)
             
-            //FEED
+        //FEED
         case 1:
             
             self.fillColor(start : (12*width)/day, with: feedcolor, width: 4*width/day)
             self.fillColor(start : (22*width)/day, with: feedcolor, width: 2*width/day)
-        
-            //DIAPER
+            
+        //DIAPER
         case 2:
             
             self.fillColor(start : (10*width)/day, with: diapercolor , width: 0.2*width/day)
             self.fillColor(start : (20*width)/day, with: diapercolor, width: 0.3*width/day)
-        
-            //MEDICATION
+            
+        //MEDICATION
         case 3:
-    
-            self.fillColor(start : (8*width)/day, with: medicationcolor, width: 0.2*width/day)
-            self.fillColor(start : (16*width)/day, with: medicationcolor, width: 0.2*width/day)
-        
-        
+            
+
+            for date in arrayDateToday{
+                
+                var value = round(Float(date.minute)/(60))
+                var final = Float(date.hour) + value
+
+                
+                self.fillColor(start : (CGFloat(final)*width)/day, with: medicationcolor, width: 0.2*width/day)
+            }
+            
+            
+            
         default:
             print("TAG NOT FOUND")
         }
+        
+    }
+    func loadAdministeredDoses(baby : Baby){
+        
+        
+        
+        doses = baby.medicationDoses.filter(NSPredicate(value: true))
+        
+        arrayAllDates = []
+        for dose in doses!{
+            let dateString = dose.date
+            arrayAllDates.append(dateFromString(dateString: dateString)!)
+        }
+        arrayDateToday = []
+        for date in arrayAllDates{
+            
+            if Calendar.current.isDateInToday(date){
+                 arrayDateToday.append(date)
+            }
+            
+        }
 
-}
+        print(arrayDateToday)
+
+        
+    }
+    
+    //MARK: Calc Date and String methods
+    var _dateFormatter: DateFormatter?
+    var dateFormatter: DateFormatter {
+        if (_dateFormatter == nil) {
+            _dateFormatter = DateFormatter()
+            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
+        }
+        return _dateFormatter!
+    }
+    
+    func dateStringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
+    }
+    
+    func dateFromString(dateString: String) -> Date? {
+        return dateFormatter.date(from: dateString)
+    }
+    
+    
 }
 
 // MARK: - Grid View
@@ -542,7 +590,7 @@ class GridView: UIView
     
 {
     private var path = UIBezierPath()
-
+    
     fileprivate var gridWidthMultiple: CGFloat
     {
         return 4
@@ -589,10 +637,10 @@ class GridView: UIView
         // Specify a border (stroke) color.
         UIColor.black.setStroke()
         path.stroke()
-       
+        
     }
-
-  
+    
+    
 }
 // MARK: - RoundShadow View
 
@@ -604,7 +652,7 @@ class RoundShadowView: UIView{
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
+        
         self.layer.masksToBounds = false
         self.layer.backgroundColor = UIColor.clear.cgColor
         
