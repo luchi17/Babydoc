@@ -120,7 +120,7 @@ class VaccineViewController : UIViewController{
                 destinationVC2.navigationController?.navigationBar.prefersLargeTitles = false
                 
             }
-            //segue.destination.navigationController?.navigationBar.tintColor = UIColor(hexString: "64C5CF")
+        
         }
         
 

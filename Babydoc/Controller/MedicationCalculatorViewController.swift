@@ -21,7 +21,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     let pinkcolor = UIColor.init(hexString: "F97DBE")
     let darkPinkColor = UIColor.init(hexString: "FB569F")
     let lightPinkColor = UIColor.init(hexString: "FFA0D2")
-    let grayColor = UIColor.init(hexString: "7F8484")
+    let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
     @IBOutlet weak var saveButton: UIButton!
     
@@ -352,7 +352,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     @IBAction func textFieldTouchedDown(_ sender: UITextField) {
         
         
-        sender.textColor = grayColor
+        sender.textColor = grayLightColor
         sender.font = font
         
         if sender.tag == 0{
@@ -360,7 +360,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             var result = ""
             let picker =  StringPickerPopover(title: concentrationUnit, choices: concentrationsPopOver)
             picker.setArrowColor(pinkcolor!)
-            picker.setFontColor(grayColor!).setFont(font!).setSize(width: 220, height: 150).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
+            picker.setFontColor(grayLightColor!).setFont(font!).setSize(width: 220, height: 150).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
                 popover, selectedRow, selectedString in
                 sender.text = selectedString + " " + self.concentrationUnit
                 self.concentrationSelected = Int(selectedString)!
@@ -397,7 +397,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
                 var result = ""
                 let picker = StringPickerPopover(title: "kg", choices: weightsPopOver)
                 picker.setArrowColor(pinkcolor!)
-                picker.setFontColor(grayColor!).setFont(font!).setSize(width: 180, height: 220).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
+                picker.setFontColor(grayLightColor!).setFont(font!).setSize(width: 180, height: 220).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
                     popover, selectedRow, selectedString in
                     sender.text = selectedString + " kg"
                     self.weightSelected = Float(selectedString)!

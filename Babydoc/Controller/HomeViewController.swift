@@ -177,8 +177,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         button.layer.shadowOffset = CGSize(width: 1.2, height: 1.2)
        
         self.view.addSubview(button)
-        
-        //DATABASE RELATED
+
         taskTableView.delegate = self
         taskTableView.dataSource = self 
         taskTableView.separatorStyle = .none
@@ -190,7 +189,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
     }
     func initialAppearance (){
         //self.view.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
-        grid.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.8))
+        //grid.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.8))
         //taskTableView.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.8))
         
         upcomingTasks.textColor = UIColor.init(hexString: "7F8484")!

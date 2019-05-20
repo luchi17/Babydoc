@@ -19,7 +19,7 @@ class SaveDoseViewController : UITableViewController{
     let pinkcolor = UIColor.init(hexString: "F97DBE")
     let darkPinkColor = UIColor.init(hexString: "FB569F")
     let lightPinkColor = UIColor.init(hexString: "FFA0D2")
-    let grayColor = UIColor.init(hexString: "7F8484")
+    let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
     @IBOutlet weak var textFieldDate: UITextField!
     @IBOutlet weak var textFieldQuantity: UITextField!
@@ -28,7 +28,7 @@ class SaveDoseViewController : UITableViewController{
     
     var medication : MedicationDoseCalculated?{
         didSet{
-            loadDrugToSave()
+            configureDrugToSave()
         }
     }
     var baby : Baby?{
@@ -51,10 +51,7 @@ class SaveDoseViewController : UITableViewController{
         saveButton.layer.shadowRadius = 1
         saveButton.layer.shadowOffset = CGSize(width: 2, height: 2)
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        
-        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
-        //tap.cancelsTouchesInView = false
-        
+
         view.addGestureRecognizer(tap)
     }
    
@@ -184,7 +181,7 @@ class SaveDoseViewController : UITableViewController{
         return dateFormatter.string(from: date)
     }
     
-    func loadDrugToSave(){
+    func configureDrugToSave(){
         
         if medication?.nameType == "Drops"{
             quantityUnit.append("mg/ml")
@@ -194,11 +191,16 @@ class SaveDoseViewController : UITableViewController{
              quantityUnit.append("mg/ml")
         }
         else if medication?.nameType == "Suppository"{
-            quantityUnit.append("suppository")
+            quantityUnit.append("suppositories")
             quantityUnit.append("mg")
         }
-        else{
+        else if medication?.nameType == "Orodispersible tablet"{
             quantityUnit.append("mg")
+            quantityUnit.append("orodispersible tablets")
+        }
+        else if medication?.nameType == "Tablet"{
+            quantityUnit.append("mg")
+            quantityUnit.append("tablets")
         }
 
     }
@@ -236,6 +238,7 @@ extension SaveDoseViewController : UITextFieldDelegate{
         
     }
 }
+
 
     
 

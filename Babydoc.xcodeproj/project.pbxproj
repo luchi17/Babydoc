@@ -18,6 +18,7 @@
 		0947AA2A2290466D00FB9303 /* HistoryDosesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */; };
 		0947AA2E22907D1800FB9303 /* CustomCellHistoryDose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA2D22907D1800FB9303 /* CustomCellHistoryDose.swift */; };
 		094E486E2291574000AC5E10 /* SaveDoseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E486D2291574000AC5E10 /* SaveDoseViewController.swift */; };
+		094E48702292EE1A00AC5E10 /* EditDosesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */; };
 		0990692F2279994100EB570C /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0990692B2279994100EB570C /* TextFieldTableViewCell.xib */; };
 		099069312279A32D00EB570C /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099069302279A32C00EB570C /* TextFieldTableViewCell.swift */; };
 		09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9922575192006DF813 /* AppDelegate.swift */; };
@@ -69,6 +70,7 @@
 		0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDosesViewController.swift; sourceTree = "<group>"; };
 		0947AA2D22907D1800FB9303 /* CustomCellHistoryDose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellHistoryDose.swift; sourceTree = "<group>"; };
 		094E486D2291574000AC5E10 /* SaveDoseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDoseViewController.swift; sourceTree = "<group>"; };
+		094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDosesViewController.swift; sourceTree = "<group>"; };
 		0990692B2279994100EB570C /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldTableViewCell.xib; path = "../Data Model/TextFieldTableViewCell.xib"; sourceTree = "<group>"; };
 		099069302279A32C00EB570C /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		09B1EE9622575192006DF813 /* Babydoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Babydoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,11 +175,11 @@
 				0990692B2279994100EB570C /* TextFieldTableViewCell.xib */,
 				099069302279A32C00EB570C /* TextFieldTableViewCell.swift */,
 				09B7D4E42284C03B00137544 /* CustomCellVaccine.swift */,
-				09B1EEA422575194006DF813 /* LaunchScreen.storyboard */,
-				09D35083225E1EE70052BF88 /* Main.storyboard */,
 				093EDA492264F09000538860 /* Cell Upcoming Tasks */,
 				0947AA23228DA78E00FB9303 /* CalculatorCell.swift */,
 				0947AA2D22907D1800FB9303 /* CustomCellHistoryDose.swift */,
+				09B1EEA422575194006DF813 /* LaunchScreen.storyboard */,
+				09D35083225E1EE70052BF88 /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -197,6 +199,7 @@
 				09B7D4F5228C76A400137544 /* MedicationCalculatorViewController.swift */,
 				094E486D2291574000AC5E10 /* SaveDoseViewController.swift */,
 				0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */,
+				094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				09B7D4FA228C7BD500137544 /* MedicationType.swift in Sources */,
 				0933E110225E33C300B19B86 /* HealthViewController.swift in Sources */,
 				093B7D142277763500DB4344 /* BabiesViewController.swift in Sources */,
+				094E48702292EE1A00AC5E10 /* EditDosesViewController.swift in Sources */,
 				09B7D4E52284C03B00137544 /* CustomCellVaccine.swift in Sources */,
 				09B7D4FC228C7DCA00137544 /* MedicationTypesViewController.swift in Sources */,
 				09F972FF22841F2E008FE28C /* VaccineDoses.swift in Sources */,

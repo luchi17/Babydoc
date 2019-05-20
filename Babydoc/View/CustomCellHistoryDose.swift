@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class CustomCellHistoryDose: UITableViewCell {
-
+class CustomCellHistoryDose: SwipeTableViewCell{
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -18,4 +19,6 @@ class CustomCellHistoryDose: UITableViewCell {
     @IBOutlet weak var nameDose: UILabel!
     @IBOutlet weak var descriptionDose: UILabel!
     @IBOutlet weak var descriptionDose2: UILabel!
+    @IBOutlet weak var descriptionDose3: UILabel!
+    
 }

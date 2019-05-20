@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let typeChewTablet = MedicationType()
         typeChewTablet.parentMedicationName = "Paracetamol"
-        typeChewTablet.name = "Orodispersible Tablet"
+        typeChewTablet.name = "Orodispersible tablet"
         typeChewTablet.concentration = 250
         typeChewTablet.concentrationUnit = "mg"
         typeChewTablet.minWeight = 14
@@ -131,7 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let typeChewTablet1 = MedicationType()
         typeChewTablet1.parentMedicationName = "Paracetamol"
-        typeChewTablet1.name = "Orodispersible Tablet"
+        typeChewTablet1.name = "Orodispersible tablet"
         typeChewTablet1.concentration = 325
         typeChewTablet1.concentrationUnit = "mg"
         typeChewTablet1.minWeight = 19
@@ -141,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let typeChewTablet2 = MedicationType()
         typeChewTablet2.parentMedicationName = "Paracetamol"
-        typeChewTablet2.name = "Orodispersible Tablet"
+        typeChewTablet2.name = "Orodispersible tablet"
         typeChewTablet2.concentration = 500
         typeChewTablet2.concentrationUnit = "mg"
         typeChewTablet2.minWeight = 27
