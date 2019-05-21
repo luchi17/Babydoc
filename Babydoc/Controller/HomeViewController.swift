@@ -219,6 +219,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         else{
             changeName(name: getCurrentBabyApp().name)
             medication.setNeedsDisplay()
+            medication.reloadInputViews()
             medication.loadAdministeredDoses(baby: getCurrentBabyApp())
             medication.selectedDay = datePicker.selectedDate!
         }
@@ -539,15 +540,14 @@ class ActionView: UIView
             
         //MEDICATION
         case 3:
-            
 
             for date in arrayDateToday{
                 
                 let value = round(Float(date.minute)/(60))
                 let final = Float(date.hour) + value
 
-                
-                self.fillColor(start : (CGFloat(final)*width)/day, with: medicationcolor, width: 0.2*width/day)
+               
+                self.fillColor(start : (CGFloat(final)*width)/day, with: medicationcolor, width: 0.15*width/day)
             }
             
             
@@ -580,6 +580,9 @@ class ActionView: UIView
             }
 
         }
+//        print(arrayAllDates)
+        print("today")
+        print(arrayDateToday)
 
     }
     

@@ -316,7 +316,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     
                     alert.addAction(title : "Cancel" , style: .cancel)
                     alert.addAction(ok_action)
-                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                 }
                     
                 else if indexPath.row == 0 || indexPath.row == 7 || indexPath.row == 8{
@@ -349,7 +349,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     
                     alert.addAction(title: "Cancel" , style : .cancel)
                     alert.addAction(okAction)
-                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                    alert.show(animated: true, vibrate:false, style: .prominent, completion: nil)
                     
                 }
                 else if indexPath.row == 2{
@@ -396,7 +396,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     
                     alert.addAction(title: "Cancel" , style : .cancel)
                     alert.addAction(done_action)
-                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                     
                     
                 }
@@ -432,7 +432,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         
                         alert.addAction(title: "Cancel" , style : .cancel)
                         alert.addAction(done_action)
-                        alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                        alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                         
                         
                         
@@ -464,7 +464,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         
                         alert.addAction(title: "Cancel" , style : .cancel)
                         alert.addAction(done_action)
-                        alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                        alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                     default:
                         print("saludos")
                         
@@ -497,7 +497,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     alert.setTitle(font: self.font!, color: self.greenColor!)
                     alert.addAction(title: "Cancel" , style : .cancel)
                     alert.addAction(done_action)
-                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                 }
                 
             }

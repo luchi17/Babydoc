@@ -151,7 +151,7 @@ class SaveDoseViewController : UITableViewController{
             alert.addAction(action)
             alert.setMessage(font: fontLight!, color: grayLightColor!)
             alert.setTitle(font: font!, color: grayColor!)
-            alert.show(animated: true, vibrate: true, style: .light, completion: nil)
+            alert.show(animated: true, vibrate: false, style: .light, completion: nil)
         }
         else{
             saveData()
@@ -194,13 +194,17 @@ class SaveDoseViewController : UITableViewController{
             quantityUnit.append("suppositories")
             quantityUnit.append("mg")
         }
-        else if medication?.nameType == "Orodispersible tablet"{
+        else if medication?.nameType == "Orodispersible Tablet"{
             quantityUnit.append("mg")
             quantityUnit.append("orodispersible tablets")
         }
         else if medication?.nameType == "Tablet"{
             quantityUnit.append("mg")
             quantityUnit.append("tablets")
+        }
+        else if medication?.nameType == "Sachet"{
+            quantityUnit.append("mg")
+            quantityUnit.append("sachets")
         }
 
     }

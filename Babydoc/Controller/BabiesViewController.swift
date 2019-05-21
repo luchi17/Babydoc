@@ -95,7 +95,7 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                     alert.dismiss(animated: true, completion: nil)
                 })
                 alert.addAction(action)
-                alert.show(animated: true, vibrate: true, style: .extraLight, completion: nil)
+                alert.show(animated: true, vibrate: false, style: .extraLight, completion: nil)
             }
             
             let newBaby = Baby()
@@ -463,7 +463,7 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
                 alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
                 alert.addAction(removeAction)
                 alert.addAction(cancelAction)
-                alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                 
              }
             removeSwipe.backgroundColor = .red

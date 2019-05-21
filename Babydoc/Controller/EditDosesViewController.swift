@@ -230,23 +230,27 @@ class EditDosesViewController : UITableViewController{
     func configurePopOvers(){
         
         if doseToEdit?.nameType == "Drops"{
-            quantityUnit.append("mg/ml")
+            quantityUnit.append("ml")
             quantityUnit.append("drops")
         }
         else if doseToEdit?.nameType == "Syrup"{
-            quantityUnit.append("mg/ml")
+            quantityUnit.append("ml")
         }
         else if doseToEdit?.nameType == "Suppository"{
             quantityUnit.append("suppositories")
             quantityUnit.append("mg")
         }
-        else if doseToEdit?.nameType == "Orodispersible tablet"{
+        else if doseToEdit?.nameType == "Orodispersible Tablet"{
             quantityUnit.append("mg")
             quantityUnit.append("orodispersible tablets")
         }
         else if doseToEdit?.nameType == "Tablet"{
             quantityUnit.append("mg")
             quantityUnit.append("tablets")
+        }
+        else if doseToEdit?.nameType == "Sachet"{
+            quantityUnit.append("mg")
+            quantityUnit.append("sachets")
         }
         
         drugTypes = realm.objects(MedicationType.self).filter( "parentMedicationName == %@ AND name == %@",doseToEdit?.parentMedicationName as Any, doseToEdit?.nameType as Any)

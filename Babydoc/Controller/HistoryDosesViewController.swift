@@ -157,7 +157,7 @@ extension HistoryDosesViewController : SwipeTableViewCellDelegate{
                 alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
                 alert.addAction(removeAction)
                 alert.addAction(cancelAction)
-                alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                 
             }
             removeSwipe.image = UIImage(named: "delete-icon")

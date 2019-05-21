@@ -121,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let typeChewTablet = MedicationType()
         typeChewTablet.parentMedicationName = "Paracetamol"
-        typeChewTablet.name = "Orodispersible tablet"
+        typeChewTablet.name = "Orodispersible Tablet"
         typeChewTablet.concentration = 250
         typeChewTablet.concentrationUnit = "mg"
         typeChewTablet.minWeight = 14
@@ -131,7 +131,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let typeChewTablet1 = MedicationType()
         typeChewTablet1.parentMedicationName = "Paracetamol"
-        typeChewTablet1.name = "Orodispersible tablet"
+        typeChewTablet1.name = "Orodispersible Tablet"
         typeChewTablet1.concentration = 325
         typeChewTablet1.concentrationUnit = "mg"
         typeChewTablet1.minWeight = 19
@@ -141,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let typeChewTablet2 = MedicationType()
         typeChewTablet2.parentMedicationName = "Paracetamol"
-        typeChewTablet2.name = "Orodispersible tablet"
+        typeChewTablet2.name = "Orodispersible Tablet"
         typeChewTablet2.concentration = 500
         typeChewTablet2.concentrationUnit = "mg"
         typeChewTablet2.minWeight = 27
@@ -171,11 +171,87 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         paracetamol.medicationTypes.append(typeChewTablet2)
         paracetamol.medicationTypes.append(typeTablet)
         
+        let ibuprofen = Medication()
+        ibuprofen.name = "Ibuprofen"
+        ibuprofen.dosagePerDay = "20-30 mg/kg/day"
+        ibuprofen.dosagePerDose = "10-15 mg/kg/dose"
+        ibuprofen.timeForDose = "every 6-8 hours"
+        ibuprofen.maxDose = "30 mg/kg/day"
+        let typeSyrup20 = MedicationType()
+        typeSyrup20.parentMedicationName = "Ibuprofen"
+        typeSyrup20.name = "Syrup"
+        typeSyrup20.concentration = 20
+        typeSyrup20.minWeight = 5
+        typeSyrup20.maxWeight = 42
+        typeSyrup20.concentrationUnit = "mg/ml"
+        typeSyrup20.routeOfAdministration = "Oral route"
+        typeSyrup20.hyperlink = "https://www.vademecum.es/medicamento-dalsy_prospecto_59166"
+        typeSyrup20.suggestion = "The use of this medicine in children under 2 years old will always be done by prescription.\nThis medicine can be used in babies older than 3 months.\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
+        
+        let typeSyrup40 = MedicationType()
+        typeSyrup40.parentMedicationName = "Ibuprofen"
+        typeSyrup40.name = "Syrup"
+        typeSyrup40.concentration = 40
+        typeSyrup40.minWeight = 5
+        typeSyrup40.concentrationUnit = "mg/ml"
+        typeSyrup40.routeOfAdministration = "Oral route"
+        typeSyrup40.hyperlink = "https://www.vademecum.es/medicamento-dalsy_prospecto_69726"
+        typeSyrup40.suggestion = "The use of this medicine in children under 2 years old will always be done by prescription.\nThis medicine is used in babies older than 3 months.\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
+        
+        let typesachet = MedicationType()
+        typesachet.parentMedicationName = "Ibuprofen"
+        typesachet.name = "Sachet"
+        typesachet.concentration = 200
+        typesachet.minWeight = 20
+        typesachet.concentrationUnit = "mg"
+        typesachet.routeOfAdministration = "Oral route"
+        typesachet.hyperlink = "https://www.vademecum.es/medicamento-dalsy_prospecto_63990"
+        typesachet.suggestion = "This medication is not recommended for use in children weighing less than 20 kg (about 6-7 years).\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
+        
+        let typesachet1 = MedicationType()
+        typesachet1.parentMedicationName = "Ibuprofen"
+        typesachet1.name = "Sachet"
+        typesachet1.concentration = 400
+        typesachet1.minWeight = 40
+        typesachet1.concentrationUnit = "mg"
+        typesachet1.routeOfAdministration = "Oral route"
+        typesachet1.hyperlink = "https://cima.aemps.es/cima/dochtml/p/68194/P_68194.html"
+        typesachet1.suggestion = "It is indicated from 12 years old (over 40 Kg).\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
+        
+        let typeoro = MedicationType()
+        typeoro.parentMedicationName = "Ibuprofen"
+        typeoro.name = "Orodispersible Tablet"
+        typeoro.concentration = 200
+        typeoro.minWeight = 20
+        typeoro.concentrationUnit = "mg"
+        typeoro.routeOfAdministration = "Oral route"
+        typeoro.hyperlink = "https://www.vademecum.es/medicamento-junifen_prospecto_64966"
+        typeoro.suggestion = "This medicine is contraindicated in children younger than 6 years of age (about 20 kg).\nIt is recommended to take it with food if you have a sensitive stomach."
+        
+        let typetab = MedicationType()
+        typetab.parentMedicationName = "Ibuprofen"
+        typetab.name = "Tablet"
+        typetab.concentration = 400
+        typetab.minWeight = 40
+        typetab.concentrationUnit = "mg"
+        typetab.routeOfAdministration = "Oral route"
+        typetab.hyperlink = "https://www.vademecum.es/medicamento-neobrufen_prospecto_70030"
+        typetab.suggestion = "It is indicated from 12 years old (over 40 Kg).\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
+        
+        ibuprofen.medicationTypes.append(typeSyrup20)
+        ibuprofen.medicationTypes.append(typeSyrup40)
+        ibuprofen.medicationTypes.append(typesachet)
+        ibuprofen.medicationTypes.append(typesachet1)
+        ibuprofen.medicationTypes.append(typeoro)
+        ibuprofen.medicationTypes.append(typetab)
+        
+    
         
         
         do{
             try realm.write {
                 realm.add(paracetamol)
+                realm.add(ibuprofen)
             }
         }
         catch{

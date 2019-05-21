@@ -90,7 +90,7 @@ class VaccineViewController : UIViewController{
                 controller.setMessage(font: self.fontLight!, color: self.grayLightColor!)
                 controller.addAction(action)
                 controller.addAction(changeDob)
-                controller.show(animated: true, vibrate: true, style: .light, completion: nil)
+                controller.show(animated: true, vibrate: false, style: .light, completion: nil)
                 
             }
             
@@ -569,7 +569,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                     
                                     alert.addAction(title : "Cancel" , style: .cancel)
                                     alert.addAction(ok_action)
-                                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                                 }
                                    
                                 else{
@@ -600,7 +600,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                     alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
                                     alert.addAction(actionOk)
                                     alert.addAction(actionCancel)
-                                    alert.show(animated: true, vibrate: true, style: .light, completion: nil)
+                                    alert.show(animated: true, vibrate: false, style: .light, completion: nil)
                                 }
                             
                                 
@@ -666,7 +666,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                     
                                     alert.addAction(title : "Cancel" , style: .cancel)
                                     alert.addAction(ok_action)
-                                    alert.show(animated: true, vibrate: true, style: .prominent, completion: nil)
+                                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                                 }
                                     
                                 else{
@@ -696,7 +696,7 @@ extension VaccineViewController : SwipeTableViewCellDelegate{
                                     alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
                                     alert.addAction(actionOk)
                                     alert.addAction(actionCancel)
-                                    alert.show(animated: true, vibrate: true, style: .light, completion: nil)
+                                    alert.show(animated: true, vibrate: false, style: .light, completion: nil)
                                 }
 
                                 
