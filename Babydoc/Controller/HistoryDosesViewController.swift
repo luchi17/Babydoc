@@ -30,7 +30,7 @@ class HistoryDosesViewController : UITableViewController{
     
    override func viewDidLoad() {
      super.viewDidLoad()
-     loadBabyAndDoses()
+    
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +38,7 @@ class HistoryDosesViewController : UITableViewController{
         self.navigationController?.navigationBar.barTintColor = pinkcolor
         self.navigationController?.navigationBar.backgroundColor = pinkcolor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
+        loadBabyAndDoses()
         
     }
 
@@ -50,10 +50,10 @@ class HistoryDosesViewController : UITableViewController{
             
             getCurrentBaby()
             doses = babyApp.medicationDoses.filter(NSPredicate(value: true)).sorted(byKeyPath: "date", ascending: false)
-           
+            tableView.reloadData()
             
         }
-         tableView.reloadData()
+        
         
         
     }
@@ -87,12 +87,20 @@ class HistoryDosesViewController : UITableViewController{
     
     
     //Table View methods
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 129
+    }
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.estimatedRowHeight
+    }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "doseCell", for: indexPath) as! CustomCellHistoryDose
-        if doses?.count == 0{
-           // cell.nameDose.text = "No records added yet"
-            cell.descriptionDose.text = "No records added yet"
+        
+        if doses?.count == 0 || registeredBabies?.count == 0{
+            cell.nameDose.text = "No records added yet"
+            cell.descriptionDose.text = ""
             cell.descriptionDose2.text = ""
+            cell.descriptionDose3.text = ""
         }
         else{
             cell.nameDose.text = (doses?[indexPath.row].parentMedicationName)! + " " + (doses?[indexPath.row].nameType)!
@@ -110,13 +118,11 @@ class HistoryDosesViewController : UITableViewController{
             return 1
         }
         else{
-            return doses!.count
+            return doses?.count ?? 1
         }
         
     }
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 125
-    }
+  
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? EditDosesViewController{

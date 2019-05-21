@@ -63,6 +63,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
             
             datePicker.dates = dates
             datePicker.selectedDate = Date()
+
             datePicker.delegate = self
             
             var configuration = Configuration()
@@ -106,11 +107,14 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
     
     func getCurrentBabyApp() -> Baby{
         
-        for baby in registeredBabies!{
-            if baby.current == true{
-                currentBaby = baby
+        if registeredBabies?.count != 0{
+            for baby in registeredBabies!{
+                if baby.current == true{
+                    currentBaby = baby
+                }
             }
         }
+        
         
         
         return currentBaby
@@ -153,6 +157,10 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         DispatchQueue.main.async {
             self.showSelectedDate()
             self.datePicker.scrollToSelectedDate(animated: false)
+            self.medication.setNeedsDisplay()
+            self.medication.reloadInputViews()
+            self.medication.setDay(day: self.datePicker.selectedDate!)
+            self.medication.selectedDay = self.datePicker.selectedDate!
         }
         
         
@@ -197,7 +205,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         feed.backgroundColor = feed.feedcolor.withAlphaComponent(CGFloat(0.2))
         diaper.backgroundColor = diaper.diapercolor.withAlphaComponent(CGFloat(0.2))
         medication.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.2))
-        
+       
         
     }
     
@@ -210,15 +218,14 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         }
         else{
             changeName(name: getCurrentBabyApp().name)
+            medication.setNeedsDisplay()
+            medication.loadAdministeredDoses(baby: getCurrentBabyApp())
+            medication.selectedDay = datePicker.selectedDate!
         }
-        medication.setNeedsDisplay()
-        
-        medication.loadAdministeredDoses(baby: getCurrentBabyApp())
-        
-        
         
         
     }
+    
     //MARK: - Resize image method
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
@@ -255,14 +262,21 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
 extension HomeViewController: ScrollableDatepickerDelegate {
     
     func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
-        showSelectedDate()
+        
+            self.showSelectedDate()
+    
     }
-    fileprivate func showSelectedDate() {
+    func showSelectedDate() {
         guard datePicker.selectedDate != nil else {
             return
         }
-        
-        
+        self.medication.selectedDay = self.datePicker.selectedDate!
+        self.medication.setNeedsDisplay()
+        self.medication.reloadInputViews()
+        if self.registeredBabies?.count != 0 {
+            self.medication.loadAdministeredDoses(baby: self.getCurrentBabyApp())
+        }
+
     }
     
     
@@ -279,11 +293,9 @@ extension HomeViewController : SwipeTableViewCellDelegate{
         defaultOptions.transitionStyle = .drag
         let normalColor = UIColor.flatGrayDark
         let font = UIFont(name: "Avenir-Heavy", size: 17)
-        //init(hexString: "3BB4C1")
         let remainderColor = UIColor.flatYellowDark
         let deleteColor = UIColor.red
         let cancelColor = UIColor.flatSkyBlue
-        //.init(hexString: "7F8484")
         let width = 55.0
         let height = 55.0
         var textfieldName = UITextField()
@@ -478,6 +490,11 @@ class ActionView: UIView
     var doses : Results<MedicationDoseCalculated>?
     var arrayAllDates = Array<Date>()
     var arrayDateToday = Array<Date>()
+    var selectedDay : Date?{
+        didSet{
+            
+        }
+    }
     
     func fillColor(start : CGFloat,with color:UIColor,width:CGFloat)
     {
@@ -489,6 +506,9 @@ class ActionView: UIView
     override func awakeFromNib() {
         super.awakeFromNib()
        
+    }
+    func setDay(day : Date){
+        selectedDay = day
     }
     
     override func draw(_ rect: CGRect)
@@ -523,8 +543,8 @@ class ActionView: UIView
 
             for date in arrayDateToday{
                 
-                var value = round(Float(date.minute)/(60))
-                var final = Float(date.hour) + value
+                let value = round(Float(date.minute)/(60))
+                let final = Float(date.hour) + value
 
                 
                 self.fillColor(start : (CGFloat(final)*width)/day, with: medicationcolor, width: 0.2*width/day)
@@ -538,28 +558,29 @@ class ActionView: UIView
         
     }
     func loadAdministeredDoses(baby : Baby){
-        
-        
-        
+
         doses = baby.medicationDoses.filter(NSPredicate(value: true))
         
         arrayAllDates = []
         for dose in doses!{
             let dateString = dose.date
             arrayAllDates.append(dateFromString(dateString: dateString)!)
+
         }
         arrayDateToday = []
         for date in arrayAllDates{
-            
-            if Calendar.current.isDateInToday(date){
-                 arrayDateToday.append(date)
+
+            if selectedDay == nil{
+                selectedDay = Date()
             }
-            
+ 
+            if Calendar.current.isDate(date, inSameDayAs: selectedDay!){
+                
+                arrayDateToday.append(date)
+            }
+
         }
 
-        print(arrayDateToday)
-
-        
     }
     
     //MARK: Calc Date and String methods

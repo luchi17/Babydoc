@@ -244,15 +244,13 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         if selectedTypeName == "Suppository"{
             finalString = "\(numberOfDoses) suppositories in 24 hours"
         }
-        else if selectedTypeName == "Chewable Tablets"{
-            finalString = "\(numberOfDoses) chewable tablets in 24 hours"
+        else if selectedTypeName == "Orodispersible tablet"{
+            finalString = "\(numberOfDoses) orodispersible tablets in 24 hours"
         }
-        else if selectedTypeName == "Tablets"{
+        else if selectedTypeName == "Tablet"{
             finalString = "\(numberOfDoses) tablets in 24 hours"
         }
-        else if selectedTypeName == "Tablets"{
-            finalString = "\(numberOfDoses) tablets in 24 hours"
-        }
+
 
         return finalString
     }

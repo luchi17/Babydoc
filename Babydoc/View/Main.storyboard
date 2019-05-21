@@ -766,11 +766,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="doseCell" rowHeight="144" id="N1W-GU-pzR" customClass="CustomCellHistoryDose" customModule="Babydoc" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="144"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="doseCell" rowHeight="129" id="N1W-GU-pzR" customClass="CustomCellHistoryDose" customModule="Babydoc" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="129"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N1W-GU-pzR" id="hr5-Ne-Mza">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="143.66666666666666"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="128.66666666666666"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Paracetamol Drops" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUQ-kh-Jjq" userLabel="Title">
@@ -784,21 +784,21 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date: 12/02/2012 Concentration : 100 mg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8eY-Xp-ZJ3" userLabel="Title">
-                                            <rect key="frame" x="6" y="32" width="363" height="44"/>
+                                            <rect key="frame" x="6" y="32" width="171.66666666666666" height="44"/>
                                             <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
                                             <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight: 12/02/2012" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uec-WI-ley" userLabel="Title">
-                                            <rect key="frame" x="6" y="76" width="363" height="41"/>
+                                            <rect key="frame" x="6" y="76" width="363" height="22"/>
                                             <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="16"/>
                                             <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dose Applied" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NFj-F4-P6a" userLabel="Title">
-                                            <rect key="frame" x="6" y="117" width="363" height="23"/>
+                                            <rect key="frame" x="6" y="98" width="363" height="23"/>
                                             <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="23" id="fCJ-3i-Dep"/>
@@ -813,7 +813,6 @@
                                         <constraint firstItem="NFj-F4-P6a" firstAttribute="top" secondItem="uec-WI-ley" secondAttribute="bottom" id="1Jv-vX-Yt9"/>
                                         <constraint firstItem="8eY-Xp-ZJ3" firstAttribute="leading" secondItem="lUQ-kh-Jjq" secondAttribute="leading" id="1Or-6k-RAc"/>
                                         <constraint firstItem="uec-WI-ley" firstAttribute="top" secondItem="hr5-Ne-Mza" secondAttribute="top" constant="76" id="69B-9T-aIp"/>
-                                        <constraint firstAttribute="trailing" secondItem="8eY-Xp-ZJ3" secondAttribute="trailing" constant="6" id="HVs-oL-wrQ"/>
                                         <constraint firstItem="lUQ-kh-Jjq" firstAttribute="top" secondItem="hr5-Ne-Mza" secondAttribute="topMargin" constant="-5" id="INa-Y5-W7b"/>
                                         <constraint firstItem="8eY-Xp-ZJ3" firstAttribute="top" secondItem="lUQ-kh-Jjq" secondAttribute="bottom" constant="3" id="S5R-1s-hgC"/>
                                         <constraint firstItem="lUQ-kh-Jjq" firstAttribute="leading" secondItem="hr5-Ne-Mza" secondAttribute="leadingMargin" constant="-10" id="cCB-tR-ttZ"/>
@@ -821,7 +820,6 @@
                                         <constraint firstAttribute="trailing" secondItem="uec-WI-ley" secondAttribute="trailing" constant="6" id="jBA-Ys-okd"/>
                                         <constraint firstAttribute="trailing" secondItem="NFj-F4-P6a" secondAttribute="trailing" constant="6" id="mRY-JY-7gu"/>
                                         <constraint firstItem="8eY-Xp-ZJ3" firstAttribute="leading" secondItem="uec-WI-ley" secondAttribute="leading" id="o6l-Kd-hCS"/>
-                                        <constraint firstAttribute="bottom" secondItem="NFj-F4-P6a" secondAttribute="bottom" constant="3.6699999999999999" id="p4g-sP-FTI"/>
                                         <constraint firstItem="uec-WI-ley" firstAttribute="leading" secondItem="NFj-F4-P6a" secondAttribute="leading" id="wz3-vl-mP1"/>
                                     </constraints>
                                 </tableViewCellContentView>

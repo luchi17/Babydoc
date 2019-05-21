@@ -63,7 +63,7 @@ class EditDosesViewController : UITableViewController{
         textFieldDate.text = doseToEdit?.date
         textFieldQuantity.text = doseToEdit?.dose
         textFieldQuantityUnits.text = doseToEdit?.doseUnit
-        textFieldWeight.text = "\(doseToEdit?.weight ?? Float(0.0))" + "kg"
+        textFieldWeight.text = "\(doseToEdit?.weight ?? Float(0.0))" + " kg"
         textFieldConcentration.text = "\(doseToEdit?.concentration ?? 0)" + " " + doseToEdit!.concentrationUnit
         saveButton.layer.cornerRadius = 2
         saveButton.layer.masksToBounds = false
