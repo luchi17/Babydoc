@@ -78,7 +78,13 @@ class SaveDoseViewController : UITableViewController{
                 do{
                     
                     try self.realm.write {
-                        self.medication?.date = sender.text!
+                        let date = DateFever()
+                        date.day = selectedDate.day
+                        date.month = selectedDate.month
+                        date.year = selectedDate.year
+                        
+                        self.medication?.date = date
+                        self.medication?.generalDate = selectedDate
                     }
                     
                 }
@@ -164,6 +170,8 @@ class SaveDoseViewController : UITableViewController{
             self.present(hudViewController, animated: true)
             
         }
+        self.navigationController?.popViewController(animated: true)
+      
     }
     
     

@@ -24,9 +24,15 @@ class SaveFeverViewController : UITableViewController{
     var realm = try! Realm()
     var registeredBabies : Results<Baby>?
     var babyApp = Baby()
-    var newFever = Fever()
+    var indicatorEdit = 0
     var feverValues = [StringPickerPopover.ItemType]()
-
+    
+    var feverToSave = Fever()
+    var feverToEdit : Fever?{
+        didSet{
+            loadFeverToEdit()
+        }
+    }
     
     @IBOutlet weak var textFieldDate: UITextField!
     @IBOutlet weak var textFieldTemperature: UITextField!
@@ -46,6 +52,7 @@ class SaveFeverViewController : UITableViewController{
         saveButton.layer.shadowOffset = CGSize(width: 2, height: 2)
         
         
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         configurePopOvers()
@@ -54,11 +61,11 @@ class SaveFeverViewController : UITableViewController{
     
     
     
-    func saveFever(newFever : Fever){
+    func saveFever(feverToEdit : Fever){
         
         do{
             try realm.write {
-                babyApp.fever.append(newFever)
+                babyApp.fever.append(feverToEdit)
             }
         }
         catch{
@@ -71,6 +78,7 @@ class SaveFeverViewController : UITableViewController{
         for value in 30...42{
             feverValues.append("\(value)")
         }
+       
         
         
     }
@@ -84,34 +92,79 @@ class SaveFeverViewController : UITableViewController{
                     babyApp = baby
                 }
             }
-            //listOfFever = babyApp.fever.filter(NSPredicate(value: true))
             
         }
 
     }
+    func loadFeverToEdit(){
+        
+        indicatorEdit = 0
+      
+        
+        if feverToEdit?.temperature != Float(0.0){
+            
+            indicatorEdit += 1
+        }
+  
+
+    }
+
+    var _dateFormatter: DateFormatter?
+    var dateFormatter: DateFormatter {
+        if (_dateFormatter == nil) {
+            _dateFormatter = DateFormatter()
+            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
+        }
+        return _dateFormatter!
+    }
     
-    
-    
-    
-    
+    func dateStringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
+    }
     
     
     
     @IBAction func textFieldDateTouchedDown(_ sender: UITextField) {
+        
+        if indicatorEdit != 0{
+        sender.text = dateFormatter.string(from: feverToEdit?.generalDate ?? Date())
+        }
+       
         sender.textColor = grayLightColor
         sender.font = font
-        DatePickerPopover(title: "Date")
+        DatePickerPopover(title: "Date" )
             .setDateMode(.dateAndTime)
             .setArrowColor(greenLightColor!)
             .setSelectedDate(Date())
-            .setCancelButton(action: { _, _ in print("cancel")})
             .setDoneButton(title: "Done", font: self.fontLittle, color: .white, action: { popover, selectedDate in
                 sender.text = self.dateStringFromDate(date: selectedDate)
                 
                 do{
-                    
-                    try self.realm.write {
-                        self.newFever.date = selectedDate
+                    if self.indicatorEdit != 0 {
+                        try self.realm.write {
+                            let date = DateFever()
+                            date.day = selectedDate.day
+                            date.month = selectedDate.month
+                            date.year = selectedDate.year
+                            
+                            self.feverToEdit?.date = date
+                            self.feverToEdit?.generalDate = selectedDate
+                            
+                        }
+                        
+                    }
+                    else{
+                        try self.realm.write {
+                            let date = DateFever()
+                            date.day = selectedDate.day
+                            date.month = selectedDate.month
+                            date.year = selectedDate.year
+                            
+                            self.feverToSave.date = date
+                            self.feverToSave.generalDate = selectedDate
+                            
+                        }
                     }
                     
                 }
@@ -125,14 +178,25 @@ class SaveFeverViewController : UITableViewController{
     
     @IBAction func textFieldTemperatureTouchedDown(_ sender: UITextField) {
         
+
+        if indicatorEdit != 0{
+            sender.text = "\(feverToEdit?.temperature ?? Float(0.0)) ºC"
+        }
+        
         StringPickerPopover(title: "ºC", choices: feverValues )
             .setArrowColor(greenLightColor!)
             .setFontColor(grayLightColor!).setFont(font!).setSize(width: 320, height: 150).setFontSize(17).setCancelButton { (_, _, _) in }.setDoneButton(title: "Done", font: fontLittle, color: .white) {
                 popover, selectedRow, selectedString in
-                sender.text = selectedString
+                sender.text = selectedString + " ºC"
                 do{
                     try self.realm.write {
-                        self.newFever.temperature = Float(selectedString) as! Float
+                        if self.indicatorEdit != 0{
+                             self.feverToEdit?.temperature = Float(selectedString) as! Float
+                        }
+                        else{
+                            self.feverToSave.temperature = Float(selectedString) as! Float
+                        }
+                       
                     }
                 }
                 catch{
@@ -150,7 +214,7 @@ class SaveFeverViewController : UITableViewController{
       
         if babyApp.name.isEmpty || textFieldDate.text!.isEmpty || textFieldTemperature.text!.isEmpty{
             
-            let alert = UIAlertController(title: "Error", message: "In order to save the new fever all the fields must be filled in and at least one baby has to be active in Babydoc.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: "In order to save the fever all the fields must be filled in and at least one baby has to be active in Babydoc.", preferredStyle: .alert)
             let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(action)
             alert.setMessage(font: fontLight!, color: grayLightColor!)
@@ -158,33 +222,23 @@ class SaveFeverViewController : UITableViewController{
             alert.show(animated: true, vibrate: false, style: .light, completion: nil)
         }
         else{
-            saveFever(newFever: newFever)
+            if indicatorEdit == 0 {
+               saveFever(feverToEdit: feverToSave)
+            }
+
             let image = UIImage(named: "doubletick")!
-            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "Fever has been added correctly!")
+            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "Fever has been saved correctly!")
             HUDAppearance.cancelableOnTouch = true
             HUDAppearance.messageFont = self.fontLight!
             HUDAppearance.messageTextColor = self.grayLightColor!
             
             self.present(hudViewController, animated: true)
-            
+           
+            self.navigationController?.popViewController(animated: true)
         }
         
+        
     }
-    var _dateFormatter: DateFormatter?
-    var dateFormatter: DateFormatter {
-        if (_dateFormatter == nil) {
-            _dateFormatter = DateFormatter()
-            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
-            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
-        }
-        return _dateFormatter!
-    }
-    
-    func dateStringFromDate(date: Date) -> String {
-        return dateFormatter.string(from: date)
-    }
-    
-    
     
 }
 extension SaveFeverViewController : UITextFieldDelegate {

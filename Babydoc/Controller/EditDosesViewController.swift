@@ -60,7 +60,7 @@ class EditDosesViewController : UITableViewController{
         textFieldQuantityUnits.delegate = self
         textFieldWeight.delegate = self
         textFieldConcentration.delegate = self
-        textFieldDate.text = doseToEdit?.date
+        textFieldDate.text = dateStringFromDate(date: doseToEdit!.generalDate)
         textFieldQuantity.text = doseToEdit?.dose
         textFieldQuantityUnits.text = doseToEdit?.doseUnit
         textFieldWeight.text = "\(doseToEdit?.weight ?? Float(0.0))" + " kg"
@@ -108,7 +108,14 @@ class EditDosesViewController : UITableViewController{
                 do{
                     
                     try self.realm.write {
-                        self.doseToEdit?.date = sender.text!
+                        
+                        let date = DateFever()
+                        date.day = selectedDate.day
+                        date.month = selectedDate.month
+                        date.year = selectedDate.year
+                        
+                        self.doseToEdit?.date = date
+                        self.doseToEdit?.generalDate = selectedDate
                     }
                     
                 }
@@ -222,6 +229,8 @@ class EditDosesViewController : UITableViewController{
         HUDAppearance.messageTextColor = self.grayColor!
         
         self.present(hudViewController, animated: true)
+       
+        self.navigationController?.popViewController(animated: true)
         
         
     }

@@ -9,8 +9,9 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
+import ScrollableDatepicker
 
-class HistoryDosesViewController : UITableViewController{
+class HistoryDosesViewController : UIViewController{
     
     
      let pinkcolor = UIColor.init(hexString: "F97DBE")
@@ -20,6 +21,73 @@ class HistoryDosesViewController : UITableViewController{
     let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
+    var _dateFormatter: DateFormatter?
+    
+    var formatter2: DateFormatter {
+        if (_dateFormatter == nil) {
+            _dateFormatter = DateFormatter()
+            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter!.dateFormat = "HH:mm"
+        }
+        return _dateFormatter!
+    }
+    
+    var _dateFormatter2: DateFormatter?
+    
+    var formatter: DateFormatter {
+        if (_dateFormatter2 == nil) {
+            _dateFormatter2 = DateFormatter()
+            _dateFormatter2!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter2!.dateFormat = "dd MMMM yyyy"
+        }
+        return _dateFormatter2!
+    }
+    var _dateFormatter1: DateFormatter?
+    var dateFormatter: DateFormatter {
+        if (_dateFormatter1 == nil) {
+            _dateFormatter1 = DateFormatter()
+            _dateFormatter1!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter1!.dateFormat = "MM/dd/yyyy HH:mm"
+        }
+        return _dateFormatter1!
+    }
+    
+
+    @IBOutlet weak var datePicker: ScrollableDatepicker!{
+        didSet {
+            var dates = [Date]()
+            for day in -15...15 {
+                dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
+            }
+            
+            datePicker.dates = dates
+            datePicker.selectedDate = Date()
+            
+            datePicker.delegate = self
+            
+            var configuration = Configuration()
+            
+            configuration.defaultDayStyle.dateTextFont = UIFont(name: "Avenir-Medium", size: 20)
+            configuration.defaultDayStyle.dateTextColor = UIColor.init(hexString: "7F8484")
+            configuration.defaultDayStyle.monthTextColor = UIColor.init(hexString: "7F8484")
+            configuration.defaultDayStyle.weekDayTextColor = UIColor.init(hexString: "7F8484")
+            configuration.defaultDayStyle.weekDayTextFont = UIFont(name: "Avenir-Medium", size: 8)
+            
+            configuration.weekendDayStyle.weekDayTextFont = UIFont(name: "Avenir-Heavy", size: 8)
+            
+            configuration.selectedDayStyle.selectorColor = pinkcolor
+            configuration.selectedDayStyle.dateTextColor = pinkcolor
+            configuration.selectedDayStyle.weekDayTextColor = darkPinkColor
+            configuration.selectedDayStyle.dateTextFont = UIFont(name: "Avenir-Heavy", size: 20)
+            configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 0.25)
+            
+            configuration.daySizeCalculation = .numberOfVisibleItems(5)
+            
+            datePicker.configuration = configuration
+            
+        }
+
+    }
     
     let realm = try! Realm()
     var doses : Results<MedicationDoseCalculated>?
@@ -28,8 +96,12 @@ class HistoryDosesViewController : UITableViewController{
     var defaultOptions = SwipeOptions()
     var doseToEdit = MedicationDoseCalculated()
     
-   override func viewDidLoad() {
+    @IBOutlet weak var tableView: UITableView!
+    
+    override func viewDidLoad() {
      super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
     
         
     }
@@ -38,25 +110,27 @@ class HistoryDosesViewController : UITableViewController{
         self.navigationController?.navigationBar.barTintColor = pinkcolor
         self.navigationController?.navigationBar.backgroundColor = pinkcolor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        loadBabyAndDoses()
+        loadBabyAndDoses(selectedDate: datePicker.selectedDate ?? Date())
         
     }
 
-    func loadBabyAndDoses(){
+    func loadBabyAndDoses(selectedDate : Date){
         
         registeredBabies = realm.objects(Baby.self)
        
         if registeredBabies?.count != 0{
             
             getCurrentBaby()
-            doses = babyApp.medicationDoses.filter(NSPredicate(value: true)).sorted(byKeyPath: "date", ascending: false)
+            doses = babyApp.medicationDoses.filter("date.day == %@ AND date.month == %@ AND date.year == %@", selectedDate.day, selectedDate.month, selectedDate.year).sorted(byKeyPath: "generalDate", ascending: false)
+
             tableView.reloadData()
             
         }
         
-        
-        
-    }
+            
+        }
+   
+    
    
     func getCurrentBaby(){
         
@@ -81,56 +155,23 @@ class HistoryDosesViewController : UITableViewController{
         catch{
             print(error)
         }
-        loadBabyAndDoses()
+        loadBabyAndDoses(selectedDate: datePicker.selectedDate ?? Date())
+    }
+
+
+    func dateStringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
+    }
+
+    func dateFromString(dateString: String) -> Date? {
+        return dateFormatter.date(from: dateString)
     }
     
     
-    
-    //Table View methods
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 129
-    }
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.estimatedRowHeight
-    }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "doseCell", for: indexPath) as! CustomCellHistoryDose
-        
-        if doses?.count == 0 || registeredBabies?.count == 0{
-            cell.nameDose.text = "No records added yet"
-            cell.descriptionDose.text = ""
-            cell.descriptionDose2.text = ""
-            cell.descriptionDose3.text = ""
-        }
-        else{
-            cell.nameDose.text = (doses?[indexPath.row].parentMedicationName)! + " " + (doses?[indexPath.row].nameType)!
-            cell.descriptionDose.text = "Date of administration: " + (doses?[indexPath.row].date)! + "\nConcentration: " + "\(doses?[indexPath.row].concentration ?? 0) \(doses?[indexPath.row].concentrationUnit ?? "")"
-            cell.descriptionDose2.text = "Weight: " + "\(doses?[indexPath.row].weight ?? Float(0.0)) kg"
-            cell.descriptionDose3.text = "Applied dose: " + (doses?[indexPath.row].dose)! + " " + (doses?[indexPath.row].doseUnit)!
-        }
-        cell.delegate = self
-        
-        
-        return cell
-    }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if doses?.count == 0{
-            return 1
-        }
-        else{
-            return doses?.count ?? 1
-        }
-        
-    }
   
-   
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? EditDosesViewController{
-            destinationVC.doseToEdit = self.doseToEdit
-        }
-    }
-    
 }
+
+//MARK : SwipeTableView Methods
 extension HistoryDosesViewController : SwipeTableViewCellDelegate{
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
@@ -188,6 +229,80 @@ extension HistoryDosesViewController : SwipeTableViewCellDelegate{
     }
     
     
+    
+}
+//MARK: - ScrollableDatePicker method
+extension HistoryDosesViewController: ScrollableDatepickerDelegate {
+    
+    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
+        
+        self.showSelectedDate()
+        //mostrar info de ese dia
+        loadBabyAndDoses(selectedDate: date)
+        
+    }
+    func showSelectedDate() {
+        guard datePicker.selectedDate != nil else {
+            return
+        }
+        
+        
+    }
+    
+}
+ //MARK: Table View methods
+extension HistoryDosesViewController : UITableViewDelegate, UITableViewDataSource{
+   
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return formatter.string(from: datePicker.selectedDate!)
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 129
+    }
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.estimatedRowHeight
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "doseCell", for: indexPath) as! CustomCellHistoryDose
+        
+        if doses?.count == 0 || registeredBabies?.count == 0{
+            cell.nameDose.text = "No records added yet"
+            cell.descriptionDose.text = ""
+            cell.descriptionDose2.text = ""
+            cell.descriptionDose3.text = ""
+        }
+        else{
+            cell.nameDose.text = (doses?[indexPath.row].parentMedicationName)! + " " + (doses?[indexPath.row].nameType)!
+            cell.descriptionDose.text = "Time of administration: \(formatter2.string(from:(doses?[indexPath.row].generalDate)!))" + "\nConcentration: " + "\(doses?[indexPath.row].concentration ?? 0) \(doses?[indexPath.row].concentrationUnit ?? "")"
+            cell.descriptionDose2.text = "Weight: " + "\(doses?[indexPath.row].weight ?? Float(0.0)) kg"
+            cell.descriptionDose3.text = "Applied dose: " + (doses?[indexPath.row].dose)! + " " + (doses?[indexPath.row].doseUnit)!
+        }
+        cell.delegate = self
+        
+        
+        return cell
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if doses?.count == 0{
+            return 1
+        }
+        else{
+            return doses?.count ?? 1
+        }
+        
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? EditDosesViewController{
+            destinationVC.doseToEdit = self.doseToEdit
+        }
+    }
     
 }
 

@@ -563,8 +563,8 @@ class ActionView: UIView
         
         arrayAllDates = []
         for dose in doses!{
-            let dateString = dose.date
-            arrayAllDates.append(dateFromString(dateString: dateString)!)
+            //let dateString = dose.date
+            arrayAllDates.append(dose.generalDate)
 
         }
         arrayDateToday = []

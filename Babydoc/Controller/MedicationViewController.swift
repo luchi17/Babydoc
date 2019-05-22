@@ -89,7 +89,7 @@ class MedicationViewController : UITableViewController{
         if let destinationVC2 = segue.destination as? HistoryDosesViewController{
             destinationVC2.navigationItem.largeTitleDisplayMode = .never
             destinationVC2.navigationController?.navigationBar.prefersLargeTitles = false
-            //destinationVC2.naviga
+          
         }
         
         

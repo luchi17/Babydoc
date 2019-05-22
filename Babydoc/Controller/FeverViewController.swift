@@ -9,12 +9,13 @@
 import UIKit
 import RealmSwift
 import RLBAlertsPickers
-
+import Charts
+import ScrollableDatepicker
+import SwipeCellKit
 
 class FeverViewController : UIViewController{
     
 
-    
     var realm = try! Realm()
     var listOfFever : Results<Fever>?
     var registeredBabies : Results<Baby>?
@@ -26,9 +27,83 @@ class FeverViewController : UIViewController{
     let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
+    var defaultOptions = SwipeOptions()
+    
+    var feverToEdit = Fever()
+    var _dateFormatter: DateFormatter?
+    
+    var formatter2: DateFormatter {
+        if (_dateFormatter == nil) {
+            _dateFormatter = DateFormatter()
+            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter!.dateFormat = "HH:mm"
+        }
+        return _dateFormatter!
+    }
+    
+    var _dateFormatter2: DateFormatter?
+    
+    var formatter: DateFormatter {
+        if (_dateFormatter2 == nil) {
+            _dateFormatter2 = DateFormatter()
+            _dateFormatter2!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter2!.dateFormat = "dd MMMM yyyy"
+        }
+        return _dateFormatter2!
+    }
+
+
+   
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var datePicker: ScrollableDatepicker!{
+        
+        didSet {
+            var dates = [Date]()
+            for day in -15...15 {
+                dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
+            }
+            
+            datePicker.dates = dates
+            datePicker.selectedDate = Date()
+            
+            datePicker.delegate = self
+            
+            var configuration = Configuration()
+            
+            configuration.defaultDayStyle.dateTextFont = UIFont(name: "Avenir-Medium", size: 20)
+            configuration.defaultDayStyle.dateTextColor = UIColor.init(hexString: "7F8484")
+            configuration.defaultDayStyle.monthTextColor = UIColor.init(hexString: "7F8484")
+            configuration.defaultDayStyle.weekDayTextColor = UIColor.init(hexString: "7F8484")
+            configuration.defaultDayStyle.weekDayTextFont = UIFont(name: "Avenir-Medium", size: 8)
+            
+            configuration.weekendDayStyle.weekDayTextFont = UIFont(name: "Avenir-Heavy", size: 8)
+            
+            configuration.selectedDayStyle.selectorColor = greenLightColor
+            configuration.selectedDayStyle.dateTextColor = greenLightColor
+            configuration.selectedDayStyle.weekDayTextColor = greenLightColor
+            configuration.selectedDayStyle.dateTextFont = UIFont(name: "Avenir-Heavy", size: 20)
+            configuration.selectedDayStyle.backgroundColor = UIColor(white: 0.9, alpha: 0.25)
+            
+            configuration.daySizeCalculation = .numberOfVisibleItems(5)
+            
+            datePicker.configuration = configuration
+            
+        }
+
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DispatchQueue.main.async {
+            self.showSelectedDate()
+            self.datePicker.scrollToSelectedDate(animated: false)
+           
+        }
+        tableView.delegate = self
+        tableView.dataSource = self
+        
         
         
     }
@@ -44,12 +119,13 @@ class FeverViewController : UIViewController{
         self.navigationController?.navigationBar.backgroundColor = greenLightColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
-        loadBabiesAndFever()
+        loadBabiesAndFever(selectedDate: datePicker.selectedDate ?? Date())
         
         
     }
 
-     func loadBabiesAndFever(){
+    //MARK: Data Manipulation
+    func loadBabiesAndFever(selectedDate : Date){
         
       registeredBabies = realm.objects(Baby.self)
         
@@ -59,10 +135,185 @@ class FeverViewController : UIViewController{
                     babyApp = baby
                 }
             }
-            //listOfFever = babyApp.fever.filter(NSPredicate(value: true))
-            
+            listOfFever = babyApp.fever.filter("date.day == %@ AND date.month == %@ AND date.year == %@", selectedDate.day, selectedDate.month, selectedDate.year).sorted(byKeyPath: "generalDate", ascending: false)
+
         }
+        tableView.reloadData()
 
     }
- 
+    
+    func deleteFever(fever : Fever){
+        do{
+            try realm.write {
+                realm.delete(fever)
+                
+            }
+           
+            feverToEdit = Fever() //para que si add reconozca que no hay fver seleccionada
+        }
+        catch{
+            print(error)
+        }
+        loadBabiesAndFever(selectedDate: datePicker.selectedDate ?? Date())
+    }
+    
+
 }
+
+//MARK: - ScrollableDatePicker method
+extension FeverViewController: ScrollableDatepickerDelegate {
+    
+    func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
+        
+        self.showSelectedDate()
+        //mostrar info de ese dia
+         loadBabiesAndFever(selectedDate: date)
+        
+    }
+    func showSelectedDate() {
+        guard datePicker.selectedDate != nil else {
+            return
+        }
+        
+        
+    }
+
+}
+
+//MARK: TableView Method
+extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
+    
+   
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "feverCell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
+        
+        
+        if registeredBabies?.count == 0 || listOfFever?.count == 0{
+            cell.textLabel?.text = "No records added yet"
+            cell.detailTextLabel?.text = ""
+        }
+        else{
+            cell.textLabel?.text = "Temperature: \(listOfFever?[indexPath.row].temperature ?? Float(0.0)) ºC"
+            cell.detailTextLabel?.text = "Time: \(formatter2.string(from:(listOfFever?[indexPath.row].generalDate)!))"
+        }
+
+
+        return cell
+        
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if registeredBabies?.count != 0 {
+            return listOfFever?.count ?? 1
+        }
+        else{
+            return 1
+        }
+        
+    }
+
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+       
+
+        return formatter.string(from: datePicker.selectedDate!)
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? SaveFeverViewController{
+           
+            if feverToEdit.temperature == Float(0.0){ //Save
+                destinationVC.feverToSave = feverToEdit
+                destinationVC.feverToEdit = feverToEdit
+            }
+            else{  //Edit
+                destinationVC.feverToEdit = feverToEdit
+
+            }
+
+        }
+        
+    }
+    
+    
+}
+
+
+//MARK: SwipeTableView Delegate Method
+extension FeverViewController : SwipeTableViewCellDelegate{
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+
+        feverToEdit = listOfFever![indexPath.row]
+        defaultOptions.transitionStyle = .drag
+
+        if orientation == .right{
+
+            let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
+
+                let alert = UIAlertController(title: "Remove Dose", message: "Are you sure you want to remove this dose permanently?", preferredStyle: .alert)
+
+                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
+                    
+                   
+                    self.deleteFever(fever: self.feverToEdit)
+
+                })
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+
+                })
+
+                alert.setTitle(font: self.font!, color: self.grayColor!)
+                alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
+                alert.addAction(removeAction)
+                alert.addAction(cancelAction)
+                alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+
+            }
+            removeSwipe.image = UIImage(named: "delete-icon")
+            removeSwipe.backgroundColor = .red
+            removeSwipe.hidesWhenSelected = true
+
+           
+            return [removeSwipe]
+
+
+        }
+        else{
+
+
+            let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+
+
+                self.performSegue(withIdentifier: "goToEdit", sender: self.self)
+            }
+            editSwipeAction.image = UIImage(named: "editt")
+            editSwipeAction.hidesWhenSelected = true
+
+           
+            return [editSwipeAction]
+
+        }
+        
+        
+        
+        
+
+    }
+
+
+
+}
+
+
+
