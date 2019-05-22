@@ -26,6 +26,7 @@ class Baby : Object {
     let calendar = List<DayOfYear>()
     let vaccines = List<Vaccine>()
     let medicationDoses = List<MedicationDoseCalculated>()
+    let fever = List<Fever>()
     var parentRegisteredBabies = LinkingObjects(fromType : RegisteredBabies.self , property : "babies" )
     
 

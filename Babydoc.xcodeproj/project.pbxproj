@@ -21,6 +21,9 @@
 		094E48702292EE1A00AC5E10 /* EditDosesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */; };
 		0990692F2279994100EB570C /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0990692B2279994100EB570C /* TextFieldTableViewCell.xib */; };
 		099069312279A32D00EB570C /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099069302279A32C00EB570C /* TextFieldTableViewCell.swift */; };
+		09A11BD02294640C00457A94 /* FeverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A11BCF2294640C00457A94 /* FeverViewController.swift */; };
+		09A11BD22294645500457A94 /* Fever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A11BD12294645500457A94 /* Fever.swift */; };
+		09A11BD422946D2000457A94 /* SaveFeverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A11BD322946D2000457A94 /* SaveFeverViewController.swift */; };
 		09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9922575192006DF813 /* AppDelegate.swift */; };
 		09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B1EE9B22575192006DF813 /* HomeViewController.swift */; };
 		09B1EEA322575194006DF813 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B1EEA222575194006DF813 /* Assets.xcassets */; };
@@ -73,6 +76,9 @@
 		094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDosesViewController.swift; sourceTree = "<group>"; };
 		0990692B2279994100EB570C /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldTableViewCell.xib; path = "../Data Model/TextFieldTableViewCell.xib"; sourceTree = "<group>"; };
 		099069302279A32C00EB570C /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		09A11BCF2294640C00457A94 /* FeverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverViewController.swift; sourceTree = "<group>"; };
+		09A11BD12294645500457A94 /* Fever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fever.swift; sourceTree = "<group>"; };
+		09A11BD322946D2000457A94 /* SaveFeverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFeverViewController.swift; sourceTree = "<group>"; };
 		09B1EE9622575192006DF813 /* Babydoc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Babydoc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B1EE9922575192006DF813 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09B1EE9B22575192006DF813 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +171,7 @@
 				09B7D4E8228ABF7900137544 /* Medication.swift */,
 				09B7D4F9228C7BD500137544 /* MedicationType.swift */,
 				0947AA2722903A7D00FB9303 /* MedicationDoseCalculated.swift */,
+				09A11BD12294645500457A94 /* Fever.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -200,6 +207,8 @@
 				094E486D2291574000AC5E10 /* SaveDoseViewController.swift */,
 				0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */,
 				094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */,
+				09A11BCF2294640C00457A94 /* FeverViewController.swift */,
+				09A11BD322946D2000457A94 /* SaveFeverViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -357,6 +366,7 @@
 				093B7D0D22776AB100DB4344 /* DayOfYear.swift in Sources */,
 				09B7D4E9228ABF7900137544 /* Medication.swift in Sources */,
 				09B7D4E72289CF5200137544 /* InfoVaccinesViewController.swift in Sources */,
+				09A11BD02294640C00457A94 /* FeverViewController.swift in Sources */,
 				09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */,
 				09B7D4F6228C76A400137544 /* MedicationCalculatorViewController.swift in Sources */,
 				099069312279A32D00EB570C /* TextFieldTableViewCell.swift in Sources */,
@@ -365,6 +375,7 @@
 				094E486E2291574000AC5E10 /* SaveDoseViewController.swift in Sources */,
 				0947AA2E22907D1800FB9303 /* CustomCellHistoryDose.swift in Sources */,
 				0947AA2A2290466D00FB9303 /* HistoryDosesViewController.swift in Sources */,
+				09A11BD22294645500457A94 /* Fever.swift in Sources */,
 				09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */,
 				09B7D4FA228C7BD500137544 /* MedicationType.swift in Sources */,
 				0933E110225E33C300B19B86 /* HealthViewController.swift in Sources */,
@@ -376,6 +387,7 @@
 				0947AA2822903A7D00FB9303 /* MedicationDoseCalculated.swift in Sources */,
 				09F972FD22841EA8008FE28C /* Vaccine.swift in Sources */,
 				09E27C492265E07F0022EE1B /* CustomCellHome.swift in Sources */,
+				09A11BD422946D2000457A94 /* SaveFeverViewController.swift in Sources */,
 				093B7D1022776AE000DB4344 /* Baby.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

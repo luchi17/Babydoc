@@ -512,6 +512,9 @@
                                                                 <state key="normal" image="fever-2">
                                                                     <color key="titleColor" red="0.078431372550000003" green="0.88235294119999996" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
+                                                                <connections>
+                                                                    <segue destination="QeE-n9-1xX" kind="show" id="AOf-Eo-QyQ"/>
+                                                                </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kW-oM-vdB">
                                                                 <rect key="frame" x="0.0" y="80" width="138" height="19.333333333333329"/>
@@ -707,6 +710,208 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrl-Jy-5kJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2706" y="386"/>
+        </scene>
+        <!--Temperature-->
+        <scene sceneID="YzS-xk-rwk">
+            <objects>
+                <viewController id="QeE-n9-1xX" customClass="FeverViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="X1p-Vg-rHp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRT-fI-rH4" customClass="ScrollableDatepicker" customModule="ScrollableDatepicker">
+                                <rect key="frame" x="0.0" y="88" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Kbp-QW-qrR"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gLq-0M-qCa">
+                                <rect key="frame" x="0.0" y="132" width="375" height="597"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gLq-0M-qCa" firstAttribute="leading" secondItem="73I-0z-m5M" secondAttribute="leading" id="Ce4-6B-1Fx"/>
+                            <constraint firstItem="gLq-0M-qCa" firstAttribute="trailing" secondItem="73I-0z-m5M" secondAttribute="trailing" id="M2K-yK-Ya2"/>
+                            <constraint firstItem="eRT-fI-rH4" firstAttribute="trailing" secondItem="73I-0z-m5M" secondAttribute="trailing" id="OPm-P5-eke"/>
+                            <constraint firstItem="eRT-fI-rH4" firstAttribute="leading" secondItem="73I-0z-m5M" secondAttribute="leading" id="QPj-KY-EKk"/>
+                            <constraint firstItem="eRT-fI-rH4" firstAttribute="top" secondItem="73I-0z-m5M" secondAttribute="top" id="cEY-rn-pZb"/>
+                            <constraint firstItem="gLq-0M-qCa" firstAttribute="top" secondItem="eRT-fI-rH4" secondAttribute="bottom" id="jOu-cO-cdC"/>
+                            <constraint firstItem="gLq-0M-qCa" firstAttribute="bottom" secondItem="73I-0z-m5M" secondAttribute="bottom" id="wqu-Es-FRs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="73I-0z-m5M"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Temperature" id="jod-t8-aNQ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="o08-v0-U3J">
+                            <connections>
+                                <segue destination="EdA-yP-hes" kind="show" id="jz0-lr-9oU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="calendar" destination="eRT-fI-rH4" id="dd2-SW-bT8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jH5-VK-6fF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1940" y="1118.7192118226601"/>
+        </scene>
+        <!--Save Fever View Controller-->
+        <scene sceneID="3v2-Hf-xbR">
+            <objects>
+                <tableViewController id="EdA-yP-hes" customClass="SaveFeverViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3jt-K4-5pS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <sections>
+                            <tableViewSection id="cHJ-WN-yps">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="saveCell" rowHeight="70" id="KNf-8M-AAI" customClass="CalculatorCell" customModule="Babydoc" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KNf-8M-AAI" id="neA-Zj-n3e">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yf2-7x-RvV">
+                                                    <rect key="frame" x="10" y="5.9999999999999964" width="187" height="57.666666666666657"/>
+                                                    <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="0.64982876710000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="187" id="eq6-hM-Lh2"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.74509803919999995" blue="0.56078431370000004" alpha="0.99550513699999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hfL-Lg-Dmx">
+                                                    <rect key="frame" x="205" y="17.333333333333329" width="160" height="35"/>
+                                                    <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="EfM-rL-Hz7"/>
+                                                        <constraint firstAttribute="height" constant="35" id="gNI-s0-RG2"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textField1TouchDown:" destination="J6h-09-GSp" eventType="touchDown" id="KUV-xY-omc"/>
+                                                        <action selector="textFieldDateTouchedDown:" destination="EdA-yP-hes" eventType="touchDown" id="p32-Cu-n0X"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="hfL-Lg-Dmx" secondAttribute="trailing" constant="10" id="A1R-zc-Yo3" userLabel="trailing = Text Field.trailing "/>
+                                                <constraint firstItem="hfL-Lg-Dmx" firstAttribute="centerY" secondItem="yf2-7x-RvV" secondAttribute="centerY" id="EWp-Q4-3W9"/>
+                                                <constraint firstItem="yf2-7x-RvV" firstAttribute="leading" secondItem="neA-Zj-n3e" secondAttribute="leading" constant="10" id="aWf-Hq-59K"/>
+                                                <constraint firstItem="yf2-7x-RvV" firstAttribute="top" secondItem="neA-Zj-n3e" secondAttribute="top" constant="6" id="hx9-CK-w5h"/>
+                                                <constraint firstItem="yf2-7x-RvV" firstAttribute="centerY" secondItem="neA-Zj-n3e" secondAttribute="centerY" id="my0-W5-TWh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="field" destination="yf2-7x-RvV" id="u2a-86-nZ4"/>
+                                            <outlet property="textField" destination="hfL-Lg-Dmx" id="Sa9-cj-JPZ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="saveCell" rowHeight="70" id="QdK-0e-Zaq" customClass="CalculatorCell" customModule="Babydoc" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="70" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QdK-0e-Zaq" id="m5K-5W-eH4">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature (ºC)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e02-Ky-VWf">
+                                                    <rect key="frame" x="10" y="5.9999999999999964" width="187" height="57.666666666666657"/>
+                                                    <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="0.64982876710000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="187" id="45F-yh-CYY"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.74509803919999995" blue="0.56078431370000004" alpha="0.99550513699999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JqX-Ib-16r">
+                                                    <rect key="frame" x="205" y="17.333333333333329" width="160" height="35"/>
+                                                    <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="GrD-4y-jGH"/>
+                                                        <constraint firstAttribute="width" constant="160" id="uC1-2n-wnq"/>
+                                                    </constraints>
+                                                    <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="textField1TouchDown:" destination="J6h-09-GSp" eventType="touchDown" id="aQP-eM-jT0"/>
+                                                        <action selector="textFieldTemperatureTouchedDown:" destination="EdA-yP-hes" eventType="touchDown" id="eLP-hM-7tt"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="e02-Ky-VWf" firstAttribute="top" secondItem="m5K-5W-eH4" secondAttribute="top" constant="6" id="9n8-SF-kjY"/>
+                                                <constraint firstItem="e02-Ky-VWf" firstAttribute="centerY" secondItem="m5K-5W-eH4" secondAttribute="centerY" id="CHW-oR-x0l"/>
+                                                <constraint firstItem="e02-Ky-VWf" firstAttribute="leading" secondItem="m5K-5W-eH4" secondAttribute="leading" constant="10" id="Upl-JF-sRP"/>
+                                                <constraint firstAttribute="trailing" secondItem="JqX-Ib-16r" secondAttribute="trailing" constant="10" id="kfi-Yo-98n" userLabel="trailing = Text Field.trailing "/>
+                                                <constraint firstItem="JqX-Ib-16r" firstAttribute="centerY" secondItem="e02-Ky-VWf" secondAttribute="centerY" id="rk9-5h-BIx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="field" destination="e02-Ky-VWf" id="c7C-9R-35M"/>
+                                            <outlet property="textField" destination="JqX-Ib-16r" id="Ouf-0E-ZWt"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="calculatorCell" rowHeight="60" id="Ref-XR-G6n" customClass="CalculatorCell" customModule="Babydoc" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="140" width="375" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ref-XR-G6n" id="gAs-r1-Od8">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2T4-RG-hmR">
+                                                    <rect key="frame" x="155" y="11" width="65" height="38"/>
+                                                    <color key="backgroundColor" red="0.20000000000000001" green="0.74509803919999995" blue="0.56078431370000004" alpha="0.99550513699999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="38" id="7to-nm-wHX"/>
+                                                        <constraint firstAttribute="width" constant="65" id="VUN-zc-vm6"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
+                                                    <state key="normal" title="Save"/>
+                                                    <connections>
+                                                        <action selector="saveButtonPressed:" destination="EdA-yP-hes" eventType="touchUpInside" id="stk-13-nqX"/>
+                                                        <action selector="saveDosePressed:" destination="J6h-09-GSp" eventType="touchUpInside" id="B4e-c3-ZmZ"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="0.64982876710000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="2T4-RG-hmR" firstAttribute="centerX" secondItem="gAs-r1-Od8" secondAttribute="centerX" id="T6T-Js-Qld"/>
+                                                <constraint firstItem="2T4-RG-hmR" firstAttribute="centerY" secondItem="gAs-r1-Od8" secondAttribute="centerY" id="hW4-dH-eZR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="EdA-yP-hes" id="UaK-rM-WDv"/>
+                            <outlet property="delegate" destination="EdA-yP-hes" id="z8m-Ne-lFz"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="saveButton" destination="2T4-RG-hmR" id="3OK-z3-g5B"/>
+                        <outlet property="textFieldDate" destination="hfL-Lg-Dmx" id="ZSB-XA-qz4"/>
+                        <outlet property="textFieldTemperature" destination="JqX-Ib-16r" id="Ct7-ig-iW0"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PcK-Ni-NJH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1751" y="1839"/>
         </scene>
         <!--Medications-->
         <scene sceneID="dqs-xI-CFK">

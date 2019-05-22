@@ -466,7 +466,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         alert.addAction(done_action)
                         alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                     default:
-                        print("saludos")
+                        break
                         
                         
                     }

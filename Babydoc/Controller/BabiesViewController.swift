@@ -116,18 +116,18 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         //this is called nil coalescing operator
-        return registeredBabies?.count ?? 1
+        return registeredBabies?.count ?? 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let baby = getCurrentBabyApp()
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "babiesCell", for: indexPath) as! SwipeTableViewCell
         
         cell.textLabel?.text = registeredBabies?[indexPath.row].name
         tableView.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
         cell.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
         
-        if cell.textLabel?.text != baby.name{
+        if !(registeredBabies?[indexPath.row].current)!{
             cell.accessoryType = .none
         }
         else{
@@ -192,8 +192,10 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
     func loadBabies(){
         
         registeredBabies = realm.objects(Baby.self)
-        
+
         tableView.reloadData()
+        
+        
         
     }
 
@@ -208,25 +210,29 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                     let dose = realm.objects(VaccineDoses.self).filter("%@ IN parentVaccine", vaccine)
                     realm.delete(dose)
                 }
+                realm.delete(baby.fever)
                 realm.delete(baby.medicationDoses)
                 realm.delete(baby.vaccines)
                 realm.delete(baby)
                 
             }
+            loadBabies()
         }
         catch{
             print(error)
         }
-        loadBabies()
+        
     }
     func getCurrentBabyApp() -> Baby{
         
-        
-        for baby in registeredBabies!{
-            if baby.current == true{
-                babyApp = baby
+        if registeredBabies?.count != 0{
+            for baby in registeredBabies!{
+                if baby.current == true{
+                    babyApp = baby
+                }
             }
         }
+        
         return babyApp
     }
     

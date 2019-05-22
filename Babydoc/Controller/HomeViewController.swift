@@ -580,9 +580,7 @@ class ActionView: UIView
             }
 
         }
-//        print(arrayAllDates)
-        print("today")
-        print(arrayDateToday)
+
 
     }
     

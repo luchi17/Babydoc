@@ -60,7 +60,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   APESuperHUD:
-    :commit: 0a7aecdf9d00094824b68d2f15e0f277ea3b767b
+    :commit: 7a94bfdcd78cb0b1795ce5e933cf911eac54ec89
     :git: https://github.com/apegroup/APESuperHUD.git
   ChameleonFramework:
     :commit: 6dd284bde21ea2e7f9fd89bc36f40df16e16369d
@@ -69,7 +69,7 @@ CHECKOUT OPTIONS:
     :commit: 5ce7637f4c8d5118442f1a9ae781020fa80fccb9
     :git: https://github.com/loicgriffie/Alerts-Pickers.git
   SwipeCellKit:
-    :commit: 9d17bfa7daff16f20d4f6e7febcb2fccb62f6e2b
+    :commit: daad4f4ad57becebeffa648f9a37bbc53e1bd396
     :git: https://github.com/SwipeCellKit/SwipeCellKit.git
 
 SPEC CHECKSUMS:

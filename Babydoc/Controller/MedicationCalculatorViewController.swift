@@ -312,7 +312,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         loadBabies()
         if babyApp.name.isEmpty || self.weightSelected == 0 || self.concentrationSelected == 0{
             
-            let alert = UIAlertController(title: "Error", message: "In order to save the dose all the fields must be filled in and at least one baby has to be registered in Babydoc.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: "In order to save the dose all the fields must be filled in and at least one baby has to be active in Babydoc.", preferredStyle: .alert)
             let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(action)
             alert.setMessage(font: fontLight!, color: grayLightColor!)
