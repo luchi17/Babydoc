@@ -19,6 +19,7 @@
 		0947AA2E22907D1800FB9303 /* CustomCellHistoryDose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA2D22907D1800FB9303 /* CustomCellHistoryDose.swift */; };
 		094D8E5822954B4000301698 /* DateFever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D8E5722954B4000301698 /* DateFever.swift */; };
 		094D8E5C2295B68B00301698 /* SleepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D8E5B2295B68B00301698 /* SleepViewController.swift */; };
+		094D8E602296DB1C00301698 /* CustomCellFever.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D8E5F2296DB1C00301698 /* CustomCellFever.swift */; };
 		094E486E2291574000AC5E10 /* SaveDoseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E486D2291574000AC5E10 /* SaveDoseViewController.swift */; };
 		094E48702292EE1A00AC5E10 /* EditDosesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */; };
 		0990692F2279994100EB570C /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0990692B2279994100EB570C /* TextFieldTableViewCell.xib */; };
@@ -76,6 +77,7 @@
 		0947AA2D22907D1800FB9303 /* CustomCellHistoryDose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellHistoryDose.swift; sourceTree = "<group>"; };
 		094D8E5722954B4000301698 /* DateFever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFever.swift; sourceTree = "<group>"; };
 		094D8E5B2295B68B00301698 /* SleepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepViewController.swift; sourceTree = "<group>"; };
+		094D8E5F2296DB1C00301698 /* CustomCellFever.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellFever.swift; sourceTree = "<group>"; };
 		094E486D2291574000AC5E10 /* SaveDoseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDoseViewController.swift; sourceTree = "<group>"; };
 		094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDosesViewController.swift; sourceTree = "<group>"; };
 		0990692B2279994100EB570C /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldTableViewCell.xib; path = "../Data Model/TextFieldTableViewCell.xib"; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				0947AA2D22907D1800FB9303 /* CustomCellHistoryDose.swift */,
 				09B1EEA422575194006DF813 /* LaunchScreen.storyboard */,
 				09D35083225E1EE70052BF88 /* Main.storyboard */,
+				094D8E5F2296DB1C00301698 /* CustomCellFever.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				094D8E602296DB1C00301698 /* CustomCellFever.swift in Sources */,
 				09F97303228481D6008FE28C /* RegisteredBabies.swift in Sources */,
 				09F97301228421E4008FE28C /* VaccineViewController.swift in Sources */,
 				093B7D122277720400DB4344 /* BabyInfoViewController.swift in Sources */,

@@ -498,7 +498,7 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
                     }
 
                     let image = UIImage(named: "doubletick")!
-                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "\(self.registeredBabies![indexPath.row].name) has been established as the current baby of the app")
+                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "\(self.registeredBabies![indexPath.row].name) is now the current baby of the app")
                     HUDAppearance.cancelableOnTouch = true
                     HUDAppearance.messageFont = self.fontLight!
                     HUDAppearance.messageTextColor = self.grayColor!

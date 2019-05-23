@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import SwiftyPickerPopover
 import APESuperHUD
+import ChameleonFramework
 
 class SaveFeverViewController : UITableViewController{
     
@@ -26,6 +27,7 @@ class SaveFeverViewController : UITableViewController{
     var babyApp = Baby()
     var indicatorEdit = 0
     var feverValues = [StringPickerPopover.ItemType]()
+    var placeValues = [StringPickerPopover.ItemType]()
     
     var feverToSave = Fever()
     var feverToEdit : Fever?{
@@ -36,20 +38,36 @@ class SaveFeverViewController : UITableViewController{
     
     @IBOutlet weak var textFieldDate: UITextField!
     @IBOutlet weak var textFieldTemperature: UITextField!
+    @IBOutlet weak var textFieldPlace: UITextField!
     
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var checkFeverButton: UIButton!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldDate.delegate = self
         textFieldTemperature.delegate = self
+        textFieldPlace.delegate = self
+        if indicatorEdit != 0 {
+            textFieldDate.text = dateStringFromDate(date: feverToEdit?.generalDate ?? Date())
+            textFieldTemperature.text = "\(feverToEdit?.temperature ?? Float(0.0)) ºC"
+            textFieldPlace.text = feverToEdit?.placeOfMeasurement
+        }
+        
+        
         saveButton.layer.cornerRadius = 2
         saveButton.layer.masksToBounds = false
         saveButton.layer.shadowColor = UIColor.flatGray.cgColor
         saveButton.layer.shadowOpacity = 0.7
         saveButton.layer.shadowRadius = 1
-        saveButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        checkFeverButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+        checkFeverButton.layer.cornerRadius = 2
+        checkFeverButton.layer.masksToBounds = false
+        checkFeverButton.layer.shadowColor = UIColor.flatGray.cgColor
+        checkFeverButton.layer.shadowOpacity = 0.7
+        checkFeverButton.layer.shadowRadius = 1
+        checkFeverButton.layer.shadowOffset = CGSize(width: 2, height: 2)
         
         
         
@@ -57,7 +75,9 @@ class SaveFeverViewController : UITableViewController{
     override func viewWillAppear(_ animated: Bool) {
         configurePopOvers()
         loadBabiesAndFever()
+        
     }
+
     
     
     
@@ -75,10 +95,16 @@ class SaveFeverViewController : UITableViewController{
     func configurePopOvers(){
         
         
-        for value in 30...42{
+        for value in 34...42{
             feverValues.append("\(value)")
         }
-       
+        placeValues.append("mouth")
+        placeValues.append("ear")
+        placeValues.append("armpit")
+        placeValues.append("rectum")
+        
+        
+        
         
         
     }
@@ -94,21 +120,21 @@ class SaveFeverViewController : UITableViewController{
             }
             
         }
-
+        
     }
     func loadFeverToEdit(){
         
         indicatorEdit = 0
-      
+        
         
         if feverToEdit?.temperature != Float(0.0){
             
             indicatorEdit += 1
         }
-  
-
+        
+        
     }
-
+    
     var _dateFormatter: DateFormatter?
     var dateFormatter: DateFormatter {
         if (_dateFormatter == nil) {
@@ -128,9 +154,9 @@ class SaveFeverViewController : UITableViewController{
     @IBAction func textFieldDateTouchedDown(_ sender: UITextField) {
         
         if indicatorEdit != 0{
-        sender.text = dateFormatter.string(from: feverToEdit?.generalDate ?? Date())
+            sender.text = dateFormatter.string(from: feverToEdit?.generalDate ?? Date())
         }
-       
+        
         sender.textColor = grayLightColor
         sender.font = font
         DatePickerPopover(title: "Date" )
@@ -178,7 +204,7 @@ class SaveFeverViewController : UITableViewController{
     
     @IBAction func textFieldTemperatureTouchedDown(_ sender: UITextField) {
         
-
+        
         if indicatorEdit != 0{
             sender.text = "\(feverToEdit?.temperature ?? Float(0.0)) ºC"
         }
@@ -191,12 +217,12 @@ class SaveFeverViewController : UITableViewController{
                 do{
                     try self.realm.write {
                         if self.indicatorEdit != 0{
-                             self.feverToEdit?.temperature = Float(selectedString) as! Float
+                            self.feverToEdit?.temperature = Float(selectedString) as! Float
                         }
                         else{
                             self.feverToSave.temperature = Float(selectedString) as! Float
                         }
-                       
+                        
                     }
                 }
                 catch{
@@ -210,11 +236,42 @@ class SaveFeverViewController : UITableViewController{
         
     }
     
+    @IBAction func textFieldPlaceTouchedDown(_ sender: UITextField) {
+        
+        
+        StringPickerPopover(title: "Place", choices: placeValues )
+            .setArrowColor(greenLightColor!)
+            .setFontColor(grayLightColor!).setFont(font!).setSize(width: 320, height: 150).setFontSize(17).setCancelButton { (_, _, _) in }.setDoneButton(title: "Done", font: fontLittle, color: .white) {
+                popover, selectedRow, selectedString in
+                sender.text = selectedString
+                do{
+                    try self.realm.write {
+                        if self.indicatorEdit != 0{
+                            self.feverToEdit?.placeOfMeasurement = selectedString
+                        }
+                        else{
+                            self.feverToSave.placeOfMeasurement = selectedString
+                        }
+                        
+                    }
+                }
+                catch{
+                    print(error)
+                }
+                
+                
+                
+            }.appear(originView: sender, baseViewController: self)
+        
+        
+    }
     @IBAction func saveButtonPressed(_ sender: UIButton) {
-      
+
+        
+        let alert = UIAlertController(title: "Error", message: "In order to save the fever all the fields must be filled in and at least one baby has to be active in Babydoc.", preferredStyle: .alert)
+        
         if babyApp.name.isEmpty || textFieldDate.text!.isEmpty || textFieldTemperature.text!.isEmpty{
             
-            let alert = UIAlertController(title: "Error", message: "In order to save the fever all the fields must be filled in and at least one baby has to be active in Babydoc.", preferredStyle: .alert)
             let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(action)
             alert.setMessage(font: fontLight!, color: grayLightColor!)
@@ -223,31 +280,235 @@ class SaveFeverViewController : UITableViewController{
         }
         else{
             if indicatorEdit == 0 {
-               saveFever(feverToEdit: feverToSave)
+                saveFever(feverToEdit: feverToSave)
             }
-
+            
             let image = UIImage(named: "doubletick")!
-            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 2), title: nil, message: "Fever has been saved correctly!")
+            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Fever has been saved correctly!")
             HUDAppearance.cancelableOnTouch = true
             HUDAppearance.messageFont = self.fontLight!
             HUDAppearance.messageTextColor = self.grayLightColor!
-            
             self.present(hudViewController, animated: true)
-           
+            
+            guard let temperatureArray = textFieldTemperature.text?.components(separatedBy: CharacterSet.decimalDigits.inverted) else { return  }
+            var temperature = Float(0.0)
+            for temp in temperatureArray {
+                if let number = Float(temp){
+                    temperature = number
+                    break
+                }
+                
+            }
+            
+            if textFieldPlace.text! == "mouth"{
+                if temperature >= Float(37.8) {
+                    self.setFeverYes(feverOrNot: true)
+                    
+                }
+                else{
+                    self.setFeverYes(feverOrNot: false)
+                }
+                
+                
+            }
+            else if textFieldPlace.text! == "rectum" || textFieldPlace.text! == "ear"{
+                if temperature >= Float(38.0) {
+                    
+                    self.setFeverYes(feverOrNot: true)
+                }
+                else{
+                    
+                    self.setFeverYes(feverOrNot: false)
+                }
+                
+            }
+            else if textFieldPlace.text! == "armpit"{
+                if temperature >= Float(37.2) {
+                    
+                    self.setFeverYes(feverOrNot: true)
+                }
+                else{
+                    
+                    self.setFeverYes(feverOrNot: false)
+                }
+                
+                
+            }
+            
             self.navigationController?.popViewController(animated: true)
+            
+
         }
+       
+    }
+
+    
+    @IBAction func checkFeverPressed(_ sender: UIButton) {
+        
+        if textFieldTemperature.text!.isEmpty || textFieldPlace.text!.isEmpty{
+            
+            if textFieldTemperature.text!.isEmpty && textFieldPlace.text!.isEmpty{
+                
+                let alert = UIAlertController(style: .alert)
+                let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.set(title: "Error", font: font!, color: grayColor!)
+                alert.set(message: "Temperature and place fields must be filled in.", font: fontLight!, color: grayLightColor!)
+                
+                alert.addAction(action)
+                alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+            }
+            else{
+                let alert = UIAlertController(style: .alert)
+                let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                if textFieldTemperature.text!.isEmpty{
+                    
+                    alert.set(title: "Error", font: font!, color: grayColor!)
+                    alert.set(message: "The temperature field must be filled in.", font: fontLight!, color: grayLightColor!)
+                    
+                }
+                else if textFieldPlace.text!.isEmpty{
+                    alert.set(title: "Error", font: font!, color: grayColor!)
+                    alert.set(message: "The site of measurement field must be filled in.", font: fontLight!, color: grayLightColor!)
+                    
+                }
+                
+                alert.addAction(action)
+                alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+            }
+            
+        }
+            
+            
+        else{
+            
+            let alert = UIAlertController(style: .alert)
+            let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            
+            guard let temperatureArray = textFieldTemperature.text?.components(separatedBy: CharacterSet.decimalDigits.inverted) else { return  }
+            var temperature = Float(0.0)
+            for temp in temperatureArray {
+                if let number = Float(temp){
+                    temperature = number
+                    break
+                }
+                
+            }
+            let ageArray = babyApp.age.components(separatedBy: CharacterSet.decimalDigits.inverted)
+            var ageBaby : Int = 0
+            for age in ageArray {
+                if let number = Int(age){
+                    ageBaby = number
+                    break
+                }
+                
+            }
+            
+            
+            if textFieldPlace.text! == "mouth"{
+                if temperature >= Float(37.8) {
+                    
+                    self.setFeverYes(feverOrNot: true)
+                    if temperature >= Float(38.9){
+                        alert.set(title: "Seek medical attention for your child", font: self.font!, color: .red)
+                    }
+                    else{
+                        
+                        alert.set(message: "Your child has fever", font: fontLight!, color: .flatOrange)
+                    }
+                }
+
+                else{
+                    
+                    alert.set(message: "Your child does not have fever", font: fontLight!, color: self.greenDarkColor!)
+                    self.setFeverYes(feverOrNot: false)
+                }
+                
+                
+            }
+            else if textFieldPlace.text! == "rectum" || textFieldPlace.text! == "ear" {
+                if temperature >= Float(38.0){
+                    
+                    self.setFeverYes(feverOrNot: true)
+                    
+                    if babyApp.age.contains("months") && !babyApp.age.contains("years") && ageBaby <= 3{
+                        alert.set(title: "Seek medical attention for your child!", font: self.font!, color: .red)
+                        
+                    }
+                    else if babyApp.age.contains("days") && !babyApp.age.contains("months") && !babyApp.age.contains("years"){
+                        alert.set(title: "Seek medical attention for your child!", font: self.font!, color: .red)
+                    }
+                    else if temperature >= Float(38.9){
+                        alert.set(title: "Seek medical attention for your child!", font: self.font!, color: .red)
+                    }
+
+                    else{
+                        alert.set(message: "Your child has fever!", font: fontLight!, color: .flatOrange)
+                    }
+                }
+                
+                else{
+                   
+                    alert.set(message: "Your child does not have fever!", font: fontLight!, color: self.greenDarkColor!)
+                    self.setFeverYes(feverOrNot: false)
+                }
+                
+            }
+            else if textFieldPlace.text! == "armpit"{
+                if temperature >= Float(37.2) {
+                   
+                    alert.set(message: "Your child has fever!", font: fontLight!, color: .flatOrange)
+                    self.setFeverYes(feverOrNot: true)
+                }
+                else if temperature >= Float(38.9){
+                    alert.set(title: "Seek medical attention for your child!", font: self.font!, color: .red)
+                }
+
+                else{
+                    
+                    alert.set(message: "Your child does not have fever!", font: fontLight!, color: self.greenDarkColor!)
+                    self.setFeverYes(feverOrNot: false)
+                }
+                
+            }
+            
+            alert.addAction(action)
+            alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+        }
+        
+      
         
         
     }
+    
+    func setFeverYes( feverOrNot : Bool){
+        
+        do{
+            try realm.write {
+                if indicatorEdit != 0{
+                    feverToSave.feverYes = feverOrNot
+                }
+                else{
+                    feverToEdit?.feverYes = feverOrNot
+                }
+            }
+        }
+        catch{
+            print(error)
+        }
+        
+        
+        
+    }
+    
     
 }
 extension SaveFeverViewController : UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-     
-            return false
-        }
         
+        return false
+    }
+    
 }
 
 

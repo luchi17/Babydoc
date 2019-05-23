@@ -51,7 +51,7 @@ class BabyInfoViewController : UITableViewController{
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "TextFieldTableViewCell", bundle: nil), forCellReuseIdentifier: "babyInfoCell")
-        propertyDictionaryName = [["name","Name"],["dateOfBirth","Date Of Birth"],["age","Age"], ["weight","Weight"],["height","Height"],["headDiameter","Head Diameter"],["bloodType","Blood Type"],["allergies" , "Allergies"],["illnesses","Illnesses"]]
+        propertyDictionaryName = [["name","Name"],["dateOfBirth","Date Of Birth"],["age","Age"], ["weight","Weight (kg)"],["height","Height (m)"],["headDiameter","Head Diameter (cm)"],["bloodType","Blood Type"],["allergies" , "Allergies"],["illnesses","Illnesses"]]
         
 
     }
@@ -91,10 +91,17 @@ class BabyInfoViewController : UITableViewController{
         let cellBabyInfo = tableView.dequeueReusableCell(withIdentifier: "babyInfoCell", for: indexPath) as! TextFieldTableViewCell
         cellBabyInfo.delegate = self as SwipeTableViewCellDelegate
         tableView.backgroundColor = UIColor.init(hexString: "F8F9F9")?.withAlphaComponent(CGFloat(0.995))
-        cellBabyInfo.backgroundColor = UIColor.init(hexString: "F8F9F9")//?.withAlphaComponent(CGFloat(0.995))
+        cellBabyInfo.backgroundColor = UIColor.init(hexString: "F8F9F9")
         cellBabyInfo.fieldNameLabel.textColor = UIColor.init(hexString: "64C5CF")
         cellBabyInfo.fieldNameLabel.text! = propertyDictionaryName[indexPath.row][1]
-        cellBabyInfo.fieldValue.text = babyProperties?[0].value(forKeyPath: propertyDictionaryName[indexPath.row][0]) as? String
+        
+        if babyProperties?[0].value(forKeyPath: propertyDictionaryName[indexPath.row][0]) as? Float == Float(0.0){
+            cellBabyInfo.fieldValue.text = ""
+        }
+        else{
+            cellBabyInfo.fieldValue.text = "\(babyProperties?[0].value(forKeyPath: propertyDictionaryName[indexPath.row][0]) ?? "")"
+        }
+       
         
         
         return cellBabyInfo
@@ -361,7 +368,6 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
                     alert.setTitle(font: self.font!, color: self.greenColor!)
                     var weight  = Float()
-                    var weightUnit = ""
                     var arrayWeight = [String]()
                     let weightValues = stride(from: 0.0, through: 60.0, by: 0.05)
                     for i in weightValues{
@@ -371,7 +377,6 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
            
     
                     weight = Float(3.00)
-                    weightUnit = " kg"
                    
                     alert.addPickerView(values: [arrayWeight, ["kg"]], initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
                         DispatchQueue.main.async {
@@ -383,14 +388,12 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
 
                             }
                         }
-                        print(weight)
 
                     }
                     let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
                         
-                        let finalStringWeight = String(format : "%.2f",weight) + weightUnit
 
-                        self.saveBabyInfo(valueToSave: finalStringWeight, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        self.saveBabyInfo(valueToSave: round(weight), forkey: self.propertyDictionaryName[indexPath.row][0])
                         
                     })
                     
@@ -407,7 +410,6 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
                         alert.setTitle(font: self.font!, color: self.greenColor!)
                         var height  = Float()
-                        let heightUnit = " m"
                         var arrayHeight = [String]()
                         let heightValues = stride(from: 0.0, through: 1.7, by: 0.01)
                         for i in heightValues{
@@ -417,16 +419,16 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         
                         height = Float(0.7)
                         
-                        alert.addPickerView(values: [arrayHeight, [heightUnit]], initialSelection: pickerViewSelectedValueHeight) { vc, picker, index, values in
+                        alert.addPickerView(values: [arrayHeight, ["m"]], initialSelection: pickerViewSelectedValueHeight) { vc, picker, index, values in
                             
                             height = Float(picker.selectedRow(inComponent: 0)) * Float(0.01)
                             
                         }
                         let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
                             
-                            let finalStringHeight = String(format : "%.2f",height) + heightUnit
                             
-                            self.saveBabyInfo(valueToSave: finalStringHeight, forkey: self.propertyDictionaryName[indexPath.row][0])
+                            
+                            self.saveBabyInfo(valueToSave: round(height), forkey: self.propertyDictionaryName[indexPath.row][0])
                             
                         })
                         
@@ -441,24 +443,23 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
                         alert.setTitle(font: self.font!, color: self.greenColor!)
                         let headValues = stride(from: 0.0, through: 25.0, by: 0.01)
+                        
                         var head = Float()
-                        let headUnit = " cm"
                         var arrayHead = [String]()
                         for i in headValues{
                             arrayHead.append(String(format: "%.2f", i))
                         }
                         head = Float(10.0)
                         let pickerViewSelectedValueHeadDiameter: PickerViewViewController.Index = (column: 0, row: Int(10.0/0.01))
-                        alert.addPickerView(values: [arrayHead, [headUnit]], initialSelection: pickerViewSelectedValueHeadDiameter) { vc, picker, index, values in
+                        alert.addPickerView(values: [arrayHead, ["cm"]], initialSelection: pickerViewSelectedValueHeadDiameter) { vc, picker, index, values in
                             
                             head = Float(picker.selectedRow(inComponent: 0)) * Float(0.01)
                             
                         }
                         let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
                             
-                            let finalStringHeight = String(format : "%.2f",head) + headUnit
                             
-                            self.saveBabyInfo(valueToSave: finalStringHeight, forkey: self.propertyDictionaryName[indexPath.row][0])
+                            self.saveBabyInfo(valueToSave: round(head), forkey: self.propertyDictionaryName[indexPath.row][0])
                             
                         })
                         

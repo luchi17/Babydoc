@@ -27,7 +27,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     
     
     @IBOutlet weak var admRoute: UILabel!
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var suggestions: UILabel!
     
@@ -89,7 +89,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         type.text = "\(selectedTypeParentName ?? "" ) \(selectedTypeName ?? "")"
         loadBabies()
         getCurrentBabyApp()
-        //scrollView.contentSize = CGSize(self.view.frame.width, self.view.frame.height+100)
+        
         
         
     }
@@ -102,11 +102,11 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
+        
         self.navigationController?.navigationBar.barTintColor = lightPinkColor
         self.navigationController?.navigationBar.backgroundColor = lightPinkColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-
+        
     }
     
     //MARK: Data manipulation
@@ -142,8 +142,10 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
     }
     func configureProperties(selectedConcentration : String){
-
+        
         let specificType = drugTypes?.filter("concentration == %@", Int(selectedConcentration) as Any)
+        
+        self.weightSelected = babyApp.weight
         
         for type in specificType!{
             
@@ -151,7 +153,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             maximumWeight = type.maxWeight
             link = type.hyperlink
             suggestion = type.suggestion
-
+            
             break
         }
         hyperLink.text = link
@@ -165,7 +167,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             weightsPopOver.append(weightPopOver)
             
         }
-
+        
         
         
     }
@@ -183,7 +185,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         
     }
-  
+    
     
     //MARK: Calculate doses methods
     
@@ -226,7 +228,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             finalString = "\(Int(value6h * 25)) drops every 6 hours\nor\n\(Int(value8h * 25)) drops every 8 hours"
             
         }
-       
+        
         return finalString
     }
     
@@ -256,8 +258,8 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         else if selectedTypeName == "Sachet"{
             finalString = "\(numberOfDoses) sachets in 24 hours"
         }
-
-
+        
+        
         return finalString
     }
     
@@ -274,12 +276,12 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             stringMaxDose = "Maximum dose per day: \(value) ml"
         }
         else if concentrationUnit == "mg"{
-
+            
             stringMaxDose = "Maximum dose per day: \(Int(doseValue)) \(concentrationUnit)"
-
+            
             
         }
-       
+        
         
         return stringMaxDose
         
@@ -306,7 +308,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     }
     
     
-   
+    
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         
         loadBabies()
@@ -319,8 +321,8 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             alert.setTitle(font: font!, color: grayColor!)
             alert.show(animated: true, vibrate: false, style: .light, completion: nil)
         }
-
-
+            
+            
         else{
             
             medicationToSave = MedicationDoseCalculated()
@@ -330,10 +332,10 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             medicationToSave.nameType = self.selectedTypeName!
             medicationToSave.parentMedicationName = self.selectedTypeParentName!
             
-             performSegue(withIdentifier: "goToSave", sender: self)
+            performSegue(withIdentifier: "goToSave", sender: self)
         }
         
-
+        
         
     }
     
@@ -351,81 +353,82 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         }
         return true
     }
-       //MARK: Textfield method
-   
+    //MARK: Textfield method
+    
     @IBAction func textFieldTouchedDown(_ sender: UITextField) {
         
-     
+        
+        
+        
+        sender.textColor = grayLightColor
+        sender.font = font
+        
+        if sender.tag == 0{
             
-            
-            sender.textColor = grayLightColor
-            sender.font = font
-            
-            if sender.tag == 0{
+            var result = ""
+            let picker =  StringPickerPopover(title: concentrationUnit, choices: concentrationsPopOver)
+            picker.setArrowColor(pinkcolor!)
+            picker.setFontColor(grayLightColor!).setFont(font!).setSize(width: 220, height: 150).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
+                popover, selectedRow, selectedString in
+                sender.text = selectedString + " " + self.concentrationUnit
+                self.concentrationSelected = Int(selectedString)!
+                self.configureProperties(selectedConcentration:selectedString)
                 
-                var result = ""
-                let picker =  StringPickerPopover(title: concentrationUnit, choices: concentrationsPopOver)
-                picker.setArrowColor(pinkcolor!)
-                picker.setFontColor(grayLightColor!).setFont(font!).setSize(width: 220, height: 150).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
-                    popover, selectedRow, selectedString in
-                    sender.text = selectedString + " " + self.concentrationUnit
-                    self.concentrationSelected = Int(selectedString)!
-                    self.configureProperties(selectedConcentration:selectedString)
+                if self.weightSelected != 0.0{
                     
-                    if self.weightSelected != 0.0{
-                        
-                        if self.concentrationUnit == "mg/ml"{
-                            result = self.calcLiquid(concentration: self.concentrationSelected , weight: Float(self.weightSelected))
-                        }
-                        else if self.concentrationUnit == "mg"{
-                            result = self.calcSolid(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
-                        }
-                        
-                        self.resultCalculator.text = result
-                        
-                        self.maxDose.text = self.calcMaxDoseDay(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
-                        
+                    if self.concentrationUnit == "mg/ml"{
+                        result = self.calcLiquid(concentration: self.concentrationSelected , weight: Float(self.weightSelected))
                     }
-                    }.appear(originView: sender, baseViewController: self)
-                
-            }
-            else{
-                
-                if weightsPopOver.count == 0{
+                    else if self.concentrationUnit == "mg"{
+                        result = self.calcSolid(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
+                    }
                     
-                    let alert = UIAlertController(title: nil, message: "Select concentration before choosing child´s weight", preferredStyle: .alert)
-                    let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-                    alert.addAction(action)
-                    alert.setMessage(font: fontLight!, color: grayLightColor!)
-                    alert.show(animated: true, vibrate: false, style: .light, completion: nil)
-                }
-                else{
-                    var result = ""
-                    let picker = StringPickerPopover(title: "kg", choices: weightsPopOver)
-                    picker.setArrowColor(pinkcolor!)
-                    picker.setFontColor(grayLightColor!).setFont(font!).setSize(width: 180, height: 220).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
-                        popover, selectedRow, selectedString in
-                        sender.text = selectedString + " kg"
-                        self.weightSelected = Float(selectedString)!
-                        
-                        if self.concentrationUnit == "mg/ml"{
-                            result = self.calcLiquid(concentration: self.concentrationSelected , weight: Float(self.weightSelected))
-                        }
-                        else if self.concentrationUnit == "mg"{
-                            result = self.calcSolid(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
-                        }
-                        
-                        self.resultCalculator.text = result
-                        
-                        self.maxDose.text = self.calcMaxDoseDay(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
-                        
-                        }.appear(originView: sender, baseViewController: self)
+                    self.resultCalculator.text = result
                     
+                    self.maxDose.text = self.calcMaxDoseDay(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
+                    
+                    if self.weightSelected < Float(self.minimumWeight){
+                        
+                        let alert = UIAlertController(title: "Warning", message: "Your child weighs less than recommended for this concentration, please look at other presentations.", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                        alert.addAction(action)
+                        alert.setTitle(font: self.font!, color: .flatOrange)
+                        alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
+                        alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+                    }
+                }
+                }.appear(originView: sender, baseViewController: self)
+            
+        }
+        else{
+            
+            var result = ""
+            
+            let picker = StringPickerPopover(title: "kg", choices: weightsPopOver)
+            picker.setArrowColor(pinkcolor!)
+            picker.setFontColor(grayLightColor!).setFont(font!).setSize(width: 180, height: 220).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
+                popover, selectedRow, selectedString in
+                sender.text = selectedString + " kg"
+                self.weightSelected = Float(selectedString)!
+                
+                if self.concentrationUnit == "mg/ml"{
+                    result = self.calcLiquid(concentration: self.concentrationSelected , weight: Float(self.weightSelected))
+                }
+                else if self.concentrationUnit == "mg"{
+                    result = self.calcSolid(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
                 }
                 
-            }
+                self.resultCalculator.text = result
+                
+                self.maxDose.text = self.calcMaxDoseDay(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
+                
+                }.appear(originView: sender, baseViewController: self)
+            
+            
+            
+        }
     }
-
+    
     
     
     
@@ -454,7 +457,11 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         else{
             cell.field.text = "Weight"
             cell.textField.tag = 1
-             cell.textField.delegate = self
+            cell.textField.text = "\(babyApp.weight) kg"
+            cell.textField.textColor = grayLightColor
+            cell.textField.font = font
+            self.weightSelected = babyApp.weight
+            cell.textField.delegate = self
             
             return cell
         }
@@ -472,7 +479,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
 extension MedicationCalculatorViewController: UITextFieldDelegate{
     
     
-   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return false
     }
 }

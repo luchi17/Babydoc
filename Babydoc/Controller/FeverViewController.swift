@@ -52,8 +52,6 @@ class FeverViewController : UIViewController{
         return _dateFormatter2!
     }
 
-
-   
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var datePicker: ScrollableDatepicker!{
         
@@ -120,7 +118,7 @@ class FeverViewController : UIViewController{
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         loadBabiesAndFever(selectedDate: datePicker.selectedDate ?? Date())
-        
+       
         
     }
 
@@ -187,17 +185,20 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "feverCell", for: indexPath) as! SwipeTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "feverCell", for: indexPath) as! CustomCellFever
         cell.delegate = self
         
         
         if registeredBabies?.count == 0 || listOfFever?.count == 0{
-            cell.textLabel?.text = "No records added yet"
-            cell.detailTextLabel?.text = ""
+            cell.temperature.text = "No records added yet"
+            cell.place.text = ""
+            cell.time.text = ""
+            
         }
         else{
-            cell.textLabel?.text = "Temperature: \(listOfFever?[indexPath.row].temperature ?? Float(0.0)) ºC"
-            cell.detailTextLabel?.text = "Time: \(formatter2.string(from:(listOfFever?[indexPath.row].generalDate)!))"
+            cell.temperature.text = "Temperature: \(listOfFever?[indexPath.row].temperature ?? Float(0.0)) ºC"
+            cell.time.text = "Time: \(formatter2.string(from:(listOfFever?[indexPath.row].generalDate)!))"
+            cell.place.text = "Place of measurement: " + feverToEdit.placeOfMeasurement
         }
 
 
@@ -226,7 +227,7 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
         return formatter.string(from: datePicker.selectedDate!)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return 99
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -254,7 +255,7 @@ extension FeverViewController : SwipeTableViewCellDelegate{
 
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
 
-        feverToEdit = listOfFever![indexPath.row]
+        
         defaultOptions.transitionStyle = .drag
 
         if orientation == .right{
@@ -266,7 +267,7 @@ extension FeverViewController : SwipeTableViewCellDelegate{
                 let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
                     
                    
-                    self.deleteFever(fever: self.feverToEdit)
+                    self.deleteFever(fever: self.listOfFever![indexPath.row])
 
                 })
                 let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
@@ -284,7 +285,7 @@ extension FeverViewController : SwipeTableViewCellDelegate{
             removeSwipe.backgroundColor = .red
             removeSwipe.hidesWhenSelected = true
 
-           
+            feverToEdit = listOfFever![indexPath.row]
             return [removeSwipe]
 
 
@@ -294,13 +295,13 @@ extension FeverViewController : SwipeTableViewCellDelegate{
 
             let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
 
-
+                self.feverToEdit = self.listOfFever![indexPath.row]
                 self.performSegue(withIdentifier: "goToEdit", sender: self.self)
             }
             editSwipeAction.image = UIImage(named: "editt")
             editSwipeAction.hidesWhenSelected = true
 
-           
+            
             return [editSwipeAction]
 
         }

@@ -12,9 +12,6 @@ import RealmSwift
 class Medication : Object {
     
     @objc dynamic var name : String = ""
-    @objc dynamic var dosagePerDay : String = ""
-    @objc dynamic var dosagePerDose : String = ""
-    @objc dynamic var timeForDose : String = ""
     @objc dynamic var maxDose : String = ""
     
 

@@ -11,6 +11,14 @@ import RealmSwift
 
 class Sleep: Object {
     
-     var parentDay = LinkingObjects(fromType : DayOfYear.self , property : "sleepTimes" )
+    
      @objc dynamic var quality : String = ""
+     @objc dynamic var dateDay : DateFever?
+     @objc dynamic var generalDateBegin = Date()
+     @objc dynamic var generalDateEnd = Date()
+     @objc dynamic var timeSleep : String = ""
+    
+     var parentDay = LinkingObjects(fromType : DayOfYear.self , property : "sleepTimes" )
+    
+    
 }

@@ -14,9 +14,9 @@ class Baby : Object {
     @objc dynamic var name : String = ""
     @objc dynamic var dateOfBirth : String = ""
     @objc dynamic var age : String = ""
-    @objc dynamic var weight : String = ""
-    @objc dynamic var height : String = ""
-    @objc dynamic var headDiameter : String = ""
+    @objc dynamic var weight : Float = 0.0
+    @objc dynamic var height : Float = 0.0
+    @objc dynamic var headDiameter : Float = 0.0
     @objc dynamic var bloodType : String = ""
     @objc dynamic var allergies : String = ""
     @objc dynamic var illnesses : String = ""

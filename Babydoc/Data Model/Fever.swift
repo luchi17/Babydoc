@@ -15,7 +15,8 @@ class Fever : Object {
     @objc dynamic var date : DateFever?
     @objc dynamic var generalDate = Date()
     @objc dynamic var temperature : Float = 0.0
-    @objc dynamic var temperatureUnit : String = "ºC"
+    @objc dynamic var placeOfMeasurement : String = ""
+    @objc dynamic var feverYes = false
     
     var parentBaby = LinkingObjects(fromType : Baby.self , property : "fever" )
     
