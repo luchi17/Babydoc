@@ -23,8 +23,8 @@ class FeverViewController : UIViewController{
     let greenDarkColor = UIColor.init(hexString: "33BE8F")
     let greenLightColor = UIColor.init(hexString: "14E19C")
     let font = UIFont(name: "Avenir-Heavy", size: 17)
-    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
-    let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
+    let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
+    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
     var defaultOptions = SwipeOptions()
@@ -118,6 +118,24 @@ class FeverViewController : UIViewController{
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
         loadBabiesAndFever(selectedDate: datePicker.selectedDate ?? Date())
+        DispatchQueue.main.async {
+            
+            self.tableView.reloadData()
+            
+            if self.babyApp.name.isEmpty && self.registeredBabies!.count > 0{
+                
+                let controller = UIAlertController(title: "Warning", message: "There are no active babys in Babydoc", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Ok", style: .default)
+                
+                controller.setTitle(font: self.font!, color: self.grayColor!)
+                controller.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                controller.addAction(action)
+                controller.show(animated: true, vibrate: false, style: .light, completion: nil)
+                
+                
+            }
+        }
        
         
     }
@@ -125,6 +143,7 @@ class FeverViewController : UIViewController{
     //MARK: Data Manipulation
     func loadBabiesAndFever(selectedDate : Date){
         
+      babyApp = Baby()
       registeredBabies = realm.objects(Baby.self)
         
         if registeredBabies?.count != 0 {
@@ -133,10 +152,15 @@ class FeverViewController : UIViewController{
                     babyApp = baby
                 }
             }
-            listOfFever = babyApp.fever.filter("date.day == %@ AND date.month == %@ AND date.year == %@", selectedDate.day, selectedDate.month, selectedDate.year).sorted(byKeyPath: "generalDate", ascending: false)
+            
 
         }
+        if !babyApp.name.isEmpty{
+           listOfFever = babyApp.fever.filter("date.day == %@ AND date.month == %@ AND date.year == %@", selectedDate.day, selectedDate.month, selectedDate.year).sorted(byKeyPath: "generalDate", ascending: false)
+           
+        }
         tableView.reloadData()
+        
 
     }
     
@@ -189,26 +213,35 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
         cell.delegate = self
         
         
-        if registeredBabies?.count == 0 || listOfFever?.count == 0{
+        if registeredBabies!.count == 0  || listOfFever?.count == 0{
             cell.temperature.text = "No records added yet"
             cell.place.text = ""
             cell.time.text = ""
+            print("saludos")
+        }
+        
+        else if babyApp.name.isEmpty {
+            cell.temperature.text = "There are no active babies in babydoc"
+            cell.place.text = ""
+            cell.time.text = ""
+            print("saluditos")
             
         }
         else{
+            print("holi")
             cell.temperature.text = "Temperature: \(listOfFever?[indexPath.row].temperature ?? Float(0.0)) ºC"
             cell.time.text = "Time: \(formatter2.string(from:(listOfFever?[indexPath.row].generalDate)!))"
             cell.place.text = "Place of measurement: " + feverToEdit.placeOfMeasurement
         }
-
+        print(listOfFever)
 
         return cell
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if registeredBabies?.count != 0 {
-            return listOfFever?.count ?? 1
+
+        if registeredBabies?.count == 0 || babyApp.name.isEmpty{
+            return 1
         }
         else{
             return 1
@@ -275,7 +308,7 @@ extension FeverViewController : SwipeTableViewCellDelegate{
                 })
 
                 alert.setTitle(font: self.font!, color: self.grayColor!)
-                alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
+                alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
                 alert.addAction(removeAction)
                 alert.addAction(cancelAction)
                 alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)

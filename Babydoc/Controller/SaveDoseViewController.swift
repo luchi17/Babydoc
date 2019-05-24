@@ -14,8 +14,8 @@ import APESuperHUD
 class SaveDoseViewController : UITableViewController{
     
     let font = UIFont(name: "Avenir-Heavy", size: 17)
-    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
-    let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
+    let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
+    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let pinkcolor = UIColor.init(hexString: "F97DBE")
     let darkPinkColor = UIColor.init(hexString: "FB569F")
     let lightPinkColor = UIColor.init(hexString: "FFA0D2")
@@ -31,11 +31,9 @@ class SaveDoseViewController : UITableViewController{
             configureDrugToSave()
         }
     }
-    var baby : Baby?{
-        didSet{
-            
-        }
-    }
+    var babyApp = Baby()
+    var registeredBabies : Results<Baby>?
+      
     var realm = try! Realm()
     var quantityUnit = [StringPickerPopover.ItemType]()
     
@@ -54,12 +52,17 @@ class SaveDoseViewController : UITableViewController{
 
         view.addGestureRecognizer(tap)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        configureDrugToSave()
+
+    }
    
 
     //Calls this function when the tap is recognized.
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         textFieldQuantity.endEditing(true)
+        
     }
 
     
@@ -78,7 +81,7 @@ class SaveDoseViewController : UITableViewController{
                 do{
                     
                     try self.realm.write {
-                        let date = DateFever()
+                        let date = DateCustom()
                         date.day = selectedDate.day
                         date.month = selectedDate.month
                         date.year = selectedDate.year
@@ -149,14 +152,21 @@ class SaveDoseViewController : UITableViewController{
     
     @IBAction func saveDosePressed(_ sender: UIButton) {
         
-        
-        if textFieldDate.text!.isEmpty || textFieldQuantityUnit.text!.isEmpty || textFieldQuantity.text!.isEmpty{
+        if (babyApp.name.isEmpty) || textFieldDate.text!.isEmpty || textFieldQuantityUnit.text!.isEmpty || textFieldQuantity.text!.isEmpty{
+            let alert = UIAlertController(style: .alert)
             
-            let alert = UIAlertController(title: "Error", message: "In order to save the dose all the fields must be filled in.", preferredStyle: .alert)
+            if (babyApp.name.isEmpty){
+                alert.set(title: "Error", font: font!, color: grayColor!)
+                alert.set(message: "In order to save a dose record at least one child has to be active in Babydoc.", font: fontLittle!, color: grayLightColor!)
+            }
+            else{
+                alert.set(title: "Error", font: font!, color: grayColor!)
+                alert.set(message: "In order to save a dose record all the fields have to be filled in.", font: fontLittle!, color: grayLightColor!)
+            }
+            
+            
             let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(action)
-            alert.setMessage(font: fontLight!, color: grayLightColor!)
-            alert.setTitle(font: font!, color: grayColor!)
             alert.show(animated: true, vibrate: false, style: .light, completion: nil)
         }
         else{
@@ -164,7 +174,7 @@ class SaveDoseViewController : UITableViewController{
             let image = UIImage(named: "doubletick")!
             let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Dose has been added correctly!")
             HUDAppearance.cancelableOnTouch = true
-            HUDAppearance.messageFont = self.fontLight!
+            HUDAppearance.messageFont = self.fontLittle!
             HUDAppearance.messageTextColor = self.grayLightColor!
             
             self.present(hudViewController, animated: true)
@@ -190,6 +200,18 @@ class SaveDoseViewController : UITableViewController{
     }
     
     func configureDrugToSave(){
+        
+        babyApp = Baby()
+        registeredBabies = realm.objects(Baby.self)
+        if registeredBabies?.count != 0{
+            for baby in registeredBabies!{
+                if baby.current == true{
+                    babyApp = baby
+                }
+            }
+
+        }
+     
         
         if medication?.nameType == "Drops"{
             quantityUnit.append("mg/ml")
@@ -223,7 +245,7 @@ class SaveDoseViewController : UITableViewController{
         do{
             try realm.write {
 
-                baby?.medicationDoses.append(medication!)
+                babyApp.medicationDoses.append(medication!)
             }
         }
         catch{

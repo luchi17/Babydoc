@@ -8,18 +8,10 @@
 
 
 import UIKit
-import RealmSwift
-import ChameleonFramework
-import AUPickerCell
+
 
 
 class HealthViewController : UIViewController {
-
-    @IBOutlet weak var medicationButton: UIButton!
-    @IBOutlet weak var vaccineButton: UIButton!
-    @IBOutlet weak var temperatureButton: UIButton!
-    @IBOutlet weak var doctorVisitsButton: UIButton!
-    
 
       override func viewDidLoad() {
         super.viewDidLoad()

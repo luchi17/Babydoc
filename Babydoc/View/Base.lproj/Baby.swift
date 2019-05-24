@@ -23,12 +23,12 @@ class Baby : Object {
     @objc dynamic var current : Bool = false
     
    
-    let calendar = List<DayOfYear>()
     let vaccines = List<Vaccine>()
     let medicationDoses = List<MedicationDoseCalculated>()
     let fever = List<Fever>()
-    var parentRegisteredBabies = LinkingObjects(fromType : RegisteredBabies.self , property : "babies" )
+    let sleeps = List<Sleep>()
     
+    var parentRegisteredBabies = LinkingObjects(fromType : RegisteredBabies.self , property : "babies" )
 
    
 

@@ -16,8 +16,8 @@ import SwiftyPickerPopover
 class MedicationCalculatorViewController : UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     let font = UIFont(name: "Avenir-Heavy", size: 17)
-    let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
-    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
+    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
+    let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
     let pinkcolor = UIColor.init(hexString: "F97DBE")
     let darkPinkColor = UIColor.init(hexString: "FB569F")
     let lightPinkColor = UIColor.init(hexString: "FFA0D2")
@@ -87,8 +87,6 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         saveButton.layer.shadowOffset = CGSize(width: 2, height: 2)
         admRoute.text = routeOfAdm
         type.text = "\(selectedTypeParentName ?? "" ) \(selectedTypeName ?? "")"
-        loadBabies()
-        getCurrentBabyApp()
         
         
         
@@ -106,6 +104,8 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         self.navigationController?.navigationBar.barTintColor = lightPinkColor
         self.navigationController?.navigationBar.backgroundColor = lightPinkColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        loadBabies()
+        getCurrentBabyApp()
         
     }
     
@@ -145,7 +145,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         let specificType = drugTypes?.filter("concentration == %@", Int(selectedConcentration) as Any)
         
-        self.weightSelected = babyApp.weight
+       // self.weightSelected = babyApp.weight
         
         for type in specificType!{
             
@@ -299,12 +299,16 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     
     func getCurrentBabyApp(){
         
-        
-        for baby in registeredBabies!{
-            if baby.current == true{
-                babyApp = baby
+        babyApp = Baby()
+        if registeredBabies?.count != 0{
+            for baby in registeredBabies!{
+                if baby.current == true{
+                    babyApp = baby
+                }
             }
         }
+
+        
     }
     
     
@@ -313,13 +317,21 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         loadBabies()
         if babyApp.name.isEmpty || self.weightSelected == 0 || self.concentrationSelected == 0{
+            let alert = UIAlertController(style: .alert)
+            if babyApp.name.isEmpty{
+                alert.set(title: "Error", font: font!, color: grayColor!)
+                alert.set(message: "In order to save a dose record at least one child has to be active in Babydoc.", font: fontLittle!, color: grayLightColor!)
+            }
+            else{
+                alert.set(title: "Error", font: font!, color: grayColor!)
+                alert.set(message: "In order to save a dose record all the fields have to be filled in.", font: fontLittle!, color: grayLightColor!)
+            }
             
-            let alert = UIAlertController(title: "Error", message: "In order to save the dose all the fields must be filled in and at least one baby has to be active in Babydoc.", preferredStyle: .alert)
+            
             let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(action)
-            alert.setMessage(font: fontLight!, color: grayLightColor!)
-            alert.setTitle(font: font!, color: grayColor!)
             alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+            
         }
             
             
@@ -339,10 +351,11 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? SaveDoseViewController{
             destinationVC.medication = self.medicationToSave
-            destinationVC.baby = self.babyApp
+    
             
         }
         
@@ -356,8 +369,6 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     //MARK: Textfield method
     
     @IBAction func textFieldTouchedDown(_ sender: UITextField) {
-        
-        
         
         
         sender.textColor = grayLightColor
@@ -393,7 +404,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
                         let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
                         alert.addAction(action)
                         alert.setTitle(font: self.font!, color: .flatOrange)
-                        alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
+                        alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
                         alert.show(animated: true, vibrate: false, style: .light, completion: nil)
                     }
                 }
@@ -401,7 +412,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             
         }
         else{
-            
+            self.weightSelected = babyApp.weight
             var result = ""
             
             let picker = StringPickerPopover(title: "kg", choices: weightsPopOver)
@@ -460,7 +471,6 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             cell.textField.text = "\(babyApp.weight) kg"
             cell.textField.textColor = grayLightColor
             cell.textField.font = font
-            self.weightSelected = babyApp.weight
             cell.textField.delegate = self
             
             return cell

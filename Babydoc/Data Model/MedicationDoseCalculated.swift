@@ -17,7 +17,7 @@ class MedicationDoseCalculated : Object {
     @objc dynamic var concentrationUnit : String = ""
     @objc dynamic var concentration : Int = 0
     @objc dynamic var weight : Float = 0
-    @objc dynamic var date : DateFever?
+    @objc dynamic var date : DateCustom?
     @objc dynamic var generalDate = Date()
     @objc dynamic var dose : String = ""
     @objc dynamic var doseUnit : String = ""

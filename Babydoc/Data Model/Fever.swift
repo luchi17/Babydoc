@@ -12,7 +12,7 @@ import RealmSwift
 class Fever : Object {
     
     
-    @objc dynamic var date : DateFever?
+    @objc dynamic var date : DateCustom?
     @objc dynamic var generalDate = Date()
     @objc dynamic var temperature : Float = 0.0
     @objc dynamic var placeOfMeasurement : String = ""

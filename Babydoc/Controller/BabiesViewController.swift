@@ -210,6 +210,7 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                     let dose = realm.objects(VaccineDoses.self).filter("%@ IN parentVaccine", vaccine)
                     realm.delete(dose)
                 }
+                realm.delete(baby.sleeps)
                 realm.delete(baby.fever)
                 realm.delete(baby.medicationDoses)
                 realm.delete(baby.vaccines)

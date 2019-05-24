@@ -17,8 +17,8 @@ class HistoryDosesViewController : UIViewController{
      let pinkcolor = UIColor.init(hexString: "F97DBE")
      let darkPinkColor = UIColor.init(hexString: "FB569F")
     let font = UIFont(name: "Avenir-Heavy", size: 17)
-    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
-    let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
+    let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
+    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
     var _dateFormatter: DateFormatter?
@@ -111,37 +111,52 @@ class HistoryDosesViewController : UIViewController{
         self.navigationController?.navigationBar.backgroundColor = pinkcolor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         loadBabyAndDoses(selectedDate: datePicker.selectedDate ?? Date())
+        DispatchQueue.main.async {
+            
+            self.tableView.reloadData()
+            
+            if self.babyApp.name.isEmpty && self.registeredBabies!.count > 0{
+                
+                let controller = UIAlertController(title: "Warning", message: "There are no active babys in Babydoc", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Ok", style: .default)
+                
+                controller.setTitle(font: self.font!, color: self.grayColor!)
+                controller.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                controller.addAction(action)
+                controller.show(animated: true, vibrate: false, style: .light, completion: nil)
+                
+                
+            }
+        }
         
     }
 
     func loadBabyAndDoses(selectedDate : Date){
         
+        babyApp = Baby()
         registeredBabies = realm.objects(Baby.self)
        
         if registeredBabies?.count != 0{
             
-            getCurrentBaby()
-            doses = babyApp.medicationDoses.filter("date.day == %@ AND date.month == %@ AND date.year == %@", selectedDate.day, selectedDate.month, selectedDate.year).sorted(byKeyPath: "generalDate", ascending: false)
-
-            tableView.reloadData()
-            
-        }
-        
-            
-        }
-   
-    
-   
-    func getCurrentBaby(){
-        
-        
-        for baby in registeredBabies!{
-            if baby.current == true{
-                babyApp = baby
+            for baby in registeredBabies!{
+                if baby.current == true{
+                    babyApp = baby
+                }
             }
-        }
 
+           
+        }
+        if !babyApp.name.isEmpty{
+            doses = babyApp.medicationDoses.filter("date.day == %@ AND date.month == %@ AND date.year == %@", selectedDate.day, selectedDate.month, selectedDate.year).sorted(byKeyPath: "generalDate", ascending: false)
+            
+            tableView.reloadData()
+
+        }
+        
+            
     }
+
     
     func deleteDose(dose : MedicationDoseCalculated){
         
@@ -195,7 +210,7 @@ extension HistoryDosesViewController : SwipeTableViewCellDelegate{
                 })
                 
                 alert.setTitle(font: self.font!, color: self.grayColor!)
-                alert.setMessage(font: self.fontLight!, color: self.grayLightColor!)
+                alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
                 alert.addAction(removeAction)
                 alert.addAction(cancelAction)
                 alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
@@ -270,12 +285,21 @@ extension HistoryDosesViewController : UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "doseCell", for: indexPath) as! CustomCellHistoryDose
         
-        if doses?.count == 0 || registeredBabies?.count == 0{
+       
+        if babyApp.name.isEmpty{
+            cell.nameDose.text = "There are no active babies in Babydoc"
+            cell.descriptionDose.text = ""
+            cell.descriptionDose2.text = ""
+            cell.descriptionDose3.text = ""
+        }
+            
+        else if (doses?.count == 0 && !babyApp.name.isEmpty) || registeredBabies?.count == 0{
             cell.nameDose.text = "No records added yet"
             cell.descriptionDose.text = ""
             cell.descriptionDose2.text = ""
             cell.descriptionDose3.text = ""
         }
+          
         else{
             cell.nameDose.text = (doses?[indexPath.row].parentMedicationName)! + " " + (doses?[indexPath.row].nameType)!
             cell.descriptionDose.text = "Time of administration: \(formatter2.string(from:(doses?[indexPath.row].generalDate)!))" + "\nConcentration: " + "\(doses?[indexPath.row].concentration ?? 0) \(doses?[indexPath.row].concentrationUnit ?? "")"

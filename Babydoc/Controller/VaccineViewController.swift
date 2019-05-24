@@ -75,7 +75,7 @@ class VaccineViewController : UIViewController{
         DispatchQueue.main.async {
             
             self.tableView.reloadData()
-            if self.registeredBabies!.count > 0 && self.babyApp.dateOfBirth.isEmpty{
+            if self.registeredBabies!.count > 0 && !self.babyApp.name.isEmpty && self.babyApp.dateOfBirth.isEmpty{
                 
                 let controller = UIAlertController(title: "Warning", message: "The recommended dates for the vaccines' administration could not be calculated, please enter the date of birth of \(self.babyApp.name)", preferredStyle: .alert)
                 
@@ -93,7 +93,19 @@ class VaccineViewController : UIViewController{
                 controller.show(animated: true, vibrate: false, style: .light, completion: nil)
                 
             }
+            else if self.babyApp.name.isEmpty{
+                
+                let controller = UIAlertController(title: "Warning", message: "There are no active babys in Babydoc", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Ok", style: .default)
+               
+                controller.setTitle(font: self.font!, color: self.grayColor!)
+                controller.setMessage(font: self.fontLight!, color: self.grayLightColor!)
+                controller.addAction(action)
+                controller.show(animated: true, vibrate: false, style: .light, completion: nil)
             
+            
+        }
         }
     }
     
@@ -133,11 +145,20 @@ class VaccineViewController : UIViewController{
     
     func loadBabiesAndVaccines(){
         
+        babyApp = Baby()
         registeredBabies = realm.objects(Baby.self)
         
         if registeredBabies?.count != 0{
             
-            babyApp = getCurrentBaby()
+           
+            for baby in registeredBabies!{
+                if baby.current == true{
+                    babyApp = baby
+                }
+            }
+           
+        }
+        if !babyApp.name.isEmpty{
             vaccines = babyApp.vaccines.filter(NSPredicate(value: true))
             vaccinesDoses = realm.objects(VaccineDoses.self)
             
@@ -148,18 +169,7 @@ class VaccineViewController : UIViewController{
         
         
     }
-    
-    
-    func getCurrentBaby() -> Baby{
-        
-        
-        for baby in registeredBabies!{
-            if baby.current == true{
-                babyApp = baby
-            }
-        }
-        return babyApp
-    }
+
     
     func saveDateAdministration(dateString : String, indexPath : IndexPath){
         switch selectedVaccineCategory.selectedSegmentIndex{
@@ -326,7 +336,7 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if registeredBabies?.count == 0{
+        if registeredBabies?.count == 0 || babyApp.name.isEmpty{
             return 1
         }
             
@@ -356,9 +366,10 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
     func numberOfSections(in tableView: UITableView) -> Int {
         
         var returnValue = 1
-        if registeredBabies?.count == 0{
+        if registeredBabies?.count == 0 || babyApp.name.isEmpty{
             return 1
         }
+        
         
         switch selectedVaccineCategory.selectedSegmentIndex {
             
@@ -383,7 +394,7 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if registeredBabies?.count == 0 {
+        if registeredBabies?.count == 0 || babyApp.name.isEmpty  {
             return " "
         }
             
@@ -442,7 +453,12 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
         case 0:
             
             if registeredBabies?.count == 0{
-                cell.name.text = "No babies added yet"
+                cell.name.text = "No babys added yet"
+                cell.dateAdministration.text = ""
+                cell.accessoryType = .none
+            }
+            else if babyApp.name.isEmpty{
+                cell.name.text = "There are no active babys"
                 cell.dateAdministration.text = ""
                 cell.accessoryType = .none
             }
@@ -468,7 +484,12 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
             
         case 1:
             if registeredBabies?.count == 0{
-                cell.name.text = "No babies added yet"
+                cell.name.text = "No babys added yet"
+                cell.dateAdministration.text = ""
+                cell.accessoryType = .none
+            }
+            else if babyApp.name.isEmpty{
+                cell.name.text = "There are no active babys"
                 cell.dateAdministration.text = ""
                 cell.accessoryType = .none
             }

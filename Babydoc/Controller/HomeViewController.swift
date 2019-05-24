@@ -486,7 +486,7 @@ class ActionView: UIView
     var sleepcolor :UIColor = UIColor.init(hexString: "2772db")!
     var feedcolor :UIColor = UIColor.init(hexString: "85ef47")!
     var diapercolor :UIColor = UIColor.init(hexString: "37D4C0")!
-    var medicationcolor :UIColor = UIColor.init(hexString: "F54291")! //F81B9A
+    var medicationcolor :UIColor = UIColor.init(hexString: "F54291")! 
 
     var doses : Results<MedicationDoseCalculated>?
     var arrayAllDates = Array<Date>()

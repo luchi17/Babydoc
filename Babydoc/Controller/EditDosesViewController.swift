@@ -29,8 +29,8 @@ class EditDosesViewController : UITableViewController{
     let darkPinkColor = UIColor.init(hexString: "FB569F")
     let lightPinkColor = UIColor.init(hexString: "FFA0D2")
     let font = UIFont(name: "Avenir-Heavy", size: 17)
-    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
-    let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
+    let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
+    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
     var doseToEdit: MedicationDoseCalculated?{
@@ -109,7 +109,7 @@ class EditDosesViewController : UITableViewController{
                     
                     try self.realm.write {
                         
-                        let date = DateFever()
+                        let date = DateCustom()
                         date.day = selectedDate.day
                         date.month = selectedDate.month
                         date.year = selectedDate.year
@@ -225,7 +225,7 @@ class EditDosesViewController : UITableViewController{
         let image = UIImage(named: "doubletick")!
         let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Dose has been added correctly!")
         HUDAppearance.cancelableOnTouch = true
-        HUDAppearance.messageFont = self.fontLight!
+        HUDAppearance.messageFont = self.fontLittle!
         HUDAppearance.messageTextColor = self.grayColor!
         
         self.present(hudViewController, animated: true)

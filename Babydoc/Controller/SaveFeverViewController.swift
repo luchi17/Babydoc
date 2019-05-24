@@ -17,8 +17,8 @@ class SaveFeverViewController : UITableViewController{
     let greenDarkColor = UIColor.init(hexString: "33BE8F")
     let greenLightColor = UIColor.init(hexString: "14E19C")
     let font = UIFont(name: "Avenir-Heavy", size: 17)
-    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
-    let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
+    let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
+    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
     
@@ -61,7 +61,6 @@ class SaveFeverViewController : UITableViewController{
         saveButton.layer.shadowColor = UIColor.flatGray.cgColor
         saveButton.layer.shadowOpacity = 0.7
         saveButton.layer.shadowRadius = 1
-        checkFeverButton.layer.shadowOffset = CGSize(width: 2, height: 2)
         checkFeverButton.layer.cornerRadius = 2
         checkFeverButton.layer.masksToBounds = false
         checkFeverButton.layer.shadowColor = UIColor.flatGray.cgColor
@@ -110,6 +109,7 @@ class SaveFeverViewController : UITableViewController{
     }
     func loadBabiesAndFever(){
         
+        babyApp = Baby()
         registeredBabies = realm.objects(Baby.self)
         
         if registeredBabies?.count != 0 {
@@ -118,8 +118,10 @@ class SaveFeverViewController : UITableViewController{
                     babyApp = baby
                 }
             }
+
             
         }
+
         
     }
     func loadFeverToEdit(){
@@ -169,7 +171,7 @@ class SaveFeverViewController : UITableViewController{
                 do{
                     if self.indicatorEdit != 0 {
                         try self.realm.write {
-                            let date = DateFever()
+                            let date = DateCustom()
                             date.day = selectedDate.day
                             date.month = selectedDate.month
                             date.year = selectedDate.year
@@ -182,7 +184,7 @@ class SaveFeverViewController : UITableViewController{
                     }
                     else{
                         try self.realm.write {
-                            let date = DateFever()
+                            let date = DateCustom()
                             date.day = selectedDate.day
                             date.month = selectedDate.month
                             date.year = selectedDate.year
@@ -272,10 +274,17 @@ class SaveFeverViewController : UITableViewController{
         
         if babyApp.name.isEmpty || textFieldDate.text!.isEmpty || textFieldTemperature.text!.isEmpty{
             
+            
+            if babyApp.name.isEmpty{
+                alert.set(title: "Error", font: font!, color: grayColor!)
+                alert.set(message: "In order to save a fever record at least one child has to be active in Babydoc.", font: fontLittle!, color: grayLightColor!)
+            }
+            else{
+                alert.set(title: "Error", font: font!, color: grayColor!)
+                alert.set(message: "In order to save a fever record the start date and the end date or duration have to be filled in.", font: fontLittle!, color: grayLightColor!)
+            }
             let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(action)
-            alert.setMessage(font: fontLight!, color: grayLightColor!)
-            alert.setTitle(font: font!, color: grayColor!)
             alert.show(animated: true, vibrate: false, style: .light, completion: nil)
         }
         else{
@@ -286,7 +295,7 @@ class SaveFeverViewController : UITableViewController{
             let image = UIImage(named: "doubletick")!
             let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Fever has been saved correctly!")
             HUDAppearance.cancelableOnTouch = true
-            HUDAppearance.messageFont = self.fontLight!
+            HUDAppearance.messageFont = self.fontLittle!
             HUDAppearance.messageTextColor = self.grayLightColor!
             self.present(hudViewController, animated: true)
             
@@ -352,7 +361,7 @@ class SaveFeverViewController : UITableViewController{
                 let alert = UIAlertController(style: .alert)
                 let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
                 alert.set(title: "Error", font: font!, color: grayColor!)
-                alert.set(message: "Temperature and place fields must be filled in.", font: fontLight!, color: grayLightColor!)
+                alert.set(message: "Temperature and place fields must be filled in.", font: fontLittle!, color: grayLightColor!)
                 
                 alert.addAction(action)
                 alert.show(animated: true, vibrate: false, style: .light, completion: nil)
@@ -363,12 +372,12 @@ class SaveFeverViewController : UITableViewController{
                 if textFieldTemperature.text!.isEmpty{
                     
                     alert.set(title: "Error", font: font!, color: grayColor!)
-                    alert.set(message: "The temperature field must be filled in.", font: fontLight!, color: grayLightColor!)
+                    alert.set(message: "The temperature field must be filled in.", font: fontLittle!, color: grayLightColor!)
                     
                 }
                 else if textFieldPlace.text!.isEmpty{
                     alert.set(title: "Error", font: font!, color: grayColor!)
-                    alert.set(message: "The site of measurement field must be filled in.", font: fontLight!, color: grayLightColor!)
+                    alert.set(message: "The site of measurement field must be filled in.", font: fontLittle!, color: grayLightColor!)
                     
                 }
                 
@@ -413,13 +422,13 @@ class SaveFeverViewController : UITableViewController{
                     }
                     else{
                         
-                        alert.set(message: "Your child has fever", font: fontLight!, color: .flatOrange)
+                        alert.set(message: "Your child has fever", font: fontLittle!, color: .flatOrange)
                     }
                 }
 
                 else{
                     
-                    alert.set(message: "Your child does not have fever", font: fontLight!, color: self.greenDarkColor!)
+                    alert.set(message: "Your child does not have fever", font: fontLittle!, color: self.greenDarkColor!)
                     self.setFeverYes(feverOrNot: false)
                 }
                 
@@ -442,13 +451,13 @@ class SaveFeverViewController : UITableViewController{
                     }
 
                     else{
-                        alert.set(message: "Your child has fever!", font: fontLight!, color: .flatOrange)
+                        alert.set(message: "Your child has fever!", font: fontLittle!, color: .flatOrange)
                     }
                 }
                 
                 else{
                    
-                    alert.set(message: "Your child does not have fever!", font: fontLight!, color: self.greenDarkColor!)
+                    alert.set(message: "Your child does not have fever!", font: fontLittle!, color: self.greenDarkColor!)
                     self.setFeverYes(feverOrNot: false)
                 }
                 
@@ -456,7 +465,7 @@ class SaveFeverViewController : UITableViewController{
             else if textFieldPlace.text! == "armpit"{
                 if temperature >= Float(37.2) {
                    
-                    alert.set(message: "Your child has fever!", font: fontLight!, color: .flatOrange)
+                    alert.set(message: "Your child has fever!", font: fontLittle!, color: .flatOrange)
                     self.setFeverYes(feverOrNot: true)
                 }
                 else if temperature >= Float(38.9){
@@ -465,7 +474,7 @@ class SaveFeverViewController : UITableViewController{
 
                 else{
                     
-                    alert.set(message: "Your child does not have fever!", font: fontLight!, color: self.greenDarkColor!)
+                    alert.set(message: "Your child does not have fever!", font: fontLittle!, color: self.greenDarkColor!)
                     self.setFeverYes(feverOrNot: false)
                 }
                 
