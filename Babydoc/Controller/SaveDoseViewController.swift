@@ -201,6 +201,7 @@ class SaveDoseViewController : UITableViewController{
     
     func configureDrugToSave(){
         
+        quantityUnit = []
         babyApp = Baby()
         registeredBabies = realm.objects(Baby.self)
         if registeredBabies?.count != 0{

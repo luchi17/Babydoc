@@ -16,7 +16,6 @@ import SwiftyPickerPopover
 class MedicationCalculatorViewController : UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     let font = UIFont(name: "Avenir-Heavy", size: 17)
-    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
     let pinkcolor = UIColor.init(hexString: "F97DBE")
     let darkPinkColor = UIColor.init(hexString: "FB569F")
@@ -104,8 +103,36 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         self.navigationController?.navigationBar.barTintColor = lightPinkColor
         self.navigationController?.navigationBar.backgroundColor = lightPinkColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.navigationItem.largeTitleDisplayMode = .never
+        self.navigationController?.navigationBar.prefersLargeTitles = false
+        
         loadBabies()
         getCurrentBabyApp()
+        loadSpecificTypeOfDrug()
+        self.weightSelected = babyApp.weight
+        DispatchQueue.main.async {
+            
+            
+            if self.registeredBabies!.count > 0 && !self.babyApp.name.isEmpty && self.babyApp.weight == Float(0.0){
+                
+                let controller = UIAlertController(title: "Warning", message: "For an automated calculation of the recommended doses for \(self.babyApp.name), please enter the weight of \(self.babyApp.name).", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Remind me later", style: .default) { (alertAction) in
+                    alertAction.isEnabled = false
+                }
+                let changeDob = UIAlertAction(title: "Edit weight", style: .cancel) { (alertAction) in
+                    self.performSegue(withIdentifier: "goToEditWeight", sender: self)
+                }
+                
+                controller.setTitle(font: self.font!, color: self.grayColor!)
+                controller.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                controller.addAction(action)
+                controller.addAction(changeDob)
+                controller.show(animated: true, vibrate: false, style: .light, completion: nil)
+                
+            }
+        }
+        self.tableView.reloadData()
         
     }
     
@@ -113,6 +140,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     
     
     func loadSpecificTypeOfDrug(){
+        
         
         drugs = realm.objects(Medication.self).filter("name == %@",selectedTypeParentName as Any)
         for drug in drugs!{
@@ -122,12 +150,13 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         }
         drugTypes = realm.objects(MedicationType.self).filter( "parentMedicationName == %@ AND name == %@",selectedTypeParentName as Any, selectedTypeName as Any)
         
+        concentrations = []
         for type in drugTypes!{
             concentrations.append(Int(type.concentration))
             
         }
         
-        
+        concentrationsPopOver = []
         for concentration in concentrations{
             
             var valuePopOver = StringPickerPopover.ItemType()
@@ -145,7 +174,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         let specificType = drugTypes?.filter("concentration == %@", Int(selectedConcentration) as Any)
         
-       // self.weightSelected = babyApp.weight
+       
         
         for type in specificType!{
             
@@ -160,6 +189,10 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         suggestions.text = suggestion
         
         weightsPopOver = []
+        if babyApp.weight != Float(0.0){
+             weightsPopOver.append("\(babyApp.weight)")
+        }
+       
         for weight in minimumWeight...maximumWeight{
             
             var weightPopOver = StringPickerPopover.ItemType()
@@ -246,18 +279,25 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         multValue = multValue/Float(concentration)
         numberOfDoses = Int(multValue)
         
-        if selectedTypeName == "Suppository"{
-            finalString = "\(numberOfDoses) suppositories in 24 hours"
+        if numberOfDoses == 0{
+            finalString = "The selected concentration exceeds the maximum dose per day for \(babyApp.name)"
         }
-        else if selectedTypeName == "Orodispersible Tablet"{
-            finalString = "\(numberOfDoses) orodispersible tablets in 24 hours"
+        else{
+            if selectedTypeName == "Suppository"{
+                finalString = "\(numberOfDoses) suppositories in 24 hours"
+            }
+            else if selectedTypeName == "Orodispersible Tablet"{
+                finalString = "\(numberOfDoses) orodispersible tablets in 24 hours"
+            }
+            else if selectedTypeName == "Tablet"{
+                finalString = "\(numberOfDoses) tablets in 24 hours"
+            }
+            else if selectedTypeName == "Sachet"{
+                finalString = "\(numberOfDoses) sachets in 24 hours"
+            }
         }
-        else if selectedTypeName == "Tablet"{
-            finalString = "\(numberOfDoses) tablets in 24 hours"
-        }
-        else if selectedTypeName == "Sachet"{
-            finalString = "\(numberOfDoses) sachets in 24 hours"
-        }
+        
+        
         
         
         return finalString
@@ -273,7 +313,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         if concentrationUnit == "mg/ml"{
             let value = doseValue/Float(concentration)
-            stringMaxDose = "Maximum dose per day: \(value) ml"
+            stringMaxDose = "Maximum dose per day: \((round(value*10))/10) ml"
         }
         else if concentrationUnit == "mg"{
             
@@ -316,7 +356,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         
         loadBabies()
-        if babyApp.name.isEmpty || self.weightSelected == 0 || self.concentrationSelected == 0{
+        if babyApp.name.isEmpty  || self.concentrationSelected == 0{
             let alert = UIAlertController(style: .alert)
             if babyApp.name.isEmpty{
                 alert.set(title: "Error", font: font!, color: grayColor!)
@@ -350,21 +390,48 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         
     }
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? SaveDoseViewController{
-            destinationVC.medication = self.medicationToSave
-    
+            
+            if let destinationVC = segue.destination as? BabyInfoViewController {
+                
+                
+                destinationVC.selectedBaby  = babyApp
+                destinationVC.navigationItem.title = destinationVC.selectedBaby?.name
+                if #available(iOS 11.0, *) {
+                    // We choose not to have a large title for the destination view controller.
+                    destinationVC.navigationItem.largeTitleDisplayMode = .always
+                    destinationVC.navigationController?.navigationBar.prefersLargeTitles = true
+                    
+                }
+                segue.destination.navigationController?.navigationBar.tintColor = UIColor(hexString: "64C5CF")
+            }
+            else if  let destinationVC = segue.destination as? SaveDoseViewController{
+                destinationVC.medication = self.medicationToSave
+                
+                
+            }
+            
             
         }
-        
-    }
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if babyApp.name.isEmpty || self.weightSelected == 0 || self.concentrationSelected == 0{
-            return false
+        if identifier == "goToEditWeight"{ //changeweight
+            if babyApp.name.isEmpty{
+                return false
+            }
+            else{
+                return true
+            }
         }
-        return true
+        else{ //next in medication
+            if babyApp.name.isEmpty || self.concentrationSelected == 0{
+                return false
+            }
+            else{
+                return true
+            }
+        }
+        
+        
     }
     //MARK: Textfield method
     
@@ -412,28 +479,40 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             
         }
         else{
+            
             self.weightSelected = babyApp.weight
             var result = ""
+            if weightsPopOver.count == 0{
+                
+                let alert = UIAlertController(title: nil, message: "Select concentration before choosing weight.", preferredStyle: .alert)
+                let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                alert.addAction(action)
+                alert.setMessage(font: fontLittle!, color: grayLightColor!)
+                alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+            }
+            else{
+                let picker = StringPickerPopover(title: "kg", choices: weightsPopOver)
+                picker.setArrowColor(pinkcolor!)
+                picker.setFontColor(grayLightColor!).setFont(font!).setSize(width: 180, height: 220).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
+                    popover, selectedRow, selectedString in
+                    sender.text = selectedString + " kg"
+                    self.weightSelected = Float(selectedString)!
+                    
+                    if self.concentrationUnit == "mg/ml"{
+                        result = self.calcLiquid(concentration: self.concentrationSelected , weight: Float(self.weightSelected))
+                    }
+                    else if self.concentrationUnit == "mg"{
+                        result = self.calcSolid(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
+                    }
+                    
+                    self.resultCalculator.text = result
+                    
+                    self.maxDose.text = self.calcMaxDoseDay(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
+                    
+                    }.appear(originView: sender, baseViewController: self)
+            }
             
-            let picker = StringPickerPopover(title: "kg", choices: weightsPopOver)
-            picker.setArrowColor(pinkcolor!)
-            picker.setFontColor(grayLightColor!).setFont(font!).setSize(width: 180, height: 220).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
-                popover, selectedRow, selectedString in
-                sender.text = selectedString + " kg"
-                self.weightSelected = Float(selectedString)!
-                
-                if self.concentrationUnit == "mg/ml"{
-                    result = self.calcLiquid(concentration: self.concentrationSelected , weight: Float(self.weightSelected))
-                }
-                else if self.concentrationUnit == "mg"{
-                    result = self.calcSolid(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
-                }
-                
-                self.resultCalculator.text = result
-                
-                self.maxDose.text = self.calcMaxDoseDay(concentration: self.concentrationSelected, weight: Float(self.weightSelected))
-                
-                }.appear(originView: sender, baseViewController: self)
+            
             
             
             
@@ -468,7 +547,13 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         else{
             cell.field.text = "Weight"
             cell.textField.tag = 1
-            cell.textField.text = "\(babyApp.weight) kg"
+
+            if self.weightSelected != Float(0.0){
+                cell.textField.text = "\(self.weightSelected) kg"
+            }
+            else{
+                cell.textField.text = ""
+            }
             cell.textField.textColor = grayLightColor
             cell.textField.font = font
             cell.textField.delegate = self

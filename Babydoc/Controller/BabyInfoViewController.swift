@@ -393,7 +393,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
                         
 
-                        self.saveBabyInfo(valueToSave: round(weight), forkey: self.propertyDictionaryName[indexPath.row][0])
+                        self.saveBabyInfo(valueToSave: round((weight*100))/100, forkey: self.propertyDictionaryName[indexPath.row][0])
                         
                     })
                     

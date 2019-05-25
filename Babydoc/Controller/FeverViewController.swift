@@ -144,6 +144,7 @@ class FeverViewController : UIViewController{
     func loadBabiesAndFever(selectedDate : Date){
         
       babyApp = Baby()
+      feverToEdit = Fever()
       registeredBabies = realm.objects(Baby.self)
         
         if registeredBabies?.count != 0 {
@@ -211,29 +212,25 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "feverCell", for: indexPath) as! CustomCellFever
         cell.delegate = self
-        
-        
+
         if registeredBabies!.count == 0  || listOfFever?.count == 0{
             cell.temperature.text = "No records added yet"
             cell.place.text = ""
             cell.time.text = ""
-            print("saludos")
         }
         
-        else if babyApp.name.isEmpty {
+        else if babyApp.name.isEmpty && self.registeredBabies!.count > 0{
             cell.temperature.text = "There are no active babies in babydoc"
             cell.place.text = ""
             cell.time.text = ""
-            print("saluditos")
             
         }
         else{
-            print("holi")
             cell.temperature.text = "Temperature: \(listOfFever?[indexPath.row].temperature ?? Float(0.0)) ºC"
             cell.time.text = "Time: \(formatter2.string(from:(listOfFever?[indexPath.row].generalDate)!))"
-            cell.place.text = "Place of measurement: " + feverToEdit.placeOfMeasurement
+            cell.place.text = "Place of measurement: " + (listOfFever?[indexPath.row].placeOfMeasurement)! ?? ""
         }
-        print(listOfFever)
+
 
         return cell
         
@@ -243,7 +240,10 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
         if registeredBabies?.count == 0 || babyApp.name.isEmpty{
             return 1
         }
-        else{
+        else if listOfFever?.count != 0 && !babyApp.name.isEmpty{
+            return listOfFever?.count ?? 1
+        }
+        else {
             return 1
         }
         
@@ -265,7 +265,8 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? SaveFeverViewController{
-           
+          
+            
             if feverToEdit.temperature == Float(0.0){ //Save
                 destinationVC.feverToSave = feverToEdit
                 destinationVC.feverToEdit = feverToEdit

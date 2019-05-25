@@ -36,6 +36,7 @@ class EditDosesViewController : UITableViewController{
     var doseToEdit: MedicationDoseCalculated?{
         didSet{
             configurePopOvers()
+            loadDoseToEditAndBaby()
         }
     }
     var realm = try! Realm()
@@ -52,6 +53,14 @@ class EditDosesViewController : UITableViewController{
     var weightUnit = ""
     var weightSelected = Float(0.0)
     
+    var quantityEdit = Float(0.0)
+    var quantityUnitEdit = ""
+    var generaldateEdit = Date()
+    var dayEdit = 0
+    var monthEdit = 0
+    var yearEdit = 0
+    var registeredBabies : Results<Baby>?
+    var babyApp = Baby()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +94,7 @@ class EditDosesViewController : UITableViewController{
         self.navigationController?.navigationBar.barTintColor = lightPinkColor
         self.navigationController?.navigationBar.backgroundColor = lightPinkColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        configurePopOvers()
         
         
     }
@@ -105,23 +115,12 @@ class EditDosesViewController : UITableViewController{
             .setDoneButton(title: "Done", font: self.fontLittle, color: .white, action: { popover, selectedDate in
                 sender.text = self.dateStringFromDate(date: selectedDate)
                 
-                do{
-                    
-                    try self.realm.write {
-                        
-                        let date = DateCustom()
-                        date.day = selectedDate.day
-                        date.month = selectedDate.month
-                        date.year = selectedDate.year
-                        
-                        self.doseToEdit?.date = date
-                        self.doseToEdit?.generalDate = selectedDate
-                    }
-                    
-                }
-                catch{
-                    print(error)
-                }
+                self.generaldateEdit = selectedDate
+                self.dayEdit = selectedDate.day
+                self.monthEdit = selectedDate.month
+                self.yearEdit = selectedDate.year
+                let date = DateCustom()
+                
                 
             })
             .appear(originView: sender, baseViewController: self)
@@ -138,15 +137,9 @@ class EditDosesViewController : UITableViewController{
         StringPickerPopover(title: doseToEdit?.concentrationUnit, choices: concentrationsPopOver).setArrowColor(lightPinkColor!).setFontColor(grayColor!).setFont(font!).setSize(width: 220, height: 150).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
             popover, selectedRow, selectedString in
             sender.text = selectedString + " " + self.doseToEdit!.concentrationUnit
+            
             self.concentrationSelected = Int(selectedString)!
-            do{
-                try self.realm.write {
-                    self.doseToEdit?.concentration = self.concentrationSelected
-                }
-            }
-            catch{
-                print(error)
-            }
+            
             
             self.configureProperties(selectedProperty:selectedString)
             
@@ -164,15 +157,8 @@ class EditDosesViewController : UITableViewController{
         StringPickerPopover(title: "kg", choices: weightsPopOver).setArrowColor(lightPinkColor!).setFontColor(grayLightColor!).setFont(font!).setSize(width: 180, height: 220).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
             popover, selectedRow, selectedString in
             sender.text = selectedString + " kg"
+            
             self.weightSelected = Float(selectedString)!
-            do{
-                try self.realm.write {
-                    self.doseToEdit?.weight = self.weightSelected
-                }
-            }
-            catch{
-                print(error)
-            }
             
             }.appear(originView: sender, baseViewController: self)
         
@@ -181,14 +167,9 @@ class EditDosesViewController : UITableViewController{
     
     
     @IBAction func textFieldQuantityDidEndEditing(_ sender: UITextField) {
-        do{
-            try realm.write {
-                doseToEdit?.dose = sender.text!
-            }
-        }
-        catch{
-            print(error)
-        }
+        
+        quantityEdit = Float(sender.text!) as! Float
+        
         
     }
     
@@ -202,15 +183,8 @@ class EditDosesViewController : UITableViewController{
             .setFontColor(grayColor!).setFont(font!).setSize(width: 320, height: 150).setFontSize(17).setCancelButton { (_, _, _) in }.setDoneButton(title: "Done", font: fontLittle, color: .white) {
                 popover, selectedRow, selectedString in
                 sender.text = selectedString
-                do{
-                    try self.realm.write {
-                        self.doseToEdit?.doseUnit = sender.text!
-                    }
-                }
-                catch{
-                    print("unable to save dose")
-                }
                 
+                self.quantityUnitEdit = selectedString
                 
                 
             }.appear(originView: sender, baseViewController: self)
@@ -222,21 +196,68 @@ class EditDosesViewController : UITableViewController{
     @IBAction func okButtonPressed(_ sender: UIButton) {
         
         
-        let image = UIImage(named: "doubletick")!
-        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Dose has been added correctly!")
-        HUDAppearance.cancelableOnTouch = true
-        HUDAppearance.messageFont = self.fontLittle!
-        HUDAppearance.messageTextColor = self.grayColor!
+        let alert = UIAlertController(style: .alert)
         
-        self.present(hudViewController, animated: true)
-       
-        self.navigationController?.popViewController(animated: true)
+        if babyApp.name.isEmpty {
+            
+            alert.set(title: "Error", font: font!, color: grayColor!)
+            alert.set(message: "In order to save a fever record at least one child has to be active in Babydoc.", font: fontLittle!, color: grayLightColor!)
+            let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(action)
+            alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+        }
+            
+            
+        else{
+            
+            do{
+                try realm.write {
+                    doseToEdit?.concentration = self.concentrationSelected
+                    doseToEdit?.weight = self.weightSelected
+                    doseToEdit?.dose = "\(quantityEdit)"
+                    doseToEdit?.generalDate = generaldateEdit
+                    doseToEdit?.date?.day = dayEdit
+                    doseToEdit?.date?.month = monthEdit
+                    doseToEdit?.date?.year = yearEdit
+                }
+            }
+            catch{
+                print(error)
+            }
+            
+            
+            let image = UIImage(named: "doubletick")!
+            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Dose has been added correctly!")
+            HUDAppearance.cancelableOnTouch = true
+            HUDAppearance.messageFont = self.fontLittle!
+            HUDAppearance.messageTextColor = self.grayColor!
+            
+            self.present(hudViewController, animated: true)
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        
         
         
     }
     
     
     func configurePopOvers(){
+        
+        if !(doseToEdit?.parentMedicationName.isEmpty)!{
+            
+            
+            quantityEdit = Float(doseToEdit!.dose) as! Float
+            quantityUnitEdit = doseToEdit!.doseUnit
+            generaldateEdit = doseToEdit!.generalDate
+            dayEdit = doseToEdit!.date!.day
+            monthEdit = (doseToEdit?.date!.month)!
+            yearEdit = (doseToEdit?.date!.year)!
+        }
+        
+        
+        
         
         if doseToEdit?.nameType == "Drops"{
             quantityUnit.append("ml")
@@ -280,6 +301,26 @@ class EditDosesViewController : UITableViewController{
         self.concentrationSelected = doseToEdit!.concentration
         self.weightSelected = doseToEdit!.weight
         
+        
+        
+        
+    }
+    func loadDoseToEditAndBaby(){
+        
+        babyApp = Baby()
+        registeredBabies = realm.objects(Baby.self)
+        
+        if registeredBabies?.count != 0 {
+            for baby in registeredBabies!{
+                if baby.current{
+                    babyApp = baby
+                }
+            }
+            
+            
+        }
+        
+        
     }
     
     func configureProperties(selectedProperty : String){
@@ -304,6 +345,7 @@ class EditDosesViewController : UITableViewController{
         }
         
     }
+    
     
     
     

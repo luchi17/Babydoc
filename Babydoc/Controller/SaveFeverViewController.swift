@@ -28,7 +28,12 @@ class SaveFeverViewController : UITableViewController{
     var indicatorEdit = 0
     var feverValues = [StringPickerPopover.ItemType]()
     var placeValues = [StringPickerPopover.ItemType]()
-    
+    var temperatureEdit = Float(0.0)
+    var placeEdit = ""
+    var generaldateEdit = Date()
+    var dayEdit = 0
+    var monthEdit = 0
+    var yearEdit = 0
     var feverToSave = Fever()
     var feverToEdit : Fever?{
         didSet{
@@ -76,15 +81,34 @@ class SaveFeverViewController : UITableViewController{
         loadBabiesAndFever()
         
     }
-
-    
-    
     
     func saveFever(feverToEdit : Fever){
         
         do{
             try realm.write {
-                babyApp.fever.append(feverToEdit)
+                feverToEdit.temperature = temperatureEdit
+                feverToEdit.placeOfMeasurement = placeEdit
+                feverToEdit.generalDate = generaldateEdit
+                feverToEdit.date?.day = dayEdit
+                feverToEdit.date?.month = monthEdit
+                feverToEdit.date?.year = yearEdit
+                
+            }
+        }
+        catch{
+            print(error)
+        }
+        
+        
+    }
+    
+    
+    
+    func saveFever(feverToSave : Fever){
+        
+        do{
+            try realm.write {
+                babyApp.fever.append(feverToSave)
             }
         }
         catch{
@@ -108,7 +132,7 @@ class SaveFeverViewController : UITableViewController{
         
     }
     func loadBabiesAndFever(){
-        
+
         babyApp = Baby()
         registeredBabies = realm.objects(Baby.self)
         
@@ -126,14 +150,21 @@ class SaveFeverViewController : UITableViewController{
     }
     func loadFeverToEdit(){
         
+       
         indicatorEdit = 0
-        
+       
         
         if feverToEdit?.temperature != Float(0.0){
             
             indicatorEdit += 1
+            temperatureEdit = feverToEdit!.temperature
+            placeEdit = feverToEdit!.placeOfMeasurement
+            generaldateEdit = feverToEdit!.generalDate
+            dayEdit = feverToEdit!.date!.day
+            monthEdit = (feverToEdit?.date!.month)!
+            yearEdit = (feverToEdit?.date!.year)!
         }
-        
+
         
     }
     
@@ -171,13 +202,11 @@ class SaveFeverViewController : UITableViewController{
                 do{
                     if self.indicatorEdit != 0 {
                         try self.realm.write {
-                            let date = DateCustom()
-                            date.day = selectedDate.day
-                            date.month = selectedDate.month
-                            date.year = selectedDate.year
-                            
-                            self.feverToEdit?.date = date
-                            self.feverToEdit?.generalDate = selectedDate
+
+                            self.generaldateEdit = selectedDate
+                            self.dayEdit = selectedDate.day
+                            self.monthEdit = selectedDate.month
+                            self.yearEdit = selectedDate.year
                             
                         }
                         
@@ -219,7 +248,7 @@ class SaveFeverViewController : UITableViewController{
                 do{
                     try self.realm.write {
                         if self.indicatorEdit != 0{
-                            self.feverToEdit?.temperature = Float(selectedString) as! Float
+                            self.temperatureEdit = Float(selectedString) as! Float
                         }
                         else{
                             self.feverToSave.temperature = Float(selectedString) as! Float
@@ -240,6 +269,9 @@ class SaveFeverViewController : UITableViewController{
     
     @IBAction func textFieldPlaceTouchedDown(_ sender: UITextField) {
         
+        if indicatorEdit != 0{
+            sender.text = "\(feverToEdit?.placeOfMeasurement ?? "")"
+        }
         
         StringPickerPopover(title: "Place", choices: placeValues )
             .setArrowColor(greenLightColor!)
@@ -249,7 +281,7 @@ class SaveFeverViewController : UITableViewController{
                 do{
                     try self.realm.write {
                         if self.indicatorEdit != 0{
-                            self.feverToEdit?.placeOfMeasurement = selectedString
+                           self.placeEdit = selectedString
                         }
                         else{
                             self.feverToSave.placeOfMeasurement = selectedString
@@ -272,7 +304,7 @@ class SaveFeverViewController : UITableViewController{
         
         let alert = UIAlertController(title: "Error", message: "In order to save the fever all the fields must be filled in and at least one baby has to be active in Babydoc.", preferredStyle: .alert)
         
-        if babyApp.name.isEmpty || textFieldDate.text!.isEmpty || textFieldTemperature.text!.isEmpty{
+        if babyApp.name.isEmpty || textFieldDate.text!.isEmpty || textFieldTemperature.text!.isEmpty || textFieldPlace.text!.isEmpty{
             
             
             if babyApp.name.isEmpty{
@@ -281,7 +313,7 @@ class SaveFeverViewController : UITableViewController{
             }
             else{
                 alert.set(title: "Error", font: font!, color: grayColor!)
-                alert.set(message: "In order to save a fever record the start date and the end date or duration have to be filled in.", font: fontLittle!, color: grayLightColor!)
+                alert.set(message: "In order to save a fever record all the fields have to be filled in.", font: fontLittle!, color: grayLightColor!)
             }
             let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
             alert.addAction(action)
@@ -289,7 +321,10 @@ class SaveFeverViewController : UITableViewController{
         }
         else{
             if indicatorEdit == 0 {
-                saveFever(feverToEdit: feverToSave)
+                saveFever(feverToSave: feverToSave)
+            }
+            else{
+                saveFever(feverToEdit: feverToEdit!)
             }
             
             let image = UIImage(named: "doubletick")!
@@ -418,17 +453,17 @@ class SaveFeverViewController : UITableViewController{
                     
                     self.setFeverYes(feverOrNot: true)
                     if temperature >= Float(38.9){
-                        alert.set(title: "Seek medical attention for your child", font: self.font!, color: .red)
+                        alert.set(title: "Seek medical attention for your child!", font: self.font!, color: .red)
                     }
                     else{
                         
-                        alert.set(message: "Your child has fever", font: fontLittle!, color: .flatOrange)
+                        alert.set(title: "Your child has fever!", font: self.font!, color: .flatOrange)
                     }
                 }
 
                 else{
                     
-                    alert.set(message: "Your child does not have fever", font: fontLittle!, color: self.greenDarkColor!)
+                    alert.set(title: "Your child does not have fever!", font: self.font!, color: self.greenDarkColor!)
                     self.setFeverYes(feverOrNot: false)
                 }
                 
@@ -451,13 +486,13 @@ class SaveFeverViewController : UITableViewController{
                     }
 
                     else{
-                        alert.set(message: "Your child has fever!", font: fontLittle!, color: .flatOrange)
+                        alert.set(title: "Your child has fever!", font: self.font!, color: .flatOrange)
                     }
                 }
                 
                 else{
                    
-                    alert.set(message: "Your child does not have fever!", font: fontLittle!, color: self.greenDarkColor!)
+                    alert.set(title: "Your child does not have fever!", font: self.font!, color: self.greenDarkColor!)
                     self.setFeverYes(feverOrNot: false)
                 }
                 
@@ -465,7 +500,7 @@ class SaveFeverViewController : UITableViewController{
             else if textFieldPlace.text! == "armpit"{
                 if temperature >= Float(37.2) {
                    
-                    alert.set(message: "Your child has fever!", font: fontLittle!, color: .flatOrange)
+                    alert.set(title: "Your child has fever!", font: self.font!, color: .flatOrange)
                     self.setFeverYes(feverOrNot: true)
                 }
                 else if temperature >= Float(38.9){
@@ -474,7 +509,7 @@ class SaveFeverViewController : UITableViewController{
 
                 else{
                     
-                    alert.set(message: "Your child does not have fever!", font: fontLittle!, color: self.greenDarkColor!)
+                    alert.set(title: "Your child does not have fever!", font: self.font!, color: self.greenDarkColor!)
                     self.setFeverYes(feverOrNot: false)
                 }
                 

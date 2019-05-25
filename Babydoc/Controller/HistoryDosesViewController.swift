@@ -285,19 +285,20 @@ extension HistoryDosesViewController : UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "doseCell", for: indexPath) as! CustomCellHistoryDose
         
-       
-        if babyApp.name.isEmpty{
-            cell.nameDose.text = "There are no active babies in Babydoc"
+
+        if registeredBabies!.count == 0  || doses?.count == 0{
+            cell.nameDose.text = "No records added yet"
             cell.descriptionDose.text = ""
             cell.descriptionDose2.text = ""
             cell.descriptionDose3.text = ""
         }
             
-        else if (doses?.count == 0 && !babyApp.name.isEmpty) || registeredBabies?.count == 0{
-            cell.nameDose.text = "No records added yet"
+        else if babyApp.name.isEmpty && self.registeredBabies!.count > 0{
+            cell.nameDose.text = "There are no active babies in Babydoc"
             cell.descriptionDose.text = ""
             cell.descriptionDose2.text = ""
             cell.descriptionDose3.text = ""
+            
         }
           
         else{
@@ -312,11 +313,15 @@ extension HistoryDosesViewController : UITableViewDelegate, UITableViewDataSourc
         return cell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if doses?.count == 0{
+        
+        if registeredBabies?.count == 0 || babyApp.name.isEmpty{
             return 1
         }
-        else{
+        else if doses?.count != 0 && !babyApp.name.isEmpty{
             return doses?.count ?? 1
+        }
+        else {
+            return 1
         }
         
     }

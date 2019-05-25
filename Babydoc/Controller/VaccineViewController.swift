@@ -82,7 +82,7 @@ class VaccineViewController : UIViewController{
                 let action = UIAlertAction(title: "Remind me later", style: .default) { (alertAction) in
                     alertAction.isEnabled = false
                 }
-                let changeDob = UIAlertAction(title: "Change date of birth", style: .cancel) { (alertAction) in
+                let changeDob = UIAlertAction(title: "Edit date of birth", style: .cancel) { (alertAction) in
                     self.performSegue(withIdentifier: "goToChangeDob", sender: self)
                 }
                 

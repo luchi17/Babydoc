@@ -161,6 +161,14 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
             self.medication.reloadInputViews()
             self.medication.setDay(day: self.datePicker.selectedDate!)
             self.medication.selectedDay = self.datePicker.selectedDate!
+            self.sleep.setNeedsDisplay()
+            self.sleep.reloadInputViews()
+            self.sleep.setDay(day: self.datePicker.selectedDate!)
+            self.sleep.selectedDay = self.datePicker.selectedDate!
+            
+            print("se in disp")
+            print( self.sleep.selectedDay)
+            
         }
         
         
@@ -221,7 +229,9 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
             medication.setNeedsDisplay()
             medication.reloadInputViews()
             medication.loadAdministeredDoses(baby: getCurrentBabyApp())
+            sleep.loadSleepRecords(baby: getCurrentBabyApp())
             medication.selectedDay = datePicker.selectedDate!
+            sleep.selectedDay = datePicker.selectedDate
         }
         
         
@@ -274,8 +284,12 @@ extension HomeViewController: ScrollableDatepickerDelegate {
         self.medication.selectedDay = self.datePicker.selectedDate!
         self.medication.setNeedsDisplay()
         self.medication.reloadInputViews()
+        self.sleep.selectedDay = self.datePicker.selectedDate!
+        self.sleep.setNeedsDisplay()
+        self.sleep.reloadInputViews()
         if self.registeredBabies?.count != 0 {
             self.medication.loadAdministeredDoses(baby: self.getCurrentBabyApp())
+            self.sleep.loadSleepRecords(baby: self.getCurrentBabyApp())
         }
 
     }
@@ -489,8 +503,15 @@ class ActionView: UIView
     var medicationcolor :UIColor = UIColor.init(hexString: "F54291")! 
 
     var doses : Results<MedicationDoseCalculated>?
-    var arrayAllDates = Array<Date>()
-    var arrayDateToday = Array<Date>()
+    var sleeps : Results<Sleep>?
+    var arrayAllDatesDoses = Array<Date>()
+    var arrayDateTodayDoses = Array<Date>()
+    var arrayAllDatesSleepsBegin = Array<Date>()
+    var arrayAllDatesSleepsEnd = Array<Date>()
+    var arrayDateTodaySleepsBegin = Array<Date>()
+    var arrayDateTodaySleepsEnd = Array<Date>()
+    var arrayAllDatesSleepsDurationBegin = Array<Float>()
+    var arrayDateTodaySleepsDurationBegin = Array<Float>()
     var selectedDay : Date?{
         didSet{
             
@@ -522,26 +543,39 @@ class ActionView: UIView
             
         case 0:
             
-            fillColor(start : (0*width)/day ,with: sleepcolor, width: (2*width)/day)
-            fillColor(start : ((12+0.5)*width)/day ,with: sleepcolor , width: (1*width)/day)
-            fillColor(start : (15*width)/day ,with: sleepcolor , width: (2*width)/day)
+           
+            for i in 0..<arrayDateTodaySleepsBegin.count{
+                
+                let value = round(Float(arrayDateTodaySleepsBegin[i].minute)/(60))
+                let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
+
+                let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
+                
+                self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+               
+              
+            }
+            
+            
+            
             
         //FEED
-        case 1:
+        case 1:  break
             
-            self.fillColor(start : (12*width)/day, with: feedcolor, width: 4*width/day)
-            self.fillColor(start : (22*width)/day, with: feedcolor, width: 2*width/day)
+           
+//            self.fillColor(start : (12*width)/day, with: feedcolor, width: 4*width/day)
+//            self.fillColor(start : (22*width)/day, with: feedcolor, width: 2*width/day)
             
         //DIAPER
-        case 2:
-            
-            self.fillColor(start : (10*width)/day, with: diapercolor , width: 0.2*width/day)
-            self.fillColor(start : (20*width)/day, with: diapercolor, width: 0.3*width/day)
+        case 2: break
+//
+//            self.fillColor(start : (10*width)/day, with: diapercolor , width: 0.2*width/day)
+//            self.fillColor(start : (20*width)/day, with: diapercolor, width: 0.3*width/day)
             
         //MEDICATION
         case 3:
 
-            for date in arrayDateToday{
+            for date in arrayDateTodayDoses{
                 
                 let value = round(Float(date.minute)/(60))
                 let final = Float(date.hour) + value
@@ -561,14 +595,14 @@ class ActionView: UIView
 
         doses = baby.medicationDoses.filter(NSPredicate(value: true))
         
-        arrayAllDates = []
+        arrayAllDatesDoses = []
         for dose in doses!{
-            //let dateString = dose.date
-            arrayAllDates.append(dose.generalDate)
+            
+            arrayAllDatesDoses.append(dose.generalDate)
 
         }
-        arrayDateToday = []
-        for date in arrayAllDates{
+        arrayDateTodayDoses = []
+        for date in arrayAllDatesDoses{
 
             if selectedDay == nil{
                 selectedDay = Date()
@@ -576,12 +610,89 @@ class ActionView: UIView
  
             if Calendar.current.isDate(date, inSameDayAs: selectedDay!){
                 
-                arrayDateToday.append(date)
+                arrayDateTodayDoses.append(date)
             }
 
         }
 
 
+    }
+    func loadSleepRecords(baby : Baby){
+        
+        sleeps = baby.sleeps.filter(NSPredicate(value: true))
+        
+        arrayAllDatesSleepsBegin = []
+        arrayAllDatesSleepsEnd = []
+        arrayAllDatesSleepsDurationBegin = []
+        
+        print("se in fun")
+        print(selectedDay)
+        
+        for sleep in sleeps!{
+            
+            arrayDateTodaySleepsDurationBegin = []
+            arrayAllDatesSleepsBegin.append(sleep.generalDateBegin)
+            arrayAllDatesSleepsEnd.append(sleep.generalDateEnd)
+            var dateFromStringSleep = dateFormatter2.date(from: sleep.timeSleep)
+            let width = round((Float(dateFromStringSleep!.minute)*10.0))/(60.0*10.0)
+            arrayAllDatesSleepsDurationBegin.append(Float(dateFromStringSleep!.hour) + width )
+            
+            for dur in arrayAllDatesSleepsDurationBegin {
+                
+                if selectedDay == nil{
+                    selectedDay = Date()
+                }
+                
+                if Calendar.current.isDate(sleep.generalDateBegin, inSameDayAs: selectedDay!){
+                    
+                    arrayDateTodaySleepsDurationBegin.append(dur)
+                }
+                
+            }
+            
+        }
+//        print(arrayAllDatesSleepsBegin)
+//        print(arrayAllDatesSleepsEnd)
+//        print("dur")
+          //print(arrayAllDatesSleepsDurationBegin)
+       
+//        print("array dur today")
+//        print(arrayDateTodaySleepsDurationBegin)
+        arrayDateTodaySleepsEnd = []
+        arrayDateTodaySleepsBegin = []
+       
+
+        for date in arrayAllDatesSleepsBegin{
+            
+            if selectedDay == nil{
+                selectedDay = Date()
+            }
+            
+            if Calendar.current.isDate(date, inSameDayAs: selectedDay!){
+                
+                arrayDateTodaySleepsBegin.append(date)
+            }
+            
+        }
+        for date in arrayAllDatesSleepsEnd{
+            
+            if selectedDay == nil{
+                selectedDay = Date()
+            }
+            
+            if Calendar.current.isDate(date, inSameDayAs: selectedDay!){
+                
+                arrayDateTodaySleepsEnd.append(date)
+            }
+            
+        }
+        
+
+        
+        
+        
+        
+        
     }
     
     //MARK: Calc Date and String methods
@@ -601,6 +712,23 @@ class ActionView: UIView
     
     func dateFromString(dateString: String) -> Date? {
         return dateFormatter.date(from: dateString)
+    }
+    
+    var _dateFormatter2: DateFormatter?
+    var dateFormatter2: DateFormatter {
+        if (_dateFormatter2 == nil) {
+            _dateFormatter2 = DateFormatter()
+            _dateFormatter2!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter2!.dateFormat = "HH:mm"
+        }
+        return _dateFormatter2!
+    }
+
+    func dateStringFromDate2(date: Date) -> String {
+        return dateFormatter2.string(from: date)
+    }
+    func dateFromString2(dateString : String)->Date{
+        return dateFormatter2.date(from: dateString)!
     }
     
     

@@ -34,10 +34,19 @@ class SaveSleepViewController : UITableViewController{
     @IBOutlet weak var textFieldStart: UITextField!
     @IBOutlet weak var textFieldEnd: UITextField!
     @IBOutlet weak var textFieldDuration: UITextField!
-
+    
     @IBOutlet weak var saveButton: UIButton!
     
-
+    var endEdit = Date()
+    var startEdit = Date()
+    var durEdit = ""
+    var startdayEdit = 0
+    var startmonthEdit = 0
+    var startyearEdit = 0
+    var enddayEdit = 0
+    var endmonthEdit = 0
+    var endyearEdit = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldEnd.delegate = self
@@ -49,7 +58,7 @@ class SaveSleepViewController : UITableViewController{
         saveButton.layer.shadowColor = UIColor.flatGray.cgColor
         saveButton.layer.shadowOpacity = 0.7
         saveButton.layer.shadowRadius = 1
- 
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -74,13 +83,12 @@ class SaveSleepViewController : UITableViewController{
                     
                     
                     try self.realm.write {
-                        let date = DateCustom()
-                        date.day = selectedDate.day
-                        date.month = selectedDate.month
-                        date.year = selectedDate.year
                         
-                        self.sleepToSave.generalDateBegin = selectedDate
-                        self.sleepToSave.dateBegin = date
+                        self.startEdit = selectedDate
+                        self.startdayEdit = selectedDate.day
+                        self.startmonthEdit = selectedDate.month
+                        self.startyearEdit = selectedDate.year
+                        
                         
                         
                     }
@@ -104,16 +112,13 @@ class SaveSleepViewController : UITableViewController{
                 sender.text = self.dateStringFromDate(date: selectedDate)
                 
                 do{
-
+                    
                     try self.realm.write {
-                        let date = DateCustom()
-                        date.day = selectedDate.day
-                        date.month = selectedDate.month
-                        date.year = selectedDate.year
+                        self.endEdit = selectedDate
+                        self.enddayEdit = selectedDate.day
+                        self.endmonthEdit = selectedDate.month
+                        self.endyearEdit = selectedDate.year
                         
-                        self.sleepToSave.generalDateEnd = selectedDate
-                        self.sleepToSave.dateEnd = date
-
                     }
                     
                 }
@@ -132,14 +137,14 @@ class SaveSleepViewController : UITableViewController{
             .setArrowColor(lightBlueColor!)
             .setSelectedDate(Date())
             .setDoneButton(title: "Done", font: self.fontLittle, color: .white, action: { popover, selectedDate in
-                sender.text = self.dateStringFromDate(date: selectedDate)
+                sender.text = self.dateStringFromDate2(date: selectedDate)
                 
                 do{
                     
                     try self.realm.write {
-                        self.sleepToSave.timeSleep = self.dateStringFromDate(date: selectedDate)
+                        self.durEdit = self.dateStringFromDate2(date: selectedDate)
                         
-
+                        
                     }
                     
                 }
@@ -151,14 +156,15 @@ class SaveSleepViewController : UITableViewController{
             .appear(originView: sender, baseViewController: self)
     }
     
-   
+    
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         
-        let alert = UIAlertController(style: .alert)
+        
         
         if babyApp.name.isEmpty || (textFieldEnd.text!.isEmpty && textFieldDuration.text!.isEmpty) || textFieldStart.text!.isEmpty {
             
+            let alert = UIAlertController(style: .alert)
             if babyApp.name.isEmpty{
                 alert.set(title: "Error", font: font!, color: grayColor!)
                 alert.set(message: "In order to save a sleep record at least one child has to be active in Babydoc.", font: fontLittle!, color: grayLightColor!)
@@ -173,15 +179,93 @@ class SaveSleepViewController : UITableViewController{
             alert.addAction(action)
             alert.show(animated: true, vibrate: false, style: .light, completion: nil)
         }
-        else{
+        
             
-            print("save data")
-            saveData()
+        else if !textFieldDuration.text!.isEmpty && !textFieldEnd.text!.isEmpty{
+            
+            
+            let alert = UIAlertController(style: .actionSheet)
+            alert.set(message: "Both the end time and the duration were introduced, do you want to save both?", font: fontLittle!, color: grayLightColor!)
+            
+            let action = UIAlertAction(title: "Yes", style: .cancel) { (alertAction) in
+                
+                
+                var dateComponent = DateComponents()
+                dateComponent.hour = self.endEdit.hour
+                dateComponent.minute = self.endEdit.minute
+                
+                let checkDate = Calendar.current.date(byAdding: dateComponent, to: self.startEdit)
+                
+                let order = Calendar.current.compare(checkDate!, to: self.endEdit, toGranularity: .minute)
+                
+                switch order {
+                case .orderedSame: print("same"); self.saveData(valueToSave: "All")
+                    
+                default: print(" not same")
+                let alert = UIAlertController(style: .alert)
+                
+                alert.set(title: "Error", font: self.font!, color: self.grayColor!)
+                alert.set(message: "Duration of sleep and sleep end time do not match, please change any of them.", font: self.fontLittle!, color: self.grayLightColor!)
+                let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                
+                alert.addAction(action)
+                alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+                }
+                
+            }
+            let actionend = UIAlertAction(title: "Just end time", style: .default) { (alertAction) in
+                
+                
+                self.saveData(valueToSave: "End")
+                self.navigationController?.popViewController(animated: true)
+                
+                }
+                
+            
+            let actiondur = UIAlertAction(title: "Just duration", style: .default, handler: { (alertAction) in
+                
+                
+                self.saveData(valueToSave: "Duration")
+                self.navigationController?.popViewController(animated: true)
+                
+            })
+            
+            alert.addAction(actionend)
+            alert.addAction(actiondur)
+            alert.addAction(action)
+            
+            alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+            
         }
+        else{
+            if textFieldEnd.text!.isEmpty{
+                saveData(valueToSave: "Duration")
+            }
+            else if textFieldDuration.text!.isEmpty{
+                
+                if startEdit.compare(endEdit) == .orderedDescending{
+                    
+                    let alert = UIAlertController(style: .alert)
+                    
+                    alert.set(title: "Error", font: self.font!, color: self.grayColor!)
+                    alert.set(message: "Sleep end time is earlier than start time, please change any of them.", font: self.fontLittle!, color: self.grayLightColor!)
+                    let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    
+                    alert.addAction(action)
+                    alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+                }
+                saveData(valueToSave: "End")
+            }
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        
+        
+        
+        
     }
     
-    
-    
+
     
     var _dateFormatter: DateFormatter?
     var dateFormatter: DateFormatter {
@@ -192,38 +276,135 @@ class SaveSleepViewController : UITableViewController{
         }
         return _dateFormatter!
     }
+    var _dateFormatter2: DateFormatter?
+    var dateFormatter2: DateFormatter {
+        if (_dateFormatter2 == nil) {
+            _dateFormatter2 = DateFormatter()
+            _dateFormatter2!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter2!.dateFormat = "HH:mm"
+        }
+        return _dateFormatter2!
+    }
     
     func dateStringFromDate(date: Date) -> String {
         return dateFormatter.string(from: date)
     }
+    func dateStringFromDate2(date: Date) -> String {
+        return dateFormatter2.string(from: date)
+    }
+    func dateFromString2(dateString : String)->Date{
+        return dateFormatter2.date(from: dateString)!
+    }
     
-   
+    
     func loadBabiesAndSleep(){
         
         babyApp = Baby()
         registeredBabies = realm.objects(Baby.self)
-    
+        
         if registeredBabies?.count != 0 {
             for baby in registeredBabies!{
                 if baby.current{
                     babyApp = baby
                 }
             }
-           
             
-         //allsleeps = babyApp.sleeps.filter(NSPredicate(value: true))
+            
+            //allsleeps = babyApp.sleeps.filter(NSPredicate(value: true))
             
         }
-
+        
         
     }
     
-    func saveData(){
+    func saveData(valueToSave : String){
         
         do{
             try realm.write {
                 
+                switch valueToSave{
+                    
+                case "Duration":
+
+                    var dateFromStringDuration = dateFormatter2.date(from: durEdit)
+                    
+                    var dateComponent = DateComponents()
+                    dateComponent.hour = dateFromStringDuration?.hour
+                    dateComponent.minute = dateFromStringDuration?.minute
+                    
+                    let checkDate = Calendar.current.date(byAdding: dateComponent, to: self.startEdit)
+                    
+                    let date = DateCustom()
+                    date.day = checkDate!.day
+                    date.month = checkDate!.month
+                    date.year = checkDate!.year
+                    self.sleepToSave.dateEnd = date
+                    self.sleepToSave.timeSleep = durEdit
+                    self.sleepToSave.generalDateEnd = checkDate!
+                    
+                    
+                    
+                case "End": 
+                
+                var dateComponentend = DateComponents()
+                dateComponentend.hour = self.endEdit.hour
+                dateComponentend.minute = self.endEdit.minute
+
+                var dateComponentstart = DateComponents()
+                dateComponentstart.hour = self.startEdit.hour
+                dateComponentstart.minute = self.startEdit.minute
+               
+
+                
+                var difference = Calendar.current.dateComponents([ .minute], from: dateComponentstart, to: dateComponentend).minute
+                
+                
+                if endEdit.day > startEdit.day{
+                    difference = 24*60 + difference!
+                }
+              
+                var (hours, mins) = (difference?.quotientAndRemainder(dividingBy: 60))!
+              
+                if hours < 0 {
+                    hours = hours*(-1)
+                }
+                if mins < 0{
+                    mins = mins*(-1)
+                }
+                let formattedDuration = String(format: "%02d:%02d", hours, mins)
+                
+                
+                let date = DateCustom()
+                date.day = enddayEdit
+                date.month = endmonthEdit
+                date.year = endyearEdit
+                self.sleepToSave.dateEnd = date
+                self.sleepToSave.timeSleep = formattedDuration
+                self.sleepToSave.generalDateEnd = endEdit
+                    
+                default: //All
+                    babyApp.sleeps.append(sleepToSave)
+                    
+                }
+                //ALWAYS
+                
+                let date1 = DateCustom()
+                date1.day = startdayEdit
+                date1.month = startmonthEdit
+                date1.year = startyearEdit
+                self.sleepToSave.dateBegin = date1
+                self.sleepToSave.generalDateBegin = startEdit
                 babyApp.sleeps.append(sleepToSave)
+                
+                let image = UIImage(named: "doubletick")!
+                let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Sleep record saved correctly!")
+                HUDAppearance.cancelableOnTouch = true
+                HUDAppearance.messageFont = self.fontLittle!
+                HUDAppearance.messageTextColor = self.grayColor!
+                
+                self.present(hudViewController, animated: true)
+                
+                
             }
         }
         catch{
@@ -241,7 +422,7 @@ extension SaveSleepViewController : UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        if textField.tag == 1{
+        if textField.tag == 1 || textField.tag == 2{
             return true
         }
         else{
@@ -250,3 +431,4 @@ extension SaveSleepViewController : UITextFieldDelegate{
         
     }
 }
+

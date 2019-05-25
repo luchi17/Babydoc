@@ -128,32 +128,7 @@ class ActionViewSleep: UIView
         }
         
     }
-//    func loadAdministeredDoses(baby : Baby){
-//
-//        doses = baby.medicationDoses.filter(NSPredicate(value: true))
-//
-//        arrayAllDates = []
-//        for dose in doses!{
-//            //let dateString = dose.date
-//            arrayAllDates.append(dose.generalDate)
-//
-//        }
-//        arrayDateToday = []
-//        for date in arrayAllDates{
-//
-//            if selectedDay == nil{
-//                selectedDay = Date()
-//            }
-//
-//            if Calendar.current.isDate(date, inSameDayAs: selectedDay!){
-//
-//                arrayDateToday.append(date)
-//            }
-//
-//        }
-//
-//
-//    }
+
 
     //MARK: Calc Date and String methods
     var _dateFormatter: DateFormatter?
