@@ -96,9 +96,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         showSelectedDate()
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //        //this is done before segue occurs
-        //        //each category has its own items so depending on which one you select,
-        //        //a table of items is going to appear or another
+
         let destinationVC = segue.destination as! BabiesViewController
         destinationVC.delegate = self
         destinationVC.delegateNameBarHome = self
@@ -165,9 +163,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
             self.sleep.reloadInputViews()
             self.sleep.setDay(day: self.datePicker.selectedDate!)
             self.sleep.selectedDay = self.datePicker.selectedDate!
-            
-            print("se in disp")
-            print( self.sleep.selectedDay)
+   
             
         }
         
@@ -228,6 +224,8 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
             changeName(name: getCurrentBabyApp().name)
             medication.setNeedsDisplay()
             medication.reloadInputViews()
+            sleep.reloadInputViews()
+            sleep.setNeedsDisplay()
             medication.loadAdministeredDoses(baby: getCurrentBabyApp())
             sleep.loadSleepRecords(baby: getCurrentBabyApp())
             medication.selectedDay = datePicker.selectedDate!
@@ -282,9 +280,9 @@ extension HomeViewController: ScrollableDatepickerDelegate {
             return
         }
         self.medication.selectedDay = self.datePicker.selectedDate!
+        self.sleep.selectedDay = self.datePicker.selectedDate!
         self.medication.setNeedsDisplay()
         self.medication.reloadInputViews()
-        self.sleep.selectedDay = self.datePicker.selectedDate!
         self.sleep.setNeedsDisplay()
         self.sleep.reloadInputViews()
         if self.registeredBabies?.count != 0 {
@@ -546,15 +544,26 @@ class ActionView: UIView
            
             for i in 0..<arrayDateTodaySleepsBegin.count{
                 
-                let value = round(Float(arrayDateTodaySleepsBegin[i].minute)/(60))
+                let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
 
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
+                
                 
                 self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
                
               
             }
+            for date in  arrayDateTodaySleepsEnd{
+                
+                let value = Float(date.minute * 100)/(60 * 100)
+                let final = Float(date.hour) + value
+                
+                self.fillColor(start : (CGFloat(0)*width)/day, with: sleepcolor, width: (CGFloat(final)*width)/day)
+                
+                
+            }
+            
             
             
             
@@ -624,13 +633,11 @@ class ActionView: UIView
         arrayAllDatesSleepsBegin = []
         arrayAllDatesSleepsEnd = []
         arrayAllDatesSleepsDurationBegin = []
-        
-        print("se in fun")
-        print(selectedDay)
+        arrayDateTodaySleepsDurationBegin = []
         
         for sleep in sleeps!{
             
-            arrayDateTodaySleepsDurationBegin = []
+           
             arrayAllDatesSleepsBegin.append(sleep.generalDateBegin)
             arrayAllDatesSleepsEnd.append(sleep.generalDateEnd)
             var dateFromStringSleep = dateFormatter2.date(from: sleep.timeSleep)
@@ -646,18 +653,13 @@ class ActionView: UIView
                 if Calendar.current.isDate(sleep.generalDateBegin, inSameDayAs: selectedDay!){
                     
                     arrayDateTodaySleepsDurationBegin.append(dur)
+                    
                 }
                 
             }
             
         }
-//        print(arrayAllDatesSleepsBegin)
-//        print(arrayAllDatesSleepsEnd)
-//        print("dur")
-          //print(arrayAllDatesSleepsDurationBegin)
        
-//        print("array dur today")
-//        print(arrayDateTodaySleepsDurationBegin)
         arrayDateTodaySleepsEnd = []
         arrayDateTodaySleepsBegin = []
        
@@ -674,18 +676,23 @@ class ActionView: UIView
             }
             
         }
-        for date in arrayAllDatesSleepsEnd{
+        for i in 0..<arrayAllDatesSleepsEnd.count{
             
             if selectedDay == nil{
                 selectedDay = Date()
             }
             
-            if Calendar.current.isDate(date, inSameDayAs: selectedDay!){
+            if Calendar.current.isDate(arrayAllDatesSleepsEnd[i], inSameDayAs: selectedDay!) {
                 
-                arrayDateTodaySleepsEnd.append(date)
+                var dateBegin = arrayAllDatesSleepsBegin[i]
+                if dateBegin.day < arrayAllDatesSleepsEnd[i].day {
+                     arrayDateTodaySleepsEnd.append(arrayAllDatesSleepsEnd[i])
+                }
+               
             }
             
         }
+        
         
 
         
