@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Babydoc/View/Base.lproj/Baby.swift"
-            timestampString = "580503217.821386"
+            timestampString = "580554092.732222"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "17"
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Babydoc/Controller/SaveDoseViewController.swift"
-            timestampString = "580503217.821474"
+            timestampString = "580554092.732489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "138"
@@ -42,11 +42,89 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Babydoc/Data Model/Fever.swift"
-            timestampString = "580503217.821557"
+            timestampString = "580554092.732754"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "29"
             endingLineNumber = "29">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Babydoc/Controller/SleepViewController.swift"
+            timestampString = "580564414.878991"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "loadAllSleeps()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Babydoc.ActionViewSleep.__allocating_init(frame: __C.CGRect) -&gt; Babydoc.ActionViewSleep"
+                  moduleName = "Babydoc"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luchiparejo/Desktop/Babydoc-master/Babydoc/Controller/SleepViewController.swift"
+                  timestampString = "580559632.875297"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Babydoc.ActionViewSleep.init(frame: __C.CGRect) -&gt; Babydoc.ActionViewSleep"
+                  moduleName = "Babydoc"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luchiparejo/Desktop/Babydoc-master/Babydoc/Controller/SleepViewController.swift"
+                  timestampString = "580559632.881653"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "233">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Babydoc.ActionViewSleep.__allocating_init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Babydoc.ActionViewSleep&gt;"
+                  moduleName = "Babydoc"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luchiparejo/Desktop/Babydoc-master/Babydoc/Controller/SleepViewController.swift"
+                  timestampString = "580559632.884101"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Babydoc.ActionViewSleep.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Babydoc.ActionViewSleep&gt;"
+                  moduleName = "Babydoc"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luchiparejo/Desktop/Babydoc-master/Babydoc/Controller/SleepViewController.swift"
+                  timestampString = "580559632.886565"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "161">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

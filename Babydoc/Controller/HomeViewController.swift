@@ -155,17 +155,15 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         DispatchQueue.main.async {
             self.showSelectedDate()
             self.datePicker.scrollToSelectedDate(animated: false)
-            self.medication.setNeedsDisplay()
-            self.medication.reloadInputViews()
-            self.medication.setDay(day: self.datePicker.selectedDate!)
             self.medication.selectedDay = self.datePicker.selectedDate!
-            self.sleep.setNeedsDisplay()
-            self.sleep.reloadInputViews()
-            self.sleep.setDay(day: self.datePicker.selectedDate!)
             self.sleep.selectedDay = self.datePicker.selectedDate!
-   
-            
+
         }
+        self.medication.setNeedsDisplay()
+        self.medication.reloadInputViews()
+        
+        self.sleep.setNeedsDisplay()
+        self.sleep.reloadInputViews()
         
         
         
@@ -205,7 +203,6 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         medication.layer.cornerRadius = 4
         medication.layer.masksToBounds = true
         
-        sleep.backgroundColor = sleep.sleepcolor.withAlphaComponent(CGFloat(0.2))
         feed.backgroundColor = feed.feedcolor.withAlphaComponent(CGFloat(0.2))
         diaper.backgroundColor = diaper.diapercolor.withAlphaComponent(CGFloat(0.2))
         medication.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.2))
@@ -221,16 +218,17 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
             changeName(name: "Home")
         }
         else{
+            print("hola")
             changeName(name: getCurrentBabyApp().name)
-            medication.setNeedsDisplay()
-            medication.reloadInputViews()
-            sleep.reloadInputViews()
-            sleep.setNeedsDisplay()
+            medication.selectedDay = datePicker.selectedDate ?? Date()
+            sleep.selectedDay = datePicker.selectedDate ?? Date()
             medication.loadAdministeredDoses(baby: getCurrentBabyApp())
             sleep.loadSleepRecords(baby: getCurrentBabyApp())
-            medication.selectedDay = datePicker.selectedDate!
-            sleep.selectedDay = datePicker.selectedDate
         }
+        medication.setNeedsDisplay()
+        medication.reloadInputViews()
+        sleep.reloadInputViews()
+        sleep.setNeedsDisplay()
         
         
     }
@@ -407,7 +405,7 @@ extension HomeViewController : SwipeTableViewCellDelegate{
                     ProgressHUD.showSuccess("Task Finished!", interaction: true)
                 }
                 else{
-                    //ProgressHUD.show("Remaining Task!", interaction: true)
+                    
                     let image = UIImage(named: "sand")
                     ProgressHUD.imageError(image)
                     ProgressHUD.statusColor(UIColor.flatGrayDark)
@@ -508,13 +506,14 @@ class ActionView: UIView
     var arrayAllDatesSleepsEnd = Array<Date>()
     var arrayDateTodaySleepsBegin = Array<Date>()
     var arrayDateTodaySleepsEnd = Array<Date>()
-    var arrayAllDatesSleepsDurationBegin = Array<Float>()
     var arrayDateTodaySleepsDurationBegin = Array<Float>()
     var selectedDay : Date?{
         didSet{
             
         }
     }
+    var dict = [Date : Float]()
+  
     
     func fillColor(start : CGFloat,with color:UIColor,width:CGFloat)
     {
@@ -548,12 +547,12 @@ class ActionView: UIView
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
 
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
-                
-                
+
                 self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
                
               
             }
+            
             for date in  arrayDateTodaySleepsEnd{
                 
                 let value = Float(date.minute * 100)/(60 * 100)
@@ -563,23 +562,7 @@ class ActionView: UIView
                 
                 
             }
-            
-            
-            
-            
-            
-        //FEED
-        case 1:  break
-            
-           
-//            self.fillColor(start : (12*width)/day, with: feedcolor, width: 4*width/day)
-//            self.fillColor(start : (22*width)/day, with: feedcolor, width: 2*width/day)
-            
-        //DIAPER
-        case 2: break
-//
-//            self.fillColor(start : (10*width)/day, with: diapercolor , width: 0.2*width/day)
-//            self.fillColor(start : (20*width)/day, with: diapercolor, width: 0.3*width/day)
+
             
         //MEDICATION
         case 3:
@@ -596,7 +579,7 @@ class ActionView: UIView
             
             
         default:
-            print("TAG NOT FOUND")
+            break
         }
         
     }
@@ -627,13 +610,14 @@ class ActionView: UIView
 
     }
     func loadSleepRecords(baby : Baby){
-        
+
         sleeps = baby.sleeps.filter(NSPredicate(value: true))
         
         arrayAllDatesSleepsBegin = []
         arrayAllDatesSleepsEnd = []
-        arrayAllDatesSleepsDurationBegin = []
         arrayDateTodaySleepsDurationBegin = []
+        dict = [:]
+       
         
         for sleep in sleeps!{
             
@@ -642,33 +626,16 @@ class ActionView: UIView
             arrayAllDatesSleepsEnd.append(sleep.generalDateEnd)
             var dateFromStringSleep = dateFormatter2.date(from: sleep.timeSleep)
             let width = round((Float(dateFromStringSleep!.minute)*10.0))/(60.0*10.0)
-            arrayAllDatesSleepsDurationBegin.append(Float(dateFromStringSleep!.hour) + width )
-            
-            for dur in arrayAllDatesSleepsDurationBegin {
-                
-                if selectedDay == nil{
-                    selectedDay = Date()
-                }
-                
-                if Calendar.current.isDate(sleep.generalDateBegin, inSameDayAs: selectedDay!){
-                    
-                    arrayDateTodaySleepsDurationBegin.append(dur)
-                    
-                }
-                
-            }
-            
+            dict[sleep.generalDateBegin] = Float(dateFromStringSleep!.hour) + width
+
         }
-       
+        
+        
         arrayDateTodaySleepsEnd = []
         arrayDateTodaySleepsBegin = []
-       
 
         for date in arrayAllDatesSleepsBegin{
-            
-            if selectedDay == nil{
-                selectedDay = Date()
-            }
+
             
             if Calendar.current.isDate(date, inSameDayAs: selectedDay!){
                 
@@ -676,12 +643,21 @@ class ActionView: UIView
             }
             
         }
-        for i in 0..<arrayAllDatesSleepsEnd.count{
+        for date in dict.keys{
             
-            if selectedDay == nil{
-                selectedDay = Date()
+            
+            if Calendar.current.isDate(date, inSameDayAs: selectedDay ?? Date()){
+                
+                arrayDateTodaySleepsDurationBegin.append(dict[date]!)
+                
             }
             
+        }
+
+        
+        
+        for i in 0..<arrayAllDatesSleepsEnd.count{
+
             if Calendar.current.isDate(arrayAllDatesSleepsEnd[i], inSameDayAs: selectedDay!) {
                 
                 var dateBegin = arrayAllDatesSleepsBegin[i]

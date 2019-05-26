@@ -67,7 +67,7 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rnc-Hl-aqD" customClass="ActionView" customModule="Babydoc" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="25"/>
-                                                <color key="backgroundColor" red="0.043137254901960784" green="0.12941176470588234" blue="0.75294117647058822" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.90378852739726023" alpha="0.23282320205479451" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="Ru5-bK-5Cs"/>
                                                 </constraints>
@@ -946,49 +946,49 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rsq-a7-wWQ" customClass="ActionViewSleep" customModule="Babydoc" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="288" height="40"/>
-                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="0.29693921229041098" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.90378852740000004" alpha="0.23282320209999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="wzr-Ze-9aC"/>
                                                 </constraints>
                                             </view>
                                             <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9LU-sW-1Eh" customClass="ActionViewSleep" customModule="Babydoc" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="50" width="288" height="40"/>
-                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.90378852740000004" alpha="0.23282320209999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="vVq-JD-GrJ"/>
                                                 </constraints>
                                             </view>
                                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hfn-oJ-4eo" customClass="ActionViewSleep" customModule="Babydoc" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="100" width="288" height="40"/>
-                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.90378852740000004" alpha="0.23282320209999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="qh9-kq-sO1"/>
                                                 </constraints>
                                             </view>
                                             <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxr-pN-dem" customClass="ActionViewSleep" customModule="Babydoc" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="150" width="288" height="40"/>
-                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.90378852740000004" alpha="0.23282320209999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="boc-No-Cxz"/>
                                                 </constraints>
                                             </view>
                                             <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ni7-s3-X8Q" customClass="ActionViewSleep" customModule="Babydoc" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="200" width="288" height="40"/>
-                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.90378852740000004" alpha="0.23282320209999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="5DF-mR-k8l"/>
                                                 </constraints>
                                             </view>
                                             <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FvY-7Y-Hul" customClass="ActionViewSleep" customModule="Babydoc" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="250" width="288" height="40"/>
-                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.90378852740000004" alpha="0.23282320209999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="xUB-9s-hVt"/>
                                                 </constraints>
                                             </view>
                                             <view tag="6" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQe-v7-8lN" customClass="ActionViewSleep" customModule="Babydoc" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="300" width="288" height="40"/>
-                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.90378852740000004" alpha="0.23282320209999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="w8d-ZD-K62"/>
                                                 </constraints>
@@ -1062,7 +1062,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="23P-7V-Ird">
-                                <rect key="frame" x="314" y="225" width="41.666666666666686" height="341"/>
+                                <rect key="frame" x="314" y="225" width="43" height="341"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today 23" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJ2-HD-ZtP">
                                         <rect key="frame" x="0.0" y="0.0" width="41.666666666666664" height="41"/>
@@ -1124,15 +1124,54 @@
                                     <constraint firstAttribute="height" constant="13" id="zlr-Fa-YNX"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1n-xT-x5S">
+                                <rect key="frame" x="18.666666666666671" y="108" width="36" height="36"/>
+                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="Hho-2q-JUn"/>
+                                    <constraint firstAttribute="width" constant="36" id="bnT-S8-KMn"/>
+                                </constraints>
+                                <color key="tintColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="icons8-back-filled-50"/>
+                                <connections>
+                                    <action selector="backButtonPressed:" destination="KSX-UW-lHK" eventType="touchUpInside" id="jmW-oO-xjp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGN-Fh-XnV">
+                                <rect key="frame" x="147" y="111" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="todayButtonPressed:" destination="KSX-UW-lHK" eventType="touchUpInside" id="mJ4-rv-ySW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iB0-9A-oNW">
+                                <rect key="frame" x="270.66666666666669" y="108" width="36" height="36"/>
+                                <color key="backgroundColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="36" id="bTK-V1-Xc2"/>
+                                    <constraint firstAttribute="height" constant="36" id="cja-yy-Ita"/>
+                                </constraints>
+                                <color key="tintColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" image="icons8-forward-filled-50"/>
+                                <connections>
+                                    <action selector="nextButton:" destination="BBk-0f-sLN" eventType="touchUpInside" id="zWW-Th-RjZ"/>
+                                    <action selector="nextButtonPressed:" destination="KSX-UW-lHK" eventType="touchUpInside" id="Lht-4l-PF5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="23P-7V-Ird" firstAttribute="leading" secondItem="vbT-kh-yaF" secondAttribute="trailing" constant="7.3333333333333712" id="0Ds-Zt-bpk"/>
+                            <constraint firstItem="iB0-9A-oNW" firstAttribute="top" secondItem="Nfh-dO-bIP" secondAttribute="top" constant="20" id="9Tx-DV-wZ6"/>
                             <constraint firstItem="NqX-pA-HZ3" firstAttribute="top" secondItem="23P-7V-Ird" secondAttribute="bottom" constant="8" id="COx-mE-g9O"/>
                             <constraint firstItem="vbT-kh-yaF" firstAttribute="centerY" secondItem="GKb-kb-pdM" secondAttribute="centerY" id="FNk-E9-y8Z"/>
+                            <constraint firstItem="iB0-9A-oNW" firstAttribute="trailing" secondItem="vbT-kh-yaF" secondAttribute="trailing" id="JoE-Ad-VuK"/>
+                            <constraint firstItem="F1n-xT-x5S" firstAttribute="top" secondItem="Nfh-dO-bIP" secondAttribute="top" constant="20" id="LRo-IB-r47"/>
                             <constraint firstItem="vbT-kh-yaF" firstAttribute="centerX" secondItem="GKb-kb-pdM" secondAttribute="centerX" constant="-25" id="NtA-hI-05J"/>
                             <constraint firstItem="NqX-pA-HZ3" firstAttribute="leading" secondItem="vbT-kh-yaF" secondAttribute="trailing" constant="29.329999999999998" id="OFY-mP-dLH"/>
+                            <constraint firstItem="vbT-kh-yaF" firstAttribute="leading" secondItem="F1n-xT-x5S" secondAttribute="leading" id="erc-3z-Kvi"/>
                             <constraint firstItem="NqX-pA-HZ3" firstAttribute="bottom" secondItem="4kz-Nj-FQo" secondAttribute="bottom" id="rI1-VH-Rkc"/>
+                            <constraint firstItem="Nfh-dO-bIP" firstAttribute="trailing" secondItem="23P-7V-Ird" secondAttribute="trailing" constant="18" id="suB-CP-mB6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Nfh-dO-bIP"/>
                     </view>
@@ -1143,8 +1182,28 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="F1n-xT-x5S" id="TsD-ah-VgE"/>
+                        <outlet property="fifth" destination="Fu2-6f-4IA" id="k8g-3C-ELG"/>
+                        <outlet property="first" destination="dJ2-HD-ZtP" id="Fat-at-LDi"/>
+                        <outlet property="forth" destination="GLl-9g-zrL" id="xz7-Ty-Hvt"/>
+                        <outlet property="med0" destination="Rsq-a7-wWQ" id="oqF-bS-0h6"/>
+                        <outlet property="med1" destination="9LU-sW-1Eh" id="FMg-z3-kus"/>
+                        <outlet property="med2" destination="Hfn-oJ-4eo" id="tRf-Y2-g3g"/>
+                        <outlet property="med3" destination="mxr-pN-dem" id="85B-Rm-gay"/>
+                        <outlet property="med4" destination="Ni7-s3-X8Q" id="U1F-Mg-7n7"/>
+                        <outlet property="med5" destination="FvY-7Y-Hul" id="mFD-ML-e4q"/>
+                        <outlet property="med6" destination="AQe-v7-8lN" id="Tng-4t-3T8"/>
+                        <outlet property="nextButton" destination="iB0-9A-oNW" id="lRM-IG-cm9"/>
+                        <outlet property="second" destination="QaE-ZV-E7j" id="0FO-eU-Pbc"/>
+                        <outlet property="seventh" destination="n9Z-l0-UIU" id="IhU-AB-fQ5"/>
+                        <outlet property="sixth" destination="4PB-KD-iLx" id="ocq-td-y1E"/>
+                        <outlet property="third" destination="eeb-WZ-x7f" id="Zj9-5Y-EFV"/>
+                        <outlet property="todayButton" destination="FGN-Fh-XnV" id="eqh-6r-C3Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3E-CQ-aC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="BBk-0f-sLN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1709.5999999999999" y="2501.231527093596"/>
         </scene>
@@ -1646,7 +1705,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P89-0Y-QKW">
-                                <rect key="frame" x="0.0" y="132" width="375" height="825"/>
+                                <rect key="frame" x="0.0" y="132" width="375" height="680"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="doseCell" rowHeight="148" id="R1g-oJ-aYD" customClass="CustomCellHistoryDose" customModule="Babydoc" customModuleProvider="target">
@@ -1667,21 +1726,21 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date: 12/02/2012 Concentration : 100 mg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VfW-c9-eVd" userLabel="Title">
-                                                    <rect key="frame" x="5" y="32" width="325" height="44"/>
+                                                    <rect key="frame" x="5" y="32" width="364" height="44"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                     <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight: 12/02/2012" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SV8-rR-8Ar" userLabel="Title">
-                                                    <rect key="frame" x="5" y="76" width="325" height="45"/>
+                                                    <rect key="frame" x="5" y="76" width="364" height="45"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                     <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dose Applied" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VgA-dk-ef1" userLabel="Title">
-                                                    <rect key="frame" x="5" y="121" width="325" height="23"/>
+                                                    <rect key="frame" x="5" y="121" width="364" height="23"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="23" id="r9C-NR-8d0"/>
@@ -3759,7 +3818,6 @@ Cg
         <!--Doctor NC-->
         <scene sceneID="Wvb-m9-Zqc">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0AL-bK-ddg" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qHg-KT-QLy" userLabel="Doctor NC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="1" title="Tracking" image="icons8-combo-chart-filled-31" id="Gxy-8p-1a6">
                         <color key="badgeColor" red="0.37254901959999998" green="0.74117647060000003" blue="0.69019607839999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3784,6 +3842,7 @@ Cg
                         <segue destination="Sd6-O7-eGW" kind="relationship" relationship="rootViewController" id="H6E-aQ-bP9"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0AL-bK-ddg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="846" y="1490"/>
         </scene>
@@ -3794,8 +3853,10 @@ Cg
         <image name="doctorfilled" width="30" height="30"/>
         <image name="fever-2" width="60" height="60"/>
         <image name="icons8-baby-bottle-filled-48 (3)" width="48" height="48"/>
+        <image name="icons8-back-filled-50" width="50" height="50"/>
         <image name="icons8-bulleted-list-filled-40" width="40" height="40"/>
         <image name="icons8-combo-chart-filled-31" width="30" height="30"/>
+        <image name="icons8-forward-filled-50" width="50" height="50"/>
         <image name="icons8-home-filled-96" width="32" height="32"/>
         <image name="icons8-nappy-filled-48 (1)" width="48" height="48"/>
         <image name="icons8-sleeping-in-bed-filled-48" width="48" height="48"/>
