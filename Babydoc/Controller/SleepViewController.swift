@@ -20,6 +20,12 @@ class SleepViewController : UIViewController{
     var babyApp : Baby?
     var selectedDay = Date()
     
+    @IBOutlet weak var avgWeekLabel: UILabel!
+    @IBOutlet weak var avgWeekField: UILabel!
+    @IBOutlet weak var avgMonthLabel: UILabel!
+    @IBOutlet weak var avgMonthField: UILabel!
+    
+    //var dict = []
     
     var arrayDatesGeneral = Array<Date>()
     var arrayDatesCustom = Array<DateCustom>()
@@ -65,19 +71,52 @@ class SleepViewController : UIViewController{
         med5.layer.masksToBounds = true
         med6.layer.cornerRadius = 4
         med6.layer.masksToBounds = true
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMMM YYYY"
+        todayButton.setTitle("Today, "+formatter.string(from: Date()), for: .normal)
+        todayButton.setTitleColor(blueColor, for: .normal)
+        todayButton.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 18)
+        todayButton.backgroundColor = UIColor.white
+        let spacing : CGFloat = 8.0
+        todayButton.contentEdgeInsets = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        
+        todayButton.layer.cornerRadius = 2
+        todayButton.layer.masksToBounds = false
+        todayButton.layer.shadowColor = UIColor.flatGray.cgColor
+        todayButton.layer.shadowOpacity = 0.7
+        todayButton.layer.shadowRadius = 1
+        todayButton.layer.shadowOffset = CGSize(width: 2, height: 2)
     }
     
     override func willMove(toParent parent: UIViewController?) {
         self.navigationController?.navigationBar.barTintColor = UIColor(hexString: "64C5CF")
     }
     
+    var _dateFormatter2: DateFormatter?
+    var dateFormatter2: DateFormatter {
+        if (_dateFormatter2 == nil) {
+            _dateFormatter2 = DateFormatter()
+            _dateFormatter2!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter2!.dateFormat = "HH:mm"
+        }
+        return _dateFormatter2!
+    }
+    
+    func dateStringFromDate2(date: Date) -> String {
+        return dateFormatter2.string(from: date)
+    }
+    func dateFromString2(dateString : String)->Date{
+        return dateFormatter2.date(from: dateString)!
+    }
+    
     @IBAction func nextButtonPressed(_ sender: UIButton) {
         
-       
+        
         
         selectedDay = Calendar.current.date(byAdding: .day, value: 7, to: selectedDay)!
         
-        DispatchQueue.main.async{
+        
             self.loadSleepsThisWeek(date: self.selectedDay)
             self.med0.setNeedsDisplay()
             self.med0.reloadInputViews()
@@ -93,7 +132,7 @@ class SleepViewController : UIViewController{
             self.med5.reloadInputViews()
             self.med6.setNeedsDisplay()
             self.med6.reloadInputViews()
-        }
+        
         if selectedDay.day < Date().day{
             sender.isEnabled = true
         }
@@ -108,23 +147,21 @@ class SleepViewController : UIViewController{
     @IBAction func backButtonPressed(_ sender: UIButton) {
         
         selectedDay = Calendar.current.date(byAdding: .day, value: -7, to: selectedDay)!
-        DispatchQueue.main.async{
-            self.loadSleepsThisWeek(date: self.selectedDay)
-            self.med0.setNeedsDisplay()
-            self.med0.reloadInputViews()
-            self.med1.setNeedsDisplay()
-            self.med1.reloadInputViews()
-            self.med2.setNeedsDisplay()
-            self.med2.reloadInputViews()
-            self.med3.setNeedsDisplay()
-            self.med3.reloadInputViews()
-            self.med4.setNeedsDisplay()
-            self.med4.reloadInputViews()
-            self.med5.setNeedsDisplay()
-            self.med5.reloadInputViews()
-            self.med6.setNeedsDisplay()
-            self.med6.reloadInputViews()
-        }
+        self.loadSleepsThisWeek(date: self.selectedDay)
+        self.med0.setNeedsDisplay()
+        self.med0.reloadInputViews()
+        self.med1.setNeedsDisplay()
+        self.med1.reloadInputViews()
+        self.med2.setNeedsDisplay()
+        self.med2.reloadInputViews()
+        self.med3.setNeedsDisplay()
+        self.med3.reloadInputViews()
+        self.med4.setNeedsDisplay()
+        self.med4.reloadInputViews()
+        self.med5.setNeedsDisplay()
+        self.med5.reloadInputViews()
+        self.med6.setNeedsDisplay()
+        self.med6.reloadInputViews()
         
         if selectedDay.day < Date().day{
             nextButton.isEnabled = true
@@ -134,20 +171,37 @@ class SleepViewController : UIViewController{
             
             nextButton.isEnabled = false
         }
-       
+        
     }
     
     @IBAction func todayButtonPressed(_ sender: UIButton) {
+        selectedDay = Date()
+        loadSleepsThisWeek(date: selectedDay)
+        med0.setNeedsDisplay()
+        med0.reloadInputViews()
+        med1.setNeedsDisplay()
+        med1.reloadInputViews()
+        med2.setNeedsDisplay()
+        med2.reloadInputViews()
+        med3.setNeedsDisplay()
+        med3.reloadInputViews()
+        med4.setNeedsDisplay()
+        med4.reloadInputViews()
+        med5.setNeedsDisplay()
+        med5.reloadInputViews()
+        med6.setNeedsDisplay()
+        med6.reloadInputViews()
+        nextButton.isEnabled = false
     }
     override func viewWillAppear(_ animated: Bool) {
         
         self.navigationController?.navigationBar.barTintColor = blueColor
         self.navigationController?.navigationBar.backgroundColor = blueColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        loadAllSleeps()
+        
+       
         loadBabies()
-        loadSleepsThisWeek(date: selectedDay)
- 
+        
         med0.setNeedsDisplay()
         med0.reloadInputViews()
         med1.setNeedsDisplay()
@@ -166,7 +220,7 @@ class SleepViewController : UIViewController{
             
             nextButton.isEnabled = false
         }
-       
+        
         
         
     }
@@ -178,24 +232,56 @@ class SleepViewController : UIViewController{
             for baby in registeredBabies!{
                 babyApp = baby
             }
+            
         }
+        if !(babyApp?.name.isEmpty)!{
+            loadSleepsThisWeek(date: selectedDay)
+            
+            
+            //calcAvgMonth()
+            
+        }
+        
+    }
+    
+    func setInfoData(avg : Float, label : UILabel, labelField : UILabel, string : String){
+        
+        let integer = floor(avg)
+        let decimal = avg.truncatingRemainder(dividingBy: 1)
+        if integer != 0 && Int(decimal) != 0{
+            label.text = "\(Int(integer)) h \(Int(decimal*60)) min"
+            labelField.text = "/day of \(string)"
+
+        }
+        else if integer != 0 && Int(decimal) == 0{
+            label.text = "\(Int(integer)) h"
+            labelField.text = "/day of \(string)"
+            
+        }
+        else if integer == 0 && Int(decimal) != 0{
+            label.text = "\(Int(decimal*60)) min"
+            labelField.text = "/day of \(string)"
+            
+        }
+        else if integer == 0 && Int(decimal) == 0{
+            label.text = ""
+            labelField.text = ""
+        }
+        
+        
+        
     }
     func loadSleepsThisWeek(date : Date){
         
         arrayDatesGeneral = Array<Date>()
-        arrayDatesCustom = Array<DateCustom>()
         
         for i in 0..<7{
             
-            var date = Calendar.current.date(byAdding: .day, value: -i, to: date)!
+            let date = Calendar.current.date(byAdding: .day, value: -i, to: date)!
             arrayDatesGeneral.append(date)
-            var dateCustom = DateCustom()
-            dateCustom.day = date.day
-            dateCustom.month = date.month
-            dateCustom.year = date.year
-            arrayDatesCustom.append(dateCustom)
             
         }
+        
         med0.loadSleepRecords(baby: babyApp!, day: arrayDatesGeneral[0])
         med1.loadSleepRecords(baby: babyApp!, day: arrayDatesGeneral[1])
         med2.loadSleepRecords(baby: babyApp!, day: arrayDatesGeneral[2])
@@ -211,11 +297,11 @@ class SleepViewController : UIViewController{
         
         if Calendar.current.isDate(selectedDay, inSameDayAs: Date()){
             
-           first.text = "Today" + formatterFirst.string(from: arrayDatesGeneral[0])
+            first.text = "Today" + formatterFirst.string(from: arrayDatesGeneral[0])
         }
         else{
             
-           first.text = formatter.string(from: arrayDatesGeneral[0])
+            first.text = formatter.string(from: arrayDatesGeneral[0])
         }
         
         second.text = formatter.string(from: arrayDatesGeneral[1])
@@ -225,34 +311,192 @@ class SleepViewController : UIViewController{
         sixth.text = formatter.string(from: arrayDatesGeneral[5])
         seventh.text = formatter.string(from: arrayDatesGeneral[6])
         
-        
+        let avg = calcAvgWeek(nightOrNap: true)
+        setInfoData(avg: avg, label: avgWeekLabel, labelField: avgWeekField, string: "sleep-time")
+        let avg1 = calcAvgWeek( nightOrNap: false)
+        setInfoData(avg: avg1, label : avgMonthLabel, labelField: avgMonthField, string: "nap-time")
         
     }
 
     
-    
-    func loadAllSleeps(){
+    func calcAvgWeek(nightOrNap : Bool)->Float{
         
-        babyApp = Baby()
-        registeredBabies = realm.objects(Baby.self).filter("current == %@", true)
-        if registeredBabies?.count != 0{
-            for baby in registeredBabies!{
-                babyApp = baby
-            }
+        var arrayAvgWeek = Array<Float>()
+        var durationFloat1 = Float(0.0)
+        var counterDur = 0
+        
+        
+        for date in arrayDatesGeneral{
+            
+            counterDur = 0
+            durationFloat1 = Float(0.0)
+            for sleep in babyApp!.sleeps{
+                
+                if Calendar.current.isDate(sleep.generalDateBegin, inSameDayAs: date) && sleep.generalDateBegin.day == sleep.generalDateEnd.day && sleep.nightSleep == nightOrNap{
 
+                    durationFloat1 = durationFloat1 + sleep.timeSleepFloat
+                    counterDur += 1
+                    
+          
+                }
+                else if Calendar.current.isDate(sleep.generalDateBegin, inSameDayAs: date) && sleep.generalDateBegin.day < sleep.generalDateEnd.day && sleep.nightSleep == nightOrNap{
+                    
+                    let minutes = round((Float(sleep.generalDateBegin.minute)*100.0))/(60.0*100.0)
+                    let duration = Float(sleep.generalDateBegin.hour) + minutes
+                    
+                    durationFloat1 = durationFloat1 + 24.0 - duration
+                    counterDur += 1
+                }
+                else if Calendar.current.isDate(sleep.generalDateEnd, inSameDayAs: date) && sleep.nightSleep == nightOrNap{
+                    
+                   
+                    let minutes = round((Float(sleep.generalDateEnd.minute)*100.0))/(60.0*100.0)
+                    let duration = Float(sleep.generalDateEnd.hour) + minutes
+                    durationFloat1 = durationFloat1 + duration
+                    counterDur += 1
+                }
+                
+            }
+            if counterDur != 0{
+                arrayAvgWeek.append(durationFloat1/(Float(counterDur)))
+            }
+            
+            
+            
         }
         
-    }
+        var sum = Float(0.0)
+        var avg = Float(0.0)
+        for value in arrayAvgWeek{
+            
+            sum = sum + value
+ 
+        }
 
+        avg = sum/Float(arrayDatesGeneral.count)
+        
+        
+        
+        
+
+        
+        return avg
+       
+        }
     
-}
+    
+    func calcAvgMonth(){
+        
+        var arrayAvgDay = Array<Float>()
+        var min = babyApp!.sleeps[0]
+        
+        for sleep in babyApp!.sleeps{
+            
+            if sleep.dateBegin!.day < min.dateBegin!.day{
+                min = sleep
+            }
+        }
+        let initDate = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
+        let arrayAllDates = Date.dates(from: initDate , to: Date())
+        
+        var durationFloat = Float(0.0)
+        var counterDur2 = 0
+        
+        for date in arrayAllDates{
+            
+            counterDur2 = 0
+            durationFloat = Float(0.0)
+            
+            for sleep in babyApp!.sleeps{
+                
+                
+                if sleep.dateBegin?.day == date.day && sleep.dateBegin?.month == date.month && sleep.dateBegin?.day == sleep.dateEnd?.day{
+                    durationFloat = durationFloat + sleep.timeSleepFloat
+                    counterDur2 += 1
+                    
+                    
+                }
+                else if sleep.dateBegin?.day == date.day && sleep.dateBegin?.month == date.month && sleep.dateBegin!.day < sleep.dateEnd!.day{
+                    
+                    let minutes = round((Float(sleep.generalDateBegin.minute)*100.0))/(60.0*100.0)
+                    let duration = Float(sleep.generalDateBegin.hour) + minutes
+                    
+                    durationFloat = durationFloat + 24.0 - duration
+                    counterDur2 += 1
+                }
+                else if date.day == sleep.dateEnd?.day && sleep.dateEnd?.month == date.month{
+                    
+                    
+                    let minutes = round((Float(sleep.generalDateEnd.minute)*100.0))/(60.0*100.0)
+                    let duration = Float(sleep.generalDateEnd.hour) + minutes
+                    durationFloat = durationFloat + duration
+                    counterDur2 += 1
+                }
+                
+            }
+            if counterDur2 != 0{
+                arrayAvgDay.append(durationFloat/Float(counterDur2))
+            }
+            
+            
+        }
+        
+        
+        
+        var sum1 = Float(0.0)
+        var avg1 = Float(0.0)
+        for value in arrayAvgDay{
+            
+            sum1 = sum1 + value
+            
+        }
+       
+       
+        
+        avg1 = sum1/Float(arrayAllDates.count)
+       
+        let integer1 = floor(avg1)
+        let decimal1 = avg1.truncatingRemainder(dividingBy: 1)
+        
+        if integer1 != 0 && decimal1 != 0{
+            avgMonthLabel.text = "\(Int(integer1)) h \(Int(decimal1*60)) min"
+            avgMonthField.text = "/day this month"
+        }
+        else if integer1 != 0 && decimal1 == 0{
+            avgMonthLabel.text = "\(Int(integer1)) h"
+            avgMonthField.text = "/day this month"
+        }
+        else if integer1 == 0 && decimal1 != 0{
+            avgMonthLabel.text = "\(Int(decimal1*60)) min"
+            avgMonthField.text = "/day this month"
+        }
+        else if integer1 == 0 && decimal1 == 0{
+            avgMonthLabel.text = ""
+            avgMonthField.text = ""
+        }
+        
+        
+        
+        
+    }
+    
+    
+    
+
+        
+        
+    }
+    
+    
+    
+
 class ActionViewSleep: UIView
     
 {
     
-    
+    let napColor = UIColor.init(hexString: "66ACF8")
     var sleepcolor :UIColor = UIColor.init(hexString: "2772db")!
-
+    
     var arrayAllDates = Array<Date>()
     var arrayDateToday = Array<Date>()
     var arrayAllDatesSleepsBegin = Array<Date>()
@@ -260,15 +504,15 @@ class ActionViewSleep: UIView
     var arrayDateTodaySleepsBegin = Array<Date>()
     var arrayDateTodaySleepsEnd = Array<Date>()
     var arrayDateTodaySleepsDurationBegin = Array<Float>()
+    var arrayColors = Array<Bool>()
     var selectedDay : Date?{
         didSet{
             
         }
     }
-    var realm = try! Realm()
     var sleeps : Results<Sleep>?
     var dict = [Date : Float]()
-
+    var dictColors = [Date : Bool]()
     
     
     func fillColor(start : CGFloat,with color:UIColor,width:CGFloat)
@@ -282,7 +526,7 @@ class ActionViewSleep: UIView
         super.awakeFromNib()
         
     }
-  
+    
     
     
     
@@ -294,11 +538,10 @@ class ActionViewSleep: UIView
     {
         let width = self.bounds.width
         let day : CGFloat = 24
-        //SLEEP
         
         switch tag {
         case 0:
-
+            
             for i in 0..<arrayDateTodaySleepsBegin.count{
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
@@ -306,8 +549,19 @@ class ActionViewSleep: UIView
                 
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
                 
+                if arrayColors[i]{
+                    
+             
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                   
+                }
+                else{
+                 
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    
+                }
                 
-                self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                
                 
                 
             }
@@ -320,10 +574,10 @@ class ActionViewSleep: UIView
                 
                 
             }
-
+            
             
         case 1:
-
+            
             for i in 0..<arrayDateTodaySleepsBegin.count{
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
@@ -332,7 +586,15 @@ class ActionViewSleep: UIView
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
                 
                 
-                self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                if arrayColors[i]{
+                    
+                    
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                }
+                else{
+                  
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                }
                 
                 
             }
@@ -345,9 +607,9 @@ class ActionViewSleep: UIView
                 
                 
             }
-
+            
         case 2:
-
+            
             for i in 0..<arrayDateTodaySleepsBegin.count{
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
@@ -355,8 +617,16 @@ class ActionViewSleep: UIView
                 
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
                 
-                
-                self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                if arrayColors[i]{
+                    
+                   
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                }
+                else{
+                    
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                }
+
                 
                 
             }
@@ -369,9 +639,9 @@ class ActionViewSleep: UIView
                 
                 
             }
-
+            
         case 3:
-
+            
             for i in 0..<arrayDateTodaySleepsBegin.count{
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
@@ -379,8 +649,16 @@ class ActionViewSleep: UIView
                 
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
                 
-                
-                self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                if arrayColors[i]{
+                    
+                 
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                }
+                else{
+                   
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                }
+             
                 
                 
             }
@@ -393,9 +671,9 @@ class ActionViewSleep: UIView
                 
                 
             }
-
+            
         case 4:
-
+            
             for i in 0..<arrayDateTodaySleepsBegin.count{
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
@@ -403,8 +681,16 @@ class ActionViewSleep: UIView
                 
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
                 
+                if arrayColors[i]{
+                    
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                }
+                else{
+                   
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                }
                 
-                self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+               
                 
                 
             }
@@ -417,10 +703,10 @@ class ActionViewSleep: UIView
                 
                 
             }
-
+            
         case 5:
-         
-
+            
+            
             for i in 0..<arrayDateTodaySleepsBegin.count{
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
@@ -428,8 +714,16 @@ class ActionViewSleep: UIView
                 
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
                 
+                if arrayColors[i]{
+                    
                 
-                self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                }
+                else{
+                    
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                }
+                
                 
                 
             }
@@ -442,9 +736,9 @@ class ActionViewSleep: UIView
                 
                 
             }
-
+            
         case 6:
-
+            
             for i in 0..<arrayDateTodaySleepsBegin.count{
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
@@ -452,8 +746,17 @@ class ActionViewSleep: UIView
                 
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
                 
+                if arrayColors[i]{
+                    
+           
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                }
+                else{
+                    
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                }
                 
-                self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+              
                 
                 
             }
@@ -487,8 +790,8 @@ class ActionViewSleep: UIView
     func dateFromString2(dateString : String)->Date{
         return dateFormatter2.date(from: dateString)!
     }
-
-
+    
+    
     
     func loadSleepRecords(baby : Baby, day : Date){
         
@@ -498,23 +801,26 @@ class ActionViewSleep: UIView
         arrayAllDatesSleepsEnd = []
         arrayDateTodaySleepsDurationBegin = []
         dict = [:]
+        dictColors = [:]
+        arrayColors = []
         
         for sleep in sleeps!{
             
             
             arrayAllDatesSleepsBegin.append(sleep.generalDateBegin)
             arrayAllDatesSleepsEnd.append(sleep.generalDateEnd)
-            var dateFromStringSleep = dateFormatter2.date(from: sleep.timeSleep)
-            let width = round((Float(dateFromStringSleep!.minute)*10.0))/(60.0*10.0)
-            dict[sleep.generalDateBegin] = Float(dateFromStringSleep!.hour) + width
+            dict[sleep.generalDateBegin] = sleep.timeSleepFloat
+            dictColors[sleep.generalDateBegin] = sleep.nightSleep
         }
         
         arrayDateTodaySleepsEnd = []
         arrayDateTodaySleepsBegin = []
         
         
+       
+        
         for date in arrayAllDatesSleepsBegin{
-
+            
             if Calendar.current.isDate(date, inSameDayAs: day){
                 
                 arrayDateTodaySleepsBegin.append(date)
@@ -524,16 +830,24 @@ class ActionViewSleep: UIView
         for date in dict.keys{
             
             
-            if Calendar.current.isDate(date, inSameDayAs: selectedDay ?? Date()){
+            if Calendar.current.isDate(date, inSameDayAs: day){
                 
                 arrayDateTodaySleepsDurationBegin.append(dict[date]!)
                 
             }
             
         }
+        for date in dictColors.keys{
+            if Calendar.current.isDate(date, inSameDayAs: day){
+                
+                arrayColors.append(dictColors[date]!)
+                
+            }
+        }
 
+        
         for i in 0..<arrayAllDatesSleepsEnd.count{
-
+            
             if Calendar.current.isDate(arrayAllDatesSleepsEnd[i], inSameDayAs: day) {
                 
                 var dateBegin = arrayAllDatesSleepsBegin[i]
@@ -545,7 +859,20 @@ class ActionViewSleep: UIView
             
         }
     }
-
     
-
+    
+    
+}
+extension Date {
+    static func dates(from fromDate: Date, to toDate: Date) -> [Date] {
+        var dates: [Date] = []
+        var date = fromDate
+        
+        while date <= toDate  {
+            dates.append(date)
+            guard let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
+            date = newDate
+        }
+        return dates
+    }
 }

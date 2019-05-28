@@ -77,7 +77,7 @@ class VaccineViewController : UIViewController{
             self.tableView.reloadData()
             if self.registeredBabies!.count > 0 && !self.babyApp.name.isEmpty && self.babyApp.dateOfBirth.isEmpty{
                 
-                let controller = UIAlertController(title: "Warning", message: "The recommended dates for the vaccines' administration could not be calculated, please enter the date of birth of \(self.babyApp.name)", preferredStyle: .alert)
+                let controller = UIAlertController(title: nil, message: "The recommended dates for the vaccines' administration could not be calculated, please enter the date of birth of \(self.babyApp.name)", preferredStyle: .alert)
                 
                 let action = UIAlertAction(title: "Remind me later", style: .default) { (alertAction) in
                     alertAction.isEnabled = false
@@ -93,9 +93,9 @@ class VaccineViewController : UIViewController{
                 controller.show(animated: true, vibrate: false, style: .light, completion: nil)
                 
             }
-            else if self.babyApp.name.isEmpty{
+            else if self.babyApp.name.isEmpty && self.registeredBabies!.count > 0{
                 
-                let controller = UIAlertController(title: "Warning", message: "There are no active babys in Babydoc", preferredStyle: .alert)
+                let controller = UIAlertController(title: nil, message: "There are no active babys in Babydoc", preferredStyle: .alert)
                 
                 let action = UIAlertAction(title: "Ok", style: .default)
                
@@ -106,6 +106,20 @@ class VaccineViewController : UIViewController{
             
             
         }
+            else if self.babyApp.name.isEmpty && self.registeredBabies!.count == 0{
+                
+                let controller = UIAlertController(title: nil, message: "There are no registered babys in Babydoc", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Ok", style: .default)
+                
+                controller.setTitle(font: self.font!, color: self.grayColor!)
+                controller.setMessage(font: self.fontLight!, color: self.grayLightColor!)
+                controller.addAction(action)
+                controller.show(animated: true, vibrate: false, style: .light, completion: nil)
+                
+                
+            }
+            
         }
     }
     

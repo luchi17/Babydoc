@@ -124,7 +124,20 @@ class FeverViewController : UIViewController{
             
             if self.babyApp.name.isEmpty && self.registeredBabies!.count > 0{
                 
-                let controller = UIAlertController(title: "Warning", message: "There are no active babys in Babydoc", preferredStyle: .alert)
+                let controller = UIAlertController(title: nil, message: "There are no active babys in Babydoc", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Ok", style: .default)
+                
+                controller.setTitle(font: self.font!, color: self.grayColor!)
+                controller.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                controller.addAction(action)
+                controller.show(animated: true, vibrate: false, style: .light, completion: nil)
+                
+                
+            }
+            else if self.babyApp.name.isEmpty && self.registeredBabies!.count == 0{
+                
+                let controller = UIAlertController(title: nil, message: "There are no registered babys in Babydoc", preferredStyle: .alert)
                 
                 let action = UIAlertAction(title: "Ok", style: .default)
                 

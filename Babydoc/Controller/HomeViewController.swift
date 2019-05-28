@@ -218,7 +218,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
             changeName(name: "Home")
         }
         else{
-            print("hola")
+           
             changeName(name: getCurrentBabyApp().name)
             medication.selectedDay = datePicker.selectedDate ?? Date()
             sleep.selectedDay = datePicker.selectedDate ?? Date()
