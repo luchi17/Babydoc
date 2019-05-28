@@ -513,6 +513,9 @@ class ActionView: UIView
         }
     }
     var dict = [Date : Float]()
+    var dictColors = [Date: Bool]()
+    var arrayColors = [Bool]()
+    let napColor = UIColor.init(hexString: "66ACF8")
   
     
     func fillColor(start : CGFloat,with color:UIColor,width:CGFloat)
@@ -547,8 +550,17 @@ class ActionView: UIView
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
 
                 let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
-
-                self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                if arrayColors[i]{
+                    
+                    
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                    
+                }
+                else{
+                    
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    
+                }
                
               
             }
@@ -617,6 +629,9 @@ class ActionView: UIView
         arrayAllDatesSleepsEnd = []
         arrayDateTodaySleepsDurationBegin = []
         dict = [:]
+        dictColors = [:]
+        arrayColors = []
+        
        
         
         for sleep in sleeps!{
@@ -624,10 +639,8 @@ class ActionView: UIView
            
             arrayAllDatesSleepsBegin.append(sleep.generalDateBegin)
             arrayAllDatesSleepsEnd.append(sleep.generalDateEnd)
-            var dateFromStringSleep = dateFormatter2.date(from: sleep.timeSleep)
-            let width = round((Float(dateFromStringSleep!.minute)*10.0))/(60.0*10.0)
-            dict[sleep.generalDateBegin] = Float(dateFromStringSleep!.hour) + width
-
+            dict[sleep.generalDateBegin] = sleep.timeSleepFloat
+            dictColors[sleep.generalDateBegin] = sleep.nightSleep
         }
         
         
@@ -652,6 +665,13 @@ class ActionView: UIView
                 
             }
             
+        }
+        for date in dictColors.keys{
+            if Calendar.current.isDate(date, inSameDayAs: selectedDay ?? Date()){
+                
+                arrayColors.append(dictColors[date]!)
+                
+            }
         }
 
         

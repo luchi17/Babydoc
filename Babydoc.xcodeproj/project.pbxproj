@@ -12,6 +12,7 @@
 		093B7D1022776AE000DB4344 /* Baby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D0E22776AE000DB4344 /* Baby.swift */; };
 		093B7D122277720400DB4344 /* BabyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D112277720400DB4344 /* BabyInfoViewController.swift */; };
 		093B7D142277763500DB4344 /* BabiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D132277763500DB4344 /* BabiesViewController.swift */; };
+		0944683B229D1EB700429743 /* ActionViewSleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0944683A229D1EB700429743 /* ActionViewSleep.swift */; };
 		0947AA24228DA78E00FB9303 /* CalculatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA23228DA78E00FB9303 /* CalculatorCell.swift */; };
 		0947AA2822903A7D00FB9303 /* MedicationDoseCalculated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA2722903A7D00FB9303 /* MedicationDoseCalculated.swift */; };
 		0947AA2A2290466D00FB9303 /* HistoryDosesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */; };
@@ -71,6 +72,7 @@
 		093B7D0F22776AE000DB4344 /* Base */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Base; path = Babydoc/View/Base.lproj/Baby.swift; sourceTree = SOURCE_ROOT; };
 		093B7D112277720400DB4344 /* BabyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyInfoViewController.swift; sourceTree = "<group>"; };
 		093B7D132277763500DB4344 /* BabiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabiesViewController.swift; sourceTree = "<group>"; };
+		0944683A229D1EB700429743 /* ActionViewSleep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewSleep.swift; sourceTree = "<group>"; };
 		0947AA23228DA78E00FB9303 /* CalculatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCell.swift; sourceTree = "<group>"; };
 		0947AA2722903A7D00FB9303 /* MedicationDoseCalculated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDoseCalculated.swift; sourceTree = "<group>"; };
 		0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDosesViewController.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				09B1EEA422575194006DF813 /* LaunchScreen.storyboard */,
 				09D35083225E1EE70052BF88 /* Main.storyboard */,
 				094D8E5F2296DB1C00301698 /* CustomCellFever.swift */,
+				0944683A229D1EB700429743 /* ActionViewSleep.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				09F972FD22841EA8008FE28C /* Vaccine.swift in Sources */,
 				09E27C492265E07F0022EE1B /* CustomCellHome.swift in Sources */,
 				09A11BD422946D2000457A94 /* SaveFeverViewController.swift in Sources */,
+				0944683B229D1EB700429743 /* ActionViewSleep.swift in Sources */,
 				094D8E6522972D6F00301698 /* DateCustom.swift in Sources */,
 				093B7D1022776AE000DB4344 /* Baby.swift in Sources */,
 			);
