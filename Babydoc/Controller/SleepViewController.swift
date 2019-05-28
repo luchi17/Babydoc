@@ -56,6 +56,8 @@ class SleepViewController : UIViewController, ChartViewDelegate{
     var nightSleep = Array<Double>()
     var napSleep = Array<Double>()
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -273,8 +275,6 @@ class SleepViewController : UIViewController, ChartViewDelegate{
             nextButton.isEnabled = false
         }
         
-        appearancebarChart()
-        barChart.setNeedsDisplay()
         
     }
     func loadBabies(){
@@ -287,9 +287,10 @@ class SleepViewController : UIViewController, ChartViewDelegate{
             }
             
         }
-        if !(babyApp?.name.isEmpty)!{
+        if !(babyApp?.name.isEmpty)! && babyApp?.sleeps.count != 0{
             loadSleepsThisWeek(date: selectedDay)
-            
+            appearancebarChart()
+            barChart.setNeedsDisplay()
             
             
             
@@ -368,6 +369,13 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         setInfoData(avg: avg, label: avgWeekLabel, labelField: avgWeekField, string: "sleep-time")
         let avg1 = calcAvgWeek( nightOrNap: false)
         setInfoData(avg: avg1, label : avgMonthLabel, labelField: avgMonthField, string: "nap-time")
+        
+    }
+    @IBAction func segmentedValueChanged(_ sender: UISegmentedControl) {
+        
+        if sender.selectedSegmentIndex != 0{
+            performSegue(withIdentifier: "goToCharts", sender: self)
+        }
         
     }
     
@@ -470,6 +478,13 @@ class SleepViewController : UIViewController, ChartViewDelegate{
     
         
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVc = segue.destination as? ChartsViewController{
+            destinationVc.nightSleep = nightSleep
+            destinationVc.napSleep = napSleep
+        }
     }
     
     

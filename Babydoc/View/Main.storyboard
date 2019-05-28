@@ -1193,7 +1193,10 @@
                                                 </segments>
                                                 <color key="tintColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <segue destination="3FN-OG-zW8" kind="show" identifier="gotoCharts" id="fGW-8c-Mme"/>
+                                                    <action selector="segmentedValueChanged:" destination="KSX-UW-lHK" eventType="valueChanged" id="dQa-zz-Ff2"/>
+                                                    <segue destination="3FN-OG-zW8" kind="popoverPresentation" identifier="goToCharts" popoverAnchorView="gVJ-zB-icD" id="dnC-rz-Lnb">
+                                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    </segue>
                                                 </connections>
                                             </segmentedControl>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1n-xT-x5S">
@@ -1311,6 +1314,7 @@
                         <outlet property="med6" destination="AQe-v7-8lN" id="Tng-4t-3T8"/>
                         <outlet property="nextButton" destination="iB0-9A-oNW" id="lRM-IG-cm9"/>
                         <outlet property="second" destination="QaE-ZV-E7j" id="0FO-eU-Pbc"/>
+                        <outlet property="segmentedControl" destination="gVJ-zB-icD" id="Zh1-Bg-w5H"/>
                         <outlet property="seventh" destination="n9Z-l0-UIU" id="IhU-AB-fQ5"/>
                         <outlet property="sixth" destination="4PB-KD-iLx" id="ocq-td-y1E"/>
                         <outlet property="third" destination="eeb-WZ-x7f" id="Zj9-5Y-EFV"/>
@@ -1325,14 +1329,32 @@
         <!--Charts-->
         <scene sceneID="XIO-t0-bEp">
             <objects>
-                <viewController id="3FN-OG-zW8" sceneMemberID="viewController">
+                <viewController id="3FN-OG-zW8" customClass="ChartsViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7ks-Ww-tFa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJA-2n-nlc" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="266" width="375" height="280"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="280" id="KVj-SF-Ofl"/>
+                                    <constraint firstAttribute="width" constant="375" id="Q2D-Ut-XzN"/>
+                                    <constraint firstAttribute="height" constant="280" id="YHl-Rc-9wW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DJA-2n-nlc" firstAttribute="centerY" secondItem="7ks-Ww-tFa" secondAttribute="centerY" id="A5L-EV-0z7"/>
+                            <constraint firstItem="DJA-2n-nlc" firstAttribute="centerX" secondItem="7ks-Ww-tFa" secondAttribute="centerX" id="uxq-vg-v2F"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="IwM-8K-CCH"/>
                     </view>
                     <navigationItem key="navigationItem" title="Charts" id="rSy-az-t1J"/>
+                    <connections>
+                        <outlet property="barChart" destination="DJA-2n-nlc" id="7ZI-dg-K0D"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUj-U7-rGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
