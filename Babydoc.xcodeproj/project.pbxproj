@@ -14,6 +14,7 @@
 		093B7D142277763500DB4344 /* BabiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093B7D132277763500DB4344 /* BabiesViewController.swift */; };
 		0944683B229D1EB700429743 /* ActionViewSleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0944683A229D1EB700429743 /* ActionViewSleep.swift */; };
 		0944683D229D829F00429743 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0944683C229D829F00429743 /* ChartsViewController.swift */; };
+		0944683F229D937600429743 /* SegmentedSleepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0944683E229D937600429743 /* SegmentedSleepViewController.swift */; };
 		0947AA24228DA78E00FB9303 /* CalculatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA23228DA78E00FB9303 /* CalculatorCell.swift */; };
 		0947AA2822903A7D00FB9303 /* MedicationDoseCalculated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA2722903A7D00FB9303 /* MedicationDoseCalculated.swift */; };
 		0947AA2A2290466D00FB9303 /* HistoryDosesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */; };
@@ -75,6 +76,7 @@
 		093B7D132277763500DB4344 /* BabiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabiesViewController.swift; sourceTree = "<group>"; };
 		0944683A229D1EB700429743 /* ActionViewSleep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewSleep.swift; sourceTree = "<group>"; };
 		0944683C229D829F00429743 /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
+		0944683E229D937600429743 /* SegmentedSleepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedSleepViewController.swift; sourceTree = "<group>"; };
 		0947AA23228DA78E00FB9303 /* CalculatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCell.swift; sourceTree = "<group>"; };
 		0947AA2722903A7D00FB9303 /* MedicationDoseCalculated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDoseCalculated.swift; sourceTree = "<group>"; };
 		0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDosesViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				09A11BCF2294640C00457A94 /* FeverViewController.swift */,
 				09A11BD322946D2000457A94 /* SaveFeverViewController.swift */,
 				094D8E612297159200301698 /* TrackingViewController.swift */,
+				0944683E229D937600429743 /* SegmentedSleepViewController.swift */,
 				094D8E5B2295B68B00301698 /* SleepViewController.swift */,
 				094D8E682297330200301698 /* SaveSleepViewController.swift */,
 				0944683C229D829F00429743 /* ChartsViewController.swift */,
@@ -395,6 +398,7 @@
 				094D8E692297330200301698 /* SaveSleepViewController.swift in Sources */,
 				0947AA2A2290466D00FB9303 /* HistoryDosesViewController.swift in Sources */,
 				09A11BD22294645500457A94 /* Fever.swift in Sources */,
+				0944683F229D937600429743 /* SegmentedSleepViewController.swift in Sources */,
 				09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */,
 				09B7D4FA228C7BD500137544 /* MedicationType.swift in Sources */,
 				094D8E622297159200301698 /* TrackingViewController.swift in Sources */,

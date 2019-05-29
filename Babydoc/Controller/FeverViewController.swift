@@ -241,7 +241,7 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
         else{
             cell.temperature.text = "Temperature: \(listOfFever?[indexPath.row].temperature ?? Float(0.0)) ºC"
             cell.time.text = "Time: \(formatter2.string(from:(listOfFever?[indexPath.row].generalDate)!))"
-            cell.place.text = "Place of measurement: " + (listOfFever?[indexPath.row].placeOfMeasurement)! ?? ""
+            cell.place.text = "Place of measurement: " + (listOfFever?[indexPath.row].placeOfMeasurement)!
         }
 
 

@@ -16,7 +16,7 @@ class SleepViewController : UIViewController, ChartViewDelegate{
     
     let darkBlueColor = UIColor.init(hexString: "2772DB")
     let blueColor = UIColor.init(hexString: "66ACF8")
-    
+    let lightBlueColor = UIColor.init(hexString: "82BAF8")
     var realm = try! Realm()
     var registeredBabies : Results<Baby>?
     var babyApp : Baby?
@@ -26,7 +26,7 @@ class SleepViewController : UIViewController, ChartViewDelegate{
     @IBOutlet weak var avgWeekField: UILabel!
     @IBOutlet weak var avgMonthLabel: UILabel!
     @IBOutlet weak var avgMonthField: UILabel!
-    @IBOutlet weak var barChart: BarChartView!
+
     
     var arrayDatesGeneral = Array<Date>()
     var arrayDatesCustom = Array<DateCustom>()
@@ -50,19 +50,14 @@ class SleepViewController : UIViewController, ChartViewDelegate{
     @IBOutlet weak var fifth: UILabel!
     @IBOutlet weak var sixth: UILabel!
     @IBOutlet weak var seventh: UILabel!
+    @IBOutlet weak var weekLabel: UILabel!
     
-    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    var leftaxis = [String]()
-    var nightSleep = Array<Double>()
-    var napSleep = Array<Double>()
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        barChart.delegate = self
-        barChart.noDataText = "You need to provide data for the chart."
+
         appearanceView()
     }
     
@@ -89,11 +84,12 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         med6.layer.cornerRadius = 4
         med6.layer.masksToBounds = true
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMMM YYYY"
-        todayButton.setTitle("Today, "+formatter.string(from: Date()), for: .normal)
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "dd MMMM YYYY"
+        todayButton.setTitle("Go to current week", for: .normal)
+        //todayButton.setTitle("Today, "+formatter.string(from: Date()), for: .normal)
         todayButton.setTitleColor(blueColor, for: .normal)
-        todayButton.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 18)
+        todayButton.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 16)
         todayButton.backgroundColor = UIColor.white
         let spacing : CGFloat = 8.0
         todayButton.contentEdgeInsets = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
@@ -104,48 +100,11 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         todayButton.layer.shadowOpacity = 0.7
         todayButton.layer.shadowRadius = 1
         todayButton.layer.shadowOffset = CGSize(width: 2, height: 2)
+       
     }
     
     
-    func appearancebarChart(){
-        
-        barChart.chartDescription?.enabled = false
-        
-        barChart.pinchZoomEnabled = false
-        
-        //legend
-        let legend = barChart.legend
-        legend.enabled = true
-        legend.horizontalAlignment = .right
-        legend.verticalAlignment = .top
-        legend.orientation = .vertical
-        legend.drawInside = true
-        legend.yOffset = 10.0;
-        legend.xOffset = 10.0;
-        legend.yEntrySpace = 0.0;
-        
-        let xAxis = barChart.xAxis
-        xAxis.labelFont = UIFont(name: "Avenir-Medium", size: 13)!
-        xAxis.labelTextColor = UIColor(hexString: "7F8484")!
-        xAxis.granularity = 1
-        xAxis.centerAxisLabelsEnabled = true
-        xAxis.valueFormatter = IndexAxisValueFormatter(values:self.months)
-        xAxis.drawGridLinesEnabled = true
-        
-        let leftAxis = barChart.leftAxis
-        leftAxis.labelFont = UIFont(name: "Avenir-Book", size: 13)!
-        xAxis.labelTextColor = UIColor(hexString: "555555")!
-        leftAxis.spaceTop = 0.35
-        leftAxis.axisMinimum = 0
-        leftAxis.granularity = 1
-        let chartFormatter = BarChartFormatter()
-        leftAxis.valueFormatter = chartFormatter
-        leftAxis.drawGridLinesEnabled = false
-        
-        barChart.rightAxis.enabled = false
 
-        setChart()
-    }
     
     var _dateFormatter2: DateFormatter?
     var dateFormatter2: DateFormatter {
@@ -195,6 +154,7 @@ class SleepViewController : UIViewController, ChartViewDelegate{
             
             sender.isEnabled = false
         }
+        
         
     }
     
@@ -289,8 +249,8 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         }
         if !(babyApp?.name.isEmpty)! && babyApp?.sleeps.count != 0{
             loadSleepsThisWeek(date: selectedDay)
-            appearancebarChart()
-            barChart.setNeedsDisplay()
+            
+           
             
             
             
@@ -304,17 +264,17 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         let decimal = avg.truncatingRemainder(dividingBy: 1)
         if integer != 0 && Int(decimal*60) != 0{
             label.text = "\(Int(integer)) h \(Int(decimal*60)) min"
-            labelField.text = "/day of \(string)"
+            labelField.text = "/day, \(string)"
             
         }
         else if integer != 0 && Int(decimal*60) == 0{
             label.text = "\(Int(integer)) h"
-            labelField.text = "/day of \(string)"
+            labelField.text = "/day, \(string)"
             
         }
         else if integer == 0 && Int(decimal*60) != 0{
             label.text = "\(Int(decimal*60)) min"
-            labelField.text = "/day of \(string)"
+            labelField.text = "/day, \(string)"
             
         }
         else if integer == 0 && Int(decimal*60) == 0{
@@ -366,19 +326,16 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         seventh.text = formatter.string(from: arrayDatesGeneral[6])
         
         let avg = calcAvgWeek(nightOrNap: true)
-        setInfoData(avg: avg, label: avgWeekLabel, labelField: avgWeekField, string: "sleep-time")
+        setInfoData(avg: avg, label: avgWeekLabel, labelField: avgWeekField, string: "night-time sleep")
         let avg1 = calcAvgWeek( nightOrNap: false)
-        setInfoData(avg: avg1, label : avgMonthLabel, labelField: avgMonthField, string: "nap-time")
+        setInfoData(avg: avg1, label : avgMonthLabel, labelField: avgMonthField, string: "nap-time sleep")
         
+        let formatterlabel = DateFormatter()
+        formatterlabel.dateFormat = "MMMM"
+        
+        weekLabel.text = "\(arrayDatesGeneral[6].day)-\(arrayDatesGeneral[0].day) " + formatterlabel.string(from: arrayDatesGeneral[0])
     }
-    @IBAction func segmentedValueChanged(_ sender: UISegmentedControl) {
-        
-        if sender.selectedSegmentIndex != 0{
-            performSegue(withIdentifier: "goToCharts", sender: self)
-        }
-        
-    }
-    
+
     
     func calcAvgWeek(nightOrNap : Bool)->Float{
         
@@ -435,229 +392,13 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         }
         
         avg = sum/Float(arrayDatesGeneral.count)
-        
-        
-        setNightAndNapForChart()
-        
-        
-        
+
         return avg
         
     }
+
     
-    
-    func setNightAndNapForChart(){
-        
-        nightSleep = []
-        napSleep = []
-        var min = babyApp!.sleeps[0]
-        
-        for sleep in babyApp!.sleeps{
-            
-            if sleep.dateBegin!.day < min.dateBegin!.day{
-                min = sleep
-            }
-        }
-        
-        let yearComponents = Calendar.current.dateComponents([.year], from: min.generalDateBegin)
-        
-        let currentYear = Int(yearComponents.year!)
-        
-        var comp = DateComponents()
-        comp.year = currentYear
-        comp.day = 1
-        
-        for month in 1..<13{
-            comp.month = month
-            let avg = calcAvgMonth(dateComp: comp, nightOrNap: true)
-            nightSleep.append(Double(avg))
-            let avg1 = calcAvgMonth(dateComp: comp, nightOrNap: false)
-            napSleep.append(Double(avg1))
-            
-        }
-    
-        
-        
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVc = segue.destination as? ChartsViewController{
-            destinationVc.nightSleep = nightSleep
-            destinationVc.napSleep = napSleep
-        }
-    }
-    
-    
-    func calcAvgMonth(dateComp : DateComponents, nightOrNap : Bool)->Float{
-        
-        var arrayAvgDay = Array<Float>()
-        
-        let initDate = Calendar.current.date(from: dateComp)
-        
-        let endDate  = Calendar.current.date(byAdding: .month, value: 1, to: initDate!)
-        
-        let arrayAllDates = Date.dates(from: initDate! , to: endDate!)
-        
-        
-        var durationFloat = Float(0.0)
-        var counterDur2 = 0
-        
-        for date in arrayAllDates{
-            
-            counterDur2 = 0
-            durationFloat = Float(0.0)
-            
-            for sleep in babyApp!.sleeps{
-                
-                
-                if sleep.dateBegin?.day == date.day && sleep.dateBegin?.month == date.month && sleep.dateBegin?.day == sleep.dateEnd?.day && sleep.nightSleep == nightOrNap{
-                    durationFloat = durationFloat + sleep.timeSleepFloat
-                    counterDur2 += 1
-                    
-                    
-                }
-                else if sleep.dateBegin?.day == date.day && sleep.dateBegin?.month == date.month && sleep.dateBegin!.day < sleep.dateEnd!.day && sleep.nightSleep == nightOrNap{
-                    
-                    let minutes = round((Float(sleep.generalDateBegin.minute)*100.0))/(60.0*100.0)
-                    let duration = Float(sleep.generalDateBegin.hour) + minutes
-                    
-                    durationFloat = durationFloat + 24.0 - duration
-                    counterDur2 += 1
-                }
-                else if date.day == sleep.dateEnd?.day && sleep.dateEnd?.month == date.month && sleep.nightSleep == nightOrNap{
-                    
-                    
-                    let minutes = round((Float(sleep.generalDateEnd.minute)*100.0))/(60.0*100.0)
-                    let duration = Float(sleep.generalDateEnd.hour) + minutes
-                    durationFloat = durationFloat + duration
-                    counterDur2 += 1
-                }
-                
-            }
-            if counterDur2 != 0{
-                arrayAvgDay.append(durationFloat/Float(counterDur2))
-            }
-            
-            
-        }
-        
-        
-        
-        var sum1 = Float(0.0)
-        var avg1 = Float(0.0)
-        for value in arrayAvgDay{
-            
-            sum1 = sum1 + value
-            
-        }
-        
-        
-        
-        avg1 = sum1/Float(arrayAllDates.count)
-        
-        let integer1 = floor(avg1)
-        let decimal1 = avg1.truncatingRemainder(dividingBy: 1)
-        
-        if integer1 != 0 && decimal1 != 0{
-            avgMonthLabel.text = "\(Int(integer1)) h \(Int(decimal1*60)) min"
-            avgMonthField.text = "/day this month"
-        }
-        else if integer1 != 0 && decimal1 == 0{
-            avgMonthLabel.text = "\(Int(integer1)) h"
-            avgMonthField.text = "/day this month"
-        }
-        else if integer1 == 0 && decimal1 != 0{
-            avgMonthLabel.text = "\(Int(decimal1*60)) min"
-            avgMonthField.text = "/day this month"
-        }
-        else if integer1 == 0 && decimal1 == 0{
-            avgMonthLabel.text = ""
-            avgMonthField.text = ""
-        }
-        
-        
-        return avg1
-        
-    }
-    func setChart() {
-        barChart.noDataText = "You need to provide data for the chart."
-        var dataEntries: [BarChartDataEntry] = []
-        var dataEntries1: [BarChartDataEntry] = []
-        
-        for i in 0..<self.months.count {
-            
-            let dataEntry = BarChartDataEntry(x: Double(i) , y: self.nightSleep[i])
-            dataEntries.append(dataEntry)
-            
-            let dataEntry1 = BarChartDataEntry(x: Double(i) , y: self.self.napSleep[i])
-            dataEntries1.append(dataEntry1)
-            
-            
-        }
-        
-        let chartDataSet = BarChartDataSet(entries: dataEntries, label: "Night Sleep")
-        let chartDataSet1 = BarChartDataSet(entries: dataEntries1, label: "Nap Sleep")
-        
-        let dataSets: [BarChartDataSet] = [chartDataSet,chartDataSet1]
-        chartDataSet.colors = [darkBlueColor!]
-        chartDataSet1.colors = [blueColor!]
-        chartDataSet.drawValuesEnabled = false
-        chartDataSet1.drawValuesEnabled = false
-        
-        let chartData = BarChartData(dataSets: dataSets)
-        barChart.data = chartData
-        
-        
-        let groupSpace = 0.3
-        let barSpace = 0.05
-        let barWidth = 0.3
-        
-        
-        
-        
-        
-        let groupCount = self.months.count
-        let startYear = 0
-        
-        chartData.barWidth = barWidth;
-        barChart.xAxis.axisMinimum = Double(startYear)
-        let gg = chartData.groupWidth(groupSpace: groupSpace, barSpace: barSpace)
-        barChart.xAxis.axisMaximum = Double(startYear) + gg * Double(groupCount)
-        
-        chartData.groupBars(fromX: Double(startYear), groupSpace: groupSpace, barSpace: barSpace)
-        
-        barChart.scaleYEnabled = false
-        barChart.scaleXEnabled = true
-        
-        barChart.xAxis.axisMinimum = max(barChart.data!.xMin, barChart.data!.xMin)
-        barChart.xAxis.axisMaximum = min(barChart.data!.xMax + 1, barChart.data!.xMax + 1)
-        barChart.xAxis.labelCount = Int(barChart.xAxis.axisMaximum - barChart.xAxis.axisMinimum)
-        barChart.setVisibleXRange(minXRange: 3.0, maxXRange: 5.0)
-        
-        
-       
-        
-        
-        
-        
-        
-        barChart.leftAxis.axisMinimum = max(barChart.data!.yMin, barChart.data!.yMin)
-        barChart.leftAxis.axisMaximum = min(barChart.data!.yMax + 1, barChart.data!.yMax + 1)
-         barChart.leftAxis.labelCount = 10
-        //= Int(barChart.leftAxis.axisMaximum - barChart.leftAxis.axisMinimum)
-        
-       
-        //background color
-        //barChart.backgroundColor = UIColor(red: 189/255, green: 195/255, blue: 199/255, alpha: 1)
-        barChart.data = chartData
-        barChart.moveViewToX(4)
-        barChart.notifyDataSetChanged()
-        
-        barChart.animate(xAxisDuration: 1.5, yAxisDuration: 1.5, easingOption: .linear)
-        
-        
-    }
-    
+  
 }
 
 
@@ -758,8 +499,6 @@ enum Label : Int {
             return "1h"
         case .zero:
             return "0h"
-        default:
-            break
         }
     }
 }

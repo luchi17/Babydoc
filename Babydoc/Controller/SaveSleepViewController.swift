@@ -21,7 +21,8 @@ class SaveSleepViewController : UITableViewController{
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
     let darkBlueColor = UIColor.init(hexString: "2772DB")
-    let lightBlueColor = UIColor.init(hexString: "66ACF8")
+    let lightBlueColor = UIColor.init(hexString: "82BAF8")
+    let blueColor = UIColor.init(hexString: "66ACF8")
     
     var realm = try! Realm()
     var registeredBabies : Results<Baby>?
@@ -77,8 +78,8 @@ class SaveSleepViewController : UITableViewController{
     }
     override func viewWillAppear(_ animated: Bool) {
         
-        self.navigationController?.navigationBar.barTintColor = lightBlueColor
-        self.navigationController?.navigationBar.backgroundColor = lightBlueColor
+        self.navigationController?.navigationBar.barTintColor = blueColor
+        self.navigationController?.navigationBar.backgroundColor = blueColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         loadBabiesAndSleep()
         nightSleepLabel.text = "Night sleep"
@@ -89,7 +90,7 @@ class SaveSleepViewController : UITableViewController{
         sender.font = font
         DatePickerPopover(title: "Date" )
             .setDateMode(.dateAndTime)
-            .setArrowColor(lightBlueColor!)
+            .setArrowColor(blueColor!)
             .setSelectedDate(Date())
             .setDoneButton(title: "Done", font: self.fontLittle, color: .white, action: { popover, selectedDate in
                 sender.text = self.dateStringFromDate(date: selectedDate)
@@ -121,7 +122,7 @@ class SaveSleepViewController : UITableViewController{
         sender.font = font
         DatePickerPopover(title: "Date" )
             .setDateMode(.dateAndTime)
-            .setArrowColor(lightBlueColor!)
+            .setArrowColor(blueColor!)
             .setSelectedDate(Date())
             .setDoneButton(title: "Done", font: self.fontLittle, color: .white, action: { popover, selectedDate in
                 sender.text = self.dateStringFromDate(date: selectedDate)
@@ -149,7 +150,7 @@ class SaveSleepViewController : UITableViewController{
         sender.font = font
         DatePickerPopover(title: "Date" )
             .setDateMode(.countDownTimer)
-            .setArrowColor(lightBlueColor!)
+            .setArrowColor(blueColor!)
             .setSelectedDate(Date())
             .setDoneButton(title: "Done", font: self.fontLittle, color: .white, action: { popover, selectedDate in
                 sender.text = self.dateStringFromDate2(date: selectedDate)
@@ -478,12 +479,7 @@ extension SaveSleepViewController : UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        if textField.tag == 1 || textField.tag == 2{
-            return true
-        }
-        else{
-            return false
-        }
+        return false
         
     }
 }
