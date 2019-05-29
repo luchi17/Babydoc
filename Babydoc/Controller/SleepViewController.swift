@@ -263,18 +263,18 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         let integer = floor(avg)
         let decimal = avg.truncatingRemainder(dividingBy: 1)
         if integer != 0 && Int(decimal*60) != 0{
-            label.text = "\(Int(integer)) h \(Int(decimal*60)) min"
-            labelField.text = "/day, \(string)"
+            label.text = "\(Int(integer))h \(Int(decimal*60))min"
+            labelField.text = "/day of \(string)"
             
         }
         else if integer != 0 && Int(decimal*60) == 0{
             label.text = "\(Int(integer)) h"
-            labelField.text = "/day, \(string)"
+            labelField.text = "/day of \(string)"
             
         }
         else if integer == 0 && Int(decimal*60) != 0{
             label.text = "\(Int(decimal*60)) min"
-            labelField.text = "/day, \(string)"
+            labelField.text = "/day of \(string)"
             
         }
         else if integer == 0 && Int(decimal*60) == 0{

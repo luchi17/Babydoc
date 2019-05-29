@@ -235,7 +235,7 @@ class SaveSleepViewController : UITableViewController{
                 
                 
                 self.saveData(valueToSave: "End")
-                self.navigationController?.popViewController(animated: true)
+                
                 
                 }
                 
@@ -244,7 +244,7 @@ class SaveSleepViewController : UITableViewController{
                 
                 
                 self.saveData(valueToSave: "Duration")
-                self.navigationController?.popViewController(animated: true)
+               
                 
             })
             
@@ -258,7 +258,7 @@ class SaveSleepViewController : UITableViewController{
         else{
             if textFieldEnd.text!.isEmpty{
                 saveData(valueToSave: "Duration")
-                self.navigationController?.popViewController(animated: true)
+                
             }
             else if textFieldDuration.text!.isEmpty{
                 
@@ -352,32 +352,57 @@ class SaveSleepViewController : UITableViewController{
                     
                     let checkDate = Calendar.current.date(byAdding: dateComponent, to: self.startEdit)
                     
-                    let date = DateCustom()
-                    date.day = checkDate!.day
-                    date.month = checkDate!.month
-                    date.year = checkDate!.year
-                    self.sleepToSave.dateEnd = date
-                    self.sleepToSave.timeSleep = durEdit
-                    self.sleepToSave.generalDateEnd = checkDate!
-                    self.sleepToSave.timeSleepFloat = duration
+                    var intercept = false
+                    for sleep in babyApp.sleeps{
+                       
+                        if startEdit.isBetween(sleep.generalDateBegin, and: sleep.generalDateEnd) || (checkDate?.isBetween(sleep.generalDateBegin, and: sleep.generalDateEnd))! {
+
+                            let alert = UIAlertController(style: .alert)
+                            
+                            alert.set(title: "Error", font: self.font!, color: self.grayColor!)
+                            alert.set(message: "Trying to save a sleep record that is already saved.", font: self.fontLittle!, color: self.grayLightColor!)
+                            let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                            
+                            alert.addAction(action)
+                            alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+                            
+                            intercept = true
+                            break
+                            
+                        }
+                        
+                        
+                    }
+                  
+                    if intercept == false{
+                        let date = DateCustom()
+                        date.day = checkDate!.day
+                        date.month = checkDate!.month
+                        date.year = checkDate!.year
+                        self.sleepToSave.dateEnd = date
+                        self.sleepToSave.timeSleep = durEdit
+                        self.sleepToSave.generalDateEnd = checkDate!
+                        self.sleepToSave.timeSleepFloat = duration
+                        
+                        let date1 = DateCustom()
+                        date1.day = startdayEdit
+                        date1.month = startmonthEdit
+                        date1.year = startyearEdit
+                        self.sleepToSave.dateBegin = date1
+                        self.sleepToSave.generalDateBegin = startEdit
+                        self.sleepToSave.nightSleep = switchValue
+                        babyApp.sleeps.append(sleepToSave)
+                        
+                        let image = UIImage(named: "doubletick")!
+                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Sleep record saved correctly!")
+                        HUDAppearance.cancelableOnTouch = true
+                        HUDAppearance.messageFont = self.fontLittle!
+                        HUDAppearance.messageTextColor = self.grayColor!
+                        
+                        self.present(hudViewController, animated: true)
+                        self.navigationController?.popViewController(animated: true)
+                    }
                     
-                    let date1 = DateCustom()
-                    date1.day = startdayEdit
-                    date1.month = startmonthEdit
-                    date1.year = startyearEdit
-                    self.sleepToSave.dateBegin = date1
-                    self.sleepToSave.generalDateBegin = startEdit
-                    self.sleepToSave.nightSleep = switchValue
-                    babyApp.sleeps.append(sleepToSave)
-                    
-                    let image = UIImage(named: "doubletick")!
-                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Sleep record saved correctly!")
-                    HUDAppearance.cancelableOnTouch = true
-                    HUDAppearance.messageFont = self.fontLittle!
-                    HUDAppearance.messageTextColor = self.grayColor!
-                    
-                    self.present(hudViewController, animated: true)
-                    self.navigationController?.popViewController(animated: true)
                     
                     
                 case "End": 
@@ -408,7 +433,27 @@ class SaveSleepViewController : UITableViewController{
                     mins = mins*(-1)
                 }
                 let formattedDuration = String(format: "%02d:%02d", hours, mins)
-                
+                var intercept = false
+                for sleep in babyApp.sleeps{
+                    
+                    if startEdit.isBetween(sleep.generalDateBegin, and: sleep.generalDateEnd) || endEdit.isBetween(sleep.generalDateBegin, and: sleep.generalDateEnd) {
+                        
+                        let alert = UIAlertController(style: .alert)
+                        
+                        alert.set(title: "Error", font: self.font!, color: self.grayColor!)
+                        alert.set(message: "Trying to save a sleep record that is already saved.", font: self.fontLittle!, color: self.grayLightColor!)
+                        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                        
+                        alert.addAction(action)
+                        alert.show(animated: true, vibrate: false, style: .light, completion: nil)
+                        
+                        intercept = true
+                        break
+                        
+                    }
+                    
+                    
+                }
                 
                 if hours >= 24 {
                     let alert = UIAlertController(style: .alert)
@@ -420,7 +465,8 @@ class SaveSleepViewController : UITableViewController{
                     alert.addAction(action)
                     alert.show(animated: true, vibrate: false, style: .light, completion: nil)
                 }
-                else{
+                
+                else if hours < 24 && intercept == false{
                     let date = DateCustom()
                     date.day = enddayEdit
                     date.month = endmonthEdit
@@ -449,13 +495,13 @@ class SaveSleepViewController : UITableViewController{
                     self.present(hudViewController, animated: true)
                     self.navigationController?.popViewController(animated: true)
                 }
-                
-                
-                
-                
+
                     
-                default: //All
+                default:
                     babyApp.sleeps.append(sleepToSave)
+                    self.navigationController?.popViewController(animated: true)
+                    
+                    
                     
                 }
                 
@@ -481,6 +527,23 @@ extension SaveSleepViewController : UITextFieldDelegate{
         
         return false
         
+    }
+}
+//extension Date {
+//    static func dates(from fromDate: Date, to toDate: Date) -> [Date] {
+//        var dates: [Date] = []
+//        var date = fromDate
+//
+//        while date <= toDate  {
+//            dates.append(date)
+//            guard let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { break }
+//            date = newDate
+//        }
+//        return dates
+//}
+extension Date {
+    func isBetween(_ date1: Date, and date2: Date) -> Bool {
+        return (min(date1, date2) ... max(date1, date2)).contains(self)
     }
 }
 
