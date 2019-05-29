@@ -396,6 +396,12 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         return avg
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? HistorySleepViewController{
+            destinationVC.babyApp = babyApp
+        }
+    }
 
     
   

@@ -115,7 +115,8 @@ class ChartsViewController : UIViewController, ChartViewDelegate{
         xAxis.gridLineDashPhase = 0
         xAxis.gridLineDashLengths = [8.0]
         xAxis.labelPosition = .bottom
-        barChart.xAxis.drawAxisLineEnabled = true
+        xAxis.drawAxisLineEnabled = true
+        xAxis.axisLineColor = (UIColor(hexString: "7F8484")?.lighten(byPercentage: 0.2))!
         
         
         let leftAxis = barChart.leftAxis

@@ -18,7 +18,6 @@ class SaveFeverViewController : UITableViewController{
     let greenLightColor = UIColor.init(hexString: "14E19C")
     let font = UIFont(name: "Avenir-Heavy", size: 17)
     let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
-    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
     

@@ -287,14 +287,14 @@ extension HistoryDosesViewController : UITableViewDelegate, UITableViewDataSourc
         
 
         if registeredBabies!.count == 0  || doses?.count == 0{
-            cell.nameDose.text = "No records added yet"
+            cell.nameDose.text = ""
             cell.descriptionDose.text = ""
             cell.descriptionDose2.text = ""
             cell.descriptionDose3.text = ""
         }
             
         else if babyApp.name.isEmpty && self.registeredBabies!.count > 0{
-            cell.nameDose.text = "There are no active babies in Babydoc"
+            cell.nameDose.text = ""
             cell.descriptionDose.text = ""
             cell.descriptionDose2.text = ""
             cell.descriptionDose3.text = ""

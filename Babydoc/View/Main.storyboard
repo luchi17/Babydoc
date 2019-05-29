@@ -1297,7 +1297,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3E-CQ-aC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BBk-0f-sLN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1709.5999999999999" y="2501.231527093596"/>
+            <point key="canvasLocation" x="1559" y="2909"/>
         </scene>
         <!--Charts-->
         <scene sceneID="XIO-t0-bEp">
@@ -1349,8 +1349,8 @@
                                                     <action selector="nextButtonPressed:" destination="3FN-OG-zW8" eventType="touchUpInside" id="xrM-0P-sbo"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJp-fE-QJJ">
-                                                <rect key="frame" x="163.66666666666666" y="125" width="48" height="26"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJp-fE-QJJ">
+                                                <rect key="frame" x="187.66666666666666" y="151" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="19"/>
                                                 <color key="textColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1417,7 +1417,112 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUj-U7-rGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2340" y="3255.6650246305421"/>
+            <point key="canvasLocation" x="2278" y="2908"/>
+        </scene>
+        <!--Sleep Records-->
+        <scene sceneID="jrU-gg-ZBb">
+            <objects>
+                <viewController id="NvT-A4-ibr" customClass="HistorySleepViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XcT-x2-aMR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zJj-9V-xkD" customClass="ScrollableDatepicker" customModule="ScrollableDatepicker">
+                                <rect key="frame" x="0.0" y="88" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="gFk-DV-dc6"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="67h-8D-a4Q">
+                                <rect key="frame" x="0.0" y="132" width="375" height="680"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sleepCellHistory" rowHeight="127" id="04U-Wo-7ab" customClass="CustomCellHistorySleep" customModule="Babydoc" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="127"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="04U-Wo-7ab" id="RpF-Ho-hhf">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="126.66666666666667"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="equalSpacing" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="KUu-dd-zzE">
+                                                    <rect key="frame" x="15" y="11" width="320" height="107"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="night or nap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWJ-mn-sFR">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="19"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="320" id="AW8-QN-IgU"/>
+                                                                <constraint firstAttribute="height" constant="19" id="QTU-9d-9Fc"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                            <color key="textColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Start time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tea-Gi-Kag">
+                                                            <rect key="frame" x="0.0" y="25" width="79.666666666666671" height="23.333333333333329"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="23.329999999999998" id="QwG-Wg-UTH"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                            <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="End time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dip-jK-kB6">
+                                                            <rect key="frame" x="0.0" y="54.333333333333336" width="71.666666666666671" height="23.333333333333336"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="23.329999999999998" id="BbL-ju-OOd"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                            <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Duration" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAV-Ms-9lC">
+                                                            <rect key="frame" x="0.0" y="83.666666666666671" width="69.666666666666671" height="23.333333333333329"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="23.329999999999998" id="osG-Q1-ZYw"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                            <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="duration" destination="ZAV-Ms-9lC" id="NkI-oQ-xke"/>
+                                            <outlet property="endtime" destination="dip-jK-kB6" id="DTG-fI-W8W"/>
+                                            <outlet property="starttime" destination="tea-Gi-Kag" id="C0H-2h-RHT"/>
+                                            <outlet property="typeSleep" destination="rWJ-mn-sFR" id="YeV-0j-QAJ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="zJj-9V-xkD" firstAttribute="leading" secondItem="N7a-Pw-G4g" secondAttribute="leading" id="3gJ-pU-k48"/>
+                            <constraint firstItem="67h-8D-a4Q" firstAttribute="leading" secondItem="N7a-Pw-G4g" secondAttribute="leading" id="3jF-Eq-cbn"/>
+                            <constraint firstItem="zJj-9V-xkD" firstAttribute="trailing" secondItem="N7a-Pw-G4g" secondAttribute="trailing" id="V9w-dF-g8c"/>
+                            <constraint firstItem="zJj-9V-xkD" firstAttribute="top" secondItem="N7a-Pw-G4g" secondAttribute="top" id="dxK-Sf-bcg"/>
+                            <constraint firstItem="67h-8D-a4Q" firstAttribute="trailing" secondItem="N7a-Pw-G4g" secondAttribute="trailing" id="e9S-6n-py1"/>
+                            <constraint firstAttribute="bottom" secondItem="67h-8D-a4Q" secondAttribute="bottom" id="mxM-ib-zFb"/>
+                            <constraint firstItem="67h-8D-a4Q" firstAttribute="top" secondItem="zJj-9V-xkD" secondAttribute="bottom" id="qTC-4Q-Zwf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="N7a-Pw-G4g"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Sleep Records" id="BEk-C7-4rG"/>
+                    <connections>
+                        <outlet property="datePicker" destination="zJj-9V-xkD" id="59I-Uz-mVI"/>
+                        <outlet property="tableView" destination="67h-8D-a4Q" id="cbl-sS-HmQ"/>
+                        <segue destination="waV-bU-Tdy" kind="show" identifier="goToEditSleep" id="Pks-kB-O2s"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AU6-an-o9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2277.5999999999999" y="3776.6009852216748"/>
         </scene>
         <!--Save Sleep View Controller-->
         <scene sceneID="YEX-bg-VWz">
@@ -1657,6 +1762,7 @@
                     <connections>
                         <outlet property="nightSleepLabel" destination="WGr-3v-Cwf" id="Cf8-Lr-csh"/>
                         <outlet property="saveButton" destination="MGj-2w-QTp" id="17b-Vs-kXG"/>
+                        <outlet property="switchy" destination="Jxk-3B-Rpc" id="opy-dh-imr"/>
                         <outlet property="textFieldDuration" destination="ogw-Yq-9EY" id="GqE-Bf-RoY"/>
                         <outlet property="textFieldEnd" destination="XVH-GA-hiP" id="13y-9L-Bji"/>
                         <outlet property="textFieldStart" destination="wng-zY-dUr" id="NsC-Cl-9hR"/>
@@ -1664,7 +1770,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zwu-qN-Sit" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2517.5999999999999" y="2500.4926108374384"/>
+            <point key="canvasLocation" x="3042" y="3284"/>
         </scene>
         <!--Save Fever View Controller-->
         <scene sceneID="3v2-Hf-xbR">
@@ -4144,7 +4250,11 @@ Cg
                                     <segue destination="waV-bU-Tdy" kind="show" id="mAE-Or-XZG"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="icons8-bulleted-list-filled-20" id="Xdo-Dk-7Lh"/>
+                            <barButtonItem title="Item" image="icons8-bulleted-list-filled-20" id="Xdo-Dk-7Lh">
+                                <connections>
+                                    <segue destination="NvT-A4-ibr" kind="show" id="aEg-hA-5ce"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
@@ -4154,7 +4264,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yhg-Vz-f8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1269.5999999999999" y="3159.6059113300494"/>
+            <point key="canvasLocation" x="825" y="3284"/>
         </scene>
     </scenes>
     <resources>
@@ -4175,6 +4285,7 @@ Cg
         <image name="vaccine-3" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Pks-kB-O2s"/>
         <segue reference="tko-g8-Mbx"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
