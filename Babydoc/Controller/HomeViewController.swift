@@ -786,8 +786,6 @@ class GridView: UIView
     override func draw(_ rect: CGRect)
     {
         drawGrid()
-        
-        // Specify a border (stroke) color.
         UIColor.black.setStroke()
         path.stroke()
         

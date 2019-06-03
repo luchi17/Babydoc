@@ -17,6 +17,8 @@
 		0944683F229D937600429743 /* SegmentedSleepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0944683E229D937600429743 /* SegmentedSleepViewController.swift */; };
 		09446841229EF74800429743 /* CustomCellHistorySleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09446840229EF74800429743 /* CustomCellHistorySleep.swift */; };
 		09446843229EF81E00429743 /* HistorySleepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09446842229EF81E00429743 /* HistorySleepViewController.swift */; };
+		09446845229FBD8F00429743 /* PercentilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09446844229FBD8F00429743 /* PercentilViewController.swift */; };
+		09446847229FDF1600429743 /* ActionViewPercentil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09446846229FDF1600429743 /* ActionViewPercentil.swift */; };
 		0947AA24228DA78E00FB9303 /* CalculatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA23228DA78E00FB9303 /* CalculatorCell.swift */; };
 		0947AA2822903A7D00FB9303 /* MedicationDoseCalculated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA2722903A7D00FB9303 /* MedicationDoseCalculated.swift */; };
 		0947AA2A2290466D00FB9303 /* HistoryDosesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */; };
@@ -81,6 +83,8 @@
 		0944683E229D937600429743 /* SegmentedSleepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedSleepViewController.swift; sourceTree = "<group>"; };
 		09446840229EF74800429743 /* CustomCellHistorySleep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellHistorySleep.swift; sourceTree = "<group>"; };
 		09446842229EF81E00429743 /* HistorySleepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySleepViewController.swift; sourceTree = "<group>"; };
+		09446844229FBD8F00429743 /* PercentilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PercentilViewController.swift; sourceTree = "<group>"; };
+		09446846229FDF1600429743 /* ActionViewPercentil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewPercentil.swift; sourceTree = "<group>"; };
 		0947AA23228DA78E00FB9303 /* CalculatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorCell.swift; sourceTree = "<group>"; };
 		0947AA2722903A7D00FB9303 /* MedicationDoseCalculated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDoseCalculated.swift; sourceTree = "<group>"; };
 		0947AA292290466D00FB9303 /* HistoryDosesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDosesViewController.swift; sourceTree = "<group>"; };
@@ -208,6 +212,7 @@
 				094D8E5F2296DB1C00301698 /* CustomCellFever.swift */,
 				0944683A229D1EB700429743 /* ActionViewSleep.swift */,
 				09446840229EF74800429743 /* CustomCellHistorySleep.swift */,
+				09446846229FDF1600429743 /* ActionViewPercentil.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 				094D8E682297330200301698 /* SaveSleepViewController.swift */,
 				0944683C229D829F00429743 /* ChartsViewController.swift */,
 				09446842229EF81E00429743 /* HistorySleepViewController.swift */,
+				09446844229FBD8F00429743 /* PercentilViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -391,10 +397,12 @@
 				093B7D122277720400DB4344 /* BabyInfoViewController.swift in Sources */,
 				09B7D4F2228C183C00137544 /* MedicationViewController.swift in Sources */,
 				09B7D4E9228ABF7900137544 /* Medication.swift in Sources */,
+				09446845229FBD8F00429743 /* PercentilViewController.swift in Sources */,
 				09B7D4E72289CF5200137544 /* InfoVaccinesViewController.swift in Sources */,
 				09A11BD02294640C00457A94 /* FeverViewController.swift in Sources */,
 				09B1EE9A22575192006DF813 /* AppDelegate.swift in Sources */,
 				09B7D4F6228C76A400137544 /* MedicationCalculatorViewController.swift in Sources */,
+				09446847229FDF1600429743 /* ActionViewPercentil.swift in Sources */,
 				099069312279A32D00EB570C /* TextFieldTableViewCell.swift in Sources */,
 				093B7D0A227769FB00DB4344 /* Sleep.swift in Sources */,
 				094D8E5C2295B68B00301698 /* SleepViewController.swift in Sources */,

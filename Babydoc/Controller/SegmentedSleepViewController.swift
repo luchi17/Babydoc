@@ -13,7 +13,7 @@ class SegmentedSleepViewController : UIViewController{
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var containerView: UIView!
     
-    private lazy var summaryViewController: SleepViewController = {
+    private lazy var firstViewController: SleepViewController = {
         // Load Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
@@ -26,12 +26,24 @@ class SegmentedSleepViewController : UIViewController{
         return viewController
     }()
     
-    private lazy var sessionsViewController: ChartsViewController = {
+    private lazy var secondViewController: ChartsViewController = {
         // Load Storyboard
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
         // Instantiate View Controller
         var viewController = storyboard.instantiateViewController(withIdentifier: "SecondViewController") as! ChartsViewController
+        
+        // Add View Controller as Child View Controller
+        self.add(asChildViewController: viewController)
+        
+        return viewController
+    }()
+    private lazy var thirdViewController: PercentilViewController = {
+        // Load Storyboard
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        
+        // Instantiate View Controller
+        var viewController = storyboard.instantiateViewController(withIdentifier: "PercentilViewController") as! PercentilViewController
         
         // Add View Controller as Child View Controller
         self.add(asChildViewController: viewController)
@@ -107,11 +119,18 @@ class SegmentedSleepViewController : UIViewController{
     
     private func updateView() {
         if segmentedControl.selectedSegmentIndex == 0 {
-            remove(asChildViewController: sessionsViewController)
-            add(asChildViewController: summaryViewController)
-        } else {
-            remove(asChildViewController: summaryViewController)
-            add(asChildViewController: sessionsViewController)
+            remove(asChildViewController: secondViewController)
+            remove(asChildViewController: thirdViewController)
+            add(asChildViewController: firstViewController)
+        } else if segmentedControl.selectedSegmentIndex == 1{
+            remove(asChildViewController: firstViewController)
+            remove(asChildViewController: thirdViewController)
+            add(asChildViewController: secondViewController)
+        }
+        else{
+           remove(asChildViewController: firstViewController)
+            remove(asChildViewController: secondViewController)
+            add(asChildViewController: thirdViewController)
         }
     }
     

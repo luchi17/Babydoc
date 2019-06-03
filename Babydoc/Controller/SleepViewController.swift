@@ -249,11 +249,7 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         }
         if !(babyApp?.name.isEmpty)! && babyApp?.sleeps.count != 0{
             loadSleepsThisWeek(date: selectedDay)
-            
-           
-            
-            
-            
+
         }
         
     }

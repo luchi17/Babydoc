@@ -283,9 +283,8 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                 if indexPath.row == 1{
                     
                     let alert = UIAlertController(style: .alert, title: "Select \(self.propertyDictionaryName[indexPath.row][1])")
-                    let hoursIn13years = 113880
                     let maxDate = Date()
-                    let minDate = Calendar.current.date(byAdding: .hour, value: -hoursIn13years, to: maxDate)!
+                    let minDate = Calendar.current.date(byAdding: .year, value: -14, to: maxDate)!
                     
                     alert.setTitle(font: self.font!, color: self.greenColor!)
                     alert.addDatePicker(mode: .date, date: maxDate, minimumDate: minDate, maximumDate: maxDate) { date in
@@ -309,7 +308,14 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                             
                         }
                         else if age.year >= 1{
-                            finalStringAge = String(age.year) + " years and " + String(age.month) + " months"
+                            
+                            if age.month == 0{
+                                finalStringAge = String(age.year) + " years"
+                            }
+                            else{
+                                finalStringAge = String(age.year) + " years and " + String(age.month) + " months"
+                            }
+                            
                         }
                         self.saveBabyInfo(valueToSave: finalStringAge, forkey: "age")
                         
