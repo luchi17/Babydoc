@@ -44,9 +44,6 @@ class ActionViewPercentil : UIView{
         switch self.tag {
             
         case 0:
-            
-//            print(lowPercentilNight)
-//            print(highPercentilNight)
             self.fillColor(start : (CGFloat(lowPercentilNight)*width)/nightHours, with: .gray, width: (0.2*width)/nightHours)
             self.fillColor(start : (CGFloat(highPercentilNight)*width)/nightHours, with: .gray, width: (0.2*width)/nightHours)
             
@@ -59,10 +56,7 @@ class ActionViewPercentil : UIView{
             }
             
         case 1:
-            
-//            print(lowPercentilNap)
-//            print(highPercentilNap)
-//            
+
             if avgNap != Float(0.0){
                 self.fillColor(start : (CGFloat(lowPercentilNap)*width)/napHours, with: .gray, width: (0.15*width)/napHours)
                 self.fillColor(start : (CGFloat(highPercentilNap)*width)/napHours, with: .gray, width: (0.15*width)/napHours)

@@ -83,11 +83,8 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         med5.layer.masksToBounds = true
         med6.layer.cornerRadius = 4
         med6.layer.masksToBounds = true
-        
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "dd MMMM YYYY"
+
         todayButton.setTitle("Go to current week", for: .normal)
-        //todayButton.setTitle("Today, "+formatter.string(from: Date()), for: .normal)
         todayButton.setTitleColor(blueColor, for: .normal)
         todayButton.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 16)
         todayButton.backgroundColor = UIColor.white
@@ -131,20 +128,7 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         
         
         self.loadSleepsThisWeek(date: self.selectedDay)
-        self.med0.setNeedsDisplay()
-        self.med0.reloadInputViews()
-        self.med1.setNeedsDisplay()
-        self.med1.reloadInputViews()
-        self.med2.setNeedsDisplay()
-        self.med2.reloadInputViews()
-        self.med3.setNeedsDisplay()
-        self.med3.reloadInputViews()
-        self.med4.setNeedsDisplay()
-        self.med4.reloadInputViews()
-        self.med5.setNeedsDisplay()
-        self.med5.reloadInputViews()
-        self.med6.setNeedsDisplay()
-        self.med6.reloadInputViews()
+        reloadChart()
         
         if selectedDay.day < Date().day{
             sender.isEnabled = true
@@ -162,21 +146,7 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         
         selectedDay = Calendar.current.date(byAdding: .day, value: -7, to: selectedDay)!
         self.loadSleepsThisWeek(date: self.selectedDay)
-        self.med0.setNeedsDisplay()
-        self.med0.reloadInputViews()
-        self.med1.setNeedsDisplay()
-        self.med1.reloadInputViews()
-        self.med2.setNeedsDisplay()
-        self.med2.reloadInputViews()
-        self.med3.setNeedsDisplay()
-        self.med3.reloadInputViews()
-        self.med4.setNeedsDisplay()
-        self.med4.reloadInputViews()
-        self.med5.setNeedsDisplay()
-        self.med5.reloadInputViews()
-        self.med6.setNeedsDisplay()
-        self.med6.reloadInputViews()
-        
+        reloadChart()
         if selectedDay.day < Date().day{
             nextButton.isEnabled = true
         }
@@ -191,20 +161,7 @@ class SleepViewController : UIViewController, ChartViewDelegate{
     @IBAction func todayButtonPressed(_ sender: UIButton) {
         selectedDay = Date()
         loadSleepsThisWeek(date: selectedDay)
-        med0.setNeedsDisplay()
-        med0.reloadInputViews()
-        med1.setNeedsDisplay()
-        med1.reloadInputViews()
-        med2.setNeedsDisplay()
-        med2.reloadInputViews()
-        med3.setNeedsDisplay()
-        med3.reloadInputViews()
-        med4.setNeedsDisplay()
-        med4.reloadInputViews()
-        med5.setNeedsDisplay()
-        med5.reloadInputViews()
-        med6.setNeedsDisplay()
-        med6.reloadInputViews()
+        reloadChart()
         nextButton.isEnabled = false
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -215,7 +172,16 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         
         
         loadBabies()
+        reloadChart()
         
+        if Calendar.current.isDate(selectedDay, inSameDayAs: Date()){
+            
+            nextButton.isEnabled = false
+        }
+        
+        
+    }
+    func reloadChart(){
         med0.setNeedsDisplay()
         med0.reloadInputViews()
         med1.setNeedsDisplay()
@@ -230,12 +196,6 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         med5.reloadInputViews()
         med6.setNeedsDisplay()
         med6.reloadInputViews()
-        if Calendar.current.isDate(selectedDay, inSameDayAs: Date()){
-            
-            nextButton.isEnabled = false
-        }
-        
-        
     }
     func loadBabies(){
         
@@ -322,9 +282,9 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         seventh.text = formatter.string(from: arrayDatesGeneral[6])
         
         let avg = calcAvgWeek(nightOrNap: true)
-        setInfoData(avg: avg, label: avgWeekLabel, labelField: avgWeekField, string: "night-time sleep")
+        setInfoData(avg: avg, label: avgWeekLabel, labelField: avgWeekField, string: "night sleep")
         let avg1 = calcAvgWeek( nightOrNap: false)
-        setInfoData(avg: avg1, label : avgMonthLabel, labelField: avgMonthField, string: "nap-time sleep")
+        setInfoData(avg: avg1, label : avgMonthLabel, labelField: avgMonthField, string: "nap sleep")
         
         let formatterlabel = DateFormatter()
         formatterlabel.dateFormat = "MMMM"
@@ -387,7 +347,11 @@ class SleepViewController : UIViewController, ChartViewDelegate{
             
         }
         
-        avg = sum/Float(arrayDatesGeneral.count)
+        if arrayAvgWeek.count != 0{
+            avg = sum/Float(arrayAvgWeek.count)
+        }
+        
+        
 
         return avg
         
@@ -420,92 +384,3 @@ extension Date {
         return dates
     }
 }
-
-
-class YAxisValueFormatter: NSObject, IAxisValueFormatter {
-    
-    let numFormatter: NumberFormatter
-    
-    override init() {
-        numFormatter = NumberFormatter()
-        numFormatter.minimumFractionDigits = 1
-        numFormatter.maximumFractionDigits = 1
-        
-        // if number is less than 1 add 0 before decimal
-        numFormatter.minimumIntegerDigits = 1 // how many digits do want before decimal
-        numFormatter.paddingPosition = .beforePrefix
-        numFormatter.paddingCharacter = "0"
-    }
-    
-    /// Called when a value from an axis is formatted before being drawn.
-    ///
-    /// For performance reasons, avoid excessive calculations and memory allocations inside this method.
-    ///
-    /// - returns: The customized label that is drawn on the axis.
-    /// - parameter value:           the value that is currently being drawn
-    /// - parameter axis:            the axis that the value belongs to
-    ///
-    
-    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        return numFormatter.string(from: NSNumber(floatLiteral: value))!
-    }
-    
-}
-
-
-
-class BarChartFormatter: NSObject, IAxisValueFormatter {
-    
-    
-    
-    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        
-        let label = Label(rawValue: Int(round(value)))!
-        return label.labeltype
-    }
-
-}
-enum Label : Int {
-    case zero
-    case first
-    case second
-    case third
-    case forth
-    case fifth
-    case sixth
-    case seventh
-    case eigth
-    case nineth
-    
-    var labeltype : String {
-        switch self {
-        case .nineth:
-            return "9h"
-            
-        case .eigth:
-            return "8h"
-        case .seventh:
-            return "7h"
-        case .sixth:
-            return "6h"
-            
-        case .fifth:
-            return "5h"
-        case .forth:
-            return "4h"
-        case .third:
-            return "3h"
-        case .second:
-            return "2h"
-        case .first:
-            return "1h"
-        case .zero:
-            return "0h"
-        }
-    }
-}
-
-
-
-
-

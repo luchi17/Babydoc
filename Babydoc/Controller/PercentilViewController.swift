@@ -179,10 +179,11 @@ class PercentilViewController : UIViewController{
         let decimalnight = avgNight.truncatingRemainder(dividingBy: 1)
         let intnap = floor(Double(avgNap))
         let decimalnap = avgNap.truncatingRemainder(dividingBy: 1)
+        
         ageLabel.text = "\(babyApp.name) is \(babyApp.age) old"
         
         if (Int(intnight) == 0 && Int(decimalnight*60) == 0){
-            avgNightLabel.text = ""
+            avgNightLabel.text = "Enter data"
            
         }
         else if (Int(intnight) == 0 && Int(decimalnight*60) != 0){
@@ -333,9 +334,11 @@ class PercentilViewController : UIViewController{
             
         }
         
+        if arrayAvgDay.count != 0{
+             avg1 = sum1/Float(arrayAvgDay.count)
+        }
         
-        
-        avg1 = sum1/Float(arrayAllDates.count)
+       
         
         
         

@@ -89,8 +89,6 @@ class ChartsViewController : UIViewController, ChartViewDelegate{
         
         barChart.pinchZoomEnabled = false
         barChart.drawBordersEnabled = false
-        //barChart.borderColor = (UIColor(hexString: "7F8484")?.lighten(byPercentage: 0.2))!
-        
         
         let legend = barChart.legend
         legend.enabled = true
@@ -193,9 +191,8 @@ class ChartsViewController : UIViewController, ChartViewDelegate{
         
         barChart.leftAxis.axisMinimum = max(barChart.data!.yMin, barChart.data!.yMin)
         barChart.leftAxis.axisMaximum = min(barChart.data!.yMax + 1, barChart.data!.yMax + 1)
-        barChart.leftAxis.labelCount = 10
+        barChart.leftAxis.labelCount = 5
         
-
         barChart.data = chartData
         barChart.moveViewToX(Double(Date().month - 1))
         barChart.notifyDataSetChanged()
@@ -288,11 +285,10 @@ class ChartsViewController : UIViewController, ChartViewDelegate{
         }
         
         
-        
-        avg1 = sum1/Float(arrayAllDates.count)
-        
-       
-        
+        if arrayAvgDay.count != 0{
+             avg1 = sum1/Float(arrayAvgDay.count)
+        }
+
         return avg1
         
     }
@@ -362,3 +358,68 @@ class ChartsViewController : UIViewController, ChartViewDelegate{
     }
     
 }
+
+
+class BarChartFormatter: NSObject, IAxisValueFormatter {
+    
+    
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        
+        let label = Label(rawValue: Int(round(value)))!
+        return label.labeltype
+    }
+    
+}
+enum Label : Int {
+    case zero
+    case first
+    case second
+    case third
+    case forth
+    case fifth
+    case sixth
+    case seventh
+    case eigth
+    case nineth
+    case tenth
+    case eleventh
+    case twelveth
+    
+    var labeltype : String {
+        switch self {
+        case .twelveth:
+            return "12h"
+        case .eleventh:
+            return "11h"
+        case .tenth:
+            return "10h"
+        case .nineth:
+            return "9h"
+        case .eigth:
+            return "8h"
+        case .seventh:
+            return "7h"
+        case .sixth:
+            return "6h"
+        case .fifth:
+            return "5h"
+        case .forth:
+            return "4h"
+        case .third:
+            return "3h"
+        case .second:
+            return "2h"
+        case .first:
+            return "1h"
+        case .zero:
+            return "0h"
+        }
+    }
+}
+
+
+
+
+
+

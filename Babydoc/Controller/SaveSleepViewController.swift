@@ -161,6 +161,11 @@ class SaveSleepViewController : UITableViewController{
                             date.month = selectedDate.month
                             date.year = selectedDate.year
                             
+                            self.startEdit = selectedDate
+                            self.startdayEdit = selectedDate.day
+                            self.startmonthEdit = selectedDate.month
+                            self.startyearEdit = selectedDate.year
+
                             self.sleepToSave.dateBegin = date
                             self.sleepToSave.generalDateBegin = selectedDate
                             
@@ -203,6 +208,11 @@ class SaveSleepViewController : UITableViewController{
                             date.month = selectedDate.month
                             date.year = selectedDate.year
                             
+                            self.endEdit = selectedDate
+                            self.enddayEdit = selectedDate.day
+                            self.endmonthEdit = selectedDate.month
+                            self.endyearEdit = selectedDate.year
+                            
                             self.sleepToSave.dateEnd = date
                             self.sleepToSave.generalDateEnd = selectedDate
                             
@@ -241,9 +251,10 @@ class SaveSleepViewController : UITableViewController{
                     }
                     else{
                         try self.realm.write {
-
-                            self.sleepToSave.timeSleep = self.dateStringFromDate2(date: selectedDate)
+                            
+                            self.durEdit = self.dateStringFromDate2(date: selectedDate)
                             let minutes = round((Float(selectedDate.minute)*100.0))/(60.0*100.0)
+                            self.sleepToSave.timeSleep = self.dateStringFromDate2(date: selectedDate)
                             self.sleepToSave.timeSleepFloat = Float(selectedDate.hour) + minutes
                             
                         }
@@ -292,47 +303,8 @@ class SaveSleepViewController : UITableViewController{
             
             
             let alert = UIAlertController(style: .actionSheet)
-            alert.set(message: "Both the end time and the duration were introduced, do you want to save both?", font: fontLittle!, color: grayLightColor!)
+            alert.set(message: "Both the end time and the duration were introduced, select one of them", font: fontLittle!, color: grayLightColor!)
             
-            let action = UIAlertAction(title: "Yes", style: .cancel) { (alertAction) in
-                
-                
-                var dateComponent = DateComponents()
-                dateComponent.hour = self.endEdit.hour
-                dateComponent.minute = self.endEdit.minute
-                
-                let checkDate = Calendar.current.date(byAdding: dateComponent, to: self.startEdit)
-                
-                let order = Calendar.current.compare(checkDate!, to: self.endEdit, toGranularity: .minute)
-                
-                switch order {
-                case .orderedSame:
-                    
-                    if self.indicatorEdit != 0{
-                        self.saveData(valueToSave: "All", sleepToEdit: self.sleepToEdit!)
-                       
-                    }
-                    else{
-                        self.saveData(valueToSave: "All", sleepToSave: self.sleepToSave)
-                    }
-                   
-                    
-                default:
-                    
-                   
-                        let alert = UIAlertController(style: .alert)
-                        
-                        alert.set(title: "Error", font: self.font!, color: self.grayColor!)
-                        alert.set(message: "Duration of sleep and sleep end time do not match, please change any of them.", font: self.fontLittle!, color: self.grayLightColor!)
-                        let action = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
-                        
-                        alert.addAction(action)
-                        alert.show(animated: true, vibrate: false, style: .light, completion: nil)
-                   
-                
-                }
-                
-            }
             let actionend = UIAlertAction(title: "Just end time", style: .default) { (alertAction) in
                 
                 if self.indicatorEdit != 0{
@@ -362,8 +334,6 @@ class SaveSleepViewController : UITableViewController{
             
             alert.addAction(actionend)
             alert.addAction(actiondur)
-            alert.addAction(action)
-            
             alert.show(animated: true, vibrate: false, style: .light, completion: nil)
             
         }
@@ -379,7 +349,8 @@ class SaveSleepViewController : UITableViewController{
                 
             }
             else if textFieldDuration.text!.isEmpty{
-                
+                print(startEdit)
+                print(endEdit)
                 if startEdit.compare(endEdit) == .orderedDescending{
                     
                     let alert = UIAlertController(style: .alert)
@@ -499,13 +470,16 @@ class SaveSleepViewController : UITableViewController{
                     }
                   
                     if intercept == false{
-                        
+
                         sleepToSave.generalDateEnd = checkDate!
                         
-                        sleepToSave.dateEnd?.day = checkDate!.day
-                        sleepToSave.dateEnd?.month = checkDate!.month
-                        sleepToSave.dateEnd?.year = checkDate!.year
+                        let dateend  = DateCustom()
+                        dateend.day = checkDate!.day
+                        dateend.month = checkDate!.month
+                        dateend.year = checkDate!.year
                         
+                        sleepToSave.dateEnd = dateend
+
                         sleepToSave.nightSleep = switchValue
                         babyApp.sleeps.append(sleepToSave)
                         

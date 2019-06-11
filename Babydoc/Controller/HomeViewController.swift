@@ -57,7 +57,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
     @IBOutlet weak var datePicker: ScrollableDatepicker!{
         didSet {
             var dates = [Date]()
-            for day in -15...15 {
+            for day in -60...60 {
                 dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
             }
             
@@ -537,7 +537,7 @@ class ActionView: UIView
     {
         let width = self.bounds.width
         let day : CGFloat = 24
-        //SLEEP
+ 
         
         switch self.tag {
             

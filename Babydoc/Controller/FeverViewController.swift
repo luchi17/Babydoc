@@ -56,7 +56,7 @@ class FeverViewController : UIViewController{
         
         didSet {
             var dates = [Date]()
-            for day in -15...15 {
+            for day in -60...60 {
                 dates.append(Date(timeIntervalSinceNow: Double(day * 86400)))
             }
             
