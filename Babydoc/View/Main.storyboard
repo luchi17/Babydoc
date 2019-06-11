@@ -514,7 +514,7 @@
                                                                     <color key="titleColor" red="0.078431372550000003" green="0.88235294119999996" blue="0.61176470589999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </state>
                                                                 <connections>
-                                                                    <segue destination="QeE-n9-1xX" kind="show" id="AOf-Eo-QyQ"/>
+                                                                    <segue destination="mIG-bw-DZF" kind="show" id="X2D-Yf-97O"/>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8kW-oM-vdB">
@@ -706,6 +706,135 @@
             </objects>
             <point key="canvasLocation" x="2706" y="386"/>
         </scene>
+        <!--Fever Progress-->
+        <scene sceneID="L1n-To-kdO">
+            <objects>
+                <viewController id="mIG-bw-DZF" customClass="FeverChartViewController" customModule="Babydoc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="IMP-bJ-CAY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YM-AM-oxd">
+                                <rect key="frame" x="0.0" y="10" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2sJ-Ak-Llh">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uya-al-AiH" customClass="LineChartView" customModule="Charts">
+                                                <rect key="frame" x="12" y="179" width="351" height="330"/>
+                                                <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="330" id="4Ou-vE-z7t"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAx-Ff-koJ">
+                                                <rect key="frame" x="12" y="29" width="36" height="36"/>
+                                                <color key="backgroundColor" red="0.20000000000000001" green="0.74509803921568629" blue="0.5607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="36" id="QT9-az-KET"/>
+                                                    <constraint firstAttribute="height" constant="36" id="UAY-vc-cXj"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" image="icons8-back-filled-50"/>
+                                                <connections>
+                                                    <action selector="backButtonPressed:" destination="mIG-bw-DZF" eventType="touchUpInside" id="sgu-Kl-NVT"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LKI-by-7QT">
+                                                <rect key="frame" x="327" y="29" width="36" height="36"/>
+                                                <color key="backgroundColor" red="0.20000000000000001" green="0.74509803921568629" blue="0.5607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="36" id="Int-eW-lIh"/>
+                                                    <constraint firstAttribute="width" constant="36" id="lAV-gA-VfX"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.1529411765" green="0.44705882349999998" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" image="icons8-forward-filled-50"/>
+                                                <connections>
+                                                    <action selector="nextButtonPressed:" destination="mIG-bw-DZF" eventType="touchUpInside" id="Bni-Oe-LE4"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVr-pl-1cH">
+                                                <rect key="frame" x="168.5" y="138" width="38.5" height="26"/>
+                                                <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="19"/>
+                                                <color key="textColor" red="0.20000000000000001" green="0.74509803919999995" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CV5-ea-sm1">
+                                                <rect key="frame" x="94" y="30" width="187" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="187" id="rCl-vf-t6o"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <color key="tintColor" red="0.20000000000000001" green="0.74509803919999995" blue="0.56078431370000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Today"/>
+                                                <connections>
+                                                    <action selector="todayButtonPressed:" destination="mIG-bw-DZF" eventType="touchUpInside" id="cYE-y1-wns"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="CV5-ea-sm1" firstAttribute="centerY" secondItem="qAx-Ff-koJ" secondAttribute="centerY" id="8vy-rQ-IsA"/>
+                                            <constraint firstItem="LKI-by-7QT" firstAttribute="centerY" secondItem="qAx-Ff-koJ" secondAttribute="centerY" id="Cn6-ZU-zD6"/>
+                                            <constraint firstAttribute="height" constant="1000" id="DKk-Ag-je1"/>
+                                            <constraint firstItem="uya-al-AiH" firstAttribute="leading" secondItem="qAx-Ff-koJ" secondAttribute="leading" id="MUi-eH-2CW"/>
+                                            <constraint firstItem="uya-al-AiH" firstAttribute="leading" secondItem="2sJ-Ak-Llh" secondAttribute="leading" constant="12" id="Mqg-Ff-xJq"/>
+                                            <constraint firstItem="CV5-ea-sm1" firstAttribute="centerX" secondItem="2sJ-Ak-Llh" secondAttribute="centerX" id="O2N-r8-1Q5"/>
+                                            <constraint firstItem="uya-al-AiH" firstAttribute="top" secondItem="bVr-pl-1cH" secondAttribute="bottom" constant="15" id="Ror-Dv-MIM"/>
+                                            <constraint firstItem="uya-al-AiH" firstAttribute="top" secondItem="CV5-ea-sm1" secondAttribute="bottom" constant="115" id="VEW-Xe-EpY"/>
+                                            <constraint firstAttribute="trailing" secondItem="uya-al-AiH" secondAttribute="trailing" constant="12" id="bma-dv-h8X"/>
+                                            <constraint firstItem="uya-al-AiH" firstAttribute="centerX" secondItem="2sJ-Ak-Llh" secondAttribute="centerX" id="ewc-vZ-bdu"/>
+                                            <constraint firstItem="bVr-pl-1cH" firstAttribute="centerX" secondItem="CV5-ea-sm1" secondAttribute="centerX" id="wrA-D7-Jfs"/>
+                                            <constraint firstItem="CV5-ea-sm1" firstAttribute="top" secondItem="2sJ-Ak-Llh" secondAttribute="top" constant="30" id="zDs-GL-OXQ"/>
+                                            <constraint firstItem="LKI-by-7QT" firstAttribute="trailing" secondItem="uya-al-AiH" secondAttribute="trailing" id="zIO-0e-zYj"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="2sJ-Ak-Llh" firstAttribute="leading" secondItem="4YM-AM-oxd" secondAttribute="leading" id="PJJ-SO-PHq"/>
+                                    <constraint firstAttribute="trailing" secondItem="2sJ-Ak-Llh" secondAttribute="trailing" id="RVJ-yI-1Kt"/>
+                                    <constraint firstItem="2sJ-Ak-Llh" firstAttribute="top" secondItem="4YM-AM-oxd" secondAttribute="top" id="loq-XL-Jma"/>
+                                    <constraint firstAttribute="bottom" secondItem="2sJ-Ak-Llh" secondAttribute="bottom" id="wIr-mG-U45"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="4YM-AM-oxd" firstAttribute="leading" secondItem="IMP-bJ-CAY" secondAttribute="leading" id="Jdx-6O-Up4"/>
+                            <constraint firstItem="2sJ-Ak-Llh" firstAttribute="width" secondItem="IMP-bJ-CAY" secondAttribute="width" id="RsN-mc-nhs"/>
+                            <constraint firstItem="4YM-AM-oxd" firstAttribute="centerY" secondItem="IMP-bJ-CAY" secondAttribute="centerY" id="Tuc-nv-nXo"/>
+                            <constraint firstItem="4YM-AM-oxd" firstAttribute="top" secondItem="IMP-bJ-CAY" secondAttribute="topMargin" constant="-54" id="bqZ-dM-c2h"/>
+                            <constraint firstAttribute="trailing" secondItem="4YM-AM-oxd" secondAttribute="trailing" id="yvB-rB-Kjc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Qg-l7-Bu6"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Fever Progress" id="eg7-7E-0zf">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="icons8-bulleted-list-filled-20" id="9eE-r4-hAZ">
+                                <connections>
+                                    <segue destination="QeE-n9-1xX" kind="show" id="7j1-KL-fvm"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="o08-v0-U3J">
+                                <connections>
+                                    <segue destination="EdA-yP-hes" kind="show" identifier="goToEdit" id="2Zn-4G-0Rr"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="qAx-Ff-koJ" id="zV8-qE-yHC"/>
+                        <outlet property="lineChart" destination="uya-al-AiH" id="i9r-My-KE8"/>
+                        <outlet property="nextButton" destination="LKI-by-7QT" id="6n4-Q9-MDu"/>
+                        <outlet property="todayButton" destination="CV5-ea-sm1" id="aor-z3-YR8"/>
+                        <outlet property="yearLabel" destination="bVr-pl-1cH" id="v5x-Of-Pid"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="URt-qq-Hym" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1298" y="1151"/>
+        </scene>
         <!--Temperature-->
         <scene sceneID="YzS-xk-rwk">
             <objects>
@@ -795,13 +924,7 @@
                         <viewLayoutGuide key="safeArea" id="73I-0z-m5M"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Temperature" id="jod-t8-aNQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="o08-v0-U3J">
-                            <connections>
-                                <segue destination="EdA-yP-hes" kind="show" identifier="goToEdit" id="jz0-lr-9oU"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Temperature" id="jod-t8-aNQ"/>
                     <connections>
                         <outlet property="datePicker" destination="Dy8-Tm-y8A" id="GvG-2V-kPG"/>
                         <outlet property="tableView" destination="T7O-YS-esz" id="Bdb-kB-Kke"/>
@@ -809,7 +932,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jH5-VK-6fF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1940" y="1118.7192118226601"/>
+            <point key="canvasLocation" x="1998" y="1151"/>
         </scene>
         <!--Tracking NC Scene-->
         <scene sceneID="DKd-UP-qBP">
@@ -1297,7 +1420,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3E-CQ-aC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BBk-0f-sLN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1559" y="2909"/>
+            <point key="canvasLocation" x="1596" y="2857"/>
         </scene>
         <!--Charts-->
         <scene sceneID="XIO-t0-bEp">
@@ -1417,7 +1540,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUj-U7-rGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2199" y="2908"/>
+            <point key="canvasLocation" x="2236" y="2857"/>
         </scene>
         <!--Percentil View Controller-->
         <scene sceneID="PrP-tQ-M0H">
@@ -1726,7 +1849,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhZ-VO-KH8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2920.8000000000002" y="2906.8965517241381"/>
+            <point key="canvasLocation" x="2958" y="2857"/>
         </scene>
         <!--Sleep Records-->
         <scene sceneID="jrU-gg-ZBb">
@@ -2313,7 +2436,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PcK-Ni-NJH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1940" y="1827"/>
+            <point key="canvasLocation" x="1961" y="1878"/>
         </scene>
         <!--Medications-->
         <scene sceneID="dqs-xI-CFK">
@@ -4512,7 +4635,7 @@ Cg
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0AL-bK-ddg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="846" y="1490"/>
+            <point key="canvasLocation" x="668" y="1780"/>
         </scene>
         <!--Sleep-->
         <scene sceneID="hRN-z1-lQm">
@@ -4595,7 +4718,7 @@ Cg
         <image name="vaccine-3" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Pks-kB-O2s"/>
+        <segue reference="mAE-Or-XZG"/>
         <segue reference="1nd-hM-rfs"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

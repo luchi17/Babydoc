@@ -184,7 +184,7 @@ class FeverViewController : UIViewController{
                 
             }
            
-            feverToEdit = Fever() //para que si add reconozca que no hay fver seleccionada
+            feverToEdit = Fever()
         }
         catch{
             print(error)
@@ -201,7 +201,7 @@ extension FeverViewController: ScrollableDatepickerDelegate {
     func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
         
         self.showSelectedDate()
-        //mostrar info de ese dia
+        
          loadBabiesAndFever(selectedDate: date)
         
     }
@@ -279,11 +279,11 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
         if let destinationVC = segue.destination as? SaveFeverViewController{
           
             
-            if feverToEdit.temperature == Float(0.0){ //Save
+            if feverToEdit.temperature == Float(0.0){
                 destinationVC.feverToSave = feverToEdit
                 destinationVC.feverToEdit = feverToEdit
             }
-            else{  //Edit
+            else{ 
                 destinationVC.feverToEdit = feverToEdit
 
             }
