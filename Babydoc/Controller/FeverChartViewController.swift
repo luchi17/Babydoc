@@ -10,23 +10,74 @@ import Foundation
 import UIKit
 import Charts
 import RealmSwift
+import SwiftChart
 
-class FeverChartViewController : UIViewController, ChartViewDelegate{
+
+class FeverChartViewController : UIViewController, ChartViewDelegate, ChartDelegate{
     
+    func didTouchChart(_ chart: Chart, indexes: [Int?], x: Double, left: CGFloat) {
+        if let value = lineChart.valueForSeries(0, atIndex: indexes[0]) {
+            
+            let numberFormatter = NumberFormatter()
+            numberFormatter.minimumFractionDigits = 0
+            numberFormatter.maximumFractionDigits = 1
+            labelNumber.text = numberFormatter.string(from: NSNumber(value: value))
+
+            var constant = labelLeadingMarginInitialConstant + left - (labelNumber.frame.width / 2)
+            
+     
+            if constant < labelLeadingMarginInitialConstant {
+                constant = labelLeadingMarginInitialConstant
+            }
+            
+        
+            let rightMargin = chart.frame.width - labelNumber.frame.width
+            if constant > rightMargin {
+                constant = rightMargin
+            }
+            
+            labelLeadingMargin.constant = constant
+            
+        }
+    }
+
+    func didFinishTouchingChart(_ chart: Chart) {
+        labelNumber.text = ""
+        labelLeadingMargin.constant = labelLeadingMarginInitialConstant
+    }
+
+    func didEndTouchingChart(_ chart: Chart) {
+
+    }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        super.viewWillTransition(to: size, with: coordinator)
+ 
+        lineChart.setNeedsDisplay()
+        
+    }
+    
+    @IBOutlet weak var labelLeadingMargin: NSLayoutConstraint!
+    fileprivate var labelLeadingMarginInitialConstant: CGFloat!
+    
+    @IBOutlet weak var labelNumber: UILabel!
     
     @IBOutlet weak var yearLabel: UILabel!
-    @IBOutlet weak var lineChart: LineChartView!
+    
+    @IBOutlet weak var lineChart: Chart!
+ 
     let greenDarkColor = UIColor.init(hexString: "33BE8F")
     let greenLightColor = UIColor.init(hexString: "14E19C")
     
-    var days = Array<String>()
+    var days = Array<Double>()
     
     var feverValues = [Double]()
     var realm = try! Realm()
     var registeredBabies : Results<Baby>?
     var babyApp : Baby?
+    
     var selectedMonth = Date().month
-    var selectedYear = Date().year
+    var selectedDate = Date()
 
     @IBOutlet weak var nextButton: UIButton!
     
@@ -36,8 +87,9 @@ class FeverChartViewController : UIViewController, ChartViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         lineChart.delegate = self
+        labelLeadingMarginInitialConstant = labelLeadingMargin.constant
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +105,7 @@ class FeverChartViewController : UIViewController, ChartViewDelegate{
             
             nextButton.isEnabled = false
         }
+       
     }
     func appearanceView(){
         
@@ -62,7 +115,7 @@ class FeverChartViewController : UIViewController, ChartViewDelegate{
         
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY"
-        todayButton.setTitle("Go to current year", for: .normal)
+        todayButton.setTitle("Go to current month", for: .normal)
         todayButton.setTitleColor(greenDarkColor, for: .normal)
         todayButton.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 16)
         todayButton.backgroundColor = UIColor.white
@@ -75,99 +128,63 @@ class FeverChartViewController : UIViewController, ChartViewDelegate{
         todayButton.layer.shadowOpacity = 0.7
         todayButton.layer.shadowRadius = 1
         todayButton.layer.shadowOffset = CGSize(width: 2, height: 2)
-        
-        yearLabel.text = "\(selectedMonth) Temperature Progress"
-        
-        for i in 1..<32{
-            days.append("\(i)")
-        }
-        
+
     }
+    
+    
     
     func appearancelineChart(){
-
-
-        yearLabel.text = "\(selectedMonth) Temperature Progress"
-        lineChart.noDataText = "You need to provide data for the chart."
-        lineChart.chartDescription?.enabled = true
-
-        lineChart.drawBordersEnabled = false
-        lineChart.dragEnabled = true
-        lineChart.setScaleEnabled(false)
-        lineChart.pinchZoomEnabled = false
-        lineChart.highlightPerDragEnabled = false
-        lineChart.legend.enabled = false
         
-        let xAxis = lineChart.xAxis
-        xAxis.labelFont = UIFont(name: "Avenir-Medium", size: 14)!
-        xAxis.labelTextColor = UIColor(hexString: "7F8484")!
-        xAxis.granularity = 1
-        xAxis.centerAxisLabelsEnabled = true
-        xAxis.valueFormatter = IndexAxisValueFormatter(values: self.days)
-        xAxis.drawGridLinesEnabled = false
-        xAxis.labelPosition = .bottom
-        xAxis.drawAxisLineEnabled = true
-        xAxis.axisMaximum = 31
-        xAxis.axisMinimum = 1
-        xAxis.axisLineColor = (UIColor(hexString: "7F8484")?.lighten(byPercentage: 0.2))!
+        days = []
+        
+        for i in 1..<32{
+            days.append(Double(i))
+        }
 
-
-        let leftAxis = lineChart.leftAxis
-        leftAxis.labelFont = UIFont(name: "Avenir-Medium", size: 14)!
-        leftAxis.labelTextColor = UIColor(hexString: "7F8484")!
-        leftAxis.spaceTop = 0.35
-        leftAxis.granularityEnabled = true
-        leftAxis.axisMinimum = 0
-        leftAxis.axisMaximum = 42
-        leftAxis.granularityEnabled = true
-        leftAxis.drawGridLinesEnabled = false
-        leftAxis.drawAxisLineEnabled = true
-        leftAxis.axisLineColor = (UIColor(hexString: "7F8484")?.lighten(byPercentage: 0.2))!
-
-        lineChart.rightAxis.enabled = false
-
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "MMMM YYYY"
+        yearLabel.text = formatter2.string(from: selectedDate)
+        
+        lineChart.showXLabelsAndGrid = false
+        lineChart.showYLabelsAndGrid = true
+        lineChart.xLabelsOrientation = .horizontal
+        lineChart.xLabels = days
+        lineChart.xLabelsTextAlignment = .center
+        lineChart.xLabelsFormatter = { String(Int($1)) }
 
         if feverValues.count != 0 {
-            setChart()
+            
+            
+            lineChart.yLabelsFormatter = { String(Int($1)) +  "ºC" }
+            
+            
+            let series = ChartSeries(feverValues)
+
+            series.colors = (
+                above: UIColor.red,
+                below: greenLightColor!,
+                zeroLevel: 37.8
+            )
+            
+            lineChart.minY = 34
+            //lineChart.minY = feverValues.min()! - 3
+            lineChart.maxY = 42
+            lineChart.maxX = 15
+            lineChart.minX = 1
+            series.area = false
+            lineChart.add(series)
+
         }
 
     }
-    func setChart() {
-
-
-        var dataEntries: [ChartDataEntry] = []
-      
-
-        for i in 0..<self.days.count {
-
-            let dataEntry = ChartDataEntry(x: Double(i) , y: self.feverValues[i])
-            dataEntries.append(dataEntry)
-
-        }
-
-        let chartDataSet = LineChartDataSet(entries: dataEntries, label: "")
-        chartDataSet.colors = [greenLightColor!]
-        chartDataSet.drawValuesEnabled = false
-
-        let chartData = LineChartData(dataSet: chartDataSet)
-        lineChart.data = chartData
-
-        lineChart.scaleYEnabled = false
-        lineChart.scaleXEnabled = true
-        lineChart.maxVisibleCount = 10
     
-
-        lineChart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
-
-
-    }
     func setFeverForChart(month : Int){
         
         feverValues = []
         var comp = DateComponents()
-        comp.year = selectedYear
+        comp.year = Date().year
         comp.day = 1
-        comp.month = Date().month
+        comp.month = selectedMonth
 
         calcAvgMonth(dateComp: comp)
         
@@ -205,7 +222,7 @@ class FeverChartViewController : UIViewController, ChartViewDelegate{
                 feverValues.append(Double(tempFloat/Float(counter)))
             }
             else{
-                feverValues.append(Double(0.0))
+                feverValues.append(Double(35.0))
             }
             
             
@@ -229,8 +246,11 @@ class FeverChartViewController : UIViewController, ChartViewDelegate{
         if !(babyApp?.name.isEmpty)! && babyApp?.sleeps.count != 0{
             
             setFeverForChart(month: selectedMonth)
-            appearancelineChart()
             lineChart.setNeedsDisplay()
+            lineChart.reloadInputViews()
+            lineChart.removeAllSeries()
+            appearancelineChart()
+            
             
             
             
@@ -240,9 +260,8 @@ class FeverChartViewController : UIViewController, ChartViewDelegate{
     @IBAction func backButtonPressed(_ sender: UIButton) {
         
         selectedMonth = selectedMonth - 1
-        
-        setFeverForChart(month: selectedMonth)
-        
+        selectedDate = Calendar.current.date(byAdding: .month, value: -1, to: selectedDate)!
+
         
         if selectedMonth < Date().month{
             nextButton.isEnabled = true
@@ -252,23 +271,27 @@ class FeverChartViewController : UIViewController, ChartViewDelegate{
             
             nextButton.isEnabled = false
         }
-        self.appearancelineChart()
+        else if selectedMonth <= 1 {
+            nextButton.isEnabled = false
+        }
+        self.loadBabies()
+        
         
     }
     
     @IBAction func todayButtonPressed(_ sender: UIButton) {
         
         selectedMonth = Date().month
-        setFeverForChart(month: selectedMonth)
+        selectedDate = Date()
         nextButton.isEnabled = false
-        self.appearancelineChart()
+        self.loadBabies()
+        
         
     }
     @IBAction func nextButtonPressed(_ sender: UIButton) {
         
         selectedMonth = selectedMonth + 1
-        
-        setFeverForChart(month: selectedMonth)
+        selectedDate = Calendar.current.date(byAdding: .month, value: 1, to: selectedDate)!
         
         if selectedMonth < Date().month{
             sender.isEnabled = true
@@ -278,67 +301,9 @@ class FeverChartViewController : UIViewController, ChartViewDelegate{
             
             sender.isEnabled = false
         }
-        self.appearancelineChart()
-    }
-    
-}
-
-class LineChartFormatter: NSObject, IAxisValueFormatter {
-    
-    
-    
-    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        self.loadBabies()
         
-        let label = Label(rawValue: Int(round(value)))!
-        return label.labeltype
     }
     
 }
-enum LabelLine : Int {
-    case _34
-    case _35
-    case _36
-    case _37
-    case _38
-    case _39
-    case _40
-    case _41
-    case _42
-    case _0
-    
-    
-    
-    var labeltype : String {
-        switch self {
-        case ._42:
-            return "42ºC"
-        case ._41:
-            return "41ºC"
-        case ._40:
-            return "40ºC"
-        case ._39:
-            return "39ºC"
-        case ._38:
-            return "38ºC"
-        case ._37:
-            return "37ºC"
-        case ._36:
-            return "36ºC"
-        case ._35:
-            return "35ºC"
-        case ._34:
-            return "34ºC"
-        case ._0:
-            return "0ºC"
-        }
-    }
-}
-
-
-
-
-
-
-
-
 

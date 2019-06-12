@@ -18,5 +18,6 @@ pod 'RLBAlertsPickers', :git => 'https://github.com/loicgriffie/Alerts-Pickers.g
 pod 'APESuperHUD', :git => 'https://github.com/apegroup/APESuperHUD.git'
 pod 'ICTextView'
 pod 'SwiftyPickerPopover'
+pod "SwiftChart"
 end
 
