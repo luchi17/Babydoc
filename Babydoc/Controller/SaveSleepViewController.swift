@@ -484,7 +484,7 @@ class SaveSleepViewController : UITableViewController{
                         babyApp.sleeps.append(sleepToSave)
                         
                         let image = UIImage(named: "doubletick")!
-                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Sleep record saved correctly!")
+                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "Sleep record saved correctly!")
                         HUDAppearance.cancelableOnTouch = true
                         HUDAppearance.messageFont = self.fontLittle!
                         HUDAppearance.messageTextColor = self.grayColor!
@@ -566,7 +566,7 @@ class SaveSleepViewController : UITableViewController{
                     babyApp.sleeps.append(sleepToSave)
                     
                     let image = UIImage(named: "doubletick")!
-                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Sleep record saved correctly!")
+                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "Sleep record saved correctly!")
                     HUDAppearance.cancelableOnTouch = true
                     HUDAppearance.messageFont = self.fontLittle!
                     HUDAppearance.messageTextColor = self.grayColor!
@@ -658,7 +658,7 @@ class SaveSleepViewController : UITableViewController{
                         
                         
                         let image = UIImage(named: "doubletick")!
-                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Sleep record editted correctly!")
+                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "Sleep record editted correctly!")
                         HUDAppearance.cancelableOnTouch = true
                         HUDAppearance.messageFont = self.fontLittle!
                         HUDAppearance.messageTextColor = self.grayColor!
@@ -752,7 +752,7 @@ class SaveSleepViewController : UITableViewController{
                         sleepToEdit.nightSleep = switchValue
                         
                         let image = UIImage(named: "doubletick")!
-                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Sleep record editted correctly!")
+                        let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "Sleep record editted correctly!")
                         HUDAppearance.cancelableOnTouch = true
                         HUDAppearance.messageFont = self.fontLittle!
                         HUDAppearance.messageTextColor = self.grayColor!

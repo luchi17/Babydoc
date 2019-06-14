@@ -9,7 +9,6 @@
 import UIKit
 import RealmSwift
 import SwipeCellKit
-import RLBAlertsPickers
 
 class MedicationTypesInfoViewController : UITableViewController{
     

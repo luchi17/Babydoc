@@ -11,6 +11,7 @@ import RealmSwift
 import SwiftyPickerPopover
 import APESuperHUD
 import ChameleonFramework
+import RLBAlertsPickers
 
 class SaveFeverViewController : UITableViewController{
     
@@ -328,7 +329,7 @@ class SaveFeverViewController : UITableViewController{
             }
             
             let image = UIImage(named: "doubletick")!
-            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Fever has been saved correctly!")
+            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "Fever has been saved correctly!")
             HUDAppearance.cancelableOnTouch = true
             HUDAppearance.messageFont = self.fontLittle!
             HUDAppearance.messageTextColor = self.grayLightColor!

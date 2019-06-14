@@ -10,8 +10,8 @@ import UIKit
 import RealmSwift
 import PMAlertController
 import SwipeCellKit
-import RLBAlertsPickers
 import APESuperHUD
+import RLBAlertsPickers
 
 
 class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, CurrentBabyOftheAppDelegate{
@@ -503,7 +503,7 @@ extension BabiesViewController : SwipeTableViewCellDelegate{
                     }
 
                     let image = UIImage(named: "doubletick")!
-                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "\(self.registeredBabies![indexPath.row].name) is now the current baby of the app")
+                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "\(self.registeredBabies![indexPath.row].name) is now the current baby of the app")
                     HUDAppearance.cancelableOnTouch = true
                     HUDAppearance.messageFont = self.fontLight!
                     HUDAppearance.messageTextColor = self.grayColor!

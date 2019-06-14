@@ -172,7 +172,7 @@ class SaveDoseViewController : UITableViewController{
         else{
             saveData()
             let image = UIImage(named: "doubletick")!
-            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1.5), title: nil, message: "Dose has been added correctly!")
+            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "Dose has been added correctly!")
             HUDAppearance.cancelableOnTouch = true
             HUDAppearance.messageFont = self.fontLittle!
             HUDAppearance.messageTextColor = self.grayLightColor!

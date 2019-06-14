@@ -10,7 +10,6 @@ import UIKit
 import RealmSwift
 import SwipeCellKit
 import APESuperHUD
-import RLBAlertsPickers
 import SwiftyPickerPopover
 
 class MedicationCalculatorViewController : UIViewController, UITableViewDataSource, UITableViewDelegate{

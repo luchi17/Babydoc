@@ -15,47 +15,12 @@ import SwiftChart
 
 class FeverChartViewController : UIViewController, ChartViewDelegate, ChartDelegate{
     
-    func didTouchChart(_ chart: Chart, indexes: [Int?], x: Double, left: CGFloat) {
-        if let value = lineChart.valueForSeries(0, atIndex: indexes[0]) {
-            
-            let numberFormatter = NumberFormatter()
-            numberFormatter.minimumFractionDigits = 0
-            numberFormatter.maximumFractionDigits = 1
-            labelNumber.text = numberFormatter.string(from: NSNumber(value: value))
-
-            var constant = labelLeadingMarginInitialConstant + left - (labelNumber.frame.width / 2)
-            
-     
-            if constant < labelLeadingMarginInitialConstant {
-                constant = labelLeadingMarginInitialConstant
-            }
-            
-        
-            let rightMargin = chart.frame.width - labelNumber.frame.width
-            if constant > rightMargin {
-                constant = rightMargin
-            }
-            
-            labelLeadingMargin.constant = constant
-            
-        }
-    }
-
-    func didFinishTouchingChart(_ chart: Chart) {
-        labelNumber.text = ""
-        labelLeadingMargin.constant = labelLeadingMarginInitialConstant
-    }
-
-    func didEndTouchingChart(_ chart: Chart) {
-
-    }
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        super.viewWillTransition(to: size, with: coordinator)
- 
-        lineChart.setNeedsDisplay()
-        
-    }
+    
+    
+    let font = UIFont(name: "Avenir-Heavy", size: 17)
+    let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
+    let grayColor = UIColor.init(hexString: "555555")
+    let grayLightColor = UIColor.init(hexString: "7F8484")
     
     @IBOutlet weak var labelLeadingMargin: NSLayoutConstraint!
     fileprivate var labelLeadingMarginInitialConstant: CGFloat!
@@ -105,6 +70,50 @@ class FeverChartViewController : UIViewController, ChartViewDelegate, ChartDeleg
             
             nextButton.isEnabled = false
         }
+
+            if self.babyApp!.name.isEmpty && self.registeredBabies!.count > 0{
+                
+                let controller = UIAlertController(title: nil, message: "There are no babys in Babydoc", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Ok", style: .default)
+                
+                controller.setTitle(font: self.font!, color: self.grayColor!)
+                controller.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                controller.addAction(action)
+                controller.show(animated: true, vibrate: false, style: .light, completion: nil)
+                
+                
+            }
+        else if self.babyApp!.name.isEmpty && self.registeredBabies!.count == 0{
+            
+            let controller = UIAlertController(title: nil, message: "There are no active babys in Babydoc", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "Ok", style: .default)
+            
+            controller.setTitle(font: self.font!, color: self.grayColor!)
+            controller.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+            controller.addAction(action)
+            controller.show(animated: true, vibrate: false, style: .light, completion: nil)
+            
+            
+        }
+                
+            else if !self.babyApp!.name.isEmpty && self.babyApp!.fever.count == 0{
+                
+                let controller = UIAlertController(title: nil, message: "Graph is empty because no data has been introduced, pleaser enter data.", preferredStyle: .alert)
+                
+                let action = UIAlertAction(title: "Ok", style: .default)
+                
+                controller.setTitle(font: self.font!, color: self.grayColor!)
+                controller.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                controller.addAction(action)
+                controller.show(animated: true, vibrate: false, style: .light, completion: nil)
+                
+                
+            }
+            
+            
+        
        
     }
     func appearanceView(){
@@ -131,13 +140,67 @@ class FeverChartViewController : UIViewController, ChartViewDelegate, ChartDeleg
 
     }
     
+    func didTouchChart(_ chart: Chart, indexes: [Int?], x: Double, left: CGFloat) {
+        
+        if !self.babyApp!.name.isEmpty && self.babyApp!.fever.count != 0{
+            
+           
+            if let value = lineChart.valueForSeries(0, atIndex: indexes[0]) {
+                
+                let numberFormatter = NumberFormatter()
+                numberFormatter.minimumFractionDigits = 0
+                numberFormatter.maximumFractionDigits = 1
+                labelNumber.text = numberFormatter.string(from: NSNumber(value: value))
+                
+                var constant = labelLeadingMarginInitialConstant + left - (labelNumber.frame.width / 2)
+                
+                
+                if constant < labelLeadingMarginInitialConstant {
+                    constant = labelLeadingMarginInitialConstant
+                }
+                
+                
+                let rightMargin = chart.frame.width - labelNumber.frame.width
+                if constant > rightMargin {
+                    constant = rightMargin
+                }
+                
+                labelLeadingMargin.constant = constant
+                
+            }
+            
+        }
+        
+        
+       
+    }
+    
+    func didFinishTouchingChart(_ chart: Chart) {
+        labelNumber.text = ""
+        labelLeadingMargin.constant = labelLeadingMarginInitialConstant
+    }
+    
+    func didEndTouchingChart(_ chart: Chart) {
+        
+    }
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        lineChart.setNeedsDisplay()
+        
+    }
+    
     
     
     func appearancelineChart(){
         
         days = []
+        let range = Calendar.current.range(of: .day, in: .month, for: selectedDate)!
+        let numDays = range.count
         
-        for i in 1..<32{
+        for i in 1..<(numDays+1){
+       
             days.append(Double(i))
         }
 
@@ -167,7 +230,6 @@ class FeverChartViewController : UIViewController, ChartViewDelegate, ChartDeleg
             )
             
             lineChart.minY = 34
-            //lineChart.minY = feverValues.min()! - 3
             lineChart.maxY = 42
             lineChart.maxX = 15
             lineChart.minX = 1
@@ -243,7 +305,7 @@ class FeverChartViewController : UIViewController, ChartViewDelegate, ChartDeleg
             }
             
         }
-        if !(babyApp?.name.isEmpty)! && babyApp?.sleeps.count != 0{
+        if !(babyApp?.name.isEmpty)! && babyApp?.fever.count != 0{
             
             setFeverForChart(month: selectedMonth)
             lineChart.setNeedsDisplay()

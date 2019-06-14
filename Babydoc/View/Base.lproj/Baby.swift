@@ -21,6 +21,7 @@ class Baby : Object {
     @objc dynamic var allergies : String = ""
     @objc dynamic var illnesses : String = ""
     @objc dynamic var current : Bool = false
+    @objc dynamic var sex : String = ""
     
    
     let vaccines = List<Vaccine>()

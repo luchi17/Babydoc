@@ -16,8 +16,6 @@ import RLBAlertsPickers
 class BabyInfoViewController : UITableViewController{
     
     
-    
-    
     var babyProperties : Results<Baby>?
     var realm = try! Realm()
     var propertyDictionaryName = [[String]]()
@@ -51,7 +49,7 @@ class BabyInfoViewController : UITableViewController{
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "TextFieldTableViewCell", bundle: nil), forCellReuseIdentifier: "babyInfoCell")
-        propertyDictionaryName = [["name","Name"],["dateOfBirth","Date Of Birth"],["age","Age"], ["weight","Weight (kg)"],["height","Height (m)"],["headDiameter","Head Diameter (cm)"],["bloodType","Blood Type"],["allergies" , "Allergies"],["illnesses","Illnesses"]]
+        propertyDictionaryName = [["name","Name"],["sex", "Sex"],["dateOfBirth","Date Of Birth"],["age","Age"], ["weight","Weight (kg)"],["height","Height (m)"],["headDiameter","Head Diameter (cm)"],["bloodType","Blood Type"],["allergies" , "Allergies"],["illnesses","Illnesses"]]
         
 
     }
@@ -280,7 +278,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
             
             let edit = SwipeAction(style: .default, title: nil){ action , indexPath in
                 
-                if indexPath.row == 1{
+                if indexPath.row == 2{
                     
                     let alert = UIAlertController(style: .alert, title: "Select \(self.propertyDictionaryName[indexPath.row][1])")
                     let maxDate = Date()
@@ -332,7 +330,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                 }
                     
-                else if indexPath.row == 0 || indexPath.row == 7 || indexPath.row == 8{
+                else if indexPath.row == 0 || indexPath.row == 8 || indexPath.row == 9{
                     
                     let alert = UIAlertController(style: .alert, title: "Edit "+self.propertyDictionaryName[indexPath.row][1] )
                     let config: TextField.Config = { textField in
@@ -365,10 +363,37 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     alert.show(animated: true, vibrate:false, style: .prominent, completion: nil)
                     
                 }
-                else if indexPath.row == 2{
-                    cell.isUserInteractionEnabled = false
+                else if indexPath.row == 1{
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    
+                    var sex = ["female", "male"]
+                    var selected  = "female"
+                    let pickerViewSelectedValueSex: PickerViewViewController.Index = (column: 0, row: 0)
+                    
+                    selected = "female"
+                    alert.addPickerView(values: [sex], initialSelection: pickerViewSelectedValueSex) { vc, picker, index, values in
+                        
+                        selected = sex[picker.selectedRow(inComponent: 0)]
+                        
+                        
+                    }
+                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                        
+                        
+                        self.saveBabyInfo(valueToSave: selected, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        
+                    })
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
+                    alert.addAction(title: "Cancel" , style : .cancel)
+                    alert.addAction(done_action)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                 }
-                else if indexPath.row == 3
+                else if indexPath.row == 3{
+                    cell.isUserInteractionEnabled = false
+                    cell.hideSwipe(animated: true)
+                    
+                }
+                else if indexPath.row == 4
                 {
                     
                     let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
@@ -409,10 +434,10 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     
                     
                 }
-                else if indexPath.row == 4 || indexPath.row == 5 {
+                else if indexPath.row == 5 || indexPath.row == 6 {
                     
                     switch indexPath.row{
-                    case 4 :
+                    case 5 :
                         let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
                         alert.setTitle(font: self.font!, color: self.greenColor!)
                         var height  = Float()
@@ -444,7 +469,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                         
                         
                         
-                    case 5 :
+                    case 6 :
                         
                         let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
                         alert.setTitle(font: self.font!, color: self.greenColor!)
@@ -480,7 +505,7 @@ extension BabyInfoViewController : SwipeTableViewCellDelegate{
                     
                     
                 }
-                else if indexPath.row == 6{
+                else if indexPath.row == 7{
                     
                     let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
                     var bloodType = ""
