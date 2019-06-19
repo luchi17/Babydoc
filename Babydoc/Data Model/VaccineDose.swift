@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class VaccineDoses : Object {
+class VaccineDose : Object {
     
     @objc dynamic var ageOfVaccination : String = ""
     @objc dynamic var dateOfVaccination : String = ""
@@ -17,6 +17,8 @@ class VaccineDoses : Object {
     @objc dynamic var applied : Bool = false
 
     var parentVaccine = LinkingObjects(fromType : Vaccine.self , property : "doses" )
+    
+
     
     
     

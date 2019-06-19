@@ -213,7 +213,7 @@ class BabyInfoViewController : UITableViewController{
         
         return (years, months, days)
     }
-    func calcDateOfVaccination(doses : List<VaccineDoses>){
+    func calcDateOfVaccination(doses : List<VaccineDose>){
         
       
         var dateOfDose = Date()

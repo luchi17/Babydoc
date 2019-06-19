@@ -10,8 +10,6 @@ import UIKit
 import RealmSwift
 import Charts
 
-
-
 class SleepViewController : UIViewController, ChartViewDelegate{
     
     let darkBlueColor = UIColor.init(hexString: "2772DB")

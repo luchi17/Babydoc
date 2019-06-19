@@ -21,6 +21,9 @@ class DateCustom : Object{
     
     var parentFever = LinkingObjects(fromType : Fever.self , property : "date" )
     var parentDose = LinkingObjects(fromType : MedicationDoseCalculated.self , property : "date" )
+    var parentGrowth = LinkingObjects(fromType : Growth.self , property : "date" )
+    var parentSleepBegin = LinkingObjects(fromType : Sleep.self , property : "dateBegin" )
+    var parentSleepEnd = LinkingObjects(fromType : Sleep.self , property : "dateEnd" )
     
     
     

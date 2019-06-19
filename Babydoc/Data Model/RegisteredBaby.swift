@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class RegisteredBabies : Object {
+class RegisteredBaby : Object {
 
     var babies = List<Baby>()
     

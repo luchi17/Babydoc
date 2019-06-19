@@ -207,16 +207,21 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
             
             try realm.write {
                for vaccine in baby.vaccines{
-                    let dose = realm.objects(VaccineDoses.self).filter("%@ IN parentVaccine", vaccine)
+                    let dose = realm.objects(VaccineDose.self).filter("%@ IN parentVaccine", vaccine)
                     realm.delete(dose)
                 }
+                for drug in baby.medications{
+                    let dose = realm.objects(VaccineDose.self).filter("%@ IN parentMedication", drug)
+                    realm.delete(dose)
+                }
+                
                 for sleep in baby.sleeps{
                     realm.delete(sleep.dateBegin!)
                     realm.delete(sleep.dateEnd!)
                 }
                 realm.delete(baby.sleeps)
                 realm.delete(baby.fever)
-                realm.delete(baby.medicationDoses)
+                realm.delete(baby.medications)
                 realm.delete(baby.vaccines)
                 realm.delete(baby)
                 
@@ -284,82 +289,82 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
             
                 
                 //Doses
-                let dose1 = VaccineDoses()
+                let dose1 = VaccineDose()
                 dose1.ageOfVaccination = "2 months"
-                let dose2 = VaccineDoses()
+                let dose2 = VaccineDose()
                 dose2.ageOfVaccination = "4 months"
-                let dose3 = VaccineDoses()
+                let dose3 = VaccineDose()
                 dose3.ageOfVaccination = "11 months"
                 
-                let dose4 = VaccineDoses()
+                let dose4 = VaccineDose()
                 dose4.ageOfVaccination = "2 months"
-                let dose5 = VaccineDoses()
+                let dose5 = VaccineDose()
                 dose5.ageOfVaccination = "4 months"
-                let dose6 = VaccineDoses()
+                let dose6 = VaccineDose()
                 dose6.ageOfVaccination = "11 months"
-                let dose7 = VaccineDoses()
+                let dose7 = VaccineDose()
                 dose7.ageOfVaccination = "6 years"
-                let dose8 = VaccineDoses()
+                let dose8 = VaccineDose()
                 dose8.ageOfVaccination = "12-14 years"
             
-                let dose9 = VaccineDoses()
+                let dose9 = VaccineDose()
                 dose9.ageOfVaccination = "2 months"
-                let dose10 = VaccineDoses()
+                let dose10 = VaccineDose()
                 dose10.ageOfVaccination = "4 months"
-                let dose11 = VaccineDoses()
+                let dose11 = VaccineDose()
                 dose11.ageOfVaccination = "11 months"
-                let dose12 = VaccineDoses()
+                let dose12 = VaccineDose()
                 dose12.ageOfVaccination = "6 years"
             
-                let dose13 = VaccineDoses()
+                let dose13 = VaccineDose()
                 dose13.ageOfVaccination = "3 months"
-                let dose14 = VaccineDoses()
+                let dose14 = VaccineDose()
                 dose14.ageOfVaccination = "5 months"
-                let dose15 = VaccineDoses()
+                let dose15 = VaccineDose()
                 dose15.ageOfVaccination = "12 months"
             
-                let dose16 = VaccineDoses()
+                let dose16 = VaccineDose()
                 dose16.ageOfVaccination = "2 months"
-                let dose17 = VaccineDoses()
+                let dose17 = VaccineDose()
                 dose17.ageOfVaccination = "3 months"
 
             
-                let dose18 = VaccineDoses()
+                let dose18 = VaccineDose()
                 dose18.ageOfVaccination = "4 months"
             
-                let dose19 = VaccineDoses()
+                let dose19 = VaccineDose()
                 dose19.ageOfVaccination = "2 months"
-                let dose20 = VaccineDoses()
+                let dose20 = VaccineDose()
                 dose20.ageOfVaccination = "4 months"
-                let dose21 = VaccineDoses()
+                let dose21 = VaccineDose()
                 dose21.ageOfVaccination = "11 months"
             
-                let dose22 = VaccineDoses()
+                let dose22 = VaccineDose()
                 dose22.ageOfVaccination = "2 months"
-                let dose23 = VaccineDoses()
+                let dose23 = VaccineDose()
                 dose23.ageOfVaccination = "4 months"
-                let dose24 = VaccineDoses()
+                let dose24 = VaccineDose()
                 dose24.ageOfVaccination = "11 months"
             
-                let dose25 = VaccineDoses()
+                let dose25 = VaccineDose()
                 dose25.ageOfVaccination = "4 months"
             
-                let dose26 = VaccineDoses()
+                let dose26 = VaccineDose()
                 dose26.ageOfVaccination = "12 months"
-                let dose27 = VaccineDoses()
+                let dose27 = VaccineDose()
                 dose27.ageOfVaccination = "12-14 years"
-                let dose28 = VaccineDoses()
+                let dose28 = VaccineDose()
                 dose28.ageOfVaccination = "Up to 19 years"
             
-                let dose29 = VaccineDoses()
+                let dose29 = VaccineDose()
                 dose29.ageOfVaccination = "12 months"
             
-                let dose30 = VaccineDoses()
+                let dose30 = VaccineDose()
                 dose30.ageOfVaccination = "12 months"
             
-                let dose31 = VaccineDoses()
+                let dose31 = VaccineDose()
                 dose31.ageOfVaccination = "3-4 years"
-                let dose32 = VaccineDoses()
+                let dose32 = VaccineDose()
                 dose32.ageOfVaccination = "11-12 years"
             
             

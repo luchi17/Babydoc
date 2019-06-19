@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Babydoc/View/Base.lproj/Baby.swift"
-            timestampString = "582195757.017884"
+            timestampString = "582661136.314556"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "17"
@@ -116,15 +116,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Babydoc/View/ActionViewSleep.swift"
-            timestampString = "581167586.791172"
+            timestampString = "582489276.579319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
             landmarkName = "loadSleepRecords(baby:day:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,15 +132,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Babydoc/View/ActionViewSleep.swift"
-            timestampString = "581167586.791222"
+            timestampString = "582489276.5794671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "328"
-            endingLineNumber = "328"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "loadSleepRecords(baby:day:)"
             landmarkType = "7">
          </BreakpointContent>

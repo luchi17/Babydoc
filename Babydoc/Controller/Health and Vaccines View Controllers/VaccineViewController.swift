@@ -24,7 +24,7 @@ class VaccineViewController : UIViewController{
     let realm = try! Realm()
     var vaccines : Results<Vaccine>?
     var registeredBabies : Results<Baby>?
-    var vaccinesDoses : Results<VaccineDoses>?
+    var vaccinesDoses : Results<VaccineDose>?
     var babyApp = Baby()
     
     let sectionAgeFunded = ["2 months", "4 months", "11 months", "12 months","3-4 years", "6 years", "11-12 years","12-14 years", "Up to 19 years"]
@@ -174,7 +174,7 @@ class VaccineViewController : UIViewController{
         }
         if !babyApp.name.isEmpty{
             vaccines = babyApp.vaccines.filter(NSPredicate(value: true))
-            vaccinesDoses = realm.objects(VaccineDoses.self)
+            vaccinesDoses = realm.objects(VaccineDose.self)
             
             tableView.reloadData()
             

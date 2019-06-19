@@ -25,11 +25,13 @@ class Baby : Object {
     
    
     let vaccines = List<Vaccine>()
+    let medications = List<Medication>()
     let medicationDoses = List<MedicationDoseCalculated>()
     let fever = List<Fever>()
     let sleeps = List<Sleep>()
+    let growth = List<Growth>()
     
-    var parentRegisteredBabies = LinkingObjects(fromType : RegisteredBabies.self , property : "babies" )
+    var parentRegisteredBabies = LinkingObjects(fromType : RegisteredBaby.self , property : "babies" )
 
    
 

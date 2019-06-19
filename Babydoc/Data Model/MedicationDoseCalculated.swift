@@ -22,9 +22,8 @@ class MedicationDoseCalculated : Object {
     @objc dynamic var dose : String = ""
     @objc dynamic var doseUnit : String = ""
 
+    
     var parentBaby = LinkingObjects(fromType : Baby.self , property : "medicationDoses" )
-    
-    
     
     
     

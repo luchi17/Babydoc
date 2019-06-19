@@ -17,24 +17,20 @@ class ActionViewSleep: UIView
     
     let napColor = UIColor.init(hexString: "66ACF8")
     var sleepcolor :UIColor = UIColor.init(hexString: "2772db")!
-    
+
     var arrayAllDates = Array<Date>()
     var arrayDateToday = Array<Date>()
     var arrayAllDatesSleepsBegin = Array<Date>()
     var arrayAllDatesSleepsEnd = Array<Date>()
     var arrayDateTodaySleepsBegin = Array<Date>()
     var arrayDateTodaySleepsEnd = Array<Date>()
-    var arrayDateTodaySleepsDurationBegin = Array<Float>()
-    var arrayColors = Array<Bool>()
+
     var selectedDay : Date?{
         didSet{
             
         }
     }
     var sleeps : Results<Sleep>?
-    var dict = [Date : Float]()
-    var dictColors = [Date : Bool]()
-    
     
     func fillColor(start : CGFloat,with color:UIColor,width:CGFloat)
     {
@@ -59,31 +55,44 @@ class ActionViewSleep: UIView
     {
         let width = self.bounds.width
         let day : CGFloat = 24
+
         
         switch tag {
-        case 0:
             
+            
+            
+        case 0:
+
             for i in 0..<arrayDateTodaySleepsBegin.count{
+                
+                let sleep = sleeps?.filter("generalDateBegin == %@", arrayDateTodaySleepsBegin[i])
+                
+                var width1  = Float(0.0)
+                var sleeptime  = true
+                
+                for s in sleep!{
+
+                    width1 = s.timeSleepFloat
+                    sleeptime = s.nightSleep
+                }
+
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
+
                 
-                let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
-                
-                if arrayColors[i]{
+                if sleeptime{
                     
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (CGFloat(width1)*width)/day)
                     
                 }
                 else{
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (CGFloat(width1)*width)/day)
                     
                 }
-                
-                
-                
+
                 
             }
             for date in  arrayDateTodaySleepsEnd{
@@ -104,17 +113,29 @@ class ActionViewSleep: UIView
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
                 
-                let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
+                
+                let sleep = sleeps?.filter("generalDateBegin == %@", arrayDateTodaySleepsBegin[i])
+                
+                var width1  = Float(0.0)
+                
+                var sleeptime  = true
+                
+                for s in sleep!{
+
+                    width1 = s.timeSleepFloat
+                    sleeptime = s.nightSleep
+                    
+                }
                 
                 
-                if arrayColors[i]{
+                if sleeptime{
                     
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (CGFloat(width1)*width)/day)
                 }
                 else{
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (CGFloat(width1)*width)/day)
                 }
                 
                 
@@ -130,24 +151,33 @@ class ActionViewSleep: UIView
             }
             
         case 2:
-            
+
             for i in 0..<arrayDateTodaySleepsBegin.count{
+                
+                let sleep = sleeps?.filter("generalDateBegin == %@", arrayDateTodaySleepsBegin[i])
+                
+                var width1  = Float(0.0)
+                var sleeptime  = true
+                
+                for s in sleep!{
+                    
+                    width1 = s.timeSleepFloat
+                    sleeptime = s.nightSleep
+                }
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
                 
-                let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
-                
-                if arrayColors[i]{
+                if sleeptime{
                     
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (CGFloat(width1)*width)/day)
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
                 }
                 else{
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (CGFloat(width1)*width)/day)
+                    
                 }
-                
                 
                 
             }
@@ -160,26 +190,35 @@ class ActionViewSleep: UIView
                 
                 
             }
-            
+
         case 3:
-            
+
             for i in 0..<arrayDateTodaySleepsBegin.count{
+                
+                let sleep = sleeps?.filter("generalDateBegin == %@", arrayDateTodaySleepsBegin[i])
+                
+                var width1  = Float(0.0)
+                var sleeptime  = true
+                
+                for s in sleep!{
+                    
+                    width1 = s.timeSleepFloat
+                    sleeptime = s.nightSleep
+                }
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
                 
-                let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
-                
-                if arrayColors[i]{
+                if sleeptime{
                     
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (CGFloat(width1)*width)/day)
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
                 }
                 else{
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (CGFloat(width1)*width)/day)
+                    
                 }
-                
                 
                 
             }
@@ -192,26 +231,35 @@ class ActionViewSleep: UIView
                 
                 
             }
-            
+
         case 4:
-            
+
             for i in 0..<arrayDateTodaySleepsBegin.count{
+                
+                let sleep = sleeps?.filter("generalDateBegin == %@", arrayDateTodaySleepsBegin[i])
+                
+                var width1  = Float(0.0)
+                var sleeptime  = true
+                
+                for s in sleep!{
+                    
+                    width1 = s.timeSleepFloat
+                    sleeptime = s.nightSleep
+                }
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
                 
-                let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
-                
-                if arrayColors[i]{
+                if sleeptime{
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (CGFloat(width1)*width)/day)
+                    
                 }
                 else{
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (CGFloat(width1)*width)/day)
+                    
                 }
-                
-                
                 
                 
             }
@@ -224,27 +272,34 @@ class ActionViewSleep: UIView
                 
                 
             }
-            
+
         case 5:
-            
-            
             for i in 0..<arrayDateTodaySleepsBegin.count{
+                
+                let sleep = sleeps?.filter("generalDateBegin == %@", arrayDateTodaySleepsBegin[i])
+                
+                var width1  = Float(0.0)
+                var sleeptime  = true
+                
+                for s in sleep!{
+                    
+                    width1 = s.timeSleepFloat
+                    sleeptime = s.nightSleep
+                }
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
                 
-                let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
-                
-                if arrayColors[i]{
+                if sleeptime{
                     
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (CGFloat(width1)*width)/day)
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
                 }
                 else{
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (CGFloat(width1)*width)/day)
+                    
                 }
-                
                 
                 
             }
@@ -257,28 +312,36 @@ class ActionViewSleep: UIView
                 
                 
             }
-            
+
         case 6:
-            
+
             for i in 0..<arrayDateTodaySleepsBegin.count{
                 
+                let sleep = sleeps?.filter("generalDateBegin == %@", arrayDateTodaySleepsBegin[i])
+                
+                var width1  = Float(0.0)
+                var sleeptime  = true
+                
+                for s in sleep!{
+                    
+                    width1 = s.timeSleepFloat
+                    sleeptime = s.nightSleep
+                }
+
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
-                
-                let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
-                
-                if arrayColors[i]{
+ 
+                if sleeptime{
                     
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (CGFloat(width1)*width)/day)
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
                 }
                 else{
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (CGFloat(width1)*width)/day)
+                    
                 }
-                
-                
-                
+ 
                 
             }
             for date in  arrayDateTodaySleepsEnd{
@@ -290,6 +353,7 @@ class ActionViewSleep: UIView
                 
                 
             }
+            
         default:
             break
         }
@@ -320,26 +384,19 @@ class ActionViewSleep: UIView
         
         arrayAllDatesSleepsBegin = []
         arrayAllDatesSleepsEnd = []
-        arrayDateTodaySleepsDurationBegin = []
-        dict = [:]
-        dictColors = [:]
-        arrayColors = []
+        
         
         for sleep in sleeps!{
             
             
             arrayAllDatesSleepsBegin.append(sleep.generalDateBegin)
             arrayAllDatesSleepsEnd.append(sleep.generalDateEnd)
-            dict[sleep.generalDateBegin] = sleep.timeSleepFloat
-            dictColors[sleep.generalDateBegin] = sleep.nightSleep
+
         }
         
         arrayDateTodaySleepsEnd = []
         arrayDateTodaySleepsBegin = []
-        
-        
-        
-        
+
         for date in arrayAllDatesSleepsBegin{
             
             if Calendar.current.isDate(date, inSameDayAs: day){
@@ -348,25 +405,7 @@ class ActionViewSleep: UIView
             }
             
         }
-        for date in dict.keys{
-            
-            
-            if Calendar.current.isDate(date, inSameDayAs: day){
-                
-                arrayDateTodaySleepsDurationBegin.append(dict[date]!)
-                
-            }
-            
-        }
-        for date in dictColors.keys{
-            if Calendar.current.isDate(date, inSameDayAs: day){
-                
-                arrayColors.append(dictColors[date]!)
-                
-            }
-        }
-        
-        
+
         for i in 0..<arrayAllDatesSleepsEnd.count{
             
             if Calendar.current.isDate(arrayAllDatesSleepsEnd[i], inSameDayAs: day) {

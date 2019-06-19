@@ -26,6 +26,7 @@ class SaveSleepViewController : UITableViewController{
     let lightBlueColor = UIColor.init(hexString: "82BAF8")
     let blueColor = UIColor.init(hexString: "66ACF8")
     
+    
     var realm = try! Realm()
     var registeredBabies : Results<Baby>?
     var babyApp = Baby()
@@ -305,7 +306,7 @@ class SaveSleepViewController : UITableViewController{
             let alert = UIAlertController(style: .actionSheet)
             alert.set(message: "Both the end time and the duration were introduced, select one of them", font: fontLittle!, color: grayLightColor!)
             
-            let actionend = UIAlertAction(title: "Just end time", style: .default) { (alertAction) in
+            let actionend = UIAlertAction(title: "End time", style: .default) { (alertAction) in
                 
                 if self.indicatorEdit != 0{
                     self.saveData(valueToSave: "End", sleepToEdit: self.sleepToEdit!)
@@ -319,7 +320,7 @@ class SaveSleepViewController : UITableViewController{
                 }
                 
             
-            let actiondur = UIAlertAction(title: "Just duration", style: .default, handler: { (alertAction) in
+            let actiondur = UIAlertAction(title: "Duration", style: .default, handler: { (alertAction) in
                 
                 if self.indicatorEdit != 0{
                     self.saveData(valueToSave: "Duration", sleepToEdit: self.sleepToEdit!)

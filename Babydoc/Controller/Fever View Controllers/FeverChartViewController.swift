@@ -34,8 +34,6 @@ class FeverChartViewController : UIViewController, ChartViewDelegate, ChartDeleg
     let greenDarkColor = UIColor.init(hexString: "33BE8F")
     let greenLightColor = UIColor.init(hexString: "14E19C")
     
-    var days = Array<Double>()
-    
     var feverValues = [Double]()
     var realm = try! Realm()
     var registeredBabies : Results<Baby>?
@@ -195,14 +193,6 @@ class FeverChartViewController : UIViewController, ChartViewDelegate, ChartDeleg
     
     func appearancelineChart(){
         
-        days = []
-        let range = Calendar.current.range(of: .day, in: .month, for: selectedDate)!
-        let numDays = range.count
-        
-        for i in 1..<(numDays+1){
-       
-            days.append(Double(i))
-        }
 
         let formatter2 = DateFormatter()
         formatter2.dateFormat = "MMMM YYYY"
@@ -210,10 +200,12 @@ class FeverChartViewController : UIViewController, ChartViewDelegate, ChartDeleg
         
         lineChart.showXLabelsAndGrid = false
         lineChart.showYLabelsAndGrid = true
-        lineChart.xLabelsOrientation = .horizontal
-        lineChart.xLabels = days
-        lineChart.xLabelsTextAlignment = .center
-        lineChart.xLabelsFormatter = { String(Int($1)) }
+        lineChart.axesColor = UIColor(hexString: "7F8484")!
+        lineChart.gridColor = UIColor(hexString: "7F8484")!
+        lineChart.labelFont = UIFont(name: "Avenir-Heavy", size: 13)!
+        lineChart.labelColor = UIColor(hexString: "7F8484")!
+        
+        
 
         if feverValues.count != 0 {
             

@@ -9,7 +9,7 @@
 import UIKit
 import ScrollableDatepicker
 import SwipeCellKit
-import ProgressHUD
+import APESuperHUD
 import PMAlertController
 import RealmSwift
 // MARK: - Home View Controller
@@ -48,6 +48,11 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
     @IBOutlet weak var dateToday: UIButton!
     
     @IBOutlet weak var taskTableView: UITableView!
+    
+    let font = UIFont(name: "Avenir-Heavy", size: 17)
+    let fontLight = UIFont(name: "Avenir-Medium", size: 17)
+    let grayColor = UIColor.init(hexString: "555555")
+    let grayLightColor = UIColor.init(hexString: "7F8484")
     
     var defaultOptions = SwipeOptions()
     var realm = try! Realm()
@@ -401,14 +406,27 @@ extension HomeViewController : SwipeTableViewCellDelegate{
                 
                 done = !done
                 if done {
-                    ProgressHUD.showSuccess("Task Finished!", interaction: true)
+                    
+                    let image = UIImage(named: "doubletick")!
+                    let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "Task Finished!")
+                    HUDAppearance.cancelableOnTouch = true
+                    HUDAppearance.messageFont = self.fontLight!
+                    HUDAppearance.messageTextColor = self.grayColor!
+                    
+                    self.present(hudViewController, animated: true)
+                    
                 }
                 else{
                     
                     let image = UIImage(named: "sand")
-                    ProgressHUD.imageError(image)
-                    ProgressHUD.statusColor(UIColor.flatGrayDark)
-                    ProgressHUD.showError("Remaining Task!", interaction: false)
+                   
+                    let hudViewController = APESuperHUD(style: .icon(image: image!, duration: 1), title: nil, message: "Remaining Task!")
+                    HUDAppearance.cancelableOnTouch = true
+                    HUDAppearance.messageFont = self.fontLight!
+                    HUDAppearance.messageTextColor = self.grayColor!
+                    
+                    self.present(hudViewController, animated: true)
+                    
                 }
                 
                 
@@ -505,15 +523,13 @@ class ActionView: UIView
     var arrayAllDatesSleepsEnd = Array<Date>()
     var arrayDateTodaySleepsBegin = Array<Date>()
     var arrayDateTodaySleepsEnd = Array<Date>()
-    var arrayDateTodaySleepsDurationBegin = Array<Float>()
+    
     var selectedDay : Date?{
         didSet{
             
         }
     }
-    var dict = [Date : Float]()
-    var dictColors = [Date: Bool]()
-    var arrayColors = [Bool]()
+
     let napColor = UIColor.init(hexString: "66ACF8")
   
     
@@ -542,28 +558,35 @@ class ActionView: UIView
             
         case 0:
             
-           
             for i in 0..<arrayDateTodaySleepsBegin.count{
+                
+                let sleep = sleeps?.filter("generalDateBegin == %@", arrayDateTodaySleepsBegin[i])
+                
+                var width1  = Float(0.0)
+                var sleeptime  = true
+                
+                for s in sleep!{
+                    
+                    width1 = s.timeSleepFloat
+                    sleeptime = s.nightSleep
+                }
                 
                 let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
                 let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
-
-                let width1 = CGFloat(arrayDateTodaySleepsDurationBegin[i])
-                if arrayColors[i]{
+                
+                if sleeptime{
                     
-                    
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (CGFloat(width1)*width)/day)
                     
                 }
                 else{
                     
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (width1*width)/day)
+                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (CGFloat(width1)*width)/day)
                     
                 }
-               
-              
+                
+                
             }
-            
             for date in  arrayDateTodaySleepsEnd{
                 
                 let value = Float(date.minute * 100)/(60 * 100)
@@ -626,20 +649,14 @@ class ActionView: UIView
         
         arrayAllDatesSleepsBegin = []
         arrayAllDatesSleepsEnd = []
-        arrayDateTodaySleepsDurationBegin = []
-        dict = [:]
-        dictColors = [:]
-        arrayColors = []
-        
-       
+
         
         for sleep in sleeps!{
             
            
             arrayAllDatesSleepsBegin.append(sleep.generalDateBegin)
             arrayAllDatesSleepsEnd.append(sleep.generalDateEnd)
-            dict[sleep.generalDateBegin] = sleep.timeSleepFloat
-            dictColors[sleep.generalDateBegin] = sleep.nightSleep
+
         }
         
         
@@ -655,23 +672,7 @@ class ActionView: UIView
             }
             
         }
-        for date in dict.keys{
-            
-            
-            if Calendar.current.isDate(date, inSameDayAs: selectedDay ?? Date()){
-                
-                arrayDateTodaySleepsDurationBegin.append(dict[date]!)
-                
-            }
-            
-        }
-        for date in dictColors.keys{
-            if Calendar.current.isDate(date, inSameDayAs: selectedDay ?? Date()){
-                
-                arrayColors.append(dictColors[date]!)
-                
-            }
-        }
+
 
         
         
@@ -687,13 +688,7 @@ class ActionView: UIView
             }
             
         }
-        
-        
 
-        
-        
-        
-        
         
     }
     

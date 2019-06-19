@@ -119,7 +119,7 @@ class EditDosesViewController : UITableViewController{
                 self.dayEdit = selectedDate.day
                 self.monthEdit = selectedDate.month
                 self.yearEdit = selectedDate.year
-                let date = DateCustom()
+               
                 
                 
             })
