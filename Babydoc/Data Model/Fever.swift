@@ -18,7 +18,7 @@ class Fever : Object {
     @objc dynamic var placeOfMeasurement : String = ""
     @objc dynamic var feverYes = false
     
-    var parentBaby = LinkingObjects(fromType : Baby.self , property : "fever" )
+    let parentBaby = LinkingObjects(fromType : Baby.self , property : "fever" )
     
     
     

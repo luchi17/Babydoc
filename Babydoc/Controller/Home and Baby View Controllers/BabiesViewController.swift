@@ -165,10 +165,13 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
     //MARK: Data Manipulation
     func save(baby : Baby){
         
+        var medicines = realm.objects(Medication.self)
         
         do{
             
-             vaccines = realm.objects(Vaccine.self)
+            vaccines = realm.objects(Vaccine.self)
+            
+            
             
             try realm.write {
                 
@@ -177,9 +180,15 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                 }
                 realm.add(baby)
 
-                
+                for med in medicines{
+                    baby.medications.append(med)
+                   
+                }
             }
             addVaccinesDatabaseToNewBaby(babytoAdd : baby)
+            
+           
+            
         
             
         }
@@ -187,6 +196,8 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
             print(error)
         }
         tableView.reloadData()
+       
+        
     }
     
     func loadBabies(){
@@ -210,16 +221,33 @@ class BabiesViewController : UITableViewController, NotifyChangeInNameDelegate, 
                     let dose = realm.objects(VaccineDose.self).filter("%@ IN parentVaccine", vaccine)
                     realm.delete(dose)
                 }
+                for drug in baby.medicationDoses{
+                    
+                    realm.delete(drug.date!)
+                    
+                    
+                }
+                
+               
                 for drug in baby.medications{
                     let dose = realm.objects(VaccineDose.self).filter("%@ IN parentMedication", drug)
                     realm.delete(dose)
+
+                    
                 }
                 
                 for sleep in baby.sleeps{
                     realm.delete(sleep.dateBegin!)
                     realm.delete(sleep.dateEnd!)
                 }
+                for fever in baby.fever{
+                    realm.delete(fever.date!)
+                }
+               
+                
+              
                 realm.delete(baby.sleeps)
+                realm.delete(baby.medicationDoses)
                 realm.delete(baby.fever)
                 realm.delete(baby.medications)
                 realm.delete(baby.vaccines)

@@ -21,7 +21,7 @@ class Sleep: Object {
      @objc dynamic var nightSleep : Bool = true
     
     
-     var parentBaby = LinkingObjects(fromType : Baby.self , property : "sleeps" )
+     let parentBaby = LinkingObjects(fromType : Baby.self , property : "sleeps" )
     
     
 }

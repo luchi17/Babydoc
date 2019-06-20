@@ -17,7 +17,7 @@ class Growth : Object {
     @objc dynamic var height : Float = 0.0
     @objc dynamic var headDiameter : Float = 0.0
     
-    var parentBaby = LinkingObjects(fromType : Baby.self , property : "growth" )
+    let parentBaby = LinkingObjects(fromType : Baby.self , property : "growth" )
     
     
     

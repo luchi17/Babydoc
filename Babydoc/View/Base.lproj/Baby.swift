@@ -31,7 +31,7 @@ class Baby : Object {
     let sleeps = List<Sleep>()
     let growth = List<Growth>()
     
-    var parentRegisteredBabies = LinkingObjects(fromType : RegisteredBaby.self , property : "babies" )
+    let parentRegisteredBabies = LinkingObjects(fromType : RegisteredBaby.self , property : "babies" )
 
    
 

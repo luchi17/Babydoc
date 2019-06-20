@@ -16,9 +16,9 @@ class Medication : Object {
     
 
     let medicationTypes = List<MedicationType>()
-    let medicationDoses = List<MedicationDoseCalculated>()
+    //let medicationDoses = List<MedicationDoseCalculated>()
     
-    var parentBaby = LinkingObjects(fromType : Baby.self , property : "medications" )
+    let parentBaby = LinkingObjects(fromType : Baby.self , property : "medications" )
     
     
     

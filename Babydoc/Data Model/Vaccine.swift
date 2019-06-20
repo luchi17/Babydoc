@@ -15,7 +15,7 @@ class Vaccine : Object {
     @objc dynamic var funded : Bool = true
     
     let doses = List<VaccineDose>()
-    var parentBaby = LinkingObjects(fromType : Baby.self , property : "vaccines" )
+    let parentBaby = LinkingObjects(fromType : Baby.self , property : "vaccines" )
     
     
     
