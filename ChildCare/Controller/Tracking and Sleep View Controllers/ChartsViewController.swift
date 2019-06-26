@@ -61,7 +61,7 @@ class ChartsViewController : UIViewController, ChartViewDelegate{
         
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY"
-        todayButton.setTitle("Go to current year", for: .normal)// + formatter.string(from: Date()), for: .normal)
+        todayButton.setTitle("Go to current year", for: .normal)
         todayButton.setTitleColor(blueColor, for: .normal)
         todayButton.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 16)
         todayButton.backgroundColor = UIColor.white
@@ -154,8 +154,8 @@ class ChartsViewController : UIViewController, ChartViewDelegate{
             
         }
         
-        let chartDataSet = BarChartDataSet(entries: dataEntries, label: "Night-time Sleep")
-        let chartDataSet1 = BarChartDataSet(entries: dataEntries1, label: "Nap-time Sleep")
+        let chartDataSet = BarChartDataSet(entries: dataEntries, label: "Avg night-time Sleep")
+        let chartDataSet1 = BarChartDataSet(entries: dataEntries1, label: "Avg nap-time Sleep")
         
         let dataSets: [BarChartDataSet] = [chartDataSet,chartDataSet1]
         chartDataSet.colors = [darkBlueColor!]
@@ -273,7 +273,6 @@ class ChartsViewController : UIViewController, ChartViewDelegate{
             
             
         }
-        
         
         
         var sum1 = Float(0.0)

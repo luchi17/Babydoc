@@ -151,7 +151,7 @@ class PercentilViewController : UIViewController{
             }
             
         }
-        if !childApp.name.isEmpty && childApp.sleeps.count != 0{
+        if !childApp.name.isEmpty && childApp.sleeps.count != 0 && !childApp.dateOfBirth.isEmpty{
             loadDictionariesPercentils()
             calcAge(birthday: childApp.dateOfBirth)
             loadSpecificPercentils()
@@ -183,7 +183,7 @@ class PercentilViewController : UIViewController{
         ageLabel.text = "\(childApp.name) is \(childApp.age) old"
         
         if (Int(intnight) == 0 && Int(decimalnight*60) == 0){
-            avgNightLabel.text = "Enter data"
+            avgNightLabel.text = ""
            
         }
         else if (Int(intnight) == 0 && Int(decimalnight*60) != 0){
@@ -372,18 +372,17 @@ class PercentilViewController : UIViewController{
     
     func loadSpecificPercentils(){
         
-        var mindistance = abs(arrayAges[0] - age)
+        var mindistance = arrayAges[0] - age
         var proximateAge = Float(0.0)
         for value in arrayAges{
             
-            if abs(value - age) <= mindistance {
+            if (value - age) <= mindistance && value < age {
                 mindistance = abs(value - age)
                 proximateAge = value
             }
             
         }
-        
-        
+
         var percentil = Float(0.0)
         
         for counter in 0..<dictNight.keys.count{

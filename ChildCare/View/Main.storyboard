@@ -257,7 +257,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1560" y="-355"/>
+            <point key="canvasLocation" x="3585" y="2118"/>
         </scene>
         <!--Registered Babies Table View Controller-->
         <scene sceneID="0Qm-th-HaH">
@@ -311,7 +311,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NOF-UX-2zN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2278" y="-355"/>
+            <point key="canvasLocation" x="3585" y="3134"/>
         </scene>
         <!--Baby Info Table View Controller -->
         <scene sceneID="sXD-Kw-o9m">
@@ -344,7 +344,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZCo-v4-F3d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3511" y="-355"/>
+            <point key="canvasLocation" x="3585" y="4027"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -364,7 +364,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1668" y="2921"/>
+            <point key="canvasLocation" x="-639" y="367"/>
         </scene>
         <!--Home NC-->
         <scene sceneID="ruQ-rr-cKI">
@@ -389,7 +389,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sLz-Sh-YaK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="773" y="-354"/>
+            <point key="canvasLocation" x="3585" y="1293"/>
         </scene>
         <!--Doctor NC-->
         <scene sceneID="Dvu-So-JiG">
@@ -420,7 +420,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="URj-ca-wMO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="551" y="324"/>
+            <point key="canvasLocation" x="-639" y="1294"/>
         </scene>
         <!--Medicine-->
         <scene sceneID="JgI-YD-jWY">
@@ -573,7 +573,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Op6-10-Lzs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="50" y="1238"/>
+            <point key="canvasLocation" x="-639" y="2118"/>
         </scene>
         <!--Systematic Vaccines View Controller-->
         <scene sceneID="BfB-w2-Inn">
@@ -676,7 +676,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrl-Jy-5kJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2278" y="325"/>
+            <point key="canvasLocation" x="2655" y="3161"/>
         </scene>
         <!--Fever Progress-->
         <scene sceneID="L1n-To-kdO">
@@ -818,7 +818,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="URt-qq-Hym" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="846" y="1585"/>
+            <point key="canvasLocation" x="-956" y="3161"/>
         </scene>
         <!--Temperature-->
         <scene sceneID="YzS-xk-rwk">
@@ -918,7 +918,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jH5-VK-6fF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1388" y="1936"/>
+            <point key="canvasLocation" x="-180" y="4062"/>
         </scene>
         <!--Growth Records-->
         <scene sceneID="KcN-dL-ah2">
@@ -1049,7 +1049,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FIW-Q3-rXq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7" y="4411"/>
+            <point key="canvasLocation" x="-2007" y="3161"/>
         </scene>
         <!--Growth History-->
         <scene sceneID="Vm7-g6-3aL">
@@ -1076,7 +1076,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8je-mX-xOA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-761" y="4411"/>
+            <point key="canvasLocation" x="-2692" y="4062"/>
         </scene>
         <!--Tracking NC Scene-->
         <scene sceneID="DKd-UP-qBP">
@@ -1198,7 +1198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rg5-zw-yTv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-7" y="3645"/>
+            <point key="canvasLocation" x="-3826" y="2118"/>
         </scene>
         <!--Sleep View Controller-->
         <scene sceneID="1bQ-f7-8sA">
@@ -1566,7 +1566,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M3E-CQ-aC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="BBk-0f-sLN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="738" y="2931"/>
+            <point key="canvasLocation" x="-4540" y="3134"/>
         </scene>
         <!--Charts-->
         <scene sceneID="XIO-t0-bEp">
@@ -1685,7 +1685,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xUj-U7-rGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1410" y="2930"/>
+            <point key="canvasLocation" x="-3830" y="3161"/>
         </scene>
         <!--Percentil View Controller-->
         <scene sceneID="PrP-tQ-M0H">
@@ -1994,7 +1994,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jhZ-VO-KH8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2070" y="2930"/>
+            <point key="canvasLocation" x="-3113" y="3161"/>
         </scene>
         <!--Sleep Records-->
         <scene sceneID="jrU-gg-ZBb">
@@ -2099,7 +2099,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AU6-an-o9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2063" y="3656"/>
+            <point key="canvasLocation" x="-5335" y="4062"/>
         </scene>
         <!--Save Sleep View Controller-->
         <scene sceneID="YEX-bg-VWz">
@@ -2346,7 +2346,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zwu-qN-Sit" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2953" y="3673"/>
+            <point key="canvasLocation" x="-4618" y="4062"/>
         </scene>
         <!--Save Fever View Controller-->
         <scene sceneID="3v2-Hf-xbR">
@@ -2580,7 +2580,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PcK-Ni-NJH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="247" y="1937"/>
+            <point key="canvasLocation" x="-956" y="4062"/>
         </scene>
         <!--Medications-->
         <scene sceneID="dqs-xI-CFK">
@@ -2629,7 +2629,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ncw-4U-nfZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2174" y="1030"/>
+            <point key="canvasLocation" x="673" y="3161"/>
         </scene>
         <!--Doses Records-->
         <scene sceneID="Toj-qT-gq6">
@@ -2742,7 +2742,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i70-Pd-39c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2174" y="1752"/>
+            <point key="canvasLocation" x="673" y="4062"/>
         </scene>
         <!--Edit-->
         <scene sceneID="KiC-XE-dH5">
@@ -3046,7 +3046,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjF-rg-HwE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2954" y="1752"/>
+            <point key="canvasLocation" x="673" y="4818"/>
         </scene>
         <!--Save Dose View Controller-->
         <scene sceneID="ZAp-VW-T1h">
@@ -3249,7 +3249,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wqJ-fn-d8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3697" y="1752"/>
+            <point key="canvasLocation" x="1537" y="4818"/>
         </scene>
         <!--Types-->
         <scene sceneID="g4Z-bF-0hi">
@@ -3294,7 +3294,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FL7-Zv-31e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2988" y="1030"/>
+            <point key="canvasLocation" x="1538" y="3161"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="8qN-RN-rTu">
@@ -3339,7 +3339,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brD-Ah-oYP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4580" y="1030"/>
+            <point key="canvasLocation" x="2265" y="4818"/>
         </scene>
         <!--Info Vaccines View Controller-->
         <scene sceneID="hXo-8L-sVY">
@@ -4508,7 +4508,7 @@ Cg
                     </cells>
                 </tableViewSection>
             </objects>
-            <point key="canvasLocation" x="4230" y="324"/>
+            <point key="canvasLocation" x="2654" y="4027"/>
         </scene>
         <!--Dose Calculator-->
         <scene sceneID="Rzj-MW-E1Z">
@@ -4748,7 +4748,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NiZ-eL-jh5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3772" y="1030"/>
+            <point key="canvasLocation" x="1537" y="4062"/>
         </scene>
         <!--Doctor NC-->
         <scene sceneID="Wvb-m9-Zqc">
@@ -4779,7 +4779,7 @@ Cg
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0AL-bK-ddg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-737" y="2922"/>
+            <point key="canvasLocation" x="-3826" y="1317"/>
         </scene>
         <!--Save Growth View Controller-->
         <scene sceneID="Ibb-6B-Bmt">
@@ -4820,6 +4820,7 @@ Cg
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
+                                                        <action selector="dateTouchedDown:" destination="rfn-qx-dVK" eventType="touchDown" id="2K7-af-NcK"/>
                                                         <action selector="textField1TouchDown:" destination="J6h-09-GSp" eventType="touchDown" id="uyf-N0-xKe"/>
                                                         <action selector="textFieldDateTouchDown:" destination="VJ7-ah-ELi" eventType="touchDown" id="PyI-dH-ZUC"/>
                                                         <action selector="textFieldStartTouchedDown:" destination="waV-bU-Tdy" eventType="touchDown" id="Seu-e2-7Au"/>
@@ -4836,59 +4837,49 @@ Cg
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="field" destination="1ta-0s-z3p" id="xUm-ZG-WFt"/>
-                                            <outlet property="textField" destination="GbI-3e-Bh9" id="8is-bC-4a9"/>
-                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="saveCell" rowHeight="70" id="zGv-aK-4yG" customClass="GrowthCell" customModule="ChildCare" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="saveCell" rowHeight="70" id="whJ-f6-TgD" customClass="GrowthCell" customModule="ChildCare" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="70" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zGv-aK-4yG" id="wEs-3t-Cwu">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="whJ-f6-TgD" id="y27-xc-Nit">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight (kg)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXf-fV-5fS">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight (kg)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FwY-RO-9bG">
                                                     <rect key="frame" x="10" y="6" width="187" height="57.5"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="0.64982876710000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="187" id="0b6-L1-sro"/>
+                                                        <constraint firstAttribute="width" constant="187" id="8aD-Yr-Jjv"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="18"/>
                                                     <color key="textColor" red="0.96078431369999995" green="0.53333333329999999" blue="0.023529411760000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M67-jO-Nu3">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WVq-0N-tlB">
                                                     <rect key="frame" x="205" y="17.5" width="160" height="35"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="GG0-Tr-IbW"/>
-                                                        <constraint firstAttribute="width" constant="160" id="R8f-45-ou5"/>
+                                                        <constraint firstAttribute="height" constant="35" id="2fV-R6-bdO"/>
+                                                        <constraint firstAttribute="width" constant="160" id="WPq-dB-WQE"/>
                                                     </constraints>
                                                     <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="textField1TouchDown:" destination="J6h-09-GSp" eventType="touchDown" id="C4M-qk-eb2"/>
-                                                        <action selector="textFieldDateTouchDown:" destination="VJ7-ah-ELi" eventType="touchDown" id="Fmv-Tq-gl7"/>
-                                                        <action selector="textFieldStartTouchedDown:" destination="waV-bU-Tdy" eventType="touchDown" id="bB3-11-2v2"/>
+                                                        <action selector="weightTouchedDown:" destination="rfn-qx-dVK" eventType="touchDown" id="ZF6-xg-TON"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="M67-jO-Nu3" secondAttribute="trailing" constant="10" id="27o-hz-bxa" userLabel="trailing = Text Field.trailing "/>
-                                                <constraint firstItem="M67-jO-Nu3" firstAttribute="centerY" secondItem="WXf-fV-5fS" secondAttribute="centerY" id="2zT-V4-yjp"/>
-                                                <constraint firstItem="WXf-fV-5fS" firstAttribute="top" secondItem="wEs-3t-Cwu" secondAttribute="top" constant="6" id="Kc2-Re-wod"/>
-                                                <constraint firstItem="WXf-fV-5fS" firstAttribute="centerY" secondItem="wEs-3t-Cwu" secondAttribute="centerY" id="bVl-GI-hW9"/>
-                                                <constraint firstItem="WXf-fV-5fS" firstAttribute="leading" secondItem="wEs-3t-Cwu" secondAttribute="leading" constant="10" id="cJS-rN-e0r"/>
+                                                <constraint firstAttribute="trailing" secondItem="WVq-0N-tlB" secondAttribute="trailing" constant="10" id="BM0-lE-lLg" userLabel="trailing = Text Field.trailing "/>
+                                                <constraint firstItem="FwY-RO-9bG" firstAttribute="centerY" secondItem="y27-xc-Nit" secondAttribute="centerY" id="GOG-ho-YLH"/>
+                                                <constraint firstItem="FwY-RO-9bG" firstAttribute="top" secondItem="y27-xc-Nit" secondAttribute="top" constant="6" id="mf4-t3-1RF"/>
+                                                <constraint firstItem="WVq-0N-tlB" firstAttribute="centerY" secondItem="FwY-RO-9bG" secondAttribute="centerY" id="n9t-3I-A0b"/>
+                                                <constraint firstItem="FwY-RO-9bG" firstAttribute="leading" secondItem="y27-xc-Nit" secondAttribute="leading" constant="10" id="sdK-23-6X4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="field" destination="WXf-fV-5fS" id="zCC-Ho-B9V"/>
-                                            <outlet property="textField" destination="M67-jO-Nu3" id="K2O-0l-bah"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="saveCell" rowHeight="70" id="zHr-nU-cG4" customClass="GrowthCell" customModule="ChildCare" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="140" width="375" height="70"/>
@@ -4897,7 +4888,7 @@ Cg
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height (cm)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euv-so-tFD">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height (m)" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euv-so-tFD">
                                                     <rect key="frame" x="10" y="6" width="187" height="57.5"/>
                                                     <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="0.64982876710000004" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -4918,6 +4909,7 @@ Cg
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
+                                                        <action selector="heightTocuhedDown:" destination="rfn-qx-dVK" eventType="touchDown" id="olz-bc-naD"/>
                                                         <action selector="textField1TouchDown:" destination="J6h-09-GSp" eventType="touchDown" id="wUd-s2-tl6"/>
                                                         <action selector="textFieldDateTouchDown:" destination="VJ7-ah-ELi" eventType="touchDown" id="mWS-uZ-rEg"/>
                                                         <action selector="textFieldStartTouchedDown:" destination="waV-bU-Tdy" eventType="touchDown" id="IP4-xu-vgi"/>
@@ -4934,10 +4926,6 @@ Cg
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="field" destination="euv-so-tFD" id="XGP-Cd-xO2"/>
-                                            <outlet property="textField" destination="oZ9-k1-3Cw" id="Df4-aL-DAu"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="saveCell" rowHeight="70" id="0K6-r8-hOv" customClass="GrowthCell" customModule="ChildCare" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="210" width="375" height="70"/>
@@ -4967,6 +4955,7 @@ Cg
                                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
+                                                        <action selector="headTouchedDown:" destination="rfn-qx-dVK" eventType="touchDown" id="Ug3-Wh-JA5"/>
                                                         <action selector="textField1TouchDown:" destination="J6h-09-GSp" eventType="touchDown" id="YdY-f5-jF0"/>
                                                         <action selector="textFieldDateTouchDown:" destination="VJ7-ah-ELi" eventType="touchDown" id="vRq-rX-oba"/>
                                                         <action selector="textFieldStartTouchedDown:" destination="waV-bU-Tdy" eventType="touchDown" id="Qbw-tp-cAN"/>
@@ -4983,10 +4972,6 @@ Cg
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="field" destination="xmz-Ud-mtc" id="SgA-mH-eaU"/>
-                                            <outlet property="textField" destination="Gjk-k4-m9w" id="nek-wm-LCC"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="calculatorCell" rowHeight="60" id="TRh-hG-Ssw" customClass="CalculatorCell" customModule="ChildCare" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="280" width="375" height="60"/>
@@ -5006,6 +4991,7 @@ Cg
                                                     <state key="normal" title="Save"/>
                                                     <connections>
                                                         <action selector="saveButtonPressed:" destination="waV-bU-Tdy" eventType="touchUpInside" id="llO-eh-vFX"/>
+                                                        <action selector="saveButtonPressed:" destination="rfn-qx-dVK" eventType="touchUpInside" id="tMz-M8-WO5"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -5025,10 +5011,17 @@ Cg
                             <outlet property="delegate" destination="rfn-qx-dVK" id="m9J-VR-9sL"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="saveButton" destination="2Zi-Q8-jZ6" id="lDS-B6-3tA"/>
+                        <outlet property="textFieldDate" destination="GbI-3e-Bh9" id="asR-lS-AeF"/>
+                        <outlet property="textFieldHead" destination="Gjk-k4-m9w" id="Lkt-os-ai2"/>
+                        <outlet property="textFieldHeight" destination="oZ9-k1-3Cw" id="sc2-mt-GAc"/>
+                        <outlet property="textFieldWeight" destination="WVq-0N-tlB" id="d5V-d7-YYp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbq-Lc-k0u" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="846" y="4411"/>
+            <point key="canvasLocation" x="-1938" y="4062"/>
         </scene>
         <!--Sleep-->
         <scene sceneID="hRN-z1-lQm">
@@ -5090,7 +5083,7 @@ Cg
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yhg-Vz-f8E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1167" y="3673"/>
+            <point key="canvasLocation" x="-5334" y="3134"/>
         </scene>
     </scenes>
     <resources>
@@ -5113,7 +5106,7 @@ Cg
     <inferredMetricsTieBreakers>
         <segue reference="EjO-ku-ecy"/>
         <segue reference="Pks-kB-O2s"/>
-        <segue reference="eTK-Pc-ig1"/>
+        <segue reference="sU1-zc-I9Y"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

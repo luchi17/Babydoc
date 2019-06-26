@@ -120,7 +120,8 @@ class ChildInfoViewController : UITableViewController{
         do {
             
             try realm.write {
-                (self.childProperties?[0].setValue(valueToSave, forKeyPath: forkey))!
+                self.childProperties?[0].setValue(valueToSave, forKeyPath: forkey)
+                
                 if forkey == "name"{
                     
                     self.selectedChild?.setValue(valueToSave, forKeyPath: forkey)
@@ -400,7 +401,7 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                     alert.setTitle(font: self.font!, color: self.greenColor!)
                     var weight  = Float()
                     var arrayWeight = [String]()
-                    let weightValues = stride(from: 0.0, through: 60.0, by: 0.05)
+                    let weightValues = stride(from: 2.0, through: 60.0, by: 0.05)
                     for i in weightValues{
                         arrayWeight.append(String(format: "%.2f", i))
                     }
@@ -473,15 +474,15 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                         
                         let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
                         alert.setTitle(font: self.font!, color: self.greenColor!)
-                        let headValues = stride(from: 0.0, through: 25.0, by: 0.01)
+                        let headValues = stride(from: 25.0, through: 55.0, by: 0.1)
                         
                         var head = Float()
                         var arrayHead = [String]()
                         for i in headValues{
                             arrayHead.append(String(format: "%.2f", i))
                         }
-                        head = Float(10.0)
-                        let pickerViewSelectedValueHeadDiameter: PickerViewViewController.Index = (column: 0, row: Int(10.0/0.01))
+                        head = Float(35.0)
+                        let pickerViewSelectedValueHeadDiameter: PickerViewViewController.Index = (column: 0, row: Int(35.0/0.01))
                         alert.addPickerView(values: [arrayHead, ["cm"]], initialSelection: pickerViewSelectedValueHeadDiameter) { vc, picker, index, values in
                             
                             head = Float(picker.selectedRow(inComponent: 0)) * Float(0.01)

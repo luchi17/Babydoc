@@ -80,6 +80,7 @@ class SaveFeverViewController : UITableViewController{
     override func viewWillAppear(_ animated: Bool) {
         configurePopOvers()
         loadChildrenAndFever()
+
         
     }
     
@@ -119,7 +120,7 @@ class SaveFeverViewController : UITableViewController{
     }
     func configurePopOvers(){
         
-        
+        feverValues = []
         for value in stride(from: 35, to: 42, by: 0.1){
             feverValues.append("\(value)")
         }

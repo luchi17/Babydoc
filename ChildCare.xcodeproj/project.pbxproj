@@ -79,7 +79,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0933E10F225E33C300B19B86 /* MedicineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicineViewController.swift; sourceTree = "<group>"; };
+		0933E10F225E33C300B19B86 /* MedicineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MedicineViewController.swift; path = "Health and Vaccines View Controllers/MedicineViewController.swift"; sourceTree = "<group>"; };
 		093B7D112277720400DB4344 /* ChildInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildInfoViewController.swift; sourceTree = "<group>"; };
 		093B7D132277763500DB4344 /* ChildrenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildrenViewController.swift; sourceTree = "<group>"; };
 		0944683A229D1EB700429743 /* ActionViewSleep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewSleep.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 		09B1EEA222575194006DF813 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09B1EEA722575194006DF813 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09B7D4E42284C03B00137544 /* CustomCellVaccine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCellVaccine.swift; sourceTree = "<group>"; };
-		09B7D4E62289CF5200137544 /* InfoVaccinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoVaccinesViewController.swift; sourceTree = "<group>"; };
+		09B7D4E62289CF5200137544 /* InfoVaccinesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InfoVaccinesViewController.swift; path = "Health and Vaccines View Controllers/InfoVaccinesViewController.swift"; sourceTree = "<group>"; };
 		09B7D4E8228ABF7900137544 /* Medication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medication.swift; sourceTree = "<group>"; };
 		09B7D4EF228B5D0200137544 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		09B7D4F1228C183C00137544 /* MedicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationViewController.swift; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 		09E4B69A22BD50C000A3823C /* ChildCare-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChildCare-Bridging-Header.h"; sourceTree = "<group>"; };
 		09F972FC22841EA8008FE28C /* Vaccine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vaccine.swift; sourceTree = "<group>"; };
 		09F972FE22841F2E008FE28C /* VaccineDose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineDose.swift; sourceTree = "<group>"; };
-		09F97300228421E4008FE28C /* VaccineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccineViewController.swift; sourceTree = "<group>"; };
+		09F97300228421E4008FE28C /* VaccineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VaccineViewController.swift; path = "Health and Vaccines View Controllers/VaccineViewController.swift"; sourceTree = "<group>"; };
 		AC755955D858DA2193C59D51 /* Pods_ChildCare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChildCare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E313CEB4928D799FAFE1D805 /* Pods-ChildCare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChildCare.debug.xcconfig"; path = "Target Support Files/Pods-ChildCare/Pods-ChildCare.debug.xcconfig"; sourceTree = "<group>"; };
 		EEE65746799CD6129025012D /* Pods-ChildCare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChildCare.release.xcconfig"; path = "Target Support Files/Pods-ChildCare/Pods-ChildCare.release.xcconfig"; sourceTree = "<group>"; };
@@ -180,6 +180,16 @@
 				09E4B67C22B39BE500A3823C /* HistoryGrowthViewController.swift */,
 			);
 			name = "Growth View Controllers";
+			sourceTree = "<group>";
+		};
+		0979C82122C201D90086D62A /* Medicine and Vaccines View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0933E10F225E33C300B19B86 /* MedicineViewController.swift */,
+				09F97300228421E4008FE28C /* VaccineViewController.swift */,
+				09B7D4E62289CF5200137544 /* InfoVaccinesViewController.swift */,
+			);
+			name = "Medicine and Vaccines View Controllers";
 			sourceTree = "<group>";
 		};
 		09B1EE8D22575191006DF813 = {
@@ -244,7 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				09E4B68122B39CD300A3823C /* Home and Child View Controllers */,
-				09E4B68322B39D2500A3823C /* Health and Vaccines View Controllers */,
+				0979C82122C201D90086D62A /* Medicine and Vaccines View Controllers */,
 				09E4B68222B39D1100A3823C /* Medication View Controllers */,
 				09E4B68422B39D3A00A3823C /* Fever View Controllers */,
 				09E4B68522B39D5700A3823C /* Tracking and Sleep View Controllers */,
@@ -285,16 +295,6 @@
 				094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */,
 			);
 			path = "Medication View Controllers";
-			sourceTree = "<group>";
-		};
-		09E4B68322B39D2500A3823C /* Health and Vaccines View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				0933E10F225E33C300B19B86 /* MedicineViewController.swift */,
-				09F97300228421E4008FE28C /* VaccineViewController.swift */,
-				09B7D4E62289CF5200137544 /* InfoVaccinesViewController.swift */,
-			);
-			path = "Health and Vaccines View Controllers";
 			sourceTree = "<group>";
 		};
 		09E4B68422B39D3A00A3823C /* Fever View Controllers */ = {

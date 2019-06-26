@@ -350,8 +350,7 @@ class SaveSleepViewController : UITableViewController{
                 
             }
             else if textFieldDuration.text!.isEmpty{
-                print(startEdit)
-                print(endEdit)
+                
                 if startEdit.compare(endEdit) == .orderedDescending{
                     
                     let alert = UIAlertController(style: .alert)
