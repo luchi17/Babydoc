@@ -176,8 +176,8 @@
 			isa = PBXGroup;
 			children = (
 				09E4B67822B39B6600A3823C /* GrowthChartViewController.swift */,
-				09E4B67A22B39BAB00A3823C /* SaveGrowthViewController.swift */,
 				09E4B67C22B39BE500A3823C /* HistoryGrowthViewController.swift */,
+				09E4B67A22B39BAB00A3823C /* SaveGrowthViewController.swift */,
 			);
 			name = "Growth View Controllers";
 			sourceTree = "<group>";
@@ -300,9 +300,9 @@
 		09E4B68422B39D3A00A3823C /* Fever View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				09A11BCF2294640C00457A94 /* FeverViewController.swift */,
 				09A11BD322946D2000457A94 /* SaveFeverViewController.swift */,
 				09E4B67222B02F8B00A3823C /* FeverChartViewController.swift */,
+				09A11BCF2294640C00457A94 /* FeverViewController.swift */,
 			);
 			path = "Fever View Controllers";
 			sourceTree = "<group>";

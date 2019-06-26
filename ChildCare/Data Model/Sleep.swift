@@ -19,7 +19,7 @@ class Sleep : Object {
     @objc dynamic var timeSleepFloat : Float = 0.0
     @objc dynamic var nightSleep : Bool = true
     
-    let parentChild = LinkingObjects(fromType : Child.self , property : "sleeps" )
+    //let parentChild = LinkingObjects(fromType : Child.self , property : "sleeps" )
     
     
     

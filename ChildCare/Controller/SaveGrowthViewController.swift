@@ -75,7 +75,9 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
         if growthToEdit?.weight != Float(0.0){
             
             indicatorEdit += 1
-            
+            heightEdit = growthToEdit!.height
+            weightEdit = growthToEdit!.weight
+            headEdit = growthToEdit!.weight
             generaldateEdit = growthToEdit!.generalDate
             dayEdit = growthToEdit!.date!.day
             monthEdit = (growthToEdit?.date!.month)!

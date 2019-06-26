@@ -16,8 +16,7 @@ class Fever : Object {
     @objc dynamic var temperature : Float = 0.0
     @objc dynamic var placeOfMeasurement : String = ""
     
-    let parentChild = LinkingObjects(fromType : Child.self
-        , property : "fever" )
+   // let parentChild = LinkingObjects(fromType : Child.self, property : "fever" )
 
 }
 

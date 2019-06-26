@@ -257,7 +257,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3585" y="2118"/>
+            <point key="canvasLocation" x="3585" y="2043"/>
         </scene>
         <!--Registered Babies Table View Controller-->
         <scene sceneID="0Qm-th-HaH">
@@ -364,7 +364,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-639" y="367"/>
+            <point key="canvasLocation" x="-639" y="434"/>
         </scene>
         <!--Home NC-->
         <scene sceneID="ruQ-rr-cKI">
@@ -389,7 +389,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sLz-Sh-YaK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3585" y="1293"/>
+            <point key="canvasLocation" x="3585" y="1254"/>
         </scene>
         <!--Doctor NC-->
         <scene sceneID="Dvu-So-JiG">
@@ -420,7 +420,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="URj-ca-wMO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-639" y="1294"/>
+            <point key="canvasLocation" x="948" y="1254"/>
         </scene>
         <!--Medicine-->
         <scene sceneID="JgI-YD-jWY">
@@ -573,7 +573,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Op6-10-Lzs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-639" y="2118"/>
+            <point key="canvasLocation" x="948" y="2044"/>
         </scene>
         <!--Systematic Vaccines View Controller-->
         <scene sceneID="BfB-w2-Inn">
@@ -1059,24 +1059,108 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s3x-gl-0vq">
-                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s3x-gl-0vq">
+                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="growthCell" rowHeight="133" id="ug6-1m-Upy" userLabel="growthCell" customClass="GrowthCell" customModule="ChildCare" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="133"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ug6-1m-Upy" id="2LK-XP-TmK">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="132.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="PCo-P9-Wo0">
+                                                    <rect key="frame" x="10" y="10" width="355" height="112.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ap-Pd-xWz">
+                                                            <rect key="frame" x="0.0" y="0.0" width="38.5" height="19"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="19" id="rr9-uZ-OP5"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                            <color key="textColor" red="0.90196078430000004" green="0.4941176471" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Weight" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVw-Eb-Vrs">
+                                                            <rect key="frame" x="0.0" y="27.5" width="58" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="D8v-rd-2XC"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                            <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Height" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGV-p2-dA3">
+                                                            <rect key="frame" x="0.0" y="57" width="54" height="23.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="23.329999999999998" id="SjM-wp-eQW"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                            <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Head Diameter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTe-eu-uvF">
+                                                            <rect key="frame" x="0.0" y="89" width="121.5" height="23.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="23.329999999999998" id="Eit-ZV-tZA"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                                            <color key="textColor" red="0.49803921569999998" green="0.51764705879999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="PCo-P9-Wo0" secondAttribute="bottom" constant="10" id="2EV-Dx-5P5"/>
+                                                <constraint firstItem="PCo-P9-Wo0" firstAttribute="top" secondItem="2LK-XP-TmK" secondAttribute="top" constant="10" id="8tH-7X-ia1"/>
+                                                <constraint firstItem="PCo-P9-Wo0" firstAttribute="leading" secondItem="2LK-XP-TmK" secondAttribute="leading" constant="10" id="SSL-0G-dW0"/>
+                                                <constraint firstAttribute="trailing" secondItem="PCo-P9-Wo0" secondAttribute="trailing" constant="10" id="jOY-5T-Xoj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="date" destination="8Ap-Pd-xWz" id="LKV-Nk-p4i"/>
+                                            <outlet property="head" destination="TTe-eu-uvF" id="qoz-lK-V0w"/>
+                                            <outlet property="height" destination="aGV-p2-dA3" id="asz-F0-Occ"/>
+                                            <outlet property="weight" destination="SVw-Eb-Vrs" id="LNc-uw-cjQ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgF-N6-mTz" customClass="ScrollableDatepicker" customModule="ScrollableDatepicker">
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Edm-Ay-889"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="WVx-sH-s9a"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97647058819999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="s3x-gl-0vq" firstAttribute="leading" secondItem="Ktb-W3-geP" secondAttribute="leading" id="10o-qd-rUu"/>
+                            <constraint firstItem="s3x-gl-0vq" firstAttribute="top" secondItem="qgF-N6-mTz" secondAttribute="bottom" id="4Df-i5-6uK" userLabel="Table View.top = Scrollable Datepicker.bottom"/>
+                            <constraint firstItem="qgF-N6-mTz" firstAttribute="leading" secondItem="Ktb-W3-geP" secondAttribute="leading" id="Bn8-tX-MfE"/>
                             <constraint firstItem="s3x-gl-0vq" firstAttribute="trailing" secondItem="Ktb-W3-geP" secondAttribute="trailing" id="OpE-YJ-Zmy"/>
+                            <constraint firstItem="qgF-N6-mTz" firstAttribute="centerX" secondItem="cKJ-Kf-6VO" secondAttribute="centerX" id="cpC-mt-SNc"/>
                             <constraint firstAttribute="bottom" secondItem="s3x-gl-0vq" secondAttribute="bottom" id="fkS-vM-NJf"/>
+                            <constraint firstItem="qgF-N6-mTz" firstAttribute="trailing" secondItem="Ktb-W3-geP" secondAttribute="trailing" id="pQe-r0-1Uu"/>
+                            <constraint firstItem="qgF-N6-mTz" firstAttribute="top" secondItem="Ktb-W3-geP" secondAttribute="top" id="x2f-QU-p05"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ktb-W3-geP"/>
                     </view>
                     <navigationItem key="navigationItem" title="Growth History" id="O9d-Cy-qCP"/>
+                    <connections>
+                        <outlet property="datePicker" destination="qgF-N6-mTz" id="5WX-fU-TMM"/>
+                        <outlet property="tableView" destination="s3x-gl-0vq" id="ee1-3x-OKj"/>
+                        <segue destination="rfn-qx-dVK" kind="show" identifier="goToEdit" id="GEc-IH-zBE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8je-mX-xOA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2692" y="4062"/>
+            <point key="canvasLocation" x="-2692" y="4061.9190404797605"/>
         </scene>
         <!--Tracking NC Scene-->
         <scene sceneID="DKd-UP-qBP">
@@ -1198,7 +1282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rg5-zw-yTv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3826" y="2118"/>
+            <point key="canvasLocation" x="-3442" y="2043"/>
         </scene>
         <!--Sleep View Controller-->
         <scene sceneID="1bQ-f7-8sA">
@@ -4779,7 +4863,7 @@ Cg
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0AL-bK-ddg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3826" y="1317"/>
+            <point key="canvasLocation" x="-3442" y="1254"/>
         </scene>
         <!--Save Growth View Controller-->
         <scene sceneID="Ibb-6B-Bmt">
@@ -5104,8 +5188,9 @@ Cg
         <image name="vaccine-3" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="GEc-IH-zBE"/>
         <segue reference="EjO-ku-ecy"/>
-        <segue reference="Pks-kB-O2s"/>
+        <segue reference="mAE-Or-XZG"/>
         <segue reference="sU1-zc-I9Y"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

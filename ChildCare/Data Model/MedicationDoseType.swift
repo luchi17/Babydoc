@@ -23,7 +23,7 @@ class MedicationDoseType : Object {
     @objc dynamic var applied : Bool = false
     
     
-    let parentMedication = LinkingObjects(fromType : Medication.self , property : "medicationDoseTypes")
+    //let parentMedication = LinkingObjects(fromType : Medication.self , property : "medicationDoseTypes")
     
     
     

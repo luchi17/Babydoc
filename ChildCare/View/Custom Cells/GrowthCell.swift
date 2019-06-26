@@ -12,6 +12,10 @@ import SwipeCellKit
 class GrowthCell: SwipeTableViewCell {
     
     
+    @IBOutlet weak var height: UILabel!
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var weight: UILabel!
+    @IBOutlet weak var head: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

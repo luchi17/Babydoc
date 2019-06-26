@@ -281,8 +281,6 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         highper.sort()
         
         
-        
-        
         chart.drawBordersEnabled = false
         chart.borderLineWidth = 0.3
         chart.dragEnabled = false
@@ -317,7 +315,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         legend.enabled = true
         legend.horizontalAlignment = .center
         legend.verticalAlignment = .bottom
-        legend.orientation = .horizontal
+        legend.orientation = .vertical
         legend.drawInside = false
         legend.yOffset = 0.0
         legend.xOffset = 0.0
@@ -412,7 +410,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         
         
         chartDatasetmid.drawValuesEnabled = false
-        chartDatasetmid.colors = [.gray]
+        chartDatasetmid.colors = [.lightGray]
         chartDatasetmid.lineWidth = 1.75
         chartDatasetmid.drawCirclesEnabled = false
         chartDatasetmid.highlightColor = .gray
@@ -431,10 +429,10 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         var chartData = LineChartData()
        
         if valuesToDraw.count >= 2{
-            chartData = LineChartData(dataSets: [chartDatasetlow,chartDatasetmid,chartDatasethigh, chartDatasetChild])
+            chartData = LineChartData(dataSets: [chartDatasethigh,chartDatasetmid,chartDatasetlow, chartDatasetChild])
         }
         else{
-             chartData = LineChartData(dataSets: [chartDatasetlow,chartDatasetmid,chartDatasethigh])
+             chartData = LineChartData(dataSets: [chartDatasethigh,chartDatasetmid,chartDatasetlow])
         }
        
         chart.data = chartData
@@ -487,7 +485,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
                 arrayValuesxAxis.append(dictval.key.truncatingRemainder(dividingBy: 1))
             }
         }
-        print(arrayValuesxAxis)
+        
         
         
 
