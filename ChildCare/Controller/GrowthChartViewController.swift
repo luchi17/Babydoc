@@ -55,11 +55,11 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
     var dictWeightBoy = [Double: [Double]]()
     var dictHeadGirl = [Double: [Double]]()
     var dictHeadBoy = [Double: [Double]]()
-    var growthRecords : Results<Growth>?
+    var growthRecords = List<Growth>()
     var valuesToDraw = [Double]()
     var arrayValuesxAxis = [Double]()
     
-    let dictButton = [0: "First Year", 1 : "Second Year", 2 : "Third Year", 3: "Fourth Year", 4: "Fifth Year"]
+    let dictButton = [0: "0-1 years old", 1 : "1-2 years old", 2 : "2-3 years old", 3: "3-4 years old", 4: "4-5 years old"]
     
     var lowper = Array<Double>()
     var highper = Array<Double>()
@@ -394,37 +394,37 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         let chartDatasethigh = LineChartDataSet(entries: dataEntriesHigh, label: "97th percentile")
         let chartDatasetChild = LineChartDataSet(entries: dataEntriesChild, label: "Child percentile")
         
-        chartDatasetChild.colors = [.blue]
+        chartDatasetChild.colors = [.orange]
         chartDatasetChild.drawValuesEnabled = false
         chartDatasetChild.lineWidth = 1.75
         chartDatasetChild.drawCirclesEnabled = false
-        chartDatasetChild.highlightColor = .blue
+        chartDatasetChild.highlightColor = .orange
         chartDatasetChild.highlightLineDashLengths = [8.0]
         chartDatasetChild.highlightLineDashPhase = 0
         
-        chartDatasetlow.colors = [.red]
+        chartDatasetlow.colors = [.darkGray]
         chartDatasetlow.drawValuesEnabled = false
         chartDatasetlow.lineWidth = 1.75
         chartDatasetlow.drawCirclesEnabled = false
-        chartDatasetlow.highlightColor = .red
+        chartDatasetlow.highlightColor = .darkGray
         chartDatasetlow.highlightLineDashLengths = [8.0]
         chartDatasetlow.highlightLineDashPhase = 0
         
         
         chartDatasetmid.drawValuesEnabled = false
-        chartDatasetmid.colors = [.green]
+        chartDatasetmid.colors = [.gray]
         chartDatasetmid.lineWidth = 1.75
         chartDatasetmid.drawCirclesEnabled = false
-        chartDatasetmid.highlightColor = .green
+        chartDatasetmid.highlightColor = .gray
         chartDatasetmid.highlightLineDashLengths = [8.0]
         chartDatasetmid.highlightLineDashPhase = 0
         
         
-        chartDatasethigh.colors = [.red]
+        chartDatasethigh.colors = [.darkGray]
         chartDatasethigh.drawValuesEnabled = false
         chartDatasethigh.lineWidth = 1.75
         chartDatasethigh.drawCirclesEnabled = false
-        chartDatasethigh.highlightColor = .red
+        chartDatasethigh.highlightColor = .darkGray
         chartDatasethigh.highlightLineDashLengths = [8.0]
         chartDatasethigh.highlightLineDashPhase = 0
        
@@ -445,7 +445,8 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         chart.rightAxis.axisMaximum = chartData.yMax + 0.5
         chart.leftAxis.axisMinimum = chartData.yMin - 0.5
         chart.rightAxis.axisMinimum = chartData.yMin - 0.5
-
+        chart.xAxis.axisMaximum = 12
+        chart.xAxis.axisMinimum = 0
         chart.notifyDataSetChanged()
        
         
@@ -463,7 +464,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         let date = dateFormatter.date(from: childApp.dateOfBirth)
         
         
-        for growth in growthRecords!{
+        for growth in growthRecords{
             let birthday = Calendar.current.date(from: DateComponents(year: date?.year, month: date?.month, day: date?.day))!
             
             let days = Calendar.current.dateComponents([.day], from: birthday, to: growth.generalDate).day!
@@ -483,10 +484,10 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         if !dict.isEmpty{
             for dictval in  dict.sorted(by: { $0.0 < $1.0 }){
                 valuesToDraw.append(dictval.value)
-                arrayValuesxAxis.append(dictval.key)
+                arrayValuesxAxis.append(dictval.key.truncatingRemainder(dividingBy: 1))
             }
         }
-        
+        print(arrayValuesxAxis)
         
         
 
@@ -503,11 +504,11 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
             chart.setNeedsDisplay()
             chart.reloadInputViews()
             chart.notifyDataSetChanged()
-            if childApp.sex == "female"{
+            if childApp.sex == "female" && childApp.growth.count != 0{
                 checkAge(counter: counterButton)
                 appearancechart(values: retrieveValuesForChartGirl(counter: counterButton))
             }
-            else if childApp.sex == "male"{
+            else if childApp.sex == "male" && childApp.growth.count  != 0{
                 checkAge(counter: counterButton)
                 appearancechart(values: retrieveValuesForChartBoy(counter: counterButton))
             }
@@ -524,12 +525,12 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
             chart.setNeedsDisplay()
             chart.reloadInputViews()
             chart.notifyDataSetChanged()
-            if childApp.sex == "female"{
+            if childApp.sex == "female" && childApp.growth.count != 0{
                 checkAge(counter: counterButton)
                 appearancechart(values: retrieveValuesForChartGirl(counter: counterButton))
                 
             }
-            else if childApp.sex == "male"{
+            else if childApp.sex == "male" && childApp.growth.count != 0{
                 checkAge(counter: counterButton)
                 appearancechart(values: retrieveValuesForChartBoy(counter: counterButton))
                 
@@ -543,7 +544,8 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
     }
     func loadGrowthRecords(){
 
-        growthRecords = realm.objects(Growth.self)
+        growthRecords = childApp.growth
+            //realm.objects(Growth.self)
 
         
         
