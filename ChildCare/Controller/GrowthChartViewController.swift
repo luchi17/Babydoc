@@ -283,7 +283,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         
         chart.drawBordersEnabled = false
         chart.borderLineWidth = 0.3
-        chart.dragEnabled = false
+        chart.dragEnabled = true
         chart.setScaleEnabled(true)
         chart.pinchZoomEnabled = false
         chart.highlightPerDragEnabled = true
@@ -437,8 +437,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
        
         chart.data = chartData
         
-        chart.scaleYEnabled = false
-        chart.scaleXEnabled = true
+        
         chart.leftAxis.axisMaximum = chartData.yMax + 0.5
         chart.rightAxis.axisMaximum = chartData.yMax + 0.5
         chart.leftAxis.axisMinimum = chartData.yMin - 0.5
@@ -447,6 +446,8 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         chart.xAxis.axisMinimum = 0
         chart.setVisibleXRange(minXRange: 5.0, maxXRange: 6.0)
         chart.data = chartData
+        chart.scaleYEnabled = false
+        chart.scaleXEnabled = true
         chart.notifyDataSetChanged()
        
         
