@@ -147,75 +147,42 @@ class PercentilViewController : UIViewController{
         registeredChildren = realm.objects(Child.self)
         if registeredChildren?.count != 0{
             for child in registeredChildren!{
-                childApp = child
+                if child.current == true{
+                    childApp = child
+                }
+                
             }
             
         }
-        if !childApp.name.isEmpty && childApp.sleeps.count != 0 && !childApp.dateOfBirth.isEmpty{
+        if !childApp.name.isEmpty && !childApp.dateOfBirth.isEmpty && childApp.sleeps.count == 0{
+            
             loadDictionariesPercentils()
             calcAge(birthday: childApp.dateOfBirth)
             loadSpecificPercentils()
-            setNightAndNapAvg()
+            setLabelAgeAndPercentiles()
 
+
+        }
+        else if !childApp.name.isEmpty && !childApp.dateOfBirth.isEmpty && childApp.sleeps.count != 0{
+            
+            loadDictionariesPercentils()
+            calcAge(birthday: childApp.dateOfBirth)
+            loadSpecificPercentils()
+            setLabelAgeAndPercentiles()
+            setNightAndNapAvg()
         }
         
         
         
     }
     
-    func setNightAndNapAvg(){
-        
-        
-        let avgNight = calcAvgMonth(nightOrNap: true)
-        let avgNap = calcAvgMonth(nightOrNap: false)
-        
-        nightActionView.avgNight = avgNight
-        napActionView.avgNap = avgNap
-        nightActionView.lowPercentilNight = lowPercentilNight
-        nightActionView.highPercentilNight = highPercentilNight
-        napActionView.lowPercentilNap = lowPercentilNap
-        napActionView.highPercentilNap = highPercentilNap
-        let intnight = floor(Double(avgNight))
-        let decimalnight = avgNight.truncatingRemainder(dividingBy: 1)
-        let intnap = floor(Double(avgNap))
-        let decimalnap = avgNap.truncatingRemainder(dividingBy: 1)
+    func setLabelAgeAndPercentiles(){
         
         ageLabel.text = "\(childApp.name) is \(childApp.age) old"
-        
-        if (Int(intnight) == 0 && Int(decimalnight*60) == 0){
-            avgNightLabel.text = ""
-           
-        }
-        else if (Int(intnight) == 0 && Int(decimalnight*60) != 0){
-            
-            avgNightLabel.text = "\(Int(decimalnight*60))min"
-            
-        }
-        else if (Int(intnight) != 0 && Int(decimalnight*60) == 0){
-            
-           avgNightLabel.text = "\(Int(intnight))h"
-        }
-        else if (Int(intnight) != 0 && Int(decimalnight*60) != 0){
-            
-            avgNightLabel.text = "\(Int(intnight))h \(Int(decimalnight*60))min"
-        }
-        if Int(intnap) == 0 && Int(decimalnap*60) == 0{
-             avgNapLabel.text = ""
-        }
-        else if (Int(intnap) != 0 && Int(decimalnap*60) == 0){
-            avgNapLabel.text = "\(Int(intnap))h"
-        }
-        else if (Int(intnap) != 0 && Int(decimalnap*60) != 0){
-            avgNapLabel.text = "\(Int(intnap))h \(Int(decimalnap*60))min"
-        }
-        else if (Int(intnap) == 0 && Int(decimalnap*60) != 0){
-            avgNapLabel.text = "\(Int(decimalnap*60))min"
-        }
         
         let nightHours : CGFloat = 14
         let napHours : CGFloat = 10
         
-       
         var xhighnight = (nightActionView.bounds.width * CGFloat(highPercentilNight))/nightHours
         xhighnight = 35 + xhighnight
         var xlownap = (nightActionView.bounds.width * CGFloat(lowPercentilNap))/napHours
@@ -270,9 +237,56 @@ class PercentilViewController : UIViewController{
         else if Int(integer4) != 0 && Int(decimal4*60) == 0{
             highPnap.text = "98th percentile: \(Int(integer4))h"
         }
+    
+        nightActionView.lowPercentilNight = lowPercentilNight
+        nightActionView.highPercentilNight = highPercentilNight
+        napActionView.lowPercentilNap = lowPercentilNap
+        napActionView.highPercentilNap = highPercentilNap
+    
+    }
+    
+    func setNightAndNapAvg(){
+    
+        let avgNight = calcAvgMonth(nightOrNap: true)
+        let avgNap = calcAvgMonth(nightOrNap: false)
+        nightActionView.avgNight = avgNight
+        napActionView.avgNap = avgNap
+        let intnight = floor(Double(avgNight))
+        let decimalnight = avgNight.truncatingRemainder(dividingBy: 1)
+        let intnap = floor(Double(avgNap))
+        let decimalnap = avgNap.truncatingRemainder(dividingBy: 1)
+        
+        
+        if (Int(intnight) == 0 && Int(decimalnight*60) == 0){
+            avgNightLabel.text = ""
+            
+        }
+        else if (Int(intnight) == 0 && Int(decimalnight*60) != 0){
+            
+            avgNightLabel.text = "\(Int(decimalnight*60))min"
+            
+        }
+        else if (Int(intnight) != 0 && Int(decimalnight*60) == 0){
+            
+            avgNightLabel.text = "\(Int(intnight))h"
+        }
+        else if (Int(intnight) != 0 && Int(decimalnight*60) != 0){
+            
+            avgNightLabel.text = "\(Int(intnight))h \(Int(decimalnight*60))min"
+        }
+        if Int(intnap) == 0 && Int(decimalnap*60) == 0{
+            avgNapLabel.text = ""
+        }
+        else if (Int(intnap) != 0 && Int(decimalnap*60) == 0){
+            avgNapLabel.text = "\(Int(intnap))h"
+        }
+        else if (Int(intnap) != 0 && Int(decimalnap*60) != 0){
+            avgNapLabel.text = "\(Int(intnap))h \(Int(decimalnap*60))min"
+        }
+        else if (Int(intnap) == 0 && Int(decimalnap*60) != 0){
+            avgNapLabel.text = "\(Int(decimalnap*60))min"
+        }
 
-        
-        
     }
 
     func calcAvgMonth(nightOrNap : Bool)->Float{
@@ -281,6 +295,7 @@ class PercentilViewController : UIViewController{
 
         let arrayAllDates = Date.dates(from: initDateAvg , to: Date())
         
+      
         
         var durationFloat = Float(0.0)
         var counterDur2 = 0
@@ -319,6 +334,7 @@ class PercentilViewController : UIViewController{
             }
             if counterDur2 != 0{
                 arrayAvgDay.append(durationFloat/Float(counterDur2))
+                
             }
             
             
@@ -338,13 +354,30 @@ class PercentilViewController : UIViewController{
              avg1 = sum1/Float(arrayAvgDay.count)
         }
         
-       
+        print(arrayAvgDay)
+        print(avg1)
         
+        if arrayAvgDay.count > 1{
+            var median = calculateMedian(array: arrayAvgDay)
+            
+            
+            print(median)
+        }
         
         
         return avg1
         
     }
+    
+    func calculateMedian(array: [Float]) -> Float {
+        let sorted = array.sorted()
+        if sorted.count % 2 == 0 {
+            return Float((sorted[(sorted.count / 2)] + sorted[(sorted.count / 2) - 1])) / 2
+        } else {
+            return Float(sorted[(sorted.count - 1) / 2])
+        }
+    }
+
     func loadDictionariesPercentils(){
         
         dictNight[arrayAges[0]] = [6.0, 13.2]
@@ -425,13 +458,26 @@ class PercentilViewController : UIViewController{
         if integer >= 1 { //year
             initDateAvg =  Calendar.current.date(byAdding: .year, value: Int(integer), to: dateOfBirth)!
             
-            if Int(decimal*60) != 0{
-                initDateAvg =  Calendar.current.date(byAdding: .month, value: Int(decimal*60), to: initDateAvg)!
+            if Int(decimal*12) != 0{
+                initDateAvg =  Calendar.current.date(byAdding: .month, value: Int(decimal*12), to: initDateAvg)!
+            }
+            let monthAndDay = decimal*12
+            
+            if monthAndDay.truncatingRemainder(dividingBy: 1) != 0{
+                initDateAvg = Calendar.current.date(byAdding: .day, value: Int(monthAndDay.truncatingRemainder(dividingBy: 1)*30), to: initDateAvg)!
             }
         }
         else{//month
-           initDateAvg =  Calendar.current.date(byAdding: .month, value: Int(decimal*60), to: dateOfBirth)!
+           initDateAvg =  Calendar.current.date(byAdding: .month, value: Int(decimal*12), to: dateOfBirth)!
+            let monthAndDay = decimal*12
+            
+            if monthAndDay.truncatingRemainder(dividingBy: 1) != 0{
+                initDateAvg = Calendar.current.date(byAdding: .day, value: Int(monthAndDay.truncatingRemainder(dividingBy: 1)*30), to: initDateAvg)!
+            }
+            
+            
         }
+       
         
 
         
@@ -465,9 +511,15 @@ class PercentilViewController : UIViewController{
             self.age = Float(0.0)
         }
         
+        let birthday = Calendar.current.date(from: DateComponents(year: date?.year, month: date?.month, day: date?.day))!
         
+        let days = Calendar.current.dateComponents([.day], from: birthday, to: Date()).day!
         
+        let year = Float(days)/Float(365)
+        let day = Int(year.truncatingRemainder(dividingBy: 1)*365)
        
+         self.age = year
+        
         
     }
     

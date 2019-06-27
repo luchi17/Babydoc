@@ -299,21 +299,46 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                         var finalStringAge = ""
                         if age.year < 1  {
                             if age.month == 0{
-                                finalStringAge = String(age.day) + " days"
+                                
+                                 finalStringAge = String(age.day) + " days"
                             }
                             else{
-                                finalStringAge = String(age.month) + " months and " + String(age.day) + " days"
+                                
+                                if age.day != 0{
+                                    finalStringAge = String(age.month) + " months " + String(age.day) + " days"
+                                }
+                                else{
+                                    finalStringAge = String(age.month) + " months"
+                                    
+                                }
+                                
                             }
                             
                         }
                         else if age.year >= 1{
                             
                             if age.month == 0{
-                                finalStringAge = String(age.year) + " years"
+                                
+                                if age.day != 0{
+                                    finalStringAge = String(age.year) + " years " + String(age.day) + " days"
+                                }
+                                else{
+                                    finalStringAge = String(age.year) + " years"
+                                    
+                                }
                             }
                             else{
-                                finalStringAge = String(age.year) + " years and " + String(age.month) + " months"
+                                if age.day != 0{
+                                    finalStringAge = String(age.year) + " years and " + String(age.month) + " months " + String(age.day) + " days"
+                                    
+                                }
+                                else{
+                                    finalStringAge = String(age.year) + " years and " + String(age.month) + " months "
+                                    
+                                }
+                                
                             }
+                            
                             
                         }
                         self.saveChildInfo(valueToSave: finalStringAge, forkey: "age")

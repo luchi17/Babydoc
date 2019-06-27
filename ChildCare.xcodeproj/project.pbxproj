@@ -28,7 +28,6 @@
 		094D8E692297330200301698 /* SaveSleepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D8E682297330200301698 /* SaveSleepViewController.swift */; };
 		094E486E2291574000AC5E10 /* SaveDoseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E486D2291574000AC5E10 /* SaveDoseViewController.swift */; };
 		094E48702292EE1A00AC5E10 /* EditDosesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */; };
-		0979C81B22C0ECF80086D62A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0979C81A22C0ECF80086D62A /* Launch Screen.storyboard */; };
 		0990692F2279994100EB570C /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0990692B2279994100EB570C /* TextFieldTableViewCell.xib */; };
 		099069312279A32D00EB570C /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099069302279A32C00EB570C /* TextFieldTableViewCell.swift */; };
 		09A11BD02294640C00457A94 /* FeverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A11BCF2294640C00457A94 /* FeverViewController.swift */; };
@@ -46,7 +45,8 @@
 		09B7D4FC228C7DCA00137544 /* MedicationTypesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B7D4FB228C7DCA00137544 /* MedicationTypesViewController.swift */; };
 		09D35081225E121B0052BF88 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		09D35082225E121B0052BF88 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		09D35084225E1EE70052BF88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09D35083225E1EE70052BF88 /* Main.storyboard */; };
+		09DDD2EE22C4B2C900EBD257 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DDD2ED22C4B2C900EBD257 /* Main.storyboard */; };
+		09DDD2F022C4B2D800EBD257 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DDD2EF22C4B2D800EBD257 /* Launch Screen.storyboard */; };
 		09E27C492265E07F0022EE1B /* CustomCellHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E27C472265E07F0022EE1B /* CustomCellHome.swift */; };
 		09E27C4A2265E07F0022EE1B /* CustomCellHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E27C482265E07F0022EE1B /* CustomCellHome.xib */; };
 		09E4B67322B02F8B00A3823C /* FeverChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4B67222B02F8B00A3823C /* FeverChartViewController.swift */; };
@@ -100,7 +100,6 @@
 		094D8E682297330200301698 /* SaveSleepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveSleepViewController.swift; sourceTree = "<group>"; };
 		094E486D2291574000AC5E10 /* SaveDoseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDoseViewController.swift; sourceTree = "<group>"; };
 		094E486F2292EE1A00AC5E10 /* EditDosesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDosesViewController.swift; sourceTree = "<group>"; };
-		0979C81A22C0ECF80086D62A /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "../../Launch Screen.storyboard"; sourceTree = "<group>"; };
 		0990692B2279994100EB570C /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldTableViewCell.xib; sourceTree = "<group>"; };
 		099069302279A32C00EB570C /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		09A11BCF2294640C00457A94 /* FeverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverViewController.swift; sourceTree = "<group>"; };
@@ -118,7 +117,8 @@
 		09B7D4F1228C183C00137544 /* MedicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationViewController.swift; sourceTree = "<group>"; };
 		09B7D4F5228C76A400137544 /* MedicationCalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationCalculatorViewController.swift; sourceTree = "<group>"; };
 		09B7D4FB228C7DCA00137544 /* MedicationTypesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationTypesViewController.swift; sourceTree = "<group>"; };
-		09D35083225E1EE70052BF88 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../../Main.storyboard; sourceTree = "<group>"; };
+		09DDD2ED22C4B2C900EBD257 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ChildCare/View/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		09DDD2EF22C4B2D800EBD257 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "ChildCare/View/Launch Screen.storyboard"; sourceTree = SOURCE_ROOT; };
 		09E27C472265E07F0022EE1B /* CustomCellHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellHome.swift; sourceTree = "<group>"; };
 		09E27C482265E07F0022EE1B /* CustomCellHome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCellHome.xib; sourceTree = "<group>"; };
 		09E4B67222B02F8B00A3823C /* FeverChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverChartViewController.swift; sourceTree = "<group>"; };
@@ -165,8 +165,8 @@
 		0979C81D22C0ED360086D62A /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				09D35083225E1EE70052BF88 /* Main.storyboard */,
-				0979C81A22C0ECF80086D62A /* Launch Screen.storyboard */,
+				09DDD2EF22C4B2D800EBD257 /* Launch Screen.storyboard */,
+				09DDD2ED22C4B2C900EBD257 /* Main.storyboard */,
 			);
 			name = Storyboard;
 			path = "New Group/New Group";
@@ -435,10 +435,10 @@
 				09E27C4A2265E07F0022EE1B /* CustomCellHome.xib in Resources */,
 				09D35082225E121B0052BF88 /* (null) in Resources */,
 				09B1EEA322575194006DF813 /* Assets.xcassets in Resources */,
-				09D35084225E1EE70052BF88 /* Main.storyboard in Resources */,
+				09DDD2F022C4B2D800EBD257 /* Launch Screen.storyboard in Resources */,
+				09DDD2EE22C4B2C900EBD257 /* Main.storyboard in Resources */,
 				09D35081225E121B0052BF88 /* (null) in Resources */,
 				0990692F2279994100EB570C /* TextFieldTableViewCell.xib in Resources */,
-				0979C81B22C0ECF80086D62A /* Launch Screen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
