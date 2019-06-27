@@ -57,6 +57,8 @@ class SaveSleepViewController : UITableViewController{
     var endyearEdit = 0
     var duration = Float(0.0)
     var switchValue = true
+    let date = DateCustom()
+    
     @IBOutlet weak var nightSleepLabel: UILabel!
     
     @IBAction func switchChanged(_ sender: UISwitch) {
@@ -94,6 +96,16 @@ class SaveSleepViewController : UITableViewController{
                 
             }
             
+        }
+        else{
+            textFieldStart.textColor = grayLightColor
+            textFieldStart.font = font
+            textFieldStart.text = dateFormatter.string(from: Date())
+            
+            date.day = Date().day
+            date.month = Date().month
+            date.year = Date().year
+            sleepToSave.dateBegin = date
         }
         
         
@@ -157,17 +169,17 @@ class SaveSleepViewController : UITableViewController{
                     }
                     else{
                         try self.realm.write {
-                            let date = DateCustom()
-                            date.day = selectedDate.day
-                            date.month = selectedDate.month
-                            date.year = selectedDate.year
+                            
+                            self.date.day = selectedDate.day
+                            self.date.month = selectedDate.month
+                            self.date.year = selectedDate.year
                             
                             self.startEdit = selectedDate
                             self.startdayEdit = selectedDate.day
                             self.startmonthEdit = selectedDate.month
                             self.startyearEdit = selectedDate.year
 
-                            self.sleepToSave.dateBegin = date
+                            self.sleepToSave.dateBegin = self.date
                             self.sleepToSave.generalDateBegin = selectedDate
                             
                         }

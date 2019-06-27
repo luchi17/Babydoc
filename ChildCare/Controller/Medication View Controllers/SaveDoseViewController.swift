@@ -15,7 +15,6 @@ class SaveDoseViewController : UITableViewController{
     
     let font = UIFont(name: "Avenir-Heavy", size: 17)
     let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
-    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let pinkcolor = UIColor.init(hexString: "F97DBE")
     let darkPinkColor = UIColor.init(hexString: "FB569F")
     let lightPinkColor = UIColor.init(hexString: "FFA0D2")
@@ -36,10 +35,20 @@ class SaveDoseViewController : UITableViewController{
       
     var realm = try! Realm()
     var quantityUnit = [StringPickerPopover.ItemType]()
+    let date = DateCustom()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldDate.delegate = self
+        textFieldDate.textColor = grayLightColor
+        textFieldDate.font = font
+        textFieldDate.text = dateFormatter.string(from: Date())
+        
+        date.day = Date().day
+        date.month = Date().month
+        date.year = Date().year
+        self.medication?.date = date
+        self.medication?.generalDate = Date()
         textFieldQuantity.delegate = self
         textFieldQuantityUnit.delegate = self
         saveButton.layer.cornerRadius = 2
@@ -56,11 +65,9 @@ class SaveDoseViewController : UITableViewController{
         configureDrugToSave()
 
     }
-   
 
-    //Calls this function when the tap is recognized.
     @objc func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+       
         textFieldQuantity.endEditing(true)
         
     }
@@ -81,12 +88,12 @@ class SaveDoseViewController : UITableViewController{
                 do{
                     
                     try self.realm.write {
-                        let date = DateCustom()
-                        date.day = selectedDate.day
-                        date.month = selectedDate.month
-                        date.year = selectedDate.year
                         
-                        self.medication?.date = date
+                        self.date.day = selectedDate.day
+                        self.date.month = selectedDate.month
+                        self.date.year = selectedDate.year
+                        
+                        self.medication?.date = self.date
                         self.medication?.generalDate = selectedDate
                     }
                     

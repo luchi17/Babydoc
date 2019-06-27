@@ -50,7 +50,7 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
     var monthEdit = 0
     var yearEdit = 0
     
-    
+    let date = DateCustom()
     func loadChildrenAndGrowth(){
         
         childApp = Child()
@@ -92,12 +92,23 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
         
         textFieldHeight.delegate = self
         textFieldHead.delegate = self
+        
         if indicatorEdit != 0 {
             textFieldDate.text = dateStringFromDate(date: growthToEdit?.generalDate ?? Date())
             textFieldWeight.text = "\(growthToEdit?.weight ?? Float(0.0))"
             textFieldHeight.text = "\(growthToEdit?.height ?? Float(0.0))"
             textFieldHead.text = "\(growthToEdit?.headDiameter ?? Float(0.0))"
         }
+        else{
+            textFieldDate.font = font
+            textFieldDate.text = dateFormatter.string(from: Date())
+            
+            date.day = Date().day
+            date.month = Date().month
+            date.year = Date().year
+            growthToSave.date = date
+        }
+        
         
         
         saveButton.layer.cornerRadius = 2
@@ -184,12 +195,12 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
                     }
                     else{
                         try self.realm.write {
-                            let date = DateCustom()
-                            date.day = selectedDate.day
-                            date.month = selectedDate.month
-                            date.year = selectedDate.year
                             
-                            self.growthToSave.date = date
+                            self.date.day = selectedDate.day
+                            self.date.month = selectedDate.month
+                            self.date.year = selectedDate.year
+                            
+                            self.growthToSave.date = self.date
                             self.growthToSave.generalDate = selectedDate
                             
                         }
@@ -337,7 +348,7 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
             }
             
             let image = UIImage(named: "doubletick")!
-            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "Fever has been saved correctly!")
+            let hudViewController = APESuperHUD(style: .icon(image: image, duration: 1), title: nil, message: "Growth record has been saved correctly!")
             HUDAppearance.cancelableOnTouch = true
             HUDAppearance.messageFont = self.fontLittle!
             HUDAppearance.messageTextColor = self.grayLightColor!

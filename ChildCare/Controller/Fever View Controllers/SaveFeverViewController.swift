@@ -41,6 +41,7 @@ class SaveFeverViewController : UITableViewController{
             loadFeverToEdit()
         }
     }
+     let date = DateCustom()
     
     @IBOutlet weak var textFieldDate: UITextField!
     @IBOutlet weak var textFieldTemperature: UITextField!
@@ -48,17 +49,28 @@ class SaveFeverViewController : UITableViewController{
     
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var checkFeverButton: UIButton!
-    
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldDate.delegate = self
+        
         textFieldTemperature.delegate = self
         textFieldPlace.delegate = self
         if indicatorEdit != 0 {
             textFieldDate.text = dateStringFromDate(date: feverToEdit?.generalDate ?? Date())
             textFieldTemperature.text = "\(feverToEdit?.temperature ?? Float(0.0)) ºC"
             textFieldPlace.text = feverToEdit?.placeOfMeasurement
+        }
+        else{
+            textFieldDate.textColor = grayLightColor
+            textFieldDate.font = font
+            textFieldDate.text = dateFormatter.string(from: Date())
+            
+            date.day = Date().day
+            date.month = Date().month
+            date.year = Date().year
+            feverToSave.date = date
         }
         
         
@@ -216,12 +228,12 @@ class SaveFeverViewController : UITableViewController{
                     }
                     else{
                         try self.realm.write {
-                            let date = DateCustom()
-                            date.day = selectedDate.day
-                            date.month = selectedDate.month
-                            date.year = selectedDate.year
                             
-                            self.feverToSave.date = date
+                            self.date.day = selectedDate.day
+                            self.date.month = selectedDate.month
+                            self.date.year = selectedDate.year
+                            
+                            self.feverToSave.date = self.date
                             self.feverToSave.generalDate = selectedDate
                             
                         }

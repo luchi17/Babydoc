@@ -354,30 +354,10 @@ class PercentilViewController : UIViewController{
              avg1 = sum1/Float(arrayAvgDay.count)
         }
         
-        print(arrayAvgDay)
-        print(avg1)
-        
-        if arrayAvgDay.count > 1{
-            var median = calculateMedian(array: arrayAvgDay)
-            
-            
-            print(median)
-        }
-        
-        
         return avg1
         
     }
     
-    func calculateMedian(array: [Float]) -> Float {
-        let sorted = array.sorted()
-        if sorted.count % 2 == 0 {
-            return Float((sorted[(sorted.count / 2)] + sorted[(sorted.count / 2) - 1])) / 2
-        } else {
-            return Float(sorted[(sorted.count - 1) / 2])
-        }
-    }
-
     func loadDictionariesPercentils(){
         
         dictNight[arrayAges[0]] = [6.0, 13.2]
