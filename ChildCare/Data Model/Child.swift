@@ -31,7 +31,7 @@ class Child : Object {
     let sleeps = List<Sleep>()
     let growth = List<Growth>()
     
-    //saludoosss
+   //na de na
     
     
     
