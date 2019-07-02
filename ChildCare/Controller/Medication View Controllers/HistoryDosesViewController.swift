@@ -90,11 +90,11 @@ class HistoryDosesViewController : UIViewController{
     }
     
     let realm = try! Realm()
-    var doses : Results<MedicationDoseCalculated>?
+    var doses : Results<MedicationDoseAdministered>?
     var registeredChildren : Results<Child>?
     var childApp = Child()
     var defaultOptions = SwipeOptions()
-    var doseToEdit = MedicationDoseCalculated()
+    var doseToEdit = MedicationDoseAdministered()
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -159,7 +159,7 @@ class HistoryDosesViewController : UIViewController{
     }
 
     
-    func deleteDose(dose : MedicationDoseCalculated){
+    func deleteDose(dose : MedicationDoseAdministered){
         
         do{
             

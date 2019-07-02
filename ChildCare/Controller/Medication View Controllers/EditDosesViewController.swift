@@ -30,10 +30,9 @@ class EditDosesViewController : UITableViewController{
     let lightPinkColor = UIColor.init(hexString: "FFA0D2")
     let font = UIFont(name: "Avenir-Heavy", size: 17)
     let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
-    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
-    var doseToEdit: MedicationDoseCalculated?{
+    var doseToEdit: MedicationDoseAdministered?{
         didSet{
             configurePopOvers()
             loadDoseToEditAndChild()

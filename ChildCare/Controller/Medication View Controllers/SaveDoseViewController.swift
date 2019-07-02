@@ -25,7 +25,7 @@ class SaveDoseViewController : UITableViewController{
     @IBOutlet weak var textFieldQuantityUnit: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     
-    var medication : MedicationDoseCalculated?{
+    var medication : MedicationDoseAdministered?{
         didSet{
             configureDrugToSave()
         }

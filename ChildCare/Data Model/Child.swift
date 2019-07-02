@@ -25,7 +25,7 @@ class Child : Object {
     
     
     let vaccines = List<Vaccine>()
-    let medicationDoses = List<MedicationDoseCalculated>()
+    let medicationDoses = List<MedicationDoseAdministered>()
     let fever = List<Fever>()
     let sleeps = List<Sleep>()
     let growth = List<Growth>()

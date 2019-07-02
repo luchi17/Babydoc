@@ -36,7 +36,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     @IBOutlet weak var hyperLink: UITextView!
     var registeredChildren : Results<Child>?
     var childApp = Child()
-    var medicationToSave = MedicationDoseCalculated()
+    var medicationToSave = MedicationDoseAdministered()
     
     var realm = try! Realm()
     
@@ -388,7 +388,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             
         else{
             
-            medicationToSave = MedicationDoseCalculated()
+            medicationToSave = MedicationDoseAdministered()
             var type  = realm.objects(MedicationType.self).filter("name == %@ AND concentration == %@", selectedTypeName as Any, concentrationSelected)
             var parentMed : Medication?
             let parentMeds = realm.objects(Medication.self).filter("name == %@", selectedTypeParentName as Any)
