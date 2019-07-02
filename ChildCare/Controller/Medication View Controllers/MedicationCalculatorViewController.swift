@@ -151,15 +151,8 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             parentMedication = drug
             break
         }
-        drugTypes = realm.objects(MedicationType.self).filter( "name == %@",selectedTypeName as Any)
-        
-        let parentMeds = realm.objects(Medication.self).filter("name == %@", selectedTypeParentName as Any)
-        var parentMed : Medication?
-        
-        for drug in parentMeds{
-            parentMed = drug
-        }
-        drugTypes = drugTypes?.filter("%@ IN parentMedication", parentMed!)
+        drugTypes = realm.objects(MedicationType.self).filter( "name == %@ AND medication.name == %@",selectedTypeName as Any, selectedTypeParentName as Any)
+
         
         concentrations = []
         for type in drugTypes!{
@@ -389,13 +382,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         else{
             
             medicationToSave = MedicationDoseCalculated()
-            var type  = realm.objects(MedicationType.self).filter("name == %@ AND concentration == %@", selectedTypeName as Any, concentrationSelected)
-            var parentMed : Medication?
-            let parentMeds = realm.objects(Medication.self).filter("name == %@", selectedTypeParentName as Any)
-            for drug in parentMeds{
-                parentMed = drug
-            }
-            type = type.filter("%@ IN parentMedication",parentMed as Any)
+            let type  = realm.objects(MedicationType.self).filter("name == %@ AND concentration == %@ AND medication.name == %@", selectedTypeName as Any, concentrationSelected, selectedTypeParentName as Any)
             
             for medtype in type{
                  medicationToSave.medicationType = medtype

@@ -281,14 +281,9 @@ class EditDosesViewController : UITableViewController{
             quantityUnit.append("mg")
             quantityUnit.append("sachets")
         }
+      
+        drugTypes = realm.objects(MedicationType.self).filter( "name == %@ AND medication.name", doseToEdit?.medicationType?.name as Any, doseToEdit?.medicationType?.medication?.name as Any)
         
-        var parentName = ""
-        for parent in (doseToEdit?.medicationType!.parentMedication)!{
-            parentName = parent.name
-        }
-        drugTypes = realm.objects(MedicationType.self).filter( "name == %@", doseToEdit?.medicationType?.name as Any)
-        
-        drugTypes = drugTypes?.filter("%@ IN parentMedication", parentName)
         
         for type in drugTypes!{
             concentrations.append(Int(type.concentration))
