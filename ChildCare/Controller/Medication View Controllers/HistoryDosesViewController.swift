@@ -148,6 +148,7 @@ class HistoryDosesViewController : UIViewController{
            
         }
         if !childApp.name.isEmpty{
+            
             doses = childApp.medicationDoses.filter("date.day == %@ AND date.month == %@ AND date.year == %@", selectedDate.day, selectedDate.month, selectedDate.year).sorted(byKeyPath: "generalDate", ascending: false)
             
             tableView.reloadData()

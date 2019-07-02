@@ -15,10 +15,9 @@ class Medication : Object {
     @objc dynamic var maxDose : String = ""
     
 
-    let medicationDoseTypes = List<MedicationDoseType>()
+    let medicationTypes = List<MedicationType>()
     
    
-    
     
     
     

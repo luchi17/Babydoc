@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let paracetamol = Medication()
         paracetamol.name = "Paracetamol"
         paracetamol.maxDose = "60 mg/kg/day"
-        let typeDrops = MedicationDoseType()
+        let typeDrops = MedicationType()
         typeDrops.parentMedicationName = "Paracetamol"
         typeDrops.name = "Drops"
         typeDrops.concentration = 100
@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeDrops.hyperlink = "https://cima.aemps.es/cima/dochtml/p/49302/Prospecto_49302.html"
         typeDrops.suggestion = "No minimum recommended age.\nIt is advisable to consult a doctor before administering it to children under 3 years of age.\nTrick for quick use: 0.15*weight(kg)*25 = drops per dose every 6 hours."
         
-        let typeSyrup = MedicationDoseType()
+        let typeSyrup = MedicationType()
         typeSyrup.parentMedicationName = "Paracetamol"
         typeSyrup.name = "Syrup"
         typeSyrup.concentration = 30
@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSyrup.suggestion = "No minimum recommended age.\nChildren younger than 2 years old can only take this medicine if their doctor has prescribed it for them."
         typeSyrup.hyperlink = "https://www.vademecum.es/medicamento-efferalgan+pediatrico_prospecto_58157"
         
-        let typeSyrup1 = MedicationDoseType()
+        let typeSyrup1 = MedicationType()
         typeSyrup1.parentMedicationName = "Paracetamol"
         typeSyrup1.name = "Syrup"
         typeSyrup1.concentration = 100
@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSyrup1.suggestion = "No minimum recommended age.\nIt is advisable to consult a doctor before administering it to children under 3 years of age.\nTrick for quick use: 0.15*weight(kg) = ml per dose every 6 hours."
         typeSyrup1.hyperlink = "https://cima.aemps.es/cima/dochtml/p/49302/Prospecto_49302.html"
         
-        let typeSup = MedicationDoseType()
+        let typeSup = MedicationType()
         typeSup.parentMedicationName = "Paracetamol"
         typeSup.name = "Suppository"
         typeSup.concentration = 150
@@ -93,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSup.hyperlink = "https://www.vademecum.es/medicamento-febrectal_prospecto_45930"
         typeSup.suggestion = "Minimum recommended age: 1 year old (about 10 kg).\nFor children under 2 years old the dose should be established individually by the doctor."
         
-        let typeSup1 = MedicationDoseType()
+        let typeSup1 = MedicationType()
         typeSup1.parentMedicationName = "Paracetamol"
         typeSup1.name = "Suppository"
         typeSup1.concentration = 250
@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSup1.hyperlink = "https://www.vademecum.es/medicamento-apiretal_prospecto_56301"
         typeSup1.suggestion = "Minimum recommended age: 4 years old (about 17 kg)."
         
-        let typeSup2 = MedicationDoseType()
+        let typeSup2 = MedicationType()
         typeSup2.parentMedicationName = "Paracetamol"
         typeSup2.name = "Suppository"
         typeSup2.concentration = 300
@@ -114,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSup2.hyperlink = "https://www.vademecum.es/medicamento-febrectal+sup.+inf.+300+mg_prospecto_45929"
         typeSup2.suggestion = "It is recommended not to administer more than 5 doses every 24 hours to children under the age of 12, unless indicated by your doctor."
         
-        let typeChewTablet = MedicationDoseType()
+        let typeChewTablet = MedicationType()
         typeChewTablet.parentMedicationName = "Paracetamol"
         typeChewTablet.name = "Orodispersible Tablet"
         typeChewTablet.concentration = 250
@@ -124,7 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeChewTablet.hyperlink = "https://www.vademecum.es/medicamento-apiretal_prospecto_70569"
         typeChewTablet.suggestion = "Minimum recommended age: 3 years old (about 14 kg)."
         
-        let typeChewTablet1 = MedicationDoseType()
+        let typeChewTablet1 = MedicationType()
         typeChewTablet1.parentMedicationName = "Paracetamol"
         typeChewTablet1.name = "Orodispersible Tablet"
         typeChewTablet1.concentration = 325
@@ -134,7 +134,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeChewTablet1.hyperlink = "https://www.vademecum.es/medicamento-apiretal+comp.+bucodispersable+325+mg_prospecto_70571"
         typeChewTablet1.suggestion = "Minimum recommended age: 5 years old (about 19 kg)."
         
-        let typeChewTablet2 = MedicationDoseType()
+        let typeChewTablet2 = MedicationType()
         typeChewTablet2.parentMedicationName = "Paracetamol"
         typeChewTablet2.name = "Orodispersible Tablet"
         typeChewTablet2.concentration = 500
@@ -144,7 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeChewTablet2.hyperlink = "https://cima.aemps.es/cima/dochtml/p/70572/Prospecto_70572.html"
         typeChewTablet2.suggestion = "Minimum recommended age: 8 years old (about 27 kg)."
         
-        let typeTablet = MedicationDoseType()
+        let typeTablet = MedicationType()
         typeTablet.parentMedicationName = "Paracetamol"
         typeTablet.name = "Tablet"
         typeTablet.concentration = 500
@@ -155,21 +155,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeTablet.suggestion = "Minimum recommended age: 12 years old (about 40 kg)"
         
         
-        paracetamol.medicationDoseTypes.append(typeDrops)
-        paracetamol.medicationDoseTypes.append(typeSyrup)
-        paracetamol.medicationDoseTypes.append(typeSyrup1)
-        paracetamol.medicationDoseTypes.append(typeSup)
-        paracetamol.medicationDoseTypes.append(typeSup1)
-        paracetamol.medicationDoseTypes.append(typeSup2)
-        paracetamol.medicationDoseTypes.append(typeChewTablet)
-        paracetamol.medicationDoseTypes.append(typeChewTablet1)
-        paracetamol.medicationDoseTypes.append(typeChewTablet2)
-        paracetamol.medicationDoseTypes.append(typeTablet)
+        paracetamol.medicationTypes.append(typeDrops)
+        paracetamol.medicationTypes.append(typeSyrup)
+        paracetamol.medicationTypes.append(typeSyrup1)
+        paracetamol.medicationTypes.append(typeSup)
+        paracetamol.medicationTypes.append(typeSup1)
+        paracetamol.medicationTypes.append(typeSup2)
+        paracetamol.medicationTypes.append(typeChewTablet)
+        paracetamol.medicationTypes.append(typeChewTablet1)
+        paracetamol.medicationTypes.append(typeChewTablet2)
+        paracetamol.medicationTypes.append(typeTablet)
         
         let ibuprofen = Medication()
         ibuprofen.name = "Ibuprofen"
         ibuprofen.maxDose = "30 mg/kg/day"
-        let typeSyrup20 = MedicationDoseType()
+        let typeSyrup20 = MedicationType()
         typeSyrup20.parentMedicationName = "Ibuprofen"
         typeSyrup20.name = "Syrup"
         typeSyrup20.concentration = 20
@@ -180,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSyrup20.hyperlink = "https://www.vademecum.es/medicamento-dalsy_prospecto_59166"
         typeSyrup20.suggestion = "Minimum recommended age: 3 months (about 5-6 kg).\nThe use of this medicine in children under 2 years old will always be done by prescription.\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         
-        let typeSyrup40 = MedicationDoseType()
+        let typeSyrup40 = MedicationType()
         typeSyrup40.parentMedicationName = "Ibuprofen"
         typeSyrup40.name = "Syrup"
         typeSyrup40.concentration = 40
@@ -190,7 +190,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSyrup40.hyperlink = "https://www.vademecum.es/medicamento-dalsy_prospecto_69726"
         typeSyrup40.suggestion = "Minimum recommended age: 3 months (about 5-6 kg).\nThe use of this medicine in children under 2 years old will always be done by prescription.\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         
-        let typesachet = MedicationDoseType()
+        let typesachet = MedicationType()
         typesachet.parentMedicationName = "Ibuprofen"
         typesachet.name = "Sachet"
         typesachet.concentration = 200
@@ -200,7 +200,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typesachet.hyperlink = "https://www.vademecum.es/medicamento-dalsy_prospecto_63990"
         typesachet.suggestion = "Minimum recommended age: 6-7 years old (about 20 kg).\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         
-        let typesachet1 = MedicationDoseType()
+        let typesachet1 = MedicationType()
         typesachet1.parentMedicationName = "Ibuprofen"
         typesachet1.name = "Sachet"
         typesachet1.concentration = 400
@@ -210,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typesachet1.hyperlink = "https://cima.aemps.es/cima/dochtml/p/68194/P_68194.html"
         typesachet1.suggestion = "Minimum recommended age: 12 years old (about 40 kg).\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         
-        let typeoro = MedicationDoseType()
+        let typeoro = MedicationType()
         typeoro.parentMedicationName = "Ibuprofen"
         typeoro.name = "Orodispersible Tablet"
         typeoro.concentration = 200
@@ -220,7 +220,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeoro.hyperlink = "https://www.vademecum.es/medicamento-junifen_prospecto_64966"
         typeoro.suggestion = "Minimum recommended age: 6 years old (about 20 kg).\nIt is recommended to take it with food if you have a sensitive stomach."
         
-        let typetab = MedicationDoseType()
+        let typetab = MedicationType()
         typetab.parentMedicationName = "Ibuprofen"
         typetab.name = "Tablet"
         typetab.concentration = 400
@@ -230,12 +230,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typetab.hyperlink = "https://www.vademecum.es/medicamento-neobrufen_prospecto_70030"
         typetab.suggestion = "Minimum recommended age: 12 years old (about 40 kg).\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         
-        ibuprofen.medicationDoseTypes.append(typeSyrup20)
-        ibuprofen.medicationDoseTypes.append(typeSyrup40)
-        ibuprofen.medicationDoseTypes.append(typesachet)
-        ibuprofen.medicationDoseTypes.append(typesachet1)
-        ibuprofen.medicationDoseTypes.append(typeoro)
-        ibuprofen.medicationDoseTypes.append(typetab)
+        ibuprofen.medicationTypes.append(typeSyrup20)
+        ibuprofen.medicationTypes.append(typeSyrup40)
+        ibuprofen.medicationTypes.append(typesachet)
+        ibuprofen.medicationTypes.append(typesachet1)
+        ibuprofen.medicationTypes.append(typeoro)
+        ibuprofen.medicationTypes.append(typetab)
         
     
         

@@ -230,11 +230,11 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
                     try self.realm.write {
                         if self.indicatorEdit != 0{
                             self.heightEdit = Float(selectedString) as! Float
-                            self.heightEdit = round((self.heightEdit*100))/100
+                            
                         }
                         else{
                             self.growthToSave.height = Float(selectedString) as! Float
-                            self.growthToSave.height = round((self.growthToSave.height*100))/100
+                            
                         }
                         
                     }
@@ -267,11 +267,12 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
                         if self.indicatorEdit != 0{
                             
                             self.weightEdit = Float(selectedString) as! Float
-                            self.weightEdit = round((self.weightEdit*100))/100
+                            
+                            
                         }
                         else{
                             self.growthToSave.weight = Float(selectedString) as! Float
-                            self.growthToSave.weight = round((self.growthToSave.weight*100))/100
+                            
                         }
                         
                     }
@@ -299,10 +300,14 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
                     try self.realm.write {
                         if self.indicatorEdit != 0{
                             self.headEdit = Float(selectedString) as! Float
+                           
                             
                         }
                         else{
                             self.growthToSave.headDiameter = Float(selectedString) as! Float
+                           
+                            
+                            
                         }
                         
                     }

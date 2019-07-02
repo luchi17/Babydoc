@@ -19,7 +19,7 @@ class MedicationTypesInfoViewController : UITableViewController{
             
         }
     }
-    var drugTypes : Results<MedicationDoseType>?
+    var drugTypes : Results<MedicationType>?
     var arrayNameOfTypes = Array<String>()
     let pinkcolor = UIColor.init(hexString: "F97DBE")
     let darkPinkColor = UIColor.init(hexString: "FB569F")
@@ -44,7 +44,7 @@ class MedicationTypesInfoViewController : UITableViewController{
     
     func loadTypesOfDrug(){
         
-        drugTypes = realm.objects(MedicationDoseType.self).filter( "parentMedicationName == %@",selectedDrug?.name as Any)
+        drugTypes = realm.objects(MedicationType.self).filter( "parentMedicationName == %@",selectedDrug?.name as Any)
 
         tableView.reloadData()
     }

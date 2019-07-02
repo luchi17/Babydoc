@@ -47,6 +47,7 @@
 		09D35082225E121B0052BF88 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		09DDD2EE22C4B2C900EBD257 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DDD2ED22C4B2C900EBD257 /* Main.storyboard */; };
 		09DDD2F022C4B2D800EBD257 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09DDD2EF22C4B2D800EBD257 /* Launch Screen.storyboard */; };
+		09DDD2F222C5469700EBD257 /* MedicationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDD2F122C5469700EBD257 /* MedicationType.swift */; };
 		09E27C492265E07F0022EE1B /* CustomCellHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E27C472265E07F0022EE1B /* CustomCellHome.swift */; };
 		09E27C4A2265E07F0022EE1B /* CustomCellHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E27C482265E07F0022EE1B /* CustomCellHome.xib */; };
 		09E4B67322B02F8B00A3823C /* FeverChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4B67222B02F8B00A3823C /* FeverChartViewController.swift */; };
@@ -56,7 +57,6 @@
 		09E4B67D22B39BE500A3823C /* HistoryGrowthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4B67C22B39BE500A3823C /* HistoryGrowthViewController.swift */; };
 		09E4B67F22B39BF800A3823C /* Growth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4B67E22B39BF800A3823C /* Growth.swift */; };
 		09E4B68D22B4208900A3823C /* MarkerChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4B68C22B4208900A3823C /* MarkerChart.swift */; };
-		09E4B69422BC0CC700A3823C /* MedicationDoseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4B69322BC0CC700A3823C /* MedicationDoseType.swift */; };
 		09E4B69622BC1FE200A3823C /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4B69522BC1FE200A3823C /* Child.swift */; };
 		09E4B69822BCCF9600A3823C /* Sleep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E4B69722BCCF9600A3823C /* Sleep.swift */; };
 		09F972FD22841EA8008FE28C /* Vaccine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F972FC22841EA8008FE28C /* Vaccine.swift */; };
@@ -119,6 +119,7 @@
 		09B7D4FB228C7DCA00137544 /* MedicationTypesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationTypesViewController.swift; sourceTree = "<group>"; };
 		09DDD2ED22C4B2C900EBD257 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ChildCare/View/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		09DDD2EF22C4B2D800EBD257 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "ChildCare/View/Launch Screen.storyboard"; sourceTree = SOURCE_ROOT; };
+		09DDD2F122C5469700EBD257 /* MedicationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationType.swift; sourceTree = "<group>"; };
 		09E27C472265E07F0022EE1B /* CustomCellHome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCellHome.swift; sourceTree = "<group>"; };
 		09E27C482265E07F0022EE1B /* CustomCellHome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCellHome.xib; sourceTree = "<group>"; };
 		09E4B67222B02F8B00A3823C /* FeverChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeverChartViewController.swift; sourceTree = "<group>"; };
@@ -128,7 +129,6 @@
 		09E4B67C22B39BE500A3823C /* HistoryGrowthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryGrowthViewController.swift; sourceTree = "<group>"; };
 		09E4B67E22B39BF800A3823C /* Growth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Growth.swift; sourceTree = "<group>"; };
 		09E4B68C22B4208900A3823C /* MarkerChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerChart.swift; sourceTree = "<group>"; };
-		09E4B69322BC0CC700A3823C /* MedicationDoseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicationDoseType.swift; sourceTree = "<group>"; };
 		09E4B69522BC1FE200A3823C /* Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child.swift; sourceTree = "<group>"; };
 		09E4B69722BCCF9600A3823C /* Sleep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sleep.swift; sourceTree = "<group>"; };
 		09E4B69A22BD50C000A3823C /* ChildCare-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ChildCare-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -228,7 +228,7 @@
 				09F972FC22841EA8008FE28C /* Vaccine.swift */,
 				09F972FE22841F2E008FE28C /* VaccineDose.swift */,
 				09B7D4E8228ABF7900137544 /* Medication.swift */,
-				09E4B69322BC0CC700A3823C /* MedicationDoseType.swift */,
+				09DDD2F122C5469700EBD257 /* MedicationType.swift */,
 				0947AA2722903A7D00FB9303 /* MedicationDoseCalculated.swift */,
 				09A11BD12294645500457A94 /* Fever.swift */,
 				09E4B67E22B39BF800A3823C /* Growth.swift */,
@@ -521,6 +521,7 @@
 				09B1EE9C22575192006DF813 /* HomeViewController.swift in Sources */,
 				094D8E622297159200301698 /* TrackingViewController.swift in Sources */,
 				0944683D229D829F00429743 /* ChartsViewController.swift in Sources */,
+				09DDD2F222C5469700EBD257 /* MedicationType.swift in Sources */,
 				0933E110225E33C300B19B86 /* MedicineViewController.swift in Sources */,
 				093B7D142277763500DB4344 /* ChildrenViewController.swift in Sources */,
 				09E4B68D22B4208900A3823C /* MarkerChart.swift in Sources */,
@@ -528,7 +529,6 @@
 				09B7D4E52284C03B00137544 /* CustomCellVaccine.swift in Sources */,
 				09E4B67322B02F8B00A3823C /* FeverChartViewController.swift in Sources */,
 				09B7D4FC228C7DCA00137544 /* MedicationTypesViewController.swift in Sources */,
-				09E4B69422BC0CC700A3823C /* MedicationDoseType.swift in Sources */,
 				09F972FF22841F2E008FE28C /* VaccineDose.swift in Sources */,
 				0947AA2822903A7D00FB9303 /* MedicationDoseCalculated.swift in Sources */,
 				09446841229EF74800429743 /* CustomCellHistorySleep.swift in Sources */,

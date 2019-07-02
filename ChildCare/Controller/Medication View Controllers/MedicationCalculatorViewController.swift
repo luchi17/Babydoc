@@ -52,7 +52,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     }
     
     
-    var drugTypes : Results<MedicationDoseType>?
+    var drugTypes : Results<MedicationType>?
     var drugs : Results<Medication>?
     var parentMedication : Medication?
     var concentrations = Array<Int>()
@@ -147,7 +147,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             parentMedication = drug
             break
         }
-        drugTypes = realm.objects(MedicationDoseType.self).filter( "parentMedicationName == %@ AND name == %@",selectedTypeParentName as Any, selectedTypeName as Any)
+        drugTypes = realm.objects(MedicationType.self).filter( "parentMedicationName == %@ AND name == %@",selectedTypeParentName as Any, selectedTypeName as Any)
         
         concentrations = []
         for type in drugTypes!{

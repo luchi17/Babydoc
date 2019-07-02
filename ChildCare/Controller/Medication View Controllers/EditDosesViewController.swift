@@ -44,7 +44,7 @@ class EditDosesViewController : UITableViewController{
     var concentrationsPopOver = Array<StringPickerPopover.ItemType>()
     var weightsPopOver = Array<StringPickerPopover.ItemType>()
     var quantityUnit = [StringPickerPopover.ItemType]()
-    var drugTypes : Results<MedicationDoseType>?
+    var drugTypes : Results<MedicationType>?
     var drugs : Results<Medication>?
     var concentrationUnit : String = ""
     var minimumWeight = 0
@@ -283,7 +283,7 @@ class EditDosesViewController : UITableViewController{
             quantityUnit.append("sachets")
         }
         
-        drugTypes = realm.objects(MedicationDoseType.self).filter( "parentMedicationName == %@ AND name == %@",doseToEdit?.parentMedicationName as Any, doseToEdit?.nameType as Any)
+        drugTypes = realm.objects(MedicationType.self).filter( "parentMedicationName == %@ AND name == %@",doseToEdit?.parentMedicationName as Any, doseToEdit?.nameType as Any)
         
         for type in drugTypes!{
             concentrations.append(Int(type.concentration))

@@ -252,7 +252,8 @@ class SaveDoseViewController : UITableViewController{
         
         do{
             try realm.write {
-
+                
+                
                 childApp.medicationDoses.append(medication!)
             }
         }

@@ -25,6 +25,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
     var registeredChildren : Results<Child>?
     var childApp = Child()
     
+    
     @IBOutlet weak var actualYear: UILabel!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -304,7 +305,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         var arrayxaxis = Array<String>()
 
         for key in values.keys.sorted(){
-            arrayxaxis.append("\(Int(key+1))")
+            arrayxaxis.append("\(Int(key+1))m")
         }
         
         let formatter = IndexAxisValueFormatter(values: arrayxaxis)
@@ -313,8 +314,8 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         
         let legend = chart.legend
         legend.enabled = true
-        legend.horizontalAlignment = .center
         legend.verticalAlignment = .bottom
+        legend.horizontalAlignment = .center
         legend.orientation = .vertical
         legend.drawInside = false
         legend.yOffset = 0.0
@@ -382,10 +383,13 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
             dataEntriesHigh.append(dataEntryhigh)
             
         }
-        for i in 0..<valuesChild.count{
-            let dataEntryChild = ChartDataEntry(x: arrayValuesxAxis[i] , y: Double(valuesChild[i]))
-            dataEntriesChild.append(dataEntryChild)
+        if growthRecords.count != 0{
+            for i in 0..<valuesChild.count{
+                let dataEntryChild = ChartDataEntry(x: arrayValuesxAxis[i] , y: Double(valuesChild[i]))
+                dataEntriesChild.append(dataEntryChild)
+            }
         }
+        
        
         let chartDatasetlow = LineChartDataSet(entries: dataEntriesLow, label: "3rd percentile")
         let chartDatasetmid = LineChartDataSet(entries: dataEntriesMid, label: "50th percentile")
@@ -505,11 +509,11 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
             chart.setNeedsDisplay()
             chart.reloadInputViews()
             chart.notifyDataSetChanged()
-            if childApp.sex == "female" && childApp.growth.count != 0{
+            if childApp.sex == "female"{
                 checkAge(counter: counterButton)
                 appearancechart(values: retrieveValuesForChartGirl(counter: counterButton))
             }
-            else if childApp.sex == "male" && childApp.growth.count  != 0{
+            else if childApp.sex == "male"{
                 checkAge(counter: counterButton)
                 appearancechart(values: retrieveValuesForChartBoy(counter: counterButton))
             }
@@ -526,12 +530,12 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
             chart.setNeedsDisplay()
             chart.reloadInputViews()
             chart.notifyDataSetChanged()
-            if childApp.sex == "female" && childApp.growth.count != 0{
+            if childApp.sex == "female"{
                 checkAge(counter: counterButton)
                 appearancechart(values: retrieveValuesForChartGirl(counter: counterButton))
                 
             }
-            else if childApp.sex == "male" && childApp.growth.count != 0{
+            else if childApp.sex == "male"{
                 checkAge(counter: counterButton)
                 appearancechart(values: retrieveValuesForChartBoy(counter: counterButton))
                 
@@ -546,7 +550,6 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
     func loadGrowthRecords(){
 
         growthRecords = childApp.growth
-            //realm.objects(Growth.self)
 
         
         

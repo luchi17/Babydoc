@@ -260,9 +260,10 @@ extension HistorySleepViewController: UITableViewDelegate, UITableViewDataSource
             cell.starttime.text = "Start time: \(formatter2.string(from: (listOfSleep?[indexPath.row].generalDateBegin)!))"
             let formatterFirst = DateFormatter()
             formatterFirst.dateFormat = "dd MMM"
+            
             if (listOfSleep?[indexPath.row].generalDateBegin.day)! < listOfSleep![indexPath.row].generalDateEnd.day {
                 
-                cell.endtime.text = "End time: \(formatter2.string(from: (listOfSleep?[indexPath.row].generalDateEnd)!))" + ", " + formatterFirst.string(from: (listOfSleep?[indexPath.row].generalDateEnd)!)
+                cell.endtime.text = "End time: \(formatter2.string(from: (listOfSleep?[indexPath.row].generalDateEnd)!))" + "(" + formatterFirst.string(from: (listOfSleep?[indexPath.row].generalDateEnd)!) + ")"
             }
             else{
                 cell.endtime.text = "End time: \(formatter2.string(from: (listOfSleep?[indexPath.row].generalDateEnd)!))"

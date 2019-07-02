@@ -1,15 +1,15 @@
 //
-//  MedicationDoseType.swift
+//  MedicationType.swift
 //  ChildCare
 //
-//  Created by Luchi Parejo alcazar on 20/06/2019.
+//  Created by Luchi Parejo alcazar on 27/06/2019.
 //  Copyright © 2019 Luchi Parejo alcazar. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-class MedicationDoseType : Object {
+class MedicationType : Object {
     
     @objc dynamic var parentMedicationName : String = ""
     @objc dynamic var name : String = ""
@@ -21,11 +21,5 @@ class MedicationDoseType : Object {
     @objc dynamic var suggestion : String = ""
     @objc dynamic var hyperlink : String = ""
     @objc dynamic var applied : Bool = false
-    
-   
-    
-    
-    
-    
-    
+
 }

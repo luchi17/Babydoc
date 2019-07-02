@@ -493,7 +493,7 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
                     var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@ AND applied == %@", sectionAgeFunded[indexPath.section], true)
                     dose = dose?.filter(" %@ IN parentVaccine", vaccine)
                     if dose?.count != 0{
-                        cell.name.textColor = UIColor.init(hexString: "7F8484")
+                        cell.name.textColor = grayLightColor
                     }
                     else {
                         cell.name.textColor = UIColor.init(hexString: "CC16CF")
@@ -524,7 +524,7 @@ extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
                     var dose = self.vaccinesDoses?.filter("ageOfVaccination == %@ AND applied == %@", sectionAgeNonFunded[indexPath.section], true)
                     dose = dose?.filter(" %@ IN parentVaccine", vaccine)
                     if dose?.count != 0{
-                        cell.name.textColor = grayColor
+                        cell.name.textColor = grayLightColor
                     }
                     else {
                         cell.name.textColor = UIColor.init(hexString: "CC16CF")
