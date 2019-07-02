@@ -15,10 +15,6 @@ class Vaccine : Object {
     @objc dynamic var funded : Bool = true
     
     let doses = List<VaccineDose>()
-   
-    
-    
-    
-    
+
     
 }

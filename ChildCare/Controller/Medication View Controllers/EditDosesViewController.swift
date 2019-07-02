@@ -73,7 +73,7 @@ class EditDosesViewController : UITableViewController{
         textFieldQuantity.text = doseToEdit?.dose
         textFieldQuantityUnits.text = doseToEdit?.doseUnit
         textFieldWeight.text = "\(doseToEdit?.weight ?? Float(0.0))" + " kg"
-        textFieldConcentration.text = "\(doseToEdit?.concentration ?? 0)" + " " + doseToEdit!.concentrationUnit
+        textFieldConcentration.text = "\(doseToEdit?.medicationType?.concentration ?? 0)" + " " + doseToEdit!.medicationType!.concentrationUnit
         saveButton.layer.cornerRadius = 2
         saveButton.layer.masksToBounds = false
         saveButton.layer.shadowColor = UIColor.flatGray.cgColor
@@ -132,11 +132,11 @@ class EditDosesViewController : UITableViewController{
     
     @IBAction func textFieldConcentrationTouchDown(_ sender: UITextField) {
         
-        self.concentrationSelected = doseToEdit!.concentration
+        self.concentrationSelected = doseToEdit!.medicationType!.concentration
         
-        StringPickerPopover(title: doseToEdit?.concentrationUnit, choices: concentrationsPopOver).setArrowColor(lightPinkColor!).setFontColor(grayColor!).setFont(font!).setSize(width: 220, height: 150).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
+        StringPickerPopover(title: doseToEdit?.medicationType?.concentrationUnit, choices: concentrationsPopOver).setArrowColor(lightPinkColor!).setFontColor(grayColor!).setFont(font!).setSize(width: 220, height: 150).setFontSize(17).setDoneButton(title: "Done", font: fontLittle, color: .white) {
             popover, selectedRow, selectedString in
-            sender.text = selectedString + " " + self.doseToEdit!.concentrationUnit
+            sender.text = selectedString + " " + self.doseToEdit!.medicationType!.concentrationUnit
             
             self.concentrationSelected = Int(selectedString)!
             
@@ -212,7 +212,7 @@ class EditDosesViewController : UITableViewController{
             
             do{
                 try realm.write {
-                    doseToEdit?.concentration = self.concentrationSelected
+                    //doseToEdit?.concentration = self.concentrationSelected
                     doseToEdit?.weight = self.weightSelected
                     doseToEdit?.dose = "\(quantityEdit)"
                     doseToEdit?.generalDate = generaldateEdit
@@ -245,8 +245,7 @@ class EditDosesViewController : UITableViewController{
     
     func configurePopOvers(){
         
-        if !(doseToEdit?.parentMedicationName.isEmpty)!{
-            
+        if !(doseToEdit?.medicationType?.name.isEmpty)!{
             
             quantityEdit = Float(doseToEdit!.dose) as! Float
             quantityUnitEdit = doseToEdit!.doseUnit
@@ -259,31 +258,37 @@ class EditDosesViewController : UITableViewController{
         
         
         
-        if doseToEdit?.nameType == "Drops"{
+        if doseToEdit?.medicationType?.name == "Drops"{
             quantityUnit.append("ml")
             quantityUnit.append("drops")
         }
-        else if doseToEdit?.nameType == "Syrup"{
+        else if doseToEdit?.medicationType?.name == "Syrup"{
             quantityUnit.append("ml")
         }
-        else if doseToEdit?.nameType == "Suppository"{
+        else if doseToEdit?.medicationType?.name == "Suppository"{
             quantityUnit.append("suppositories")
             quantityUnit.append("mg")
         }
-        else if doseToEdit?.nameType == "Orodispersible Tablet"{
+        else if doseToEdit?.medicationType?.name == "Orodispersible Tablet"{
             quantityUnit.append("mg")
             quantityUnit.append("orodispersible tablets")
         }
-        else if doseToEdit?.nameType == "Tablet"{
+        else if doseToEdit?.medicationType?.name == "Tablet"{
             quantityUnit.append("mg")
             quantityUnit.append("tablets")
         }
-        else if doseToEdit?.nameType == "Sachet"{
+        else if doseToEdit?.medicationType?.name == "Sachet"{
             quantityUnit.append("mg")
             quantityUnit.append("sachets")
         }
         
-        drugTypes = realm.objects(MedicationType.self).filter( "parentMedicationName == %@ AND name == %@",doseToEdit?.parentMedicationName as Any, doseToEdit?.nameType as Any)
+        var parentName = ""
+        for parent in (doseToEdit?.medicationType!.parentMedication)!{
+            parentName = parent.name
+        }
+        drugTypes = realm.objects(MedicationType.self).filter( "name == %@", doseToEdit?.medicationType?.name as Any)
+        
+        drugTypes = drugTypes?.filter("%@ IN parentMedication", parentName)
         
         for type in drugTypes!{
             concentrations.append(Int(type.concentration))
@@ -298,7 +303,7 @@ class EditDosesViewController : UITableViewController{
             
         }
         self.configureProperties(selectedProperty: "\(concentrationSelected)")
-        self.concentrationSelected = doseToEdit!.concentration
+        self.concentrationSelected = doseToEdit!.medicationType!.concentration
         self.weightSelected = doseToEdit!.weight
         
         

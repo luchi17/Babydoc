@@ -303,8 +303,14 @@ extension HistoryDosesViewController : UITableViewDelegate, UITableViewDataSourc
         }
           
         else{
-            cell.nameDose.text = (doses?[indexPath.row].parentMedicationName)! + " " + (doses?[indexPath.row].nameType)!
-            cell.descriptionDose.text = "Time of administration: \(formatter2.string(from:(doses?[indexPath.row].generalDate)!))" + "\nConcentration: " + "\(doses?[indexPath.row].concentration ?? 0) \(doses?[indexPath.row].concentrationUnit ?? "")"
+            
+            let parentMed = (doses?[indexPath.row].medicationType?.parentMedication)!
+            var parentMedName = ""
+            for par in parentMed{
+                parentMedName = par.name
+            }
+            cell.nameDose.text = parentMedName + " " + (doses?[indexPath.row].medicationType?.name)!
+            cell.descriptionDose.text = "Time of administration: \(formatter2.string(from:(doses?[indexPath.row].generalDate)!))" + "\nConcentration: " + "\(doses?[indexPath.row].medicationType?.concentration ?? 0) \(doses?[indexPath.row].medicationType?.concentrationUnit ?? "")"
             cell.descriptionDose2.text = "Weight: " + "\(doses?[indexPath.row].weight ?? Float(0.0)) kg"
             cell.descriptionDose3.text = "Applied dose: " + (doses?[indexPath.row].dose)! + " " + (doses?[indexPath.row].doseUnit)!
         }

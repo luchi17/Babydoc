@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         paracetamol.name = "Paracetamol"
         paracetamol.maxDose = "60 mg/kg/day"
         let typeDrops = MedicationType()
-        typeDrops.parentMedicationName = "Paracetamol"
+        //typeDrops.parentMedicationName = "Paracetamol"
         typeDrops.name = "Drops"
         typeDrops.concentration = 100
         typeDrops.maxWeight = 32
@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeDrops.suggestion = "No minimum recommended age.\nIt is advisable to consult a doctor before administering it to children under 3 years of age.\nTrick for quick use: 0.15*weight(kg)*25 = drops per dose every 6 hours."
         
         let typeSyrup = MedicationType()
-        typeSyrup.parentMedicationName = "Paracetamol"
+        //typeSyrup.parentMedicationName = "Paracetamol"
         typeSyrup.name = "Syrup"
         typeSyrup.concentration = 30
         typeSyrup.concentrationUnit = "mg/ml"
@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSyrup.hyperlink = "https://www.vademecum.es/medicamento-efferalgan+pediatrico_prospecto_58157"
         
         let typeSyrup1 = MedicationType()
-        typeSyrup1.parentMedicationName = "Paracetamol"
+        //typeSyrup1.parentMedicationName = "Paracetamol"
         typeSyrup1.name = "Syrup"
         typeSyrup1.concentration = 100
         typeSyrup1.concentrationUnit = "mg/ml"
@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSyrup1.hyperlink = "https://cima.aemps.es/cima/dochtml/p/49302/Prospecto_49302.html"
         
         let typeSup = MedicationType()
-        typeSup.parentMedicationName = "Paracetamol"
+        //typeSup.parentMedicationName = "Paracetamol"
         typeSup.name = "Suppository"
         typeSup.concentration = 150
         typeSup.concentrationUnit = "mg"
@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSup.suggestion = "Minimum recommended age: 1 year old (about 10 kg).\nFor children under 2 years old the dose should be established individually by the doctor."
         
         let typeSup1 = MedicationType()
-        typeSup1.parentMedicationName = "Paracetamol"
+        //typeSup1.parentMedicationName = "Paracetamol"
         typeSup1.name = "Suppository"
         typeSup1.concentration = 250
         typeSup1.concentrationUnit = "mg"
@@ -105,7 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSup1.suggestion = "Minimum recommended age: 4 years old (about 17 kg)."
         
         let typeSup2 = MedicationType()
-        typeSup2.parentMedicationName = "Paracetamol"
+        //typeSup2.parentMedicationName = "Paracetamol"
         typeSup2.name = "Suppository"
         typeSup2.concentration = 300
         typeSup2.concentrationUnit = "mg"
@@ -115,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSup2.suggestion = "It is recommended not to administer more than 5 doses every 24 hours to children under the age of 12, unless indicated by your doctor."
         
         let typeChewTablet = MedicationType()
-        typeChewTablet.parentMedicationName = "Paracetamol"
+        //typeChewTablet.parentMedicationName = "Paracetamol"
         typeChewTablet.name = "Orodispersible Tablet"
         typeChewTablet.concentration = 250
         typeChewTablet.concentrationUnit = "mg"
@@ -125,7 +125,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeChewTablet.suggestion = "Minimum recommended age: 3 years old (about 14 kg)."
         
         let typeChewTablet1 = MedicationType()
-        typeChewTablet1.parentMedicationName = "Paracetamol"
+        //typeChewTablet1.parentMedicationName = "Paracetamol"
         typeChewTablet1.name = "Orodispersible Tablet"
         typeChewTablet1.concentration = 325
         typeChewTablet1.concentrationUnit = "mg"
@@ -135,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeChewTablet1.suggestion = "Minimum recommended age: 5 years old (about 19 kg)."
         
         let typeChewTablet2 = MedicationType()
-        typeChewTablet2.parentMedicationName = "Paracetamol"
+        //typeChewTablet2.parentMedicationName = "Paracetamol"
         typeChewTablet2.name = "Orodispersible Tablet"
         typeChewTablet2.concentration = 500
         typeChewTablet2.concentrationUnit = "mg"
@@ -145,7 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeChewTablet2.suggestion = "Minimum recommended age: 8 years old (about 27 kg)."
         
         let typeTablet = MedicationType()
-        typeTablet.parentMedicationName = "Paracetamol"
+        //typeTablet.parentMedicationName = "Paracetamol"
         typeTablet.name = "Tablet"
         typeTablet.concentration = 500
         typeTablet.concentrationUnit = "mg"
@@ -170,7 +170,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ibuprofen.name = "Ibuprofen"
         ibuprofen.maxDose = "30 mg/kg/day"
         let typeSyrup20 = MedicationType()
-        typeSyrup20.parentMedicationName = "Ibuprofen"
+        //typeSyrup20.parentMedicationName = "Ibuprofen"
         typeSyrup20.name = "Syrup"
         typeSyrup20.concentration = 20
         typeSyrup20.minWeight = 5
@@ -181,7 +181,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSyrup20.suggestion = "Minimum recommended age: 3 months (about 5-6 kg).\nThe use of this medicine in children under 2 years old will always be done by prescription.\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         
         let typeSyrup40 = MedicationType()
-        typeSyrup40.parentMedicationName = "Ibuprofen"
+        //typeSyrup40.parentMedicationName = "Ibuprofen"
         typeSyrup40.name = "Syrup"
         typeSyrup40.concentration = 40
         typeSyrup40.minWeight = 5
@@ -191,7 +191,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeSyrup40.suggestion = "Minimum recommended age: 3 months (about 5-6 kg).\nThe use of this medicine in children under 2 years old will always be done by prescription.\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         
         let typesachet = MedicationType()
-        typesachet.parentMedicationName = "Ibuprofen"
+        //typesachet.parentMedicationName = "Ibuprofen"
         typesachet.name = "Sachet"
         typesachet.concentration = 200
         typesachet.minWeight = 20
@@ -201,7 +201,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typesachet.suggestion = "Minimum recommended age: 6-7 years old (about 20 kg).\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         
         let typesachet1 = MedicationType()
-        typesachet1.parentMedicationName = "Ibuprofen"
+        //typesachet1.parentMedicationName = "Ibuprofen"
         typesachet1.name = "Sachet"
         typesachet1.concentration = 400
         typesachet1.minWeight = 40
@@ -211,7 +211,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typesachet1.suggestion = "Minimum recommended age: 12 years old (about 40 kg).\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         
         let typeoro = MedicationType()
-        typeoro.parentMedicationName = "Ibuprofen"
+        //typeoro.parentMedicationName = "Ibuprofen"
         typeoro.name = "Orodispersible Tablet"
         typeoro.concentration = 200
         typeoro.minWeight = 20
@@ -221,7 +221,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeoro.suggestion = "Minimum recommended age: 6 years old (about 20 kg).\nIt is recommended to take it with food if you have a sensitive stomach."
         
         let typetab = MedicationType()
-        typetab.parentMedicationName = "Ibuprofen"
+        //typetab.parentMedicationName = "Ibuprofen"
         typetab.name = "Tablet"
         typetab.concentration = 400
         typetab.minWeight = 40
