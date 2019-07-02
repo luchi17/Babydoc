@@ -20,7 +20,6 @@ class MedicationType : Object {
     @objc dynamic var suggestion : String = ""
     @objc dynamic var hyperlink : String = ""
     @objc dynamic var applied : Bool = false
-    //@objc dynamic var medication : Medication?
-    
-    let parentMedication = LinkingObjects(fromType : Medication.self , property : "medicationTypes" )
+    @objc dynamic var medication : Medication?
+
 }

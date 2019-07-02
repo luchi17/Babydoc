@@ -222,11 +222,11 @@ class SaveDoseViewController : UITableViewController{
      
         
         if medication?.medicationType!.name == "Drops"{
-            quantityUnit.append("mg/ml")
+            quantityUnit.append("ml")
             quantityUnit.append("drops")
         }
         else if medication?.medicationType!.name == "Syrup"{
-             quantityUnit.append("mg/ml")
+             quantityUnit.append("ml")
         }
         else if medication?.medicationType!.name == "Suppository"{
             quantityUnit.append("suppositories")
