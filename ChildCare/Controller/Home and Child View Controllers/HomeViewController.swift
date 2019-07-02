@@ -134,7 +134,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd MMMM YYYY"
+        formatter.dateFormat = "d MMMM YYYY"
         dateToday.setTitle("Today, "+formatter.string(from: datePicker.selectedDate!), for: .normal)
         dateToday.setTitleColor(UIColor.init(hexString: "64C5CF"), for: .normal)
         dateToday.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 18)

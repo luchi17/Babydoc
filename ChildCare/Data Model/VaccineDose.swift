@@ -17,12 +17,5 @@ class VaccineDose : Object{
     @objc dynamic var applied : Bool = false
 
     let parentVaccine = LinkingObjects(fromType : Vaccine.self , property : "doses" )
-    
 
-    
-    
-    
-    
-    
-    
 }

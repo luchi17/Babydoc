@@ -193,11 +193,7 @@ class ChildrenViewController : UITableViewController, NotifyChangeInNameDelegate
                         child.current = true
                     }
                     realm.add(child)
-                    
-                    for med in medicines{
-                        child.medications.append(med)
-                        
-                    }
+
                 }
                 addVaccinesDatabaseToNewChild(childtoAdd : child)
             }

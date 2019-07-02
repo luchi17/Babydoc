@@ -10,8 +10,7 @@ import Foundation
 import RealmSwift
 
 class MedicationType : Object {
-    
-    @objc dynamic var parentMedicationName : String = ""
+
     @objc dynamic var name : String = ""
     @objc dynamic var minWeight : Int = 3
     @objc dynamic var maxWeight : Int = 60
@@ -22,4 +21,6 @@ class MedicationType : Object {
     @objc dynamic var hyperlink : String = ""
     @objc dynamic var applied : Bool = false
 
+    
+    let parentMedication = LinkingObjects(fromType : Medication.self , property : "medicationTypes" )
 }

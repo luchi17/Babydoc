@@ -44,7 +44,13 @@ class MedicationTypesInfoViewController : UITableViewController{
     
     func loadTypesOfDrug(){
         
-        drugTypes = realm.objects(MedicationType.self).filter( "parentMedicationName == %@",selectedDrug?.name as Any)
+        var parentMed : Medication?
+        let parentDrugs = realm.objects(Medication.self).filter("name == %@", selectedDrug?.name as Any)
+        for drug in parentDrugs{
+            parentMed = drug
+        }
+        
+        drugTypes = realm.objects(MedicationType.self).filter( "%@ IN parentMedication",parentMed as Any)
 
         tableView.reloadData()
     }

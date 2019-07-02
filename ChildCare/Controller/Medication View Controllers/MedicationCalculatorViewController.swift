@@ -50,6 +50,10 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             loadSpecificTypeOfDrug()
         }
     }
+//    var selectedConcentration : Float?
+//    var selectedConcentrationUnit : String?
+//    var nameType : String?
+//    var medicationName : String?
     
     
     var drugTypes : Results<MedicationType>?
@@ -147,7 +151,15 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             parentMedication = drug
             break
         }
-        drugTypes = realm.objects(MedicationType.self).filter( "parentMedicationName == %@ AND name == %@",selectedTypeParentName as Any, selectedTypeName as Any)
+        drugTypes = realm.objects(MedicationType.self).filter( "name == %@",selectedTypeName as Any)
+        
+        let parentMeds = realm.objects(Medication.self).filter("name == %@", selectedTypeParentName as Any)
+        var parentMed : Medication?
+        
+        for drug in parentMeds{
+            parentMed = drug
+        }
+        drugTypes = drugTypes?.filter("%@ IN parentMedication", parentMed!)
         
         concentrations = []
         for type in drugTypes!{
@@ -377,11 +389,20 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         else{
             
             medicationToSave = MedicationDoseCalculated()
-            medicationToSave.concentration = self.concentrationSelected
-            medicationToSave.concentrationUnit = self.concentrationUnit
+            var type  = realm.objects(MedicationType.self).filter("name == %@ AND concentration == %@", selectedTypeName as Any, concentrationSelected)
+            var parentMed : Medication?
+            let parentMeds = realm.objects(Medication.self).filter("name == %@", selectedTypeParentName as Any)
+            for drug in parentMeds{
+                parentMed = drug
+            }
+            type = type.filter("%@ IN parentMedication",parentMed as Any)
+            
+            for medtype in type{
+                 medicationToSave.medicationType = medtype
+            }
+
             medicationToSave.weight = self.weightSelected
-            medicationToSave.nameType = self.selectedTypeName!
-            medicationToSave.parentMedicationName = self.selectedTypeParentName!
+
             
             performSegue(withIdentifier: "goToSave", sender: self)
         }
@@ -413,7 +434,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             
         }
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "goToEditWeight"{ //changeweight
+        if identifier == "goToEditWeight"{ 
             if childApp.name.isEmpty{
                 return false
             }
@@ -421,7 +442,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
                 return true
             }
         }
-        else{ //next in medication
+        else{
             if childApp.name.isEmpty || self.concentrationSelected == 0{
                 return false
             }

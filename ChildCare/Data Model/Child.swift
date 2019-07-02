@@ -25,16 +25,11 @@ class Child : Object {
     
     
     let vaccines = List<Vaccine>()
-    let medications = List<Medication>()
     let medicationDoses = List<MedicationDoseCalculated>()
     let fever = List<Fever>()
     let sleeps = List<Sleep>()
     let growth = List<Growth>()
-    
-   //na de na
-    
-    
-    
+
     
     
 }

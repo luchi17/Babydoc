@@ -221,26 +221,26 @@ class SaveDoseViewController : UITableViewController{
         }
      
         
-        if medication?.nameType == "Drops"{
+        if medication?.medicationType!.name == "Drops"{
             quantityUnit.append("mg/ml")
             quantityUnit.append("drops")
         }
-        else if medication?.nameType == "Syrup"{
+        else if medication?.medicationType!.name == "Syrup"{
              quantityUnit.append("mg/ml")
         }
-        else if medication?.nameType == "Suppository"{
+        else if medication?.medicationType!.name == "Suppository"{
             quantityUnit.append("suppositories")
             quantityUnit.append("mg")
         }
-        else if medication?.nameType == "Orodispersible Tablet"{
+        else if medication?.medicationType!.name == "Orodispersible Tablet"{
             quantityUnit.append("mg")
             quantityUnit.append("orodispersible tablets")
         }
-        else if medication?.nameType == "Tablet"{
+        else if medication?.medicationType!.name == "Tablet"{
             quantityUnit.append("mg")
             quantityUnit.append("tablets")
         }
-        else if medication?.nameType == "Sachet"{
+        else if medication?.medicationType!.name == "Sachet"{
             quantityUnit.append("mg")
             quantityUnit.append("sachets")
         }

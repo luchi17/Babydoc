@@ -17,9 +17,4 @@ class Medication : Object {
 
     let medicationTypes = List<MedicationType>()
     
-   
-    
-    
-    
-    
 }
