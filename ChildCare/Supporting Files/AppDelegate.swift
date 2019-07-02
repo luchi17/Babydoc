@@ -160,18 +160,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeTablet.hyperlink = "https://www.vademecum.es/medicamento-termalgin_prospecto_23203"
         typeTablet.suggestion = "Minimum recommended age: 12 years old (about 40 kg)"
         typeTablet.medication = paracetamol
-        
-        
-//        paracetamol.medicationTypes.append(typeDrops)
-//        paracetamol.medicationTypes.append(typeSyrup)
-//        paracetamol.medicationTypes.append(typeSyrup1)
-//        paracetamol.medicationTypes.append(typeSup)
-//        paracetamol.medicationTypes.append(typeSup1)
-//        paracetamol.medicationTypes.append(typeSup2)
-//        paracetamol.medicationTypes.append(typeChewTablet)
-//        paracetamol.medicationTypes.append(typeChewTablet1)
-//        paracetamol.medicationTypes.append(typeChewTablet2)
-//        paracetamol.medicationTypes.append(typeTablet)
+
         
         let ibuprofen = Medication()
         ibuprofen.name = "Ibuprofen"
@@ -236,13 +225,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typetab.hyperlink = "https://www.vademecum.es/medicamento-neobrufen_prospecto_70030"
         typetab.suggestion = "Minimum recommended age: 12 years old (about 40 kg).\nIt is recommended to take it with food or immediately after eating to reduce the possibility of stomach discomfort."
         typetab.medication = ibuprofen
-        
-//        ibuprofen.medicationTypes.append(typeSyrup20)
-//        ibuprofen.medicationTypes.append(typeSyrup40)
-//        ibuprofen.medicationTypes.append(typesachet)
-//        ibuprofen.medicationTypes.append(typesachet1)
-//        ibuprofen.medicationTypes.append(typeoro)
-//        ibuprofen.medicationTypes.append(typetab)
+
         
     
         
