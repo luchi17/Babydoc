@@ -55,6 +55,22 @@ class SleepViewController : UIViewController, ChartViewDelegate{
     @IBOutlet weak var weekLabel: UILabel!
     
     
+    var _dateFormatter2: DateFormatter?
+    var dateFormatter2: DateFormatter {
+        if (_dateFormatter2 == nil) {
+            _dateFormatter2 = DateFormatter()
+            _dateFormatter2!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter2!.dateFormat = "HH:mm"
+        }
+        return _dateFormatter2!
+    }
+    
+    func dateStringFromDate2(date: Date) -> String {
+        return dateFormatter2.string(from: date)
+    }
+    func dateFromString2(dateString : String)->Date{
+        return dateFormatter2.date(from: dateString)!
+    }
    
     
     override func viewDidLoad() {
@@ -103,24 +119,6 @@ class SleepViewController : UIViewController, ChartViewDelegate{
     }
     
     
-
-    
-    var _dateFormatter2: DateFormatter?
-    var dateFormatter2: DateFormatter {
-        if (_dateFormatter2 == nil) {
-            _dateFormatter2 = DateFormatter()
-            _dateFormatter2!.locale = Locale(identifier: "en_US_POSIX")
-            _dateFormatter2!.dateFormat = "HH:mm"
-        }
-        return _dateFormatter2!
-    }
-    
-    func dateStringFromDate2(date: Date) -> String {
-        return dateFormatter2.string(from: date)
-    }
-    func dateFromString2(dateString : String)->Date{
-        return dateFormatter2.date(from: dateString)!
-    }
     
     @IBAction func nextButtonPressed(_ sender: UIButton) {
         
@@ -231,6 +229,8 @@ class SleepViewController : UIViewController, ChartViewDelegate{
         med6.setNeedsDisplay()
         med6.reloadInputViews()
     }
+    
+    //MARK: - Data manipulation method
     func loadChildren(){
         
         childApp = Child()
@@ -400,9 +400,6 @@ class SleepViewController : UIViewController, ChartViewDelegate{
     
   
 }
-
-
-
 
 
 extension Date {

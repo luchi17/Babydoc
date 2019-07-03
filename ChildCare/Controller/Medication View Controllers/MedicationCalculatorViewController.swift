@@ -50,11 +50,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             loadSpecificTypeOfDrug()
         }
     }
-//    var selectedConcentration : Float?
-//    var selectedConcentrationUnit : String?
-//    var nameType : String?
-//    var medicationName : String?
-    
+
     
     var drugTypes : Results<MedicationType>?
     var drugs : Results<Medication>?
@@ -62,7 +58,6 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     var concentrations = Array<Int>()
     var concentrationsPopOver = Array<StringPickerPopover.ItemType>()
     var weightsPopOver = Array<StringPickerPopover.ItemType>()
-    
     
     var link = ""
     var suggestion = ""
@@ -75,7 +70,6 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
     var weightSelected = Float(0.0)
     var maxDoseParent = ""
     
-    //MARK: View methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -139,7 +133,29 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
     }
     
-    //MARK: Data manipulation
+    //MARK: Data manipulation methods
+    
+    func loadChildren(){
+        
+        registeredChildren = realm.objects(Child.self)
+        
+        tableView.reloadData()
+        
+    }
+    
+    func getCurrentChildApp(){
+        
+        childApp = Child()
+        if registeredChildren?.count != 0{
+            for child in registeredChildren!{
+                if child.current == true{
+                    childApp = child
+                }
+            }
+        }
+        
+        
+    }
     
     
     func loadSpecificTypeOfDrug(){
@@ -219,8 +235,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
             
         }
         
-        
-        
+
     }
     
     
@@ -300,9 +315,7 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
                 finalString = "\(numberOfDoses) sachets in 24 hours"
             }
         }
-        
-        
-        
+
         
         return finalString
     }
@@ -331,31 +344,8 @@ class MedicationCalculatorViewController : UIViewController, UITableViewDataSour
         
         
     }
-    
-    //MARK: ToSave methods
-    func loadChildren(){
-        
-        registeredChildren = realm.objects(Child.self)
-        
-        tableView.reloadData()
-        
-    }
-    
-    func getCurrentChildApp(){
-        
-        childApp = Child()
-        if registeredChildren?.count != 0{
-            for child in registeredChildren!{
-                if child.current == true{
-                    childApp = child
-                }
-            }
-        }
 
-        
-    }
-    
-    
+   
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         

@@ -61,6 +61,22 @@ class EditDosesViewController : UITableViewController{
     var registeredChildren : Results<Child>?
     var childApp = Child()
     
+    var _dateFormatter: DateFormatter?
+    var dateFormatter: DateFormatter {
+        if (_dateFormatter == nil) {
+            _dateFormatter = DateFormatter()
+            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
+        }
+        return _dateFormatter!
+    }
+    
+    func dateStringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldDate.delegate = self
@@ -233,7 +249,7 @@ class EditDosesViewController : UITableViewController{
             
             self.present(hudViewController, animated: true)
             
-            self.navigationController?.popViewController(animated: true)
+            
         }
         
         
@@ -253,9 +269,7 @@ class EditDosesViewController : UITableViewController{
             monthEdit = (doseToEdit?.date!.month)!
             yearEdit = (doseToEdit?.date!.year)!
         }
-        
-        
-        
+
         
         if doseToEdit?.medicationType?.name == "Drops"{
             quantityUnit.append("ml")
@@ -300,10 +314,9 @@ class EditDosesViewController : UITableViewController{
         self.concentrationSelected = doseToEdit!.medicationType!.concentration
         self.weightSelected = doseToEdit!.weight
         
-        
-        
-        
+
     }
+    //MARK: - Data manipulation method
     func loadDoseToEditAndChild(){
         
         childApp = Child()
@@ -344,25 +357,6 @@ class EditDosesViewController : UITableViewController{
         }
         
     }
-    
-    
-    
-    
-    
-    var _dateFormatter: DateFormatter?
-    var dateFormatter: DateFormatter {
-        if (_dateFormatter == nil) {
-            _dateFormatter = DateFormatter()
-            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
-            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
-        }
-        return _dateFormatter!
-    }
-    
-    func dateStringFromDate(date: Date) -> String {
-        return dateFormatter.string(from: date)
-    }
-    
     
     
 }

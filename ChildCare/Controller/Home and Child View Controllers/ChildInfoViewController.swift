@@ -28,12 +28,9 @@ class ChildInfoViewController : UITableViewController{
     var currentChild = Child()
     var registeredChildren : Results<Child>?
     
-    
     var defaultOptions = SwipeOptions()
     weak var delegate : NotifyChangeInNameDelegate?
     weak var delegateCurrentChild : CurrentChildOftheAppDelegate?
-    
-    
     
     let normalColor = UIColor.flatGrayDark
     let font = UIFont(name: "Avenir-Heavy", size: 17)
@@ -71,8 +68,6 @@ class ChildInfoViewController : UITableViewController{
     }
     
     
-    
-    
     //MARK - Table View Datasource method
     
     
@@ -107,7 +102,7 @@ class ChildInfoViewController : UITableViewController{
     
     
     
-    //MARK: Data Manipulation methods
+    //MARK: - Data Manipulation methods
     
     func loadProperties(){
         childProperties =  realm.objects(Child.self).filter( "name == %@",selectedChild?.name as Any)
@@ -258,18 +253,12 @@ class ChildInfoViewController : UITableViewController{
         
     }
 
-    
-    
-    
-    
-    
 }
 //MARK: SwipeTableViewCell methods
 extension ChildInfoViewController : SwipeTableViewCellDelegate{
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        
-        
+
         defaultOptions.transitionStyle = .drag
         
         var textFieldStore = UITextField()
@@ -279,8 +268,32 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
             
             let edit = SwipeAction(style: .default, title: nil){ action , indexPath in
                 
-                if indexPath.row == 2{
+                switch indexPath.row{
+                case 1:
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
                     
+                    var sex = ["female", "male"]
+                    var selected  = "female"
+                    let pickerViewSelectedValueSex: PickerViewViewController.Index = (column: 0, row: 0)
+                    
+                    selected = "female"
+                    alert.addPickerView(values: [sex], initialSelection: pickerViewSelectedValueSex) { vc, picker, index, values in
+                        
+                        selected = sex[picker.selectedRow(inComponent: 0)]
+                        
+                        
+                    }
+                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                        
+                        
+                        self.saveChildInfo(valueToSave: selected, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        
+                    })
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
+                    alert.addAction(title: "Cancel" , style : .cancel)
+                    alert.addAction(done_action)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                case 2:
                     let alert = UIAlertController(style: .alert, title: "Select \(self.propertyDictionaryName[indexPath.row][1])")
                     let maxDate = Date()
                     let minDate = Calendar.current.date(byAdding: .year, value: -14, to: maxDate)!
@@ -300,7 +313,7 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                         if age.year < 1  {
                             if age.month == 0{
                                 
-                                 finalStringAge = String(age.day) + " days"
+                                finalStringAge = String(age.day) + " days"
                             }
                             else{
                                 
@@ -354,10 +367,126 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                     alert.addAction(title : "Cancel" , style: .cancel)
                     alert.addAction(ok_action)
                     alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
-                }
+                case 3:
+                    cell.isUserInteractionEnabled = false
+                    cell.hideSwipe(animated: true)
+                case 4:
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
+                    var weight  = Float()
+                    var arrayWeight = [String]()
+                    let weightValues = stride(from: 0.0, through: 60.0, by: 0.05)
+                    for i in weightValues{
+                        arrayWeight.append(String(format: "%.2f", i))
+                    }
+                    let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: Int(3/0.05))
                     
-                else if indexPath.row == 0 || indexPath.row == 8 || indexPath.row == 9{
                     
+                    weight = Float(3.00)
+                    
+                    alert.addPickerView(values: [arrayWeight, ["kg"]], initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
+                        
+                        
+                        weight = Float(picker.selectedRow(inComponent: 0))*Float(0.05)
+                        
+                        
+                    }
+                    
+                    
+                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                        
+                        
+                        self.saveChildInfo(valueToSave: round((weight*100))/100, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        
+                    })
+                    
+                    alert.addAction(title: "Cancel" , style : .cancel)
+                    alert.addAction(done_action)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                    
+                case 5:
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
+                    var height  = Float()
+                    var arrayHeight = [String]()
+                    let heightValues = stride(from: 0.0, through: 1.7, by: 0.01)
+                    for i in heightValues{
+                        arrayHeight.append(String(format: "%.2f", i))
+                    }
+                    let pickerViewSelectedValueHeight: PickerViewViewController.Index = (column: 0, row: Int(0.7/0.01))
+                    
+                    height = Float(0.7)
+                    
+                    alert.addPickerView(values: [arrayHeight, ["m"]], initialSelection: pickerViewSelectedValueHeight) { vc, picker, index, values in
+                        
+                        height = Float(picker.selectedRow(inComponent: 0)) * Float(0.01)
+                        
+                    }
+                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                        
+                        
+                        
+                        self.saveChildInfo(valueToSave: round((height*100))/100, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        
+                    })
+                    
+                    alert.addAction(title: "Cancel" , style : .cancel)
+                    alert.addAction(done_action)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                    
+                case 6:
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
+                    let headValues = stride(from: 0.0, through: 55.0, by: 0.1)
+                    
+                    var head = Float()
+                    var arrayHead = [String]()
+                    for i in headValues{
+                        arrayHead.append(String(format: "%.2f", i))
+                    }
+                    
+                    let pickerViewSelectedValueHeadDiameter: PickerViewViewController.Index = (column: 0, row: Int(25.0/0.1))
+                    head = Float(25.0)
+                    alert.addPickerView(values: [arrayHead, ["cm"]], initialSelection: pickerViewSelectedValueHeadDiameter) { vc, picker, index, values in
+                        
+                        head = Float(picker.selectedRow(inComponent: 0)) * Float(0.1)
+                        
+                    }
+                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                        
+                        
+                        self.saveChildInfo(valueToSave:  round((head*100))/100, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        
+                    })
+                    
+                    alert.addAction(title: "Cancel" , style : .cancel)
+                    alert.addAction(done_action)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                case 7:
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    var bloodType = ""
+                    var arrayBloodletter = ["0", "A" , "B", "AB"]
+                    var arrayBloodSign = ["+","-"]
+                    
+                    let pickerViewSelectedValueBlood: PickerViewViewController.Index = (column: 0, row: 0)
+                    
+                    bloodType = "0+"
+                    alert.addPickerView(values: [arrayBloodletter, arrayBloodSign], initialSelection: pickerViewSelectedValueBlood) { vc, picker, index, values in
+                        
+                        bloodType = arrayBloodletter[picker.selectedRow(inComponent: 0)] + arrayBloodSign[picker.selectedRow(inComponent: 1)]
+                        
+                        
+                    }
+                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
+                        
+                        self.saveChildInfo(valueToSave: bloodType, forkey: self.propertyDictionaryName[indexPath.row][0])
+                        
+                    })
+                    alert.setTitle(font: self.font!, color: self.greenColor!)
+                    alert.addAction(title: "Cancel" , style : .cancel)
+                    alert.addAction(done_action)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                case 0,8,9:
                     let alert = UIAlertController(style: .alert, title: "Edit "+self.propertyDictionaryName[indexPath.row][1] )
                     let config: TextField.Config = { textField in
                         
@@ -382,180 +511,16 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                         
                         self.navigationItem.title = self.selectedChild?.name
                     })
-                    
-                    
+
                     alert.addAction(title: "Cancel" , style : .cancel)
                     alert.addAction(okAction)
                     alert.show(animated: true, vibrate:false, style: .prominent, completion: nil)
                     
-                }
-                else if indexPath.row == 1{
-                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
-                    
-                    var sex = ["female", "male"]
-                    var selected  = "female"
-                    let pickerViewSelectedValueSex: PickerViewViewController.Index = (column: 0, row: 0)
-                    
-                    selected = "female"
-                    alert.addPickerView(values: [sex], initialSelection: pickerViewSelectedValueSex) { vc, picker, index, values in
-                        
-                        selected = sex[picker.selectedRow(inComponent: 0)]
-                        
-                        
-                    }
-                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
-                        
-                        
-                        self.saveChildInfo(valueToSave: selected, forkey: self.propertyDictionaryName[indexPath.row][0])
-                        
-                    })
-                    alert.setTitle(font: self.font!, color: self.greenColor!)
-                    alert.addAction(title: "Cancel" , style : .cancel)
-                    alert.addAction(done_action)
-                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
-                }
-                else if indexPath.row == 3{
-                    cell.isUserInteractionEnabled = false
-                    cell.hideSwipe(animated: true)
+                default:
+                    break
                     
                 }
-                else if indexPath.row == 4
-                {
-                    
-                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
-                    alert.setTitle(font: self.font!, color: self.greenColor!)
-                    var weight  = Float()
-                    var arrayWeight = [String]()
-                    let weightValues = stride(from: 0.0, through: 60.0, by: 0.05)
-                    for i in weightValues{
-                        arrayWeight.append(String(format: "%.2f", i))
-                    }
-                    let pickerViewSelectedValue: PickerViewViewController.Index = (column: 0, row: Int(3/0.05))
            
-    
-                    weight = Float(3.00)
-                   
-                    alert.addPickerView(values: [arrayWeight, ["kg"]], initialSelection: pickerViewSelectedValue) { vc, picker, index, values in
-                        
-                                
-                                weight = Float(picker.selectedRow(inComponent: 0))*Float(0.05)
-                            print(weight)
-
-                    }
-                    
-                    
-                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
-                        
-
-                        self.saveChildInfo(valueToSave: round((weight*100))/100, forkey: self.propertyDictionaryName[indexPath.row][0])
-                        
-                    })
-                    
-                    alert.addAction(title: "Cancel" , style : .cancel)
-                    alert.addAction(done_action)
-                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
-                    
-                    
-                }
-                else if indexPath.row == 5 || indexPath.row == 6 {
-                    
-                    switch indexPath.row{
-                    case 5 :
-                        let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
-                        alert.setTitle(font: self.font!, color: self.greenColor!)
-                        var height  = Float()
-                        var arrayHeight = [String]()
-                        let heightValues = stride(from: 0.0, through: 1.7, by: 0.01)
-                        for i in heightValues{
-                            arrayHeight.append(String(format: "%.2f", i))
-                        }
-                        let pickerViewSelectedValueHeight: PickerViewViewController.Index = (column: 0, row: Int(0.7/0.01))
-                        
-                        height = Float(0.7)
-                        
-                        alert.addPickerView(values: [arrayHeight, ["m"]], initialSelection: pickerViewSelectedValueHeight) { vc, picker, index, values in
-                            
-                            height = Float(picker.selectedRow(inComponent: 0)) * Float(0.01)
-                            
-                        }
-                        let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
-                            
-                            
-                            
-                            self.saveChildInfo(valueToSave: round((height*100))/100, forkey: self.propertyDictionaryName[indexPath.row][0])
-                            
-                        })
-                        
-                        alert.addAction(title: "Cancel" , style : .cancel)
-                        alert.addAction(done_action)
-                        alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
-                        
-                        
-                        
-                    case 6 :
-                        
-                        let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
-                        alert.setTitle(font: self.font!, color: self.greenColor!)
-                        let headValues = stride(from: 0.0, through: 55.0, by: 0.1)
-                        
-                        var head = Float()
-                        var arrayHead = [String]()
-                        for i in headValues{
-                            arrayHead.append(String(format: "%.2f", i))
-                        }
-                        
-                        let pickerViewSelectedValueHeadDiameter: PickerViewViewController.Index = (column: 0, row: Int(25.0/0.1))
-                        head = Float(25.0)
-                        alert.addPickerView(values: [arrayHead, ["cm"]], initialSelection: pickerViewSelectedValueHeadDiameter) { vc, picker, index, values in
-                            
-                            head = Float(picker.selectedRow(inComponent: 0)) * Float(0.1)
-                            
-                        }
-                        let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
-                            
-                            
-                            self.saveChildInfo(valueToSave:  round((head*100))/100, forkey: self.propertyDictionaryName[indexPath.row][0])
-                            
-                        })
-                        
-                        alert.addAction(title: "Cancel" , style : .cancel)
-                        alert.addAction(done_action)
-                        alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
-                    default:
-                        break
-                        
-                        
-                    }
-                    
-                    
-                }
-                else if indexPath.row == 7{
-                    
-                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
-                    var bloodType = ""
-                    var arrayBloodletter = ["0", "A" , "B", "AB"]
-                    var arrayBloodSign = ["+","-"]
-                    
-                    let pickerViewSelectedValueBlood: PickerViewViewController.Index = (column: 0, row: 0)
-                    
-                    bloodType = "0+"
-                    alert.addPickerView(values: [arrayBloodletter, arrayBloodSign], initialSelection: pickerViewSelectedValueBlood) { vc, picker, index, values in
-                        
-                        bloodType = arrayBloodletter[picker.selectedRow(inComponent: 0)] + arrayBloodSign[picker.selectedRow(inComponent: 1)]
-                        
-                        
-                    }
-                    let done_action = UIAlertAction(title: "Ok", style: .default, handler: { (alertAction) in
-                        
-                        self.saveChildInfo(valueToSave: bloodType, forkey: self.propertyDictionaryName[indexPath.row][0])
-                        
-                    })
-                    alert.setTitle(font: self.font!, color: self.greenColor!)
-                    alert.addAction(title: "Cancel" , style : .cancel)
-                    alert.addAction(done_action)
-                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
-                }
-                
             }
             edit.image = UIImage(named: "editt")
             edit.hidesWhenSelected = true

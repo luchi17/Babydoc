@@ -12,24 +12,10 @@ import SwipeCellKit
 import APESuperHUD
 import PMAlertController
 import RealmSwift
-// MARK: - Home View Controller
+
 
 class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHome{
-    
-    func changeName(name: String){
-        
-        
-        self.navigationItem.title = name
-        
-        
-    }
-    
-    
-    
-    func resizeImageIsCalled(image: UIImage, size: CGSize) -> UIImage {
-        let image = resizeImage(image: image, targetSize: size)
-        return image
-    }
+
 
     @IBOutlet weak var sleep: ActionView!
     
@@ -107,24 +93,6 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         
     }
     
-    func getCurrentChildApp() -> Child{
-        
-        if registeredChildren?.count != 0{
-            for child in registeredChildren!{
-                if child.current == true{
-                    currentChild = child
-                }
-            }
-        }
-        
-        
-        
-        return currentChild
-    }
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 11.0, *) {
@@ -168,7 +136,6 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         
         self.sleep.setNeedsDisplay()
         self.sleep.reloadInputViews()
-        
         
         
         let button = UIButton(type: .custom)
@@ -237,25 +204,51 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         
     }
     
+    //MARK: - Delegate methods
+    func changeName(name: String){
+        
+        self.navigationItem.title = name
+        
+    }
+    
+    func resizeImageIsCalled(image: UIImage, size: CGSize) -> UIImage {
+        let image = resizeImage(image: image, targetSize: size)
+        return image
+    }
+    
+    func getCurrentChildApp() -> Child{
+        
+        if registeredChildren?.count != 0{
+            for child in registeredChildren!{
+                if child.current == true{
+                    currentChild = child
+                }
+            }
+        }
+        
+        
+        
+        return currentChild
+    }
+
+    
+    
     //MARK: - Resize image method
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
         
         let widthRatio  = targetSize.width  / image.size.width
         let heightRatio = targetSize.height / image.size.height
-        
-        // Figure out what our orientation is, and use that to form the rectangle
+
         var newSize: CGSize
         if(widthRatio > heightRatio) {
             newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
         } else {
             newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
         }
-        
-        // This is the rect that we've calculated out and this is what is actually used below
+
         let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        
-        // Actually do the resizing to the rect using the ImageContext stuff
+
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
         image.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -488,7 +481,7 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource{
         cell.noteTitle.text = "Note :"
         cell.noteTitle.textColor = UIColor.lightGray
         
-        cell.noteField.text = "Remember to give it twice" //when db done check what happens if the note added is too big
+        cell.noteField.text = "Remember to give it twice" 
         cell.noteField.textColor = UIColor.init(hexString: "7F8484")
         
         cell.actionImage.image = UIImage(named: "medication-1")
@@ -498,324 +491,6 @@ extension HomeViewController :  UITableViewDelegate, UITableViewDataSource{
     
     
     
-}
-
-
-
-// MARK: - Action View class
-
-
-class ActionView: UIView
-    
-{
-    
-    
-    var sleepcolor :UIColor = UIColor.init(hexString: "2772db")!
-    var feedcolor :UIColor = UIColor.init(hexString: "85ef47")!
-    var diapercolor :UIColor = UIColor.init(hexString: "37D4C0")!
-    var medicationcolor :UIColor = UIColor.init(hexString: "F54291")! 
-
-    var doses : Results<MedicationDoseAdministered>?
-    var sleeps : Results<Sleep>?
-    var arrayAllDatesDoses = Array<Date>()
-    var arrayDateTodayDoses = Array<Date>()
-    var arrayAllDatesSleepsBegin = Array<Date>()
-    var arrayAllDatesSleepsEnd = Array<Date>()
-    var arrayDateTodaySleepsBegin = Array<Date>()
-    var arrayDateTodaySleepsEnd = Array<Date>()
-    
-    var selectedDay : Date?{
-        didSet{
-            
-        }
-    }
-
-    let napColor = UIColor.init(hexString: "66ACF8")
-  
-    
-    func fillColor(start : CGFloat,with color:UIColor,width:CGFloat)
-    {
-        let topRect = CGRect(x : start, y:0, width : width, height: self.bounds.height)
-        color.setFill()
-        UIRectFill(topRect)
-        
-    }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-       
-    }
-    func setDay(day : Date){
-        selectedDay = day
-    }
-    
-    override func draw(_ rect: CGRect)
-    {
-        let width = self.bounds.width
-        let day : CGFloat = 24
- 
-        
-        switch self.tag {
-            
-        case 0:
-            
-            for i in 0..<arrayDateTodaySleepsBegin.count{
-                
-                let sleep = sleeps?.filter("generalDateBegin == %@", arrayDateTodaySleepsBegin[i])
-                
-                var width1  = Float(0.0)
-                var sleeptime  = true
-                
-                for s in sleep!{
-                    
-                    width1 = s.timeSleepFloat
-                    sleeptime = s.nightSleep
-                }
-                
-                let value = Float(arrayDateTodaySleepsBegin[i].minute * 100)/(60 * 100)
-                let final = Float(arrayDateTodaySleepsBegin[i].hour) + value
-                
-                if sleeptime{
-                    
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: sleepcolor, width: (CGFloat(width1)*width)/day)
-                    
-                }
-                else{
-                    
-                    self.fillColor(start : (CGFloat(final)*width)/day, with: napColor!, width: (CGFloat(width1)*width)/day)
-                    
-                }
-                
-                
-            }
-            for date in  arrayDateTodaySleepsEnd{
-                
-                let value = Float(date.minute * 100)/(60 * 100)
-                let final = Float(date.hour) + value
-                
-                self.fillColor(start : (CGFloat(0)*width)/day, with: sleepcolor, width: (CGFloat(final)*width)/day)
-                
-                
-            }
-
-            
-        //MEDICATION
-        case 3:
-
-            for date in arrayDateTodayDoses{
-                
-                let value = round(Float(date.minute)/(60))
-                let final = Float(date.hour) + value
-
-               
-                self.fillColor(start : (CGFloat(final)*width)/day, with: medicationcolor, width: 0.15*width/day)
-            }
-            
-            
-            
-        default:
-            break
-        }
-        
-    }
-    func loadAdministeredDoses(child : Child){
-
-        doses = child.medicationDoses.filter(NSPredicate(value: true))
-        
-        arrayAllDatesDoses = []
-        for dose in doses!{
-            
-            arrayAllDatesDoses.append(dose.generalDate)
-
-        }
-        arrayDateTodayDoses = []
-        for date in arrayAllDatesDoses{
-
-            if selectedDay == nil{
-                selectedDay = Date()
-            }
- 
-            if Calendar.current.isDate(date, inSameDayAs: selectedDay!){
-                
-                arrayDateTodayDoses.append(date)
-            }
-
-        }
-
-
-    }
-    func loadSleepRecords(child : Child){
-
-        sleeps = child.sleeps.filter(NSPredicate(value: true))
-        
-        arrayAllDatesSleepsBegin = []
-        arrayAllDatesSleepsEnd = []
-
-        
-        for sleep in sleeps!{
-            
-           
-            arrayAllDatesSleepsBegin.append(sleep.generalDateBegin)
-            arrayAllDatesSleepsEnd.append(sleep.generalDateEnd)
-
-        }
-        
-        
-        arrayDateTodaySleepsEnd = []
-        arrayDateTodaySleepsBegin = []
-
-        for date in arrayAllDatesSleepsBegin{
-
-            
-            if Calendar.current.isDate(date, inSameDayAs: selectedDay!){
-                
-                arrayDateTodaySleepsBegin.append(date)
-            }
-            
-        }
-
-
-        
-        
-        for i in 0..<arrayAllDatesSleepsEnd.count{
-
-            if Calendar.current.isDate(arrayAllDatesSleepsEnd[i], inSameDayAs: selectedDay!) {
-                
-                var dateBegin = arrayAllDatesSleepsBegin[i]
-                if dateBegin.day < arrayAllDatesSleepsEnd[i].day {
-                     arrayDateTodaySleepsEnd.append(arrayAllDatesSleepsEnd[i])
-                }
-               
-            }
-            
-        }
-
-        
-    }
-    
-    //MARK: Calc Date and String methods
-    var _dateFormatter: DateFormatter?
-    var dateFormatter: DateFormatter {
-        if (_dateFormatter == nil) {
-            _dateFormatter = DateFormatter()
-            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
-            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
-        }
-        return _dateFormatter!
-    }
-    
-    func dateStringFromDate(date: Date) -> String {
-        return dateFormatter.string(from: date)
-    }
-    
-    func dateFromString(dateString: String) -> Date? {
-        return dateFormatter.date(from: dateString)
-    }
-    
-    var _dateFormatter2: DateFormatter?
-    var dateFormatter2: DateFormatter {
-        if (_dateFormatter2 == nil) {
-            _dateFormatter2 = DateFormatter()
-            _dateFormatter2!.locale = Locale(identifier: "en_US_POSIX")
-            _dateFormatter2!.dateFormat = "HH:mm"
-        }
-        return _dateFormatter2!
-    }
-
-    func dateStringFromDate2(date: Date) -> String {
-        return dateFormatter2.string(from: date)
-    }
-    func dateFromString2(dateString : String)->Date{
-        return dateFormatter2.date(from: dateString)!
-    }
-    
-    
-}
-
-// MARK: - Grid View
-
-class GridView: UIView
-    
-{
-    private var path = UIBezierPath()
-    
-    fileprivate var gridWidthMultiple: CGFloat
-    {
-        return 4
-    }
-    fileprivate var gridHeightMultiple : CGFloat
-    {
-        return 20
-    }
-    
-    fileprivate var gridWidth: CGFloat
-    {
-        return bounds.width/CGFloat(gridWidthMultiple)
-    }
-    
-    fileprivate var gridHeight: CGFloat
-    {
-        return bounds.height/CGFloat(gridHeightMultiple)
-    }
-    
-    fileprivate var gridCenter: CGPoint {
-        return CGPoint(x: bounds.midX, y: bounds.midY)
-    }
-    
-    fileprivate func drawGrid()
-    {
-        path = UIBezierPath()
-        path.lineWidth = 0.15
-        
-        for index in 0...Int(gridWidthMultiple) 
-        {
-            let start = CGPoint(x: CGFloat(index) * gridWidth, y: 0)
-            let end = CGPoint(x: CGFloat(index) * gridWidth, y:bounds.height)
-            path.move(to: start)
-            path.addLine(to: end)
-        }
-        path.close()
-        
-    }
-    
-    override func draw(_ rect: CGRect)
-    {
-        drawGrid()
-        UIColor.black.setStroke()
-        path.stroke()
-        
-    }
-    
-    
-}
-// MARK: - RoundShadow View
-
-class RoundShadowView: UIView{
-    
-    private var shadowLayer: CAShapeLayer!
-    private var cornerRadius: CGFloat = 2.0
-    private var fillcolor : UIColor = UIColor.white
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        self.layer.masksToBounds = false
-        self.layer.backgroundColor = UIColor.clear.cgColor
-        
-        if shadowLayer == nil {
-            shadowLayer = CAShapeLayer()
-            
-            shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius).cgPath
-            shadowLayer.fillColor = fillcolor.cgColor
-            
-            shadowLayer.shadowColor = UIColor.flatGray.cgColor
-            shadowLayer.shadowPath = shadowLayer.path
-            shadowLayer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-            shadowLayer.shadowOpacity = 0.7
-            shadowLayer.shadowRadius = 2
-            
-            layer.insertSublayer(shadowLayer, at: 0)
-        }
-    }
 }
 
 

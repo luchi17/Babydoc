@@ -14,13 +14,19 @@ import ScrollableDatepicker
 class HistoryDosesViewController : UIViewController{
     
     
-     let pinkcolor = UIColor.init(hexString: "F97DBE")
-     let darkPinkColor = UIColor.init(hexString: "FB569F")
+    let pinkcolor = UIColor.init(hexString: "F97DBE")
+    let darkPinkColor = UIColor.init(hexString: "FB569F")
     let font = UIFont(name: "Avenir-Heavy", size: 17)
     let fontLittle = UIFont(name: "Avenir-Medium", size: 17)
-    //let fontLittle = UIFont(name: "Avenir-Heavy", size: 16)
     let grayColor = UIColor.init(hexString: "555555")
     let grayLightColor = UIColor.init(hexString: "7F8484")
+    
+    let realm = try! Realm()
+    var doses : Results<MedicationDoseAdministered>?
+    var registeredChildren : Results<Child>?
+    var childApp = Child()
+    var defaultOptions = SwipeOptions()
+    var doseToEdit = MedicationDoseAdministered()
     var _dateFormatter: DateFormatter?
     
     var formatter2: DateFormatter {
@@ -88,13 +94,7 @@ class HistoryDosesViewController : UIViewController{
         }
 
     }
-    
-    let realm = try! Realm()
-    var doses : Results<MedicationDoseAdministered>?
-    var registeredChildren : Results<Child>?
-    var childApp = Child()
-    var defaultOptions = SwipeOptions()
-    var doseToEdit = MedicationDoseAdministered()
+   
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -131,6 +131,47 @@ class HistoryDosesViewController : UIViewController{
         }
         
     }
+    
+    func dateStringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
+    }
+    
+    func dateFromString(dateString: String) -> Date? {
+        return dateFormatter.date(from: dateString)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? EditDosesViewController{
+            destinationVC.doseToEdit = self.doseToEdit
+        }
+    }
+    //MARK: - Resize image method
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
+    
+    
+    
+  //MARK: - Data Manipulation methods
 
     func loadChildAndDoses(selectedDate : Date){
         
@@ -175,16 +216,6 @@ class HistoryDosesViewController : UIViewController{
     }
 
 
-    func dateStringFromDate(date: Date) -> String {
-        return dateFormatter.string(from: date)
-    }
-
-    func dateFromString(dateString: String) -> Date? {
-        return dateFormatter.date(from: dateString)
-    }
-    
-    
-  
 }
 
 //MARK : SwipeTableView Methods
@@ -192,57 +223,60 @@ extension HistoryDosesViewController : SwipeTableViewCellDelegate{
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         
-        doseToEdit = doses![indexPath.row]
-        defaultOptions.transitionStyle = .drag
-        
-        if orientation == .right{
+        guard doses?.count == 0 else{
+            doseToEdit = doses![indexPath.row]
+            defaultOptions.transitionStyle = .drag
             
-            let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
+            if orientation == .right{
                 
-                let alert = UIAlertController(title: "Remove Dose", message: "Are you sure you want to remove this dose permanently?", preferredStyle: .alert)
+                let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
+                    
+                    let alert = UIAlertController(title: "Remove Dose", message: "Are you sure you want to remove this dose permanently?", preferredStyle: .alert)
+                    
+                    let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
+                        
+                        self.deleteDose(dose: self.doses![indexPath.row])
+                        
+                    })
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+                        
+                    })
+                    
+                    alert.setTitle(font: self.font!, color: self.grayColor!)
+                    alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                    alert.addAction(removeAction)
+                    alert.addAction(cancelAction)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                    
+                }
                 
-                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
-                    
-                    self.deleteDose(dose: self.doses![indexPath.row])
-                    
-                })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
-                    
-                })
+                removeSwipe.image = resizeImage(image: UIImage(named: "delete-icon")!, targetSize: CGSize(width: 40.0, height: 40.0))
+                removeSwipe.backgroundColor = .red
+                removeSwipe.hidesWhenSelected = true
                 
-                alert.setTitle(font: self.font!, color: self.grayColor!)
-                alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
-                alert.addAction(removeAction)
-                alert.addAction(cancelAction)
-                alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                
+                return [removeSwipe]
+                
                 
             }
-            removeSwipe.image = UIImage(named: "delete-icon")
-            removeSwipe.backgroundColor = .red
-            removeSwipe.hidesWhenSelected = true
-           
-            
-            return [removeSwipe]
-            
-            
-        }
-        else{
-
-            
-            let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+            else{
                 
                 
-                self.performSegue(withIdentifier: "goToEdit", sender: self.self)
+                let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+                    
+                    
+                    self.performSegue(withIdentifier: "goToEdit", sender: self.self)
+                }
+                editSwipeAction.image = UIImage(named: "editt")
+                editSwipeAction.hidesWhenSelected = true
+                
+                
+                return [editSwipeAction]
+                
             }
-            editSwipeAction.image = UIImage(named: "editt")
-            editSwipeAction.hidesWhenSelected = true
-
-            
-            return [editSwipeAction]
-            
         }
-        
-    }
+        return nil
+        }
     
     
     
@@ -253,7 +287,7 @@ extension HistoryDosesViewController: ScrollableDatepickerDelegate {
     func datepicker(_ datepicker: ScrollableDatepicker, didSelectDate date: Date) {
         
         self.showSelectedDate()
-        //mostrar info de ese dia
+        
         loadChildAndDoses(selectedDate: date)
         
     }
@@ -329,11 +363,6 @@ extension HistoryDosesViewController : UITableViewDelegate, UITableViewDataSourc
     }
     
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? EditDosesViewController{
-            destinationVC.doseToEdit = self.doseToEdit
-        }
-    }
-    
+  
 }
 

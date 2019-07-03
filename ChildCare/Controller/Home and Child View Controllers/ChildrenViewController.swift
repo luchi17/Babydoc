@@ -165,7 +165,6 @@ class ChildrenViewController : UITableViewController, NotifyChangeInNameDelegate
     //MARK: Data Manipulation
     func save(child : Child){
         
-        let medicines = realm.objects(Medication.self)
         
         do{
             var checker = false

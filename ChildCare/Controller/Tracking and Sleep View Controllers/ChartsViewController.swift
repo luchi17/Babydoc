@@ -53,6 +53,10 @@ class ChartsViewController : UIViewController, ChartViewDelegate{
             nextButton.isEnabled = false
         }
     }
+    override func willMove(toParent parent: UIViewController?) {
+        self.navigationController?.navigationBar.barTintColor = UIColor(hexString: "64C5CF")
+    }
+    
     func appearanceView(){
         
         nextButton.layer.cornerRadius = 4

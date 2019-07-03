@@ -197,6 +197,8 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
 
         
     }
+    
+    //MARK: - Data manipulation method
     func loadChildren(){
         
         childApp = Child()
@@ -231,6 +233,12 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         
         
     }
+    func loadGrowthRecords(){
+        
+        growthRecords = childApp.growth
+
+    }
+
     func loadGeneralDictionariesPercentilsGirl(){
         
      
@@ -547,14 +555,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         
         
     }
-    func loadGrowthRecords(){
-
-        growthRecords = childApp.growth
-
-        
-        
-    }
-
+    
     
     func retrieveValuesForChartGirl(counter : Int)->[Double: [Double]]{
         

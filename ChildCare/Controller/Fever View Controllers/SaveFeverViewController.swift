@@ -42,6 +42,20 @@ class SaveFeverViewController : UITableViewController{
         }
     }
      let date = DateCustom()
+    var _dateFormatter: DateFormatter?
+    var dateFormatter: DateFormatter {
+        if (_dateFormatter == nil) {
+            _dateFormatter = DateFormatter()
+            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
+        }
+        return _dateFormatter!
+    }
+    
+    func dateStringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
+    }
+    
     
     @IBOutlet weak var textFieldDate: UITextField!
     @IBOutlet weak var textFieldTemperature: UITextField!
@@ -95,6 +109,22 @@ class SaveFeverViewController : UITableViewController{
 
         
     }
+    func configurePopOvers(){
+        
+        feverValues = []
+        for value in stride(from: 35, to: 42, by: 0.1){
+            feverValues.append("\(value)")
+        }
+        placeValues.append("mouth")
+        placeValues.append("ear")
+        placeValues.append("armpit")
+        placeValues.append("rectum")
+        
+        
+    }
+    
+    
+    //MARK: - Data manipulation methods
     
     func saveFever(feverToEdit : Fever){
         
@@ -118,7 +148,6 @@ class SaveFeverViewController : UITableViewController{
     }
     
     
-    
     func saveFever(feverToSave : Fever){
         
         do{
@@ -130,22 +159,7 @@ class SaveFeverViewController : UITableViewController{
             print(error)
         }
     }
-    func configurePopOvers(){
-        
-        feverValues = []
-        for value in stride(from: 35, to: 42, by: 0.1){
-            feverValues.append("\(value)")
-        }
-        placeValues.append("mouth")
-        placeValues.append("ear")
-        placeValues.append("armpit")
-        placeValues.append("rectum")
-        
-        
-        
-        
-        
-    }
+    
     func loadChildrenAndFever(){
 
         childApp = Child()
@@ -181,20 +195,6 @@ class SaveFeverViewController : UITableViewController{
         }
 
         
-    }
-    
-    var _dateFormatter: DateFormatter?
-    var dateFormatter: DateFormatter {
-        if (_dateFormatter == nil) {
-            _dateFormatter = DateFormatter()
-            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
-            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
-        }
-        return _dateFormatter!
-    }
-    
-    func dateStringFromDate(date: Date) -> String {
-        return dateFormatter.string(from: date)
     }
     
     
@@ -349,7 +349,6 @@ class SaveFeverViewController : UITableViewController{
             HUDAppearance.messageTextColor = self.grayLightColor!
             self.present(hudViewController, animated: true)
            
-            self.navigationController?.popViewController(animated: true)
             
 
         }

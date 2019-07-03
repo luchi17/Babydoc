@@ -141,20 +141,17 @@ class VaccineViewController : UIViewController{
         if let destinationVC2 = segue.destination as? InfoVaccinesViewController {
 
             if #available(iOS 11.0, *) {
-                // We choose not to have a large title for the destination view controller.
                 destinationVC2.navigationItem.largeTitleDisplayMode = .never
                 destinationVC2.navigationController?.navigationBar.prefersLargeTitles = false
                 
             }
         
         }
-        
 
-        
         
     }
     
-    //MARK: Data Manipulation
+    //MARK: - Data Manipulation methods
     
     
     func loadChildrenAndVaccines(){
@@ -322,9 +319,7 @@ class VaccineViewController : UIViewController{
             dictNonFundedDateAdm[string] = arrayOfNonFundedDateAdm
             
         }
-
-        
-        
+ 
     }
 
     
@@ -351,10 +346,6 @@ class VaccineViewController : UIViewController{
 
 
 extension VaccineViewController : UITableViewDataSource, UITableViewDelegate{
-    
-    
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         

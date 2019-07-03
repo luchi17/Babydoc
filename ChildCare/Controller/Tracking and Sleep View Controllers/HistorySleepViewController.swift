@@ -154,6 +154,7 @@ class HistorySleepViewController: UIViewController{
             
         }
         if !(childApp?.name.isEmpty)!{
+ 
         listOfSleep = childApp?.sleeps.filter(
                 "dateBegin.day == %@ AND dateBegin.month == %@"
                 + "AND dateBegin.year == %@"
@@ -333,55 +334,59 @@ extension HistorySleepViewController : SwipeTableViewCellDelegate{
         
         defaultOptions.transitionStyle = .drag
         
-        if orientation == .right{
-            
-            let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
+        guard listOfSleep?.count == 0 else{
+            if orientation == .right{
                 
-                let alert = UIAlertController(title: "Remove Dose", message: "Are you sure you want to remove this sleep record permanently?", preferredStyle: .alert)
+                let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
+                    
+                    let alert = UIAlertController(title: "Remove Dose", message: "Are you sure you want to remove this sleep record permanently?", preferredStyle: .alert)
+                    
+                    let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
+                        
+                        
+                        self.deleteSleep(sleep: self.listOfSleep![indexPath.row])
+                        
+                    })
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+                        
+                    })
+                    
+                    alert.setTitle(font: self.font!, color: self.grayColor!)
+                    alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                    alert.addAction(removeAction)
+                    alert.addAction(cancelAction)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                    
+                }
+                removeSwipe.image = UIImage(named: "delete-icon")
+                removeSwipe.backgroundColor = .red
+                removeSwipe.hidesWhenSelected = true
                 
-                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
-                    
-                    
-                    self.deleteSleep(sleep: self.listOfSleep![indexPath.row])
-                    
-                })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
-                    
-                })
+                sleepToEdit = listOfSleep![indexPath.row]
+                return [removeSwipe]
                 
-                alert.setTitle(font: self.font!, color: self.grayColor!)
-                alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
-                alert.addAction(removeAction)
-                alert.addAction(cancelAction)
-                alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                 
             }
-            removeSwipe.image = UIImage(named: "delete-icon")
-            removeSwipe.backgroundColor = .red
-            removeSwipe.hidesWhenSelected = true
-            
-            sleepToEdit = listOfSleep![indexPath.row]
-            return [removeSwipe]
-            
-            
-        }
-        else{
-            
-            
-            let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+            else{
                 
-                self.sleepToEdit = self.listOfSleep![indexPath.row]
-                self.performSegue(withIdentifier: "goToEditSleep", sender: self.self)
+                
+                let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+                    
+                    self.sleepToEdit = self.listOfSleep![indexPath.row]
+                    self.performSegue(withIdentifier: "goToEditSleep", sender: self.self)
+                }
+                editSwipeAction.image = UIImage(named: "editt")
+                editSwipeAction.hidesWhenSelected = true
+                
+                
+                return [editSwipeAction]
+                
             }
-            editSwipeAction.image = UIImage(named: "editt")
-            editSwipeAction.hidesWhenSelected = true
-            
-            
-            return [editSwipeAction]
             
         }
         
         
+        return nil
         
         
         

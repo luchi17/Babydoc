@@ -41,6 +41,7 @@ class MedicationTypesInfoViewController : UITableViewController{
         
 
     }
+    //MARK: - Data Manipulation method
     
     func loadTypesOfDrug(){
 
@@ -54,12 +55,25 @@ class MedicationTypesInfoViewController : UITableViewController{
         
         for type in drugTypes!{
             
-            //para no repetir syrup syrups dos veces.
             if !arrayNameOfTypes.contains(type.name){
                 arrayNameOfTypes.append(type.name)
             }
         }
  
+        
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let destinationVC = segue.destination as? MedicationCalculatorViewController {
+            if let indexpath = tableView.indexPathForSelectedRow {
+                
+                destinationVC.selectedTypeParentName = selectedDrug!.name
+                destinationVC.selectedTypeName = arrayNameOfTypes[indexpath.row]
+                
+                
+            }
+            
+        }
         
     }
     
@@ -90,21 +104,6 @@ class MedicationTypesInfoViewController : UITableViewController{
         
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if let destinationVC = segue.destination as? MedicationCalculatorViewController {
-            if let indexpath = tableView.indexPathForSelectedRow {
-                
-                destinationVC.selectedTypeParentName = selectedDrug!.name
-                destinationVC.selectedTypeName = arrayNameOfTypes[indexpath.row]
-                
-                
-            }
-           
-        }
-
-    }
-   
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }

@@ -12,7 +12,7 @@ import SwipeCellKit
 
 
 class TextFieldTableViewCell: SwipeTableViewCell  {
-    // outlets
+    
     @IBOutlet weak var fieldNameLabel: UILabel!
     @IBOutlet weak var fieldValue: UILabel!
 

@@ -178,7 +178,7 @@ class PercentilViewController : UIViewController{
     
     func setLabelAgeAndPercentiles(){
         
-        ageLabel.text = "\(childApp.name) is \(childApp.age) old"
+        ageLabel.text = "\(childApp.name) is \(childApp.age)old"
         
         let nightHours : CGFloat = 14
         let napHours : CGFloat = 10
@@ -295,14 +295,12 @@ class PercentilViewController : UIViewController{
 
         let arrayAllDates = Date.dates(from: initDateAvg , to: Date())
         
-      
-        
         var durationFloat = Float(0.0)
-        var counterDur2 = 0
+        var counterDur = 0
         
         for date in arrayAllDates{
             
-            counterDur2 = 0
+            counterDur = 0
             durationFloat = Float(0.0)
             
             for sleep in childApp.sleeps{
@@ -310,7 +308,7 @@ class PercentilViewController : UIViewController{
                 
                 if sleep.dateBegin?.day == date.day && sleep.dateBegin?.month == date.month && sleep.dateBegin?.year == date.year && sleep.dateBegin?.day == sleep.dateEnd?.day && sleep.nightSleep == nightOrNap{
                     durationFloat = durationFloat + sleep.timeSleepFloat
-                    counterDur2 += 1
+                    counterDur += 1
                     
                     
                 }
@@ -320,7 +318,7 @@ class PercentilViewController : UIViewController{
                     let duration = Float(sleep.generalDateBegin.hour) + minutes
                     
                     durationFloat = durationFloat + 24.0 - duration
-                    counterDur2 += 1
+                    counterDur += 1
                 }
                 else if date.day == sleep.dateEnd?.day && sleep.dateEnd?.month == date.month && sleep.dateBegin?.year == date.year &&  sleep.nightSleep == nightOrNap{
                     
@@ -328,12 +326,12 @@ class PercentilViewController : UIViewController{
                     let minutes = round((Float(sleep.generalDateEnd.minute)*100.0))/(60.0*100.0)
                     let duration = Float(sleep.generalDateEnd.hour) + minutes
                     durationFloat = durationFloat + duration
-                    counterDur2 += 1
+                    counterDur += 1
                 }
                 
             }
-            if counterDur2 != 0{
-                arrayAvgDay.append(durationFloat/Float(counterDur2))
+            if counterDur != 0{
+                arrayAvgDay.append(durationFloat/Float(counterDur))
                 
             }
             
@@ -496,9 +494,8 @@ class PercentilViewController : UIViewController{
         let days = Calendar.current.dateComponents([.day], from: birthday, to: Date()).day!
         
         let year = Float(days)/Float(365)
-        let day = Int(year.truncatingRemainder(dividingBy: 1)*365)
+
        
-         self.age = year
         
         
     }

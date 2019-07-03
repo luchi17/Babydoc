@@ -61,6 +61,21 @@ class SaveDoseViewController : UITableViewController{
 
         view.addGestureRecognizer(tap)
     }
+    
+    
+    var _dateFormatter: DateFormatter?
+    var dateFormatter: DateFormatter {
+        if (_dateFormatter == nil) {
+            _dateFormatter = DateFormatter()
+            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
+        }
+        return _dateFormatter!
+    }
+    
+    func dateStringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
+    }
     override func viewWillAppear(_ animated: Bool) {
         configureDrugToSave()
 
@@ -185,26 +200,12 @@ class SaveDoseViewController : UITableViewController{
             HUDAppearance.messageTextColor = self.grayLightColor!
             
             self.present(hudViewController, animated: true)
-            self.navigationController?.popViewController(animated: true)
+            
         }
        
       
     }
-    
-    
-    var _dateFormatter: DateFormatter?
-    var dateFormatter: DateFormatter {
-        if (_dateFormatter == nil) {
-            _dateFormatter = DateFormatter()
-            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
-            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
-        }
-        return _dateFormatter!
-    }
-    
-    func dateStringFromDate(date: Date) -> String {
-        return dateFormatter.string(from: date)
-    }
+
     
     func configureDrugToSave(){
         
@@ -246,6 +247,8 @@ class SaveDoseViewController : UITableViewController{
         }
 
     }
+    
+    //MARK: Data manipulation method
     
     func saveData(){
         

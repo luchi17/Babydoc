@@ -14,7 +14,7 @@ import SwipeCellKit
 
 class FeverViewController : UIViewController{
     
-
+    
     var realm = try! Realm()
     var listOfFever : Results<Fever>?
     var registeredChildren : Results<Child>?
@@ -49,7 +49,7 @@ class FeverViewController : UIViewController{
         }
         return _dateFormatter2!
     }
-
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var datePicker: ScrollableDatepicker!{
         
@@ -85,9 +85,9 @@ class FeverViewController : UIViewController{
             datePicker.configuration = configuration
             
         }
-
+        
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +95,7 @@ class FeverViewController : UIViewController{
         DispatchQueue.main.async {
             self.showSelectedDate()
             self.datePicker.scrollToSelectedDate(animated: false)
-           
+            
         }
         tableView.delegate = self
         tableView.dataSource = self
@@ -110,7 +110,7 @@ class FeverViewController : UIViewController{
     
     
     override func viewWillAppear(_ animated: Bool) {
-
+        
         self.navigationController?.navigationBar.barTintColor = greenLightColor
         self.navigationController?.navigationBar.backgroundColor = greenLightColor
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -147,16 +147,16 @@ class FeverViewController : UIViewController{
                 
             }
         }
-       
+        
         
     }
-
+    
     //MARK: Data Manipulation
     func loadChildrenAndFever(selectedDate : Date){
         
-      childApp = Child()
-      feverToEdit = Fever()
-      registeredChildren = realm.objects(Child.self)
+        childApp = Child()
+        feverToEdit = Fever()
+        registeredChildren = realm.objects(Child.self)
         
         if registeredChildren?.count != 0 {
             for child in registeredChildren!{
@@ -165,15 +165,15 @@ class FeverViewController : UIViewController{
                 }
             }
             
-
+            
         }
         if !childApp.name.isEmpty{
-           listOfFever = childApp.fever.filter("date.day == %@ AND date.month == %@ AND date.year == %@", selectedDate.day, selectedDate.month, selectedDate.year).sorted(byKeyPath: "generalDate", ascending: false)
-           
+            listOfFever = childApp.fever.filter("date.day == %@ AND date.month == %@ AND date.year == %@", selectedDate.day, selectedDate.month, selectedDate.year).sorted(byKeyPath: "generalDate", ascending: false)
+            
         }
         tableView.reloadData()
         
-
+        
     }
     
     func deleteFever(fever : Fever){
@@ -182,7 +182,7 @@ class FeverViewController : UIViewController{
                 realm.delete(fever)
                 
             }
-           
+            
             feverToEdit = Fever()
         }
         catch{
@@ -191,7 +191,7 @@ class FeverViewController : UIViewController{
         loadChildrenAndFever(selectedDate: datePicker.selectedDate ?? Date())
     }
     
-
+    
 }
 
 //MARK: - ScrollableDatePicker method
@@ -201,7 +201,7 @@ extension FeverViewController: ScrollableDatepickerDelegate {
         
         self.showSelectedDate()
         
-         loadChildrenAndFever(selectedDate: date)
+        loadChildrenAndFever(selectedDate: date)
         
     }
     func showSelectedDate() {
@@ -211,25 +211,25 @@ extension FeverViewController: ScrollableDatepickerDelegate {
         
         
     }
-
+    
 }
 
 //MARK: TableView Method
 extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
     
-   
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "feverCell", for: indexPath) as! CustomCellFever
         cell.delegate = self
-
+        
         if registeredChildren!.count == 0  || listOfFever?.count == 0{
             cell.temperature.text = ""
             cell.place.text = ""
             cell.time.text = ""
         }
-        
+            
         else if childApp.name.isEmpty && self.registeredChildren!.count > 0{
             cell.temperature.text = ""
             cell.place.text = ""
@@ -241,13 +241,13 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
             cell.time.text = "Time: \(formatter2.string(from:(listOfFever?[indexPath.row].generalDate)!))"
             cell.place.text = "Place of measurement: " + (listOfFever?[indexPath.row].placeOfMeasurement)!
         }
-
-
+        
+        
         return cell
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         if registeredChildren?.count == 0 || childApp.name.isEmpty{
             return 1
         }
@@ -259,15 +259,15 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
     }
-
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-       
-
+        
+        
         return formatter.string(from: datePicker.selectedDate!)
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -276,7 +276,7 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? SaveFeverViewController{
-          
+            
             
             if feverToEdit.temperature == Float(0.0){
                 destinationVC.feverToSave = feverToEdit
@@ -284,9 +284,9 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
             }
             else{ 
                 destinationVC.feverToEdit = feverToEdit
-
+                
             }
-
+            
         }
         
     }
@@ -297,68 +297,68 @@ extension FeverViewController: UITableViewDelegate, UITableViewDataSource{
 
 //MARK: SwipeTableView Delegate Method
 extension FeverViewController : SwipeTableViewCellDelegate{
-
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-
         
         defaultOptions.transitionStyle = .drag
-
-        if orientation == .right{
-
-            let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
-
-                let alert = UIAlertController(title: "Remove Dose", message: "Are you sure you want to remove this dose permanently?", preferredStyle: .alert)
-
-                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
+        
+        guard listOfFever?.count != 0 else{
+            if orientation == .right{
+                
+                let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
                     
-                   
-                    self.deleteFever(fever: self.listOfFever![indexPath.row])
-
-                })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
-
-                })
-
-                alert.setTitle(font: self.font!, color: self.grayColor!)
-                alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
-                alert.addAction(removeAction)
-                alert.addAction(cancelAction)
-                alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
-
+                    let alert = UIAlertController(title: "Remove Fever Record", message: "Are you sure you want to remove this record permanently?", preferredStyle: .alert)
+                    
+                    let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
+                        
+                        
+                        self.deleteFever(fever: self.listOfFever![indexPath.row])
+                        
+                    })
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+                        
+                    })
+                    
+                    alert.setTitle(font: self.font!, color: self.grayColor!)
+                    alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                    alert.addAction(removeAction)
+                    alert.addAction(cancelAction)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                    
+                }
+                removeSwipe.image = UIImage(named: "delete-icon")
+                removeSwipe.backgroundColor = .red
+                removeSwipe.hidesWhenSelected = true
+                
+                feverToEdit = listOfFever![indexPath.row]
+                return [removeSwipe]
+                
+                
             }
-            removeSwipe.image = UIImage(named: "delete-icon")
-            removeSwipe.backgroundColor = .red
-            removeSwipe.hidesWhenSelected = true
-
-            feverToEdit = listOfFever![indexPath.row]
-            return [removeSwipe]
-
-
-        }
-        else{
-
-
-            let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
-
-                self.feverToEdit = self.listOfFever![indexPath.row]
-                self.performSegue(withIdentifier: "goToEdit", sender: self.self)
+            else{
+                
+                
+                let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+                    
+                    self.feverToEdit = self.listOfFever![indexPath.row]
+                    self.performSegue(withIdentifier: "goToEdit", sender: self.self)
+                }
+                editSwipeAction.image = UIImage(named: "editt")
+                editSwipeAction.hidesWhenSelected = true
+                
+                
+                return [editSwipeAction]
+                
             }
-            editSwipeAction.image = UIImage(named: "editt")
-            editSwipeAction.hidesWhenSelected = true
-
-            
-            return [editSwipeAction]
-
         }
+
         
-        
-        
-        
+        return nil
 
     }
-
-
-
+    
+    
+    
 }
 
 

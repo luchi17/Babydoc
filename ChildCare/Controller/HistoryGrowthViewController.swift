@@ -280,58 +280,58 @@ extension HistoryGrowthViewController : SwipeTableViewCellDelegate{
         
         defaultOptions.transitionStyle = .drag
         
-        if orientation == .right{
-            
-            let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
+        guard growth?.count == 0 else{
+            if orientation == .right{
                 
-                let alert = UIAlertController(title: "Remove Dose", message: "Are you sure you want to remove this dose permanently?", preferredStyle: .alert)
+                let removeSwipe = SwipeAction(style: .default, title: nil){ action , indexPath in
+                    
+                    let alert = UIAlertController(title: "Remove growth record", message: "Are you sure you want to remove this growth permanently?", preferredStyle: .alert)
+                    
+                    let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
+                        
+                        
+                        self.deleteGrowth(growth: self.growth![indexPath.row])
+                        
+                    })
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
+                        
+                    })
+                    
+                    alert.setTitle(font: self.font!, color: self.grayColor!)
+                    alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
+                    alert.addAction(removeAction)
+                    alert.addAction(cancelAction)
+                    alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
+                    
+                }
+                removeSwipe.image = UIImage(named: "delete-icon")
+                removeSwipe.backgroundColor = .red
+                removeSwipe.hidesWhenSelected = true
                 
-                let removeAction = UIAlertAction(title: "Remove", style: .destructive, handler: { (alertAction) in
-                    
-                    
-                    self.deleteGrowth(growth: self.growth![indexPath.row])
-                    
-                })
-                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (alertAction) in
-                    
-                })
+                growthToEdit = growth![indexPath.row]
+                return [removeSwipe]
                 
-                alert.setTitle(font: self.font!, color: self.grayColor!)
-                alert.setMessage(font: self.fontLittle!, color: self.grayLightColor!)
-                alert.addAction(removeAction)
-                alert.addAction(cancelAction)
-                alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                 
             }
-            removeSwipe.image = UIImage(named: "delete-icon")
-            removeSwipe.backgroundColor = .red
-            removeSwipe.hidesWhenSelected = true
-            
-            growthToEdit = growth![indexPath.row]
-            return [removeSwipe]
-            
-            
-        }
-        else{
-            
-            
-            let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+            else{
                 
-                self.growthToEdit = self.growth![indexPath.row]
-                self.performSegue(withIdentifier: "goToEdit", sender: self.self)
+                
+                let editSwipeAction = SwipeAction(style: .default, title: nil) { action, indexPath in
+                    
+                    self.growthToEdit = self.growth![indexPath.row]
+                    self.performSegue(withIdentifier: "goToEdit", sender: self.self)
+                }
+                editSwipeAction.image = UIImage(named: "editt")
+                editSwipeAction.hidesWhenSelected = true
+                
+                
+                return [editSwipeAction]
+                
             }
-            editSwipeAction.image = UIImage(named: "editt")
-            editSwipeAction.hidesWhenSelected = true
-            
-            
-            return [editSwipeAction]
-            
         }
+       
         
-        
-        
-        
-        
+        return nil
     }
     
     

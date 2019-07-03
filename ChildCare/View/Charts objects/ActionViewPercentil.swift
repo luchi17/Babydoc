@@ -42,13 +42,14 @@ class ActionViewPercentil : UIView{
         let napHours : CGFloat = 10
         
         switch self.tag {
-            
+        
+        //Sleep-time rectangle
         case 0:
            
                 self.fillColor(start : (CGFloat(lowPercentilNight)*width)/nightHours, with: .gray, width: (0.2*width)/nightHours)
                 self.fillColor(start : (CGFloat(highPercentilNight)*width)/nightHours, with: .gray, width: (0.2*width)/nightHours)
                 
-                 if avgNight != 0{
+                if avgNight != 0{
                 if (avgNight > lowPercentilNight) && (avgNight < highPercentilNight){
                     
                     self.fillColor(start : (CGFloat(avgNight)*width)/nightHours, with: sleepcolor, width: (0.25*width)/nightHours)
@@ -58,14 +59,14 @@ class ActionViewPercentil : UIView{
                 }
             }
             
-            
+        //Nap-time rectangle
         case 1:
 
            
                 self.fillColor(start : (CGFloat(lowPercentilNap)*width)/napHours, with: .gray, width: (0.15*width)/napHours)
                 self.fillColor(start : (CGFloat(highPercentilNap)*width)/napHours, with: .gray, width: (0.15*width)/napHours)
                 
-                 if avgNap != Float(0.0){
+                if avgNap != Float(0.0){
                 if (avgNap > lowPercentilNap) && (avgNap < highPercentilNap){
                     
                     self.fillColor(start : (CGFloat(avgNap)*width)/napHours, with: napColor, width: (0.2*width)/napHours)

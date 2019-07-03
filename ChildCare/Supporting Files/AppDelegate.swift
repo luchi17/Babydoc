@@ -140,10 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeChewTablet1.medication = paracetamol
         
         let typeChewTablet2 = MedicationType()
-<<<<<<< HEAD
-=======
-        
->>>>>>> experimental
+
         typeChewTablet2.name = "Orodispersible Tablet"
         typeChewTablet2.concentration = 500
         typeChewTablet2.concentrationUnit = "mg"
@@ -154,10 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         typeChewTablet2.medication = paracetamol
         
         let typeTablet = MedicationType()
-<<<<<<< HEAD
-=======
-        
->>>>>>> experimental
+
         typeTablet.name = "Tablet"
         typeTablet.concentration = 500
         typeTablet.concentrationUnit = "mg"

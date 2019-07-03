@@ -16,5 +16,4 @@ class Vaccine : Object {
     
     let doses = List<VaccineDose>()
 
-    
 }

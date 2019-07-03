@@ -10,19 +10,19 @@ import UIKit
 import SwipeCellKit
 
 class CustomCellHistorySleep: SwipeTableViewCell {
-   
-    
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
     
     @IBOutlet weak var typeSleep: UILabel!
     @IBOutlet weak var starttime: UILabel!
     @IBOutlet weak var endtime: UILabel!
     @IBOutlet weak var duration: UILabel!
     
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
    
 
 }

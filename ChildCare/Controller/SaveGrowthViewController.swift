@@ -51,41 +51,21 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
     var yearEdit = 0
     
     let date = DateCustom()
-    func loadChildrenAndGrowth(){
-        
-        childApp = Child()
-        registeredChildren = realm.objects(Child.self)
-        
-        if registeredChildren?.count != 0 {
-            for child in registeredChildren!{
-                if child.current{
-                    childApp = child
-                }
-            }
-            
-            
+    var _dateFormatter: DateFormatter?
+    var dateFormatter: DateFormatter {
+        if (_dateFormatter == nil) {
+            _dateFormatter = DateFormatter()
+            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
+            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
         }
-        
+        return _dateFormatter!
     }
-    func loadGrowthToEdit(){
-        
-        
-        indicatorEdit = 0
-        
-        if growthToEdit?.weight != Float(0.0){
-            
-            indicatorEdit += 1
-            heightEdit = growthToEdit!.height
-            weightEdit = growthToEdit!.weight
-            headEdit = growthToEdit!.weight
-            generaldateEdit = growthToEdit!.generalDate
-            dayEdit = growthToEdit!.date!.day
-            monthEdit = (growthToEdit?.date!.month)!
-            yearEdit = (growthToEdit?.date!.year)!
-        }
-        
-        
+    
+    func dateStringFromDate(date: Date) -> String {
+        return dateFormatter.string(from: date)
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldDate.delegate = self
@@ -118,19 +98,6 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
         saveButton.layer.shadowRadius = 1
         
     }
-    var _dateFormatter: DateFormatter?
-    var dateFormatter: DateFormatter {
-        if (_dateFormatter == nil) {
-            _dateFormatter = DateFormatter()
-            _dateFormatter!.locale = Locale(identifier: "en_US_POSIX")
-            _dateFormatter!.dateFormat = "MM/dd/yyyy HH:mm"
-        }
-        return _dateFormatter!
-    }
-    
-    func dateStringFromDate(date: Date) -> String {
-        return dateFormatter.string(from: date)
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         configurePopOvers()
@@ -153,10 +120,10 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
         }
         for value in stride(from: 0.4, to: 1.5, by: 0.01){
             heightValues.append(String(format: "%.2f", value))
-        }//m
+        }
         for value in stride(from: 25, to: 60, by: 1){
             headValues.append("\(value)")
-        }//cm
+        }
         
         
         
@@ -365,6 +332,8 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
         }
         
     }
+    
+    //MARK: - Data manipulation methods
     func saveGrowth(growthToEdit : Growth){
         
         do{
@@ -381,6 +350,41 @@ class SaveGrowthViewController : UITableViewController, UITextFieldDelegate{
         }
         catch{
             print(error)
+        }
+        
+        
+    }
+    func loadChildrenAndGrowth(){
+        
+        childApp = Child()
+        registeredChildren = realm.objects(Child.self)
+        
+        if registeredChildren?.count != 0 {
+            for child in registeredChildren!{
+                if child.current{
+                    childApp = child
+                }
+            }
+            
+            
+        }
+        
+    }
+    func loadGrowthToEdit(){
+        
+        
+        indicatorEdit = 0
+        
+        if growthToEdit?.weight != Float(0.0){
+            
+            indicatorEdit += 1
+            heightEdit = growthToEdit!.height
+            weightEdit = growthToEdit!.weight
+            headEdit = growthToEdit!.weight
+            generaldateEdit = growthToEdit!.generalDate
+            dayEdit = growthToEdit!.date!.day
+            monthEdit = (growthToEdit?.date!.month)!
+            yearEdit = (growthToEdit?.date!.year)!
         }
         
         
