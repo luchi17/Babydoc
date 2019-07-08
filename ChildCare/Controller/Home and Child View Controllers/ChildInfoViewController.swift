@@ -270,7 +270,7 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                 
                 switch indexPath.row{
                 case 1:
-                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][1] , message: nil)
                     
                     var sex = ["female", "male"]
                     var selected  = "female"
@@ -371,7 +371,7 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                     cell.isUserInteractionEnabled = false
                     cell.hideSwipe(animated: true)
                 case 4:
-                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][1] , message: nil)
                     alert.setTitle(font: self.font!, color: self.greenColor!)
                     var weight  = Float()
                     var arrayWeight = [String]()
@@ -405,7 +405,7 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                     alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                     
                 case 5:
-                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][1] , message: nil)
                     alert.setTitle(font: self.font!, color: self.greenColor!)
                     var height  = Float()
                     var arrayHeight = [String]()
@@ -435,7 +435,7 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                     alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                     
                 case 6:
-                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][1] , message: nil)
                     alert.setTitle(font: self.font!, color: self.greenColor!)
                     let headValues = stride(from: 0.0, through: 55.0, by: 0.1)
                     
@@ -463,7 +463,7 @@ extension ChildInfoViewController : SwipeTableViewCellDelegate{
                     alert.addAction(done_action)
                     alert.show(animated: true, vibrate: false, style: .prominent, completion: nil)
                 case 7:
-                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][0] , message: nil)
+                    let alert = UIAlertController(style: .alert, title: "Select "+self.propertyDictionaryName[indexPath.row][1] , message: nil)
                     var bloodType = ""
                     var arrayBloodletter = ["0", "A" , "B", "AB"]
                     var arrayBloodSign = ["+","-"]

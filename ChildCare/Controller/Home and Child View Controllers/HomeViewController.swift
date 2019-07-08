@@ -19,9 +19,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
 
     @IBOutlet weak var sleep: ActionView!
     
-    @IBOutlet weak var feed: ActionView!
-    
-    @IBOutlet weak var diaper: ActionView!
+  
     
     @IBOutlet weak var medication: ActionView!
     
@@ -102,7 +100,7 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "d MMMM YYYY"
+        formatter.dateFormat = "dd MMMM YYYY"
         dateToday.setTitle("Today, "+formatter.string(from: datePicker.selectedDate!), for: .normal)
         dateToday.setTitleColor(UIColor.init(hexString: "64C5CF"), for: .normal)
         dateToday.titleLabel?.font = UIFont(name: "Avenir-Heavy", size: 18)
@@ -167,15 +165,9 @@ class HomeViewController: UIViewController, resizeImageDelegate, changeNameBarHo
         todaysRecord.textColor = UIColor.init(hexString: "7F8484")!
         sleep.layer.cornerRadius = 4
         sleep.layer.masksToBounds = true
-        feed.layer.cornerRadius = 4
-        feed.layer.masksToBounds = true
-        diaper.layer.cornerRadius = 4
-        diaper.layer.masksToBounds = true
         medication.layer.cornerRadius = 4
         medication.layer.masksToBounds = true
-        
-        feed.backgroundColor = feed.feedcolor.withAlphaComponent(CGFloat(0.2))
-        diaper.backgroundColor = diaper.diapercolor.withAlphaComponent(CGFloat(0.2))
+
         medication.backgroundColor = medication.medicationcolor.withAlphaComponent(CGFloat(0.2))
        
         

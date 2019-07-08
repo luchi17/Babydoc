@@ -10,9 +10,30 @@ import UIKit
 import RealmSwift
 import SwiftyPickerPopover
 import APESuperHUD
+//MARK: TextFields methods
 
 
 class EditDosesViewController : UITableViewController{
+    
+    @IBAction func textFieldDateTouchDown(_ sender: UITextField) {
+        
+        DatePickerPopover(title: "Date")
+            .setDateMode(.dateAndTime)
+            .setArrowColor(lightPinkColor!)
+            .setSelectedDate(Date())
+            .setCancelButton(action: { _, _ in print("cancel")})
+            .setDoneButton(title: "Done", font: self.fontLittle, color: .white, action: { popover, selectedDate in
+                sender.text = self.dateStringFromDate(date: selectedDate)
+                
+                self.generaldateEdit = selectedDate
+                self.dayEdit = selectedDate.day
+                self.monthEdit = selectedDate.month
+                self.yearEdit = selectedDate.year
+                
+            })
+            .appear(originView: sender, baseViewController: self)
+        
+    }
     
     @IBOutlet weak var textFieldDate: UITextField!
     
@@ -23,6 +44,11 @@ class EditDosesViewController : UITableViewController{
     @IBOutlet weak var textFieldQuantity: UITextField!
     
     @IBOutlet weak var textFieldQuantityUnits: UITextField!
+    
+    
+    
+    
+    
     @IBOutlet weak var saveButton: UIButton!
     
     let pinkcolor = UIColor.init(hexString: "F97DBE")
@@ -117,33 +143,7 @@ class EditDosesViewController : UITableViewController{
         self.navigationController?.navigationBar.barTintColor = pinkcolor
     }
     
-    //MARK: TextFields methods
-    
-    @IBAction func textFieldDateTouchDown(_ sender: UITextField) {
-        
-        
-        DatePickerPopover(title: "Date")
-            .setDateMode(.dateAndTime)
-            .setArrowColor(lightPinkColor!)
-            .setSelectedDate(Date())
-            .setCancelButton(action: { _, _ in print("cancel")})
-            .setDoneButton(title: "Done", font: self.fontLittle, color: .white, action: { popover, selectedDate in
-                sender.text = self.dateStringFromDate(date: selectedDate)
-                
-                self.generaldateEdit = selectedDate
-                self.dayEdit = selectedDate.day
-                self.monthEdit = selectedDate.month
-                self.yearEdit = selectedDate.year
-               
-                
-                
-            })
-            .appear(originView: sender, baseViewController: self)
-        
-        
-        
-        
-    }
+   
     
     @IBAction func textFieldConcentrationTouchDown(_ sender: UITextField) {
         
@@ -221,8 +221,6 @@ class EditDosesViewController : UITableViewController{
             alert.addAction(action)
             alert.show(animated: true, vibrate: false, style: .light, completion: nil)
         }
-            
-            
         else{
             
             do{
