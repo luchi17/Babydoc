@@ -178,7 +178,7 @@ class PercentilViewController : UIViewController{
     
     func setLabelAgeAndPercentiles(){
         
-        ageLabel.text = "\(childApp.name) is \(childApp.age)old"
+        ageLabel.text = "\(childApp.name) is \(childApp.age) old"
         
         let nightHours : CGFloat = 14
         let napHours : CGFloat = 10

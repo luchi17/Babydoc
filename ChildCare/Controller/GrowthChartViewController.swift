@@ -31,15 +31,8 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
     @IBOutlet weak var nextButton: UIButton!
     
     @IBOutlet weak var chart: LineChartView!
-    
-    var heightGirl  = Array<Float>()
-    var heightBoy = Array<Float>()
-    var weightGirl = Array<Float>()
-    var weightBoy = Array<Float>()
-    var headGirl = Array<Float>()
-    var headBoy = Array<Float>()
-    var dictHeightGirl = [Double: [Double]]()
-    var dictHeightBoy = [Double: [Double]]()
+
+
     var dictWeightGirl = [Double: [Double]]()
     var dictWeightGirl2 = [Double: [Double]]()
     var dictWeightGirl3 = [Double: [Double]]()
@@ -52,10 +45,8 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
     var dictWeightBoy3 = [Double: [Double]]()
     var dictWeightBoy4 = [Double: [Double]]()
     var dictWeightBoy5 = [Double: [Double]]()
-    
     var dictWeightBoy = [Double: [Double]]()
-    var dictHeadGirl = [Double: [Double]]()
-    var dictHeadBoy = [Double: [Double]]()
+    
     var growthRecords = List<Growth>()
     var valuesToDraw = [Double]()
     var arrayValuesxAxis = [Double]()
@@ -406,7 +397,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         
         chartDatasetChild.colors = [.orange]
         chartDatasetChild.drawValuesEnabled = false
-        chartDatasetChild.lineWidth = 1.75
+        chartDatasetChild.lineWidth = 2
         chartDatasetChild.drawCirclesEnabled = false
         chartDatasetChild.highlightColor = .orange
         chartDatasetChild.highlightLineDashLengths = [8.0]
@@ -456,7 +447,7 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
         chart.rightAxis.axisMinimum = chartData.yMin - 0.5
         chart.xAxis.axisMaximum = 12
         chart.xAxis.axisMinimum = 0
-        chart.setVisibleXRange(minXRange: 5.0, maxXRange: 6.0)
+        chart.setVisibleXRange(minXRange: 12.0, maxXRange: 12.0)
         chart.data = chartData
         chart.scaleYEnabled = false
         chart.scaleXEnabled = true
@@ -482,26 +473,26 @@ class GrowthChartViewController : UIViewController, ChartViewDelegate{
             
             let days = Calendar.current.dateComponents([.day], from: birthday, to: growth.generalDate).day!
     
-            let age = Float(days)/Float(365)
-            
+             let age = Float(days)/Float(365)
+
             
             
             if Float(age) >= Float(counter) && Float(age) <= Float(counter+1){
                 
-                dict[Double(age)] = Double(growth.weight)
+                dict[Double(age*12)] = Double(growth.weight)
                 
             }
             
         }
         
+        
         if !dict.isEmpty{
             for dictval in  dict.sorted(by: { $0.0 < $1.0 }){
                 valuesToDraw.append(dictval.value)
-                arrayValuesxAxis.append(dictval.key.truncatingRemainder(dividingBy: 1))
+                arrayValuesxAxis.append(dictval.key)
             }
         }
-        
-        
+
         
 
     }

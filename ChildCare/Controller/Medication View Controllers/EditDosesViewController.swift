@@ -293,7 +293,7 @@ class EditDosesViewController : UITableViewController{
             quantityUnit.append("sachets")
         }
       
-        drugTypes = realm.objects(MedicationType.self).filter( "name == %@ AND medication.name", doseToEdit?.medicationType?.name as Any, doseToEdit?.medicationType?.medication?.name as Any)
+        drugTypes = realm.objects(MedicationType.self).filter( "name == %@ AND medication.name == %@", doseToEdit?.medicationType?.name as Any, doseToEdit?.medicationType?.medication?.name as Any)
         
         
         for type in drugTypes!{
