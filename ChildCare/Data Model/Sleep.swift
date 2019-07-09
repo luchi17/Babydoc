@@ -19,9 +19,7 @@ class Sleep : Object {
     @objc dynamic var timeSleepFloat : Float = 0.0
     @objc dynamic var nightSleep : Bool = true
     
- 
-    
-    
+
     
 }
 

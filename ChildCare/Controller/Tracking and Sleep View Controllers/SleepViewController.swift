@@ -372,6 +372,8 @@ class SleepViewController : UIViewController, ChartViewDelegate{
             
             
         }
+
+        
         
         var sum = Float(0.0)
         var avg = Float(0.0)
@@ -380,12 +382,12 @@ class SleepViewController : UIViewController, ChartViewDelegate{
             sum = sum + value
             
         }
+
         
         if arrayAvgWeek.count != 0{
             avg = sum/Float(arrayAvgWeek.count)
         }
-        
-        
+  
 
         return avg
         
